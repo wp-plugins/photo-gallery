@@ -129,13 +129,13 @@ Vietnamese (vi)
 
 After downloading the ZIP file,  
 
-1. Log in to the administrator panel.  
-1. Go to Plugins Add > New > Upload.  
-1. Click “Choose file” (“Browse”) and select the downloaded zip file.  
-*For Mac Users*  
-*Go to your Downloads folder and locate the folder with the plugin. Right-click on the folder and select Compress. Now you have a newly created .zip file which can be installed as described here.*  
-1. Click “Install Now” button.  
-1. Click “Activate Plugin” button for activating the plugin.  
+1. Log in to the administrator panel.   
+1. Go to Plugins Add > New > Upload.     
+1. Click “Choose file” (“Browse”) and select the downloaded zip file.     
+*For Mac Users*     
+*Go to your Downloads folder and locate the folder with the plugin. Right-click on the folder and select Compress. Now you have a newly created .zip file which can be installed as described here.*     
+1. Click “Install Now” button.     
+1. Click “Activate Plugin” button for activating the plugin.    
 
 If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@web-dorado.com).
 
