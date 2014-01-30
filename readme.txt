@@ -140,12 +140,12 @@ After downloading the ZIP file,
 If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@web-dorado.com).
 
 == Screenshots ==
-Photo Gallery - Popup View
-Photo Gallery - Thumbnails View
-Photo Gallery - Masonry View
-Photo Gallery - Create Shortcode
-Photo Gallery - Edit Global Options
-Photo Gallery - Edit Watermark
+1.  Photo Gallery - Popup View   
+2.  Photo Gallery - Thumbnails View   
+3.  Photo Gallery - Masonry View   
+4.  Photo Gallery - Create Shortcode   
+5.  Photo Gallery - Edit Global Options   
+6.  Photo Gallery - Edit Watermark   
 
 == Changelog ==
 
