@@ -131,11 +131,11 @@ After downloading the ZIP file,
 
 1. Log in to the administrator panel.   
 1. Go to Plugins Add > New > Upload.     
-1. Click “Choose file” (“Browse”) and select the downloaded zip file.     
+1. Click `Choose file` (`Browse`) and select the downloaded zip file.     
 *For Mac Users*     
 *Go to your Downloads folder and locate the folder with the plugin. Right-click on the folder and select Compress. Now you have a newly created .zip file which can be installed as described here.*     
-1. Click “Install Now” button.     
-1. Click “Activate Plugin” button for activating the plugin.    
+1. Click `Install Now` button.     
+1. Click `Activate Plugin` button for activating the plugin.    
 
 If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@web-dorado.com).
 
@@ -165,9 +165,9 @@ MySQL 5.x
 1.2 Perform a new installation.  
 Log in to the administrator panel.  
 Go to Plugins Add > New > Upload.  
-Click “Choose file” (“Browse”) and select the Photo Gallery zip file.  
-Click “Upload&Install” button.  
-Click “Activate Plugin” button for activating the plugin.  
+Click `Choose file` (`Browse`) and select the Photo Gallery zip file.  
+Click `Upload&Install` button.  
+Click `Activate Plugin` button for activating the plugin.  
 If the installation succeeded you will see the success message. If any problem occurs, please contact us  info@web-dorado.com.  
   
   
@@ -193,7 +193,7 @@ Photo Gallery File Manager
 2.8.8 Upload files. You can upload images from your PC and computer using this feature. Multi-upload is also possible here.   
 2.8.9 View options: View thumbnails. Displays images in Thumbnail view.  
 View list. Displays images in list view.  
-Now let’s explore the individual image options. Refer to the buttons on the right side and below.  
+Now let`s explore the individual image options. Refer to the buttons on the right side and below.  
 2.9 Set Watermark. You can apply the created watermark by checking the image you want to add the watermark to and pressing the button. The watermark can be created in Options menu of the product.   
 2.10 Reset. You can reset the images to the default by selecting multiple/all images and pressing this button. It will remove all kind of changes, including crop, rotate and watermark.  
 2.11 Show order column. You can either Drag and Drop images to change the positioning of the images or prefer order column, where you can provide numbering for the images. This option is more useful when you have multiple pages of images and it is not convenient to use Drag/Drop.  
@@ -239,7 +239,7 @@ Here you can change default options for different views of Photo Gallery views, 
 5.2.2 Text  
 Watermark text. Provide the text which will be displayed over the gallery/album images.  
 Watermark font size. Specify the font size of the watermark in percentage for the responsive look.  
-Watermark font style. Specify the font family for the watermark text. There will be two default font styles to select from, but you will be able to further add more styles by inserting the fonts into the “fonts” folder in the Plugin folder.  
+Watermark font style. Specify the font family for the watermark text. There will be two default font styles to select from, but you will be able to further add more styles by inserting the fonts into the `fonts` folder in the Plugin folder.  
 Watermark color. Select the watermark text font color.  
 Watermark opacity. Define the level of opacity for the watermark, providing its percentage.  
 Watermark position. Choose the positioning of the watermark from the available 9 options.  
@@ -322,7 +322,7 @@ Advertisement position. Choose the positioning of the advertisement from the ava
 5.8.7 Enable Pagination for Blog Style view. Choose whether to have pagination for the Blog Style view or not.  
   
 Step 6:  Creating/Editing Themes for different views of the Photo Gallery.  
-Use one of the default themes or click “Add new” button to create a new theme.  
+Use one of the default themes or click `Add new` button to create a new theme.  
 6.1 Thumbnails.  
 6.1.1 Name. Provide a name for the theme.  
 6.1.2 Margin. Define the space around the thumbnail in pixels.   
