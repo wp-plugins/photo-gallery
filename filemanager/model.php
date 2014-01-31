@@ -5,6 +5,8 @@
  * Time: 11:31 AM
  */
 
+$p_dir;
+$s_order;
 
 class FilemanagerModel {
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -155,9 +157,33 @@ class FilemanagerModel {
         return $result;
     }
 
-
     private function get_sorted_file_names($parent_dir, $sort_by, $sort_order) {
-        $file_names = scandir($parent_dir);
+      $file_names = scandir($parent_dir);
+
+      global $p_dir;
+      global $s_order;
+
+      $p_dir = $parent_dir;
+      $s_order = $sort_order;
+
+      function sort_by_size ($a, $b) {
+        global $p_dir;
+        global $s_order;
+
+        $size_of_a = filesize($p_dir . '/' . $a);
+        $size_of_b = filesize($p_dir . '/' . $b);
+        return $s_order == 'asc' ? $size_of_a > $size_of_b : $size_of_a < $size_of_b;
+      }
+
+      function sort_by_date($a, $b) {
+        global $p_dir;
+        global $s_order;
+
+        $m_time_a = filemtime($p_dir . '/' . $a);
+        $m_time_b = filemtime($p_dir . '/' . $b);
+        return $s_order == 'asc' ? $m_time_a > $m_time_b : $m_time_a < $m_time_b;
+      }
+
         switch ($sort_by) {
             case 'name':
                 natcasesort($file_names);
@@ -166,18 +192,10 @@ class FilemanagerModel {
                 }
                 break;
             case 'size':
-                usort($file_names, function ($a, $b) use ($parent_dir, $sort_by, $sort_order) {
-                    $size_of_a = filesize($parent_dir . '/' . $a);
-                    $size_of_b = filesize($parent_dir . '/' . $b);
-                    return $sort_order == 'asc' ? $size_of_a > $size_of_b : $size_of_a < $size_of_b;
-                });
+                usort($file_names, 'sort_by_size');
                 break;
             case 'date_modified':
-                usort($file_names, function ($a, $b) use ($parent_dir, $sort_by, $sort_order) {
-                    $m_time_a = filemtime($parent_dir . '/' . $a);
-                    $m_time_b = filemtime($parent_dir . '/' . $b);
-                    return $sort_order == 'asc' ? $m_time_a > $m_time_b : $m_time_a < $m_time_b;
-                });
+                usort($file_names, 'sort_by_date');
                 break;
         }
 
