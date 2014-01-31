@@ -35,7 +35,7 @@ class BWGModelAlbums_bwg {
     else {
       $limit = 0;
     }
-    $query = "SELECT table1.*,table2.display_name FROM " . $wpdb->prefix . "bwg_album as table1 INNER JOIN " . $wpdb->prefix . "users as table2 ON table1.author=table2.id " . $where . $order_by . " LIMIT " . $limit . ",20";
+    $query = "SELECT table1.*,table2.display_name FROM " . $wpdb->prefix . "bwg_album as table1 LEFT JOIN " . $wpdb->prefix . "users as table2 ON table1.author=table2.id " . $where . $order_by . " LIMIT " . $limit . ",20";
     $rows = $wpdb->get_results($query);
     return $rows;
   }

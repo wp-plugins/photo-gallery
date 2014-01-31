@@ -139,7 +139,7 @@ class BWGControllerAlbums_bwg {
     $description = (isset($_POST['description']) ? stripslashes($_POST['description']) : '');
     $preview_image = ((isset($_POST['preview_image']) && esc_html(stripslashes($_POST['preview_image'])) != '') ? esc_html(stripslashes($_POST['preview_image'])) : '');
     $order = ((isset($_POST['order']) && esc_html(stripslashes($_POST['order'])) != '') ? esc_html(stripslashes($_POST['order'])) : '');
-    $author = (isset($_POST['author']) ? (int) $_POST['author'] : 1);
+    $author = get_current_user_id();
     $published = ((isset($_POST['published']) && esc_html(stripslashes($_POST['published'])) != '') ? esc_html(stripslashes($_POST['published'])) : '');
     $albums_galleries = (isset($_POST['albums_galleries']) ? esc_html(stripslashes($_POST['albums_galleries'])) : '');
     if ($id != 0) {
