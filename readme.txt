@@ -4,7 +4,7 @@ Donate link: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: gallery, galleries, photo , photo gallery , image gallery, video gallery, wordpress gallery plugin, images gallery, album , photo albums, Simple gallery, best gallery plugin , free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, image, photogallery, widget gallery, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, Fotogalerie, Galleria, galerie, galeri
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

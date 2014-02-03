@@ -836,3 +836,5 @@ class UploadHandler
     }
 
 }
+
+die();

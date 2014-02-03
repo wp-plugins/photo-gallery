@@ -285,7 +285,7 @@ class FilemanagerView {
                     </div>
                     <div id="btnBrowseContainer">
                         <input id="jQueryUploader" type="file" name="files[]"
-                               data-url="<?php echo WD_BWG_URL . '/filemanager/UploadHandler.php?thumb_width=' . $this->controller->get_options_data()->thumb_width . '&thumb_height=' . $this->controller->get_options_data()->thumb_height . '&dir=' . $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '') . '/'; ?>"
+                               data-url="<?php echo add_query_arg(array('action' => 'bwg_UploadHandler', 'thumb_width' => $this->controller->get_options_data()->thumb_width, 'thumb_height' => $this->controller->get_options_data()->thumb_height, 'dir' => $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '')), admin_url('admin-ajax.php')); ?>"
                                multiple>
                     </div>
                     <script>
@@ -308,7 +308,7 @@ class FilemanagerView {
                                 }
                             },
                             done: function (e, data) {
-                                $.each(data.result.files, function (index, file) {
+                                jQuery.each(data.result.files, function (index, file) {
                                     console.log(file.name, index);
                                     if (file.error) {
                                         alert(errorLoadingFile + ' :: ' + file.error);
