@@ -101,6 +101,13 @@ class BWGControllerThemes_bwg {
     $thumb_hover_effect = (isset($_POST['thumb_hover_effect']) ? esc_html(stripslashes( $_POST['thumb_hover_effect'])) : '');
     $thumb_hover_effect_value = (isset($_POST['thumb_hover_effect_value']) ?  esc_html(stripslashes( $_POST['thumb_hover_effect_value'])) : '');
     $thumb_transition = (isset($_POST['thumb_transition']) ? (int) esc_html(stripslashes( $_POST['thumb_transition'])) : 0);
+    $thumb_title_margin = (isset($_POST['thumb_title_margin']) ? esc_html(stripslashes( $_POST['thumb_title_margin'])) : '');
+    $thumb_title_font_style = (isset($_POST['thumb_title_font_style']) ? esc_html(stripslashes( $_POST['thumb_title_font_style'])) : 'inherit');
+    $thumb_title_font_color = (isset($_POST['thumb_title_font_color']) ? esc_html(stripslashes( $_POST['thumb_title_font_color'])) : 'CCCCCC');	
+    $thumb_title_shadow = (isset($_POST['thumb_title_shadow']) ?  esc_html(stripslashes( $_POST['thumb_title_shadow'])) : '');
+    $thumb_title_font_size = (isset($_POST['thumb_title_font_size']) ? (int) esc_html(stripslashes( $_POST['thumb_title_font_size'])) : 12);
+    $thumb_title_font_weight = (isset($_POST['thumb_title_font_weight']) ? esc_html(stripslashes( $_POST['thumb_title_font_weight'])) : 'normal');		
+    
     $page_nav_position = (isset($_POST['page_nav_position']) ? esc_html(stripslashes( $_POST['page_nav_position'])) : 'top');
     $page_nav_align = (isset($_POST['page_nav_align']) ? esc_html(stripslashes( $_POST['page_nav_align'])) : 'center');
     $page_nav_number = (isset($_POST['page_nav_number']) ? (int) esc_html(stripslashes( $_POST['page_nav_number'])) : 1);
@@ -253,15 +260,17 @@ class BWGControllerThemes_bwg {
     $image_browser_full_transparent = (isset($_POST['image_browser_full_transparent']) ? (int) esc_html(stripslashes( $_POST['image_browser_full_transparent'])) : 0);
 
     $album_compact_title_margin = (isset($_POST['album_compact_title_margin']) ? esc_html(stripslashes( $_POST['album_compact_title_margin'])) : '');
+    $album_compact_title_font_style = (isset($_POST['album_compact_title_font_style']) ? esc_html(stripslashes( $_POST['album_compact_title_font_style'])) : 'inherit');
+    $album_compact_title_font_color = (isset($_POST['album_compact_title_font_color']) ? esc_html(stripslashes( $_POST['album_compact_title_font_color'])) : 'CCCCCC');	
+    $album_compact_title_shadow = (isset($_POST['album_compact_title_shadow']) ?  esc_html(stripslashes( $_POST['album_compact_title_shadow'])) : '');
+    $album_compact_title_font_size = (isset($_POST['album_compact_title_font_size']) ? (int) esc_html(stripslashes( $_POST['album_compact_title_font_size'])) : 12);
+    $album_compact_title_font_weight = (isset($_POST['album_compact_title_font_weight']) ? esc_html(stripslashes( $_POST['album_compact_title_font_weight'])) : 'normal');
     $album_compact_thumb_margin = (isset($_POST['album_compact_thumb_margin']) ? (int) esc_html(stripslashes( $_POST['album_compact_thumb_margin'])) : 0);   
     $album_compact_back_padding = (isset($_POST['album_compact_back_padding']) ?  esc_html(stripslashes( $_POST['album_compact_back_padding'])) : '');
     $album_compact_thumb_padding = (isset($_POST['album_compact_thumb_padding']) ? (int)  esc_html(stripslashes( $_POST['album_compact_thumb_padding'])) : 0);    
     $album_compact_thumb_border_radius = (isset($_POST['album_compact_thumb_border_radius']) ?  esc_html(stripslashes( $_POST['album_compact_thumb_border_radius'])) :'');
     $album_compact_thumb_border_width = (isset($_POST['album_compact_thumb_border_width']) ? (int) esc_html(stripslashes( $_POST['album_compact_thumb_border_width'])) : 1);
-    $album_compact_title_font_style = (isset($_POST['album_compact_title_font_style']) ? esc_html(stripslashes( $_POST['album_compact_title_font_style'])) : 'inherit');
     $album_compact_back_font_color = (isset($_POST['album_compact_back_font_color']) ? esc_html(stripslashes( $_POST['album_compact_back_font_color'])) : '000000');
-    $album_compact_title_font_color = (isset($_POST['album_compact_title_font_color']) ? esc_html(stripslashes( $_POST['album_compact_title_font_color'])) : 'FFFFFF');	
-    $album_compact_title_shadow = (isset($_POST['album_compact_title_shadow']) ?  esc_html(stripslashes( $_POST['album_compact_title_shadow'])) : '');
     $album_compact_thumb_bg_transparent = (isset($_POST['album_compact_thumb_bg_transparent']) ? (int) esc_html(stripslashes( $_POST['album_compact_thumb_bg_transparent'])) : 0);
     $album_compact_thumb_box_shadow = (isset($_POST['album_compact_thumb_box_shadow']) ? esc_html(stripslashes( $_POST['album_compact_thumb_box_shadow'])) : '');		
     $album_compact_thumb_transition = (isset($_POST['album_compact_thumb_transition']) ? (int) esc_html(stripslashes( $_POST['album_compact_thumb_transition'])) : 1);
@@ -272,8 +281,6 @@ class BWGControllerThemes_bwg {
     $album_compact_back_font_size = (isset($_POST['album_compact_back_font_size']) ? (int) esc_html(stripslashes( $_POST['album_compact_back_font_size'])) : 12);
     $album_compact_back_font_style = (isset($_POST['album_compact_back_font_style']) ? esc_html(stripslashes( $_POST['album_compact_back_font_style'])) : 'inherit');
     $album_compact_thumbs_bg_color = (isset($_POST['album_compact_thumbs_bg_color']) ? esc_html(stripslashes( $_POST['album_compact_thumbs_bg_color'])) : 'FFFFFF');
-    $album_compact_title_font_size = (isset($_POST['album_compact_title_font_size']) ? (int) esc_html(stripslashes( $_POST['album_compact_title_font_size'])) : 12);
-    $album_compact_title_font_weight = (isset($_POST['album_compact_title_font_weight']) ? esc_html(stripslashes( $_POST['album_compact_title_font_weight'])) : 'normal');		
     $album_compact_thumb_align = (isset($_POST['album_compact_thumb_align']) ?  esc_html(stripslashes( $_POST['album_compact_thumb_align'])) : 'center');
     $album_compact_thumb_hover_effect = (isset($_POST['album_compact_thumb_hover_effect']) ?  esc_html(stripslashes( $_POST['album_compact_thumb_hover_effect'])) :'skew');
     $album_compact_thumb_transparent = (isset($_POST['album_compact_thumb_transparent']) ? (int) esc_html(stripslashes( $_POST['album_compact_thumb_transparent'])) : 80);
@@ -419,7 +426,14 @@ class BWGControllerThemes_bwg {
         'thumb_align' => $thumb_align,          
         'thumb_hover_effect' => $thumb_hover_effect,     
         'thumb_hover_effect_value' => $thumb_hover_effect_value,    
-        'thumb_transition' => $thumb_transition,            
+        'thumb_transition' => $thumb_transition,
+        'thumb_title_margin' => $thumb_title_margin,
+        'thumb_title_font_style' => $thumb_title_font_style,
+        'thumb_title_font_color' => $thumb_title_font_color,
+        'thumb_title_shadow' => $thumb_title_shadow,
+        'thumb_title_font_size' => $thumb_title_font_size,
+        'thumb_title_font_weight' => $thumb_title_font_weight,
+
         'page_nav_position' => $page_nav_position,            
         'page_nav_align' => $page_nav_align,                    
         'page_nav_number' => $page_nav_number,                      
@@ -740,7 +754,14 @@ class BWGControllerThemes_bwg {
         'thumb_align' => $thumb_align,          
         'thumb_hover_effect' => $thumb_hover_effect,     
         'thumb_hover_effect_value' => $thumb_hover_effect_value,    
-        'thumb_transition' => $thumb_transition,            
+        'thumb_transition' => $thumb_transition,
+        'thumb_title_margin' => $thumb_title_margin,
+        'thumb_title_font_style' => $thumb_title_font_style,
+        'thumb_title_font_color' => $thumb_title_font_color,
+        'thumb_title_shadow' => $thumb_title_shadow,
+        'thumb_title_font_size' => $thumb_title_font_size,
+        'thumb_title_font_weight' => $thumb_title_font_weight,
+
         'page_nav_position' => $page_nav_position,            
         'page_nav_align' => $page_nav_align,                    
         'page_nav_number' => $page_nav_number,                      
@@ -1058,6 +1079,13 @@ class BWGControllerThemes_bwg {
 				'%s',
 				'%s',
 				'%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%s',
+
 				'%s',
 				'%s',
 				'%d',

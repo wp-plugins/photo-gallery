@@ -63,6 +63,12 @@ class BWGModelThemes_bwg {
           $row->thumb_hover_effect = 'scale';
           $row->thumb_hover_effect_value = '1.1';
           $row->thumb_transition = 1;
+          $row->thumb_title_font_color = 'CCCCCC';
+          $row->thumb_title_font_style = 'segoe ui';
+          $row->thumb_title_font_size = 16;
+          $row->thumb_title_font_weight = 'bold';
+          $row->thumb_title_margin = '2px';
+          $row->thumb_title_shadow = '0px 0px 0px #888888';
 
           $row->page_nav_position = 'bottom';
           $row->page_nav_align = 'center';
@@ -168,7 +174,7 @@ class BWGModelThemes_bwg {
           $row->album_compact_back_font_size = 16;
           $row->album_compact_back_font_weight = 'bold';
           $row->album_compact_back_padding = '0';
-          $row->album_compact_title_font_color = 'FFFFFF';
+          $row->album_compact_title_font_color = 'CCCCCC';
           $row->album_compact_title_font_style = 'segoe ui';
           $row->album_compact_title_font_size = 16;
           $row->album_compact_title_font_weight = 'bold';

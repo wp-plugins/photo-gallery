@@ -28,6 +28,9 @@ class BWGViewAlbum_extended_preview {
     global $WD_BWG_UPLOAD_DIR;
     require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
 
+    if (!isset($params['extended_album_image_title'])) {
+      $params['extended_album_image_title'] = 'none';
+    }
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
     if (!$theme_row) {
       echo WDWLibrary::message(__('There is no theme selected or the theme was deleted.', 'bwg'), 'error');
@@ -261,6 +264,58 @@ class BWGViewAlbum_extended_preview {
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> a {
         cursor: pointer;
         text-decoration: none;
+      }
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_<?php echo $bwg; ?> {
+        display: inline-block;
+        text-align: center;
+      }
+      <?php
+      if ($params['extended_album_image_title'] == 'show') { // Show image title at the bottom.
+        ?>
+        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_span1_<?php echo $bwg; ?> {
+          display: block;
+          margin: 0 auto;
+          opacity: 1;
+          filter: Alpha(opacity=100);
+          text-align: center;
+          width: <?php echo $params['extended_album_image_thumb_width']; ?>px;
+        }
+        <?php
+      }
+      elseif ($params['extended_album_image_title'] == 'hover') { // Show image title on hover.
+        ?>
+        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_span1_<?php echo $bwg; ?> {
+          display: table;
+          height: inherit;
+          left: -3000px;
+          opacity: 0;
+          filter: Alpha(opacity=0);
+          position: absolute;
+          top: 0px;
+          width: inherit;
+        }
+        <?php
+      }
+      ?>
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span1_<?php echo $bwg; ?>:hover .bwg_image_title_span1_<?php echo $bwg; ?> {
+        left: <?php echo $theme_row->thumb_padding; ?>px;
+        top: <?php echo $theme_row->thumb_padding; ?>px;
+        opacity: 1;
+        filter: Alpha(opacity=100);
+      }
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_span2_<?php echo $bwg; ?> {
+        color: #<?php echo $theme_row->thumb_title_font_color; ?>;
+        display: table-cell;
+        font-family: <?php echo $theme_row->thumb_title_font_style; ?>;
+        font-size: <?php echo $theme_row->thumb_title_font_size; ?>px;
+        font-weight: <?php echo $theme_row->thumb_title_font_weight; ?>;
+        height: inherit;
+        margin: <?php echo $theme_row->thumb_title_margin; ?>;
+        text-shadow: <?php echo $theme_row->thumb_title_shadow; ?>;
+        vertical-align: middle;
+        width: inherit;
+        word-break: break-all;
+        word-wrap: break-word;
       }
 
       /*Pagination styles.*/
@@ -519,14 +574,38 @@ class BWGViewAlbum_extended_preview {
                   $thumb_top = ($params['extended_album_image_thumb_height'] - $image_thumb_height) / 2;
                   ?>
                   <a style="font-size: 0;" href="javascript:spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);">
-                    <span class="bwg_standart_thumb_span1_<?php echo $bwg; ?>">
-                      <span class="bwg_standart_thumb_span2_<?php echo $bwg; ?>">
-                        <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;"
-                             id="<?php echo $image_row->id; ?>"
-                             src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>"
-                             alt="<?php echo $image_row->alt; ?>"
-                             title="<?php echo $image_row->alt; ?>" />
+                    <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
+                      <span class="bwg_standart_thumb_span1_<?php echo $bwg; ?>">
+                        <span class="bwg_standart_thumb_span2_<?php echo $bwg; ?>">
+                          <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;"
+                               id="<?php echo $image_row->id; ?>"
+                               src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>"
+                               alt="<?php echo $image_row->alt; ?>"
+                               title="<?php echo $image_row->alt; ?>" />
+                          <?php
+                          if ($params['extended_album_image_title'] == 'hover') {
+                            ?>
+                            <span class="bwg_image_title_span1_<?php echo $bwg; ?>">
+                              <span class="bwg_image_title_span2_<?php echo $bwg; ?>">
+                                <?php echo $image_row->alt; ?>
+                              </span>
+                            </span>
+                            <?php
+                          }
+                          ?>
+                        </span>
                       </span>
+                      <?php
+                      if ($params['extended_album_image_title'] == 'show') {
+                        ?>
+                        <span class="bwg_image_title_span1_<?php echo $bwg; ?>">
+                          <span class="bwg_image_title_span2_<?php echo $bwg; ?>">
+                            <?php echo $image_row->alt; ?>
+                          </span>
+                        </span>
+                        <?php
+                      }
+                      ?>
                     </span>
                   </a>
                   <?php

@@ -88,7 +88,10 @@ class BWGControllerOptions_bwg {
     $images_per_page = (isset($_POST['images_per_page']) ? esc_html(stripslashes($_POST['images_per_page'])) : 30);
     $thumb_width = (isset($_POST['thumb_width']) ? esc_html(stripslashes($_POST['thumb_width'])) : 120);
     $thumb_height = (isset($_POST['thumb_height']) ? esc_html(stripslashes($_POST['thumb_height'])) : 90);
+    $upload_thumb_width = (isset($_POST['upload_thumb_width']) ? esc_html(stripslashes($_POST['upload_thumb_width'])) : 300);
+    $upload_thumb_height = (isset($_POST['upload_thumb_height']) ? esc_html(stripslashes($_POST['upload_thumb_height'])) : 300);
     $image_enable_page = (isset($_POST['image_enable_page']) ? esc_html(stripslashes($_POST['image_enable_page'])) : 1);
+    $image_title_show_hover = (isset($_POST['image_title_show_hover']) ? esc_html(stripslashes($_POST['image_title_show_hover'])) : 'none');
     $album_column_number = (isset($_POST['album_column_number']) ? esc_html(stripslashes($_POST['album_column_number'])) : 5);
     $albums_per_page = (isset($_POST['albums_per_page']) ? esc_html(stripslashes($_POST['albums_per_page'])) : 30);
     $album_title_show_hover = (isset($_POST['album_title_show_hover']) ? esc_html(stripslashes($_POST['album_title_show_hover'])) : 'hover');
@@ -166,7 +169,10 @@ class BWGControllerOptions_bwg {
       'images_per_page' => $images_per_page,
       'thumb_width' => $thumb_width,
       'thumb_height' => $thumb_height,
+      'upload_thumb_width' => $upload_thumb_width,
+      'upload_thumb_height' => $upload_thumb_height,
       'image_enable_page' => $image_enable_page,
+      'image_title_show_hover' => $image_title_show_hover,
       'album_column_number' => $album_column_number,
       'albums_per_page' => $albums_per_page,
       'album_title_show_hover' => $album_title_show_hover,

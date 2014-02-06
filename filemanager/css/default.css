@@ -100,6 +100,15 @@ html, body, div, span, th, td, a {
     cursor: default;
 }
 
+.upload_thumb_dim {
+  width: 50px;
+}
+
+.upload_thumb {
+  color: #808080;
+  font-size: 16px !important;
+}
+
 .ctrl_bar_btn {
     display: table-cell;
     margin: 0;

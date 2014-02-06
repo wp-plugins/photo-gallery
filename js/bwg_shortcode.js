@@ -15,7 +15,7 @@ function bwg_shortcode_load() {
 }
 
 function bwg_watermark(watermark_type) {
-  jQuery("#" + watermark_type).attr('checked', 'checked');
+  jQuery("#" + watermark_type).prop('checked', true);
   jQuery("#tr_watermark_link").css('display', 'none');
   jQuery("#tr_watermark_url").css('display', 'none');
   jQuery("#tr_watermark_width_height").css('display', 'none');
@@ -50,7 +50,7 @@ function bwg_watermark(watermark_type) {
 }
 
 function bwg_enable_disable(display, id, current) {
-  jQuery("#" + current).attr('checked', 'checked');
+  jQuery("#" + current).prop('checked', true);
   jQuery("#" + id).css('display', display);
 }
 
@@ -59,7 +59,7 @@ function bwg_change_label(id, text) {
 }
 
 function bwg_gallery_type(gallery_type) {
-  jQuery("#" + gallery_type).attr('checked', 'checked');
+  jQuery("#" + gallery_type).prop('checked', true);
   jQuery("#tr_gallery").css('display', 'none');
   jQuery("#tr_sort_by").css('display', 'none');
   jQuery("#tr_album").css('display', 'none');
@@ -69,6 +69,7 @@ function bwg_gallery_type(gallery_type) {
   bwg_change_label("col_num_label", 'Max. number of image columns');
   jQuery("#tr_image_column_number").css('display', 'none');
   jQuery("#tr_images_per_page").css('display', 'none');
+  jQuery("#tr_image_title_hover").css('display', 'none');
   jQuery("#tr_image_enable_page").css('display', 'none');
   jQuery("#tr_thumb_width_height").css('display', 'none');
 
@@ -79,6 +80,8 @@ function bwg_gallery_type(gallery_type) {
   jQuery("#tr_compuct_album_thumb_width_height").css('display', 'none');
   jQuery("#tr_compuct_album_image_column_number").css('display', 'none');
   jQuery("#tr_compuct_album_images_per_page").css('display', 'none');
+  jQuery("#tr_compuct_album_image_title").css('display', 'none');
+  jQuery("#tr_compuct_album_image_title").css('display', 'none');
   jQuery("#tr_compuct_album_image_thumb_width_height").css('display', 'none');
   jQuery("#tr_compuct_album_enable_page").css('display', 'none');
 
@@ -89,6 +92,7 @@ function bwg_gallery_type(gallery_type) {
   jQuery("#tr_extended_album_thumb_width_height").css('display', 'none');
   jQuery("#tr_extended_album_image_column_number").css('display', 'none');
   jQuery("#tr_extended_album_images_per_page").css('display', 'none');
+  jQuery("#tr_extended_album_image_title").css('display', 'none');
   jQuery("#tr_extended_album_image_thumb_width_height").css('display', 'none');
   jQuery("#tr_extended_album_enable_page").css('display', 'none');
 
@@ -156,6 +160,7 @@ function bwg_gallery_type(gallery_type) {
       jQuery('#thumb_width_height_separator').show();
       jQuery("#tr_image_column_number").css('display', '');
       jQuery("#tr_images_per_page").css('display', '');
+      jQuery("#tr_image_title_hover").css('display', '');
       jQuery("#tr_image_enable_page").css('display', '');
       jQuery("#tr_thumb_width_height").css('display', '');
       break;
@@ -242,6 +247,8 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_compuct_album_thumb_width_height").css('display', '');
       jQuery("#tr_compuct_album_image_column_number").css('display', '');
       jQuery("#tr_compuct_album_images_per_page").css('display', '');
+      jQuery("#tr_compuct_album_image_title").css('display', '');
+      jQuery("#tr_compuct_album_image_title").css('display', '');
       jQuery("#tr_compuct_album_image_thumb_width_height").css('display', '');
       jQuery("#tr_compuct_album_enable_page").css('display', '');
       break;
@@ -255,6 +262,7 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_extended_album_thumb_width_height").css('display', '');
       jQuery("#tr_extended_album_image_column_number").css('display', '');
       jQuery("#tr_extended_album_images_per_page").css('display', '');
+      jQuery("#tr_extended_album_image_title").css('display', '');
       jQuery("#tr_extended_album_image_thumb_width_height").css('display', '');
       jQuery("#tr_extended_album_enable_page").css('display', '');
       break;
@@ -294,5 +302,15 @@ function bwg_gallery_type(gallery_type) {
     jQuery("#tr_popup_enable_facebook").css('display', '');
     jQuery("#tr_popup_enable_twitter").css('display', '');
     jQuery("#tr_popup_enable_google").css('display', '');
+  }
+}
+
+function bwg_onKeyDown(e) {
+  var e = e || window.event;
+  var chCode1 = e.which || e.paramlist_keyCode;
+  if (chCode1 != 37 && chCode1 != 38 && chCode1 != 39 && chCode1 != 40) {
+    if (!e.ctrlKey || (chCode1 != 86 && chCode1 != 67 && chCode1 != 65 && chCode1 != 88)) {
+      e.preventDefault();
+    }
   }
 }

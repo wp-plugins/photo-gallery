@@ -43,195 +43,201 @@ class FilemanagerController {
     }
 
     public function execute() {
-        $task = isset($_REQUEST['task']) ? $_REQUEST['task'] : 'display';
-        if (method_exists($this, $task)) {
-            $this->$task();
-        } else {
-            $this->display();
-        }
+      $task = isset($_REQUEST['task']) ? $_REQUEST['task'] : 'display';
+      if (method_exists($this, $task)) {
+        $this->$task();
+      }
+      else {
+        $this->display();
+      }
     }
 
     public function get_uploads_dir() {
-        return $this->uploads_dir;
+      return $this->uploads_dir;
     }
 
     public function get_uploads_url() {
-        return $this->uploads_url;
+      return $this->uploads_url;
     }
 
     public function display() {
-        require_once WD_BWG_DIR . '/filemanager/model.php';
-        $model = new FilemanagerModel($this);
+      require_once WD_BWG_DIR . '/filemanager/model.php';
+      $model = new FilemanagerModel($this);
 
-        require_once WD_BWG_DIR . '/filemanager/view.php';
-        $view = new FilemanagerView($this, $model);
-        $view->display();
+      require_once WD_BWG_DIR . '/filemanager/view.php';
+      $view = new FilemanagerView($this, $model);
+      $view->display();
     }
 
     public function make_dir() {
-        $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
-        $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
+      $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
+      $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
 
-        $new_dir_path = $cur_dir_path . '/' . (isset($_REQUEST['new_dir_name']) ? $_REQUEST['new_dir_name'] : '');
+      $new_dir_path = $cur_dir_path . '/' . (isset($_REQUEST['new_dir_name']) ? $_REQUEST['new_dir_name'] : '');
 
-        $msg = '';
-        if (file_exists($new_dir_path) == true) {
-            $msg = 'Directory already exists';
-        } else {
-            mkdir($new_dir_path);
-        }
-        // $_SESSION['filemanager_msg'] = $msg;
-        header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
-        exit;
+      $msg = '';
+      if (file_exists($new_dir_path) == true) {
+        $msg = 'Directory already exists';
+      }
+      else {
+        mkdir($new_dir_path);
+      }
+      // $_SESSION['filemanager_msg'] = $msg;
+      header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+      exit;
     }
 
     public function rename_item() {
-        $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
-        $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
+      $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
+      $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
 
-        $file_names = explode(',', (isset($_REQUEST['file_names']) ? $_REQUEST['file_names'] : ''));
-        $file_name = $file_names[0];
+      $file_names = explode(',', (isset($_REQUEST['file_names']) ? $_REQUEST['file_names'] : ''));
+      $file_name = $file_names[0];
 
-        $file_new_name = (isset($_REQUEST['file_new_name']) ? $_REQUEST['file_new_name'] : '');
+      $file_new_name = (isset($_REQUEST['file_new_name']) ? $_REQUEST['file_new_name'] : '');
 
-        $file_path = $cur_dir_path . '/' . $file_name;
-        $thumb_file_path = $cur_dir_path . '/thumb/' . $file_name;
-        $original_file_path = $cur_dir_path . '/.original/' . $file_name;
+      $file_path = $cur_dir_path . '/' . $file_name;
+      $thumb_file_path = $cur_dir_path . '/thumb/' . $file_name;
+      $original_file_path = $cur_dir_path . '/.original/' . $file_name;
 
-        $msg = '';
-        if (file_exists($file_path) == false) {
-            $msg = 'File doesn\'t exists';
-        } else if (is_dir($file_path) == true) {
-            if (rename($file_path, $cur_dir_path . '/' . $file_new_name) == false) {
-                $msg = 'Can\'t rename the file';
-            }
-        } else if ((strrpos($file_name, '.') !== false)) {
-            $file_extension = substr($file_name, strrpos($file_name, '.') + 1);
-            if (rename($file_path, $cur_dir_path . '/' . $file_new_name . '.' . $file_extension) == false) {
-                $msg = 'Can\'t rename the file';
-            }
-            rename($thumb_file_path, $cur_dir_path . '/thumb/' . $file_new_name . '.' . $file_extension);
-            rename($original_file_path, $cur_dir_path . '/.original/' . $file_new_name . '.' . $file_extension);
-        } else {
+      $msg = '';
+      if (file_exists($file_path) == false) {
+        $msg = 'File doesn\'t exists';
+      }
+      elseif (is_dir($file_path) == true) {
+        if (rename($file_path, $cur_dir_path . '/' . $file_new_name) == false) {
             $msg = 'Can\'t rename the file';
         }
-        $_REQUEST['file_names'] = '';
-        // $_SESSION['filemanager_msg'] = $msg;
-        header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
-        exit;
+      }
+      elseif ((strrpos($file_name, '.') !== false)) {
+        $file_extension = substr($file_name, strrpos($file_name, '.') + 1);
+        if (rename($file_path, $cur_dir_path . '/' . $file_new_name . '.' . $file_extension) == false) {
+            $msg = 'Can\'t rename the file';
+        }
+        rename($thumb_file_path, $cur_dir_path . '/thumb/' . $file_new_name . '.' . $file_extension);
+        rename($original_file_path, $cur_dir_path . '/.original/' . $file_new_name . '.' . $file_extension);
+      }
+      else {
+        $msg = 'Can\'t rename the file';
+      }
+      $_REQUEST['file_names'] = '';
+      // $_SESSION['filemanager_msg'] = $msg;
+      header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+      exit;
     }
 
     public function remove_items() {
-        $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
-        $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
+      $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
+      $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
 
-        $file_names = explode(',', (isset($_REQUEST['file_names']) ? $_REQUEST['file_names'] : ''));
+      $file_names = explode(',', (isset($_REQUEST['file_names']) ? $_REQUEST['file_names'] : ''));
 
-        $msg = '';
-        foreach ($file_names as $file_name) {
-            $file_path = $cur_dir_path . '/' . $file_name;
-            $thumb_file_path = $cur_dir_path . '/thumb/' . $file_name;
-            $original_file_path = $cur_dir_path . '/.original/' . $file_name;
-            if (file_exists($file_path) == false) {
-                $msg = 'Some of the file can\'t be removed';
-            } else {
-                if (!is_dir(file_path)) {
-                  $this->remove_file_dir($file_path);
-                  $this->remove_file_dir($thumb_file_path);
-                  $this->remove_file_dir($original_file_path);
-                }
-            }
+      $msg = '';
+      foreach ($file_names as $file_name) {
+        $file_path = $cur_dir_path . '/' . $file_name;
+        $thumb_file_path = $cur_dir_path . '/thumb/' . $file_name;
+        $original_file_path = $cur_dir_path . '/.original/' . $file_name;
+        if (file_exists($file_path) == false) {
+          $msg = 'Some of the file can\'t be removed';
         }
-        $_REQUEST['file_names'] = '';
-        // $_SESSION['filemanager_msg'] = $msg;
-        header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
-        exit;
+        else {
+          if (!is_dir(file_path)) {
+            $this->remove_file_dir($file_path);
+            $this->remove_file_dir($thumb_file_path);
+            $this->remove_file_dir($original_file_path);
+          }
+        }
+      }
+      $_REQUEST['file_names'] = '';
+      // $_SESSION['filemanager_msg'] = $msg;
+      header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+      exit;
     }
 
     public function paste_items() {
-        $msg = '';
+      $msg = '';
 
-        $file_names = explode(',', (isset($_REQUEST['clipboard_files']) ? $_REQUEST['clipboard_files'] : ''));
-        // $src_dir = $_SESSION['clipboard_src'];
-        $src_dir = (isset($_REQUEST['clipboard_src']) ? $_REQUEST['clipboard_src'] : '');
-        $src_dir = $src_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $src_dir;
-        // $dest_dir = $_SESSION['clipboard_dest'];
-        $dest_dir = (isset($_REQUEST['clipboard_dest']) ? $_REQUEST['clipboard_dest'] : '');
-        $dest_dir = $dest_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $dest_dir;
+      $file_names = explode(',', (isset($_REQUEST['clipboard_files']) ? $_REQUEST['clipboard_files'] : ''));
+      // $src_dir = $_SESSION['clipboard_src'];
+      $src_dir = (isset($_REQUEST['clipboard_src']) ? $_REQUEST['clipboard_src'] : '');
+      $src_dir = $src_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $src_dir;
+      // $dest_dir = $_SESSION['clipboard_dest'];
+      $dest_dir = (isset($_REQUEST['clipboard_dest']) ? $_REQUEST['clipboard_dest'] : '');
+      $dest_dir = $dest_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $dest_dir;
 
-        switch ((isset($_REQUEST['clipboard_task']) ? $_REQUEST['clipboard_task'] : '')) {
-            case 'copy':
-                foreach ($file_names as $file_name) {
-                    $src = $src_dir . '/' . $file_name;
-                    if (file_exists($src) == false) {
-                        $msg = 'Failed to copy some of the files';
-                        continue;
-                    }
-                    $dest = $dest_dir . '/' . $file_name;
-                    if (!is_dir($src_dir . '/' . $file_name)) {
-                      if (!is_dir($dest_dir . '/thumb')) {
-                        mkdir($dest_dir . '/thumb', 0777);
-                      }
-                      $thumb_src = $src_dir . '/thumb/' . $file_name;
-                      $thumb_dest = $dest_dir . '/thumb/' . $file_name;
-                      if (!is_dir($dest_dir . '/.original')) {
-                        mkdir($dest_dir . '/.original', 0777);
-                      }
-                      $original_src = $src_dir . '/.original/' . $file_name;
-                      $original_dest = $dest_dir . '/.original/' . $file_name;
-                    }
-                    $i = 0;
-                    if (file_exists($dest) == true) {
-                        $path_parts = pathinfo($dest);
-                        while (file_exists($path_parts['dirname'] . '/' . $path_parts['filename'] . '(' . ++$i . ')' . '.' . $path_parts['extension'])) {
-                        }
-                        $dest = $path_parts['dirname'] . '/' . $path_parts['filename'] . '(' . $i . ')' . '.' . $path_parts['extension'];
-                        if (!is_dir($src_dir . '/' . $file_name)) {
-                          $thumb_dest = $path_parts['dirname'] . '/thumb/' . $path_parts['filename'] . '(' . $i . ')' . '.' . $path_parts['extension'];
-                          $original_dest = $path_parts['dirname'] . '/.original/' . $path_parts['filename'] . '(' . $i . ')' . '.' . $path_parts['extension'];
-                        }
-                    }
+      switch ((isset($_REQUEST['clipboard_task']) ? $_REQUEST['clipboard_task'] : '')) {
+        case 'copy':
+          foreach ($file_names as $file_name) {
+            $src = $src_dir . '/' . $file_name;
+            if (file_exists($src) == false) {
+              $msg = 'Failed to copy some of the files';
+              continue;
+            }
+            $dest = $dest_dir . '/' . $file_name;
+            if (!is_dir($src_dir . '/' . $file_name)) {
+              if (!is_dir($dest_dir . '/thumb')) {
+                mkdir($dest_dir . '/thumb', 0777);
+              }
+              $thumb_src = $src_dir . '/thumb/' . $file_name;
+              $thumb_dest = $dest_dir . '/thumb/' . $file_name;
+              if (!is_dir($dest_dir . '/.original')) {
+                mkdir($dest_dir . '/.original', 0777);
+              }
+              $original_src = $src_dir . '/.original/' . $file_name;
+              $original_dest = $dest_dir . '/.original/' . $file_name;
+            }
+            $i = 0;
+            if (file_exists($dest) == true) {
+              $path_parts = pathinfo($dest);
+              while (file_exists($path_parts['dirname'] . '/' . $path_parts['filename'] . '(' . ++$i . ')' . '.' . $path_parts['extension'])) {
+              }
+              $dest = $path_parts['dirname'] . '/' . $path_parts['filename'] . '(' . $i . ')' . '.' . $path_parts['extension'];
+              if (!is_dir($src_dir . '/' . $file_name)) {
+                $thumb_dest = $path_parts['dirname'] . '/thumb/' . $path_parts['filename'] . '(' . $i . ')' . '.' . $path_parts['extension'];
+                $original_dest = $path_parts['dirname'] . '/.original/' . $path_parts['filename'] . '(' . $i . ')' . '.' . $path_parts['extension'];
+              }
+            }
 
-                    if (!$this->copy_file_dir($src, $dest)) {
-                        $msg = 'Failed to copy some of the files';
-                    }
-                    if (!is_dir($src_dir . '/' . $file_name)) {
-                      $this->copy_file_dir($thumb_src, $thumb_dest);
-                      $this->copy_file_dir($original_src, $original_dest);
-                    }
+            if (!$this->copy_file_dir($src, $dest)) {
+              $msg = 'Failed to copy some of the files';
+            }
+            if (!is_dir($src_dir . '/' . $file_name)) {
+              $this->copy_file_dir($thumb_src, $thumb_dest);
+              $this->copy_file_dir($original_src, $original_dest);
+            }
+          }
+          break;
+        case 'cut':
+          if ($src_dir != $dest_dir) {
+            foreach ($file_names as $file_name) {
+              $src = $src_dir . '/' . $file_name;
+              $dest = $dest_dir . '/' . $file_name;
+              if (!is_dir($src_dir . '/' . $file_name)) {
+                $thumb_src = $src_dir . '/thumb/' . $file_name;
+                $thumb_dest = $dest_dir . '/thumb/' . $file_name;
+                if (!is_dir($dest_dir . '/thumb')) {
+                  mkdir($dest_dir . '/thumb', 0777);
                 }
-                break;
-            case 'cut':
-                if ($src_dir != $dest_dir) {
-                    foreach ($file_names as $file_name) {
-                        $src = $src_dir . '/' . $file_name;
-                        $dest = $dest_dir . '/' . $file_name;
-                        if (!is_dir($src_dir . '/' . $file_name)) {
-                          $thumb_src = $src_dir . '/thumb/' . $file_name;
-                          $thumb_dest = $dest_dir . '/thumb/' . $file_name;
-                          if (!is_dir($dest_dir . '/thumb')) {
-                            mkdir($dest_dir . '/thumb', 0777);
-                          }
-                          $original_src = $src_dir . '/.original/' . $file_name;
-                          $original_dest = $dest_dir . '/.original/' . $file_name;
-                          if (!is_dir($dest_dir . '/.original')) {
-                            mkdir($dest_dir . '/.original', 0777);
-                          }
-                        }
-                        if ((file_exists($src) == false) || (file_exists($dest) == true) || (!rename($src, $dest))) {
-                            $msg = 'Failed to move some of the files';
-                        }
-                        if (!is_dir($src_dir . '/' . $file_name)) {
-                          rename($thumb_src, $thumb_dest);
-                          rename($original_src, $original_dest);
-                        }
-                    }
+                $original_src = $src_dir . '/.original/' . $file_name;
+                $original_dest = $dest_dir . '/.original/' . $file_name;
+                if (!is_dir($dest_dir . '/.original')) {
+                  mkdir($dest_dir . '/.original', 0777);
                 }
-                break;
-        }
-        // $_SESSION['filemanager_msg'] = $msg;
-        header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
-        exit;
+              }
+              if ((file_exists($src) == false) || (file_exists($dest) == true) || (!rename($src, $dest))) {
+                $msg = 'Failed to move some of the files';
+              }
+              if (!is_dir($src_dir . '/' . $file_name)) {
+                rename($thumb_src, $thumb_dest);
+                rename($original_src, $original_dest);
+              }
+            }
+          }
+          break;
+      }
+      // $_SESSION['filemanager_msg'] = $msg;
+      header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+      exit;
     }
 
 
@@ -242,37 +248,40 @@ class FilemanagerController {
     // Private Methods                                                                    //
     ////////////////////////////////////////////////////////////////////////////////////////
     private function remove_file_dir($del_file_dir) {
-        if (is_dir($del_file_dir) == true) {
-            $files_to_remove = scandir($del_file_dir);
-            foreach ($files_to_remove as $file) {
-                if ($file != '.' and $file != '..') {
-                    $this->remove_file_dir($del_file_dir . '/' . $file);
-                }
-            }
-            rmdir($del_file_dir);
-        } else {
-            unlink($del_file_dir);
+      if (is_dir($del_file_dir) == true) {
+        $files_to_remove = scandir($del_file_dir);
+        foreach ($files_to_remove as $file) {
+          if ($file != '.' and $file != '..') {
+            $this->remove_file_dir($del_file_dir . '/' . $file);
+          }
         }
+        rmdir($del_file_dir);
+      }
+      else {
+        unlink($del_file_dir);
+      }
     }
 
     private function copy_file_dir($src, $dest) {
-        if (is_dir($src) == true) {
-            $dir = opendir($src);
-            @mkdir($dest);
-            while (false !== ($file = readdir($dir))) {
-                if (($file != '.') && ($file != '..')) {
-                    if (is_dir($src . '/' . $file)) {
-                        $this->copy_file_dir($src . '/' . $file, $dest . '/' . $file);
-                    } else {
-                        copy($src . '/' . $file, $dest . '/' . $file);
-                    }
-                }
+      if (is_dir($src) == true) {
+        $dir = opendir($src);
+        @mkdir($dest);
+        while (false !== ($file = readdir($dir))) {
+          if (($file != '.') && ($file != '..')) {
+            if (is_dir($src . '/' . $file)) {
+              $this->copy_file_dir($src . '/' . $file, $dest . '/' . $file);
             }
-            closedir($dir);
-            return true;
-        } else {
-            return copy($src, $dest);
+            else {
+              copy($src . '/' . $file, $dest . '/' . $file);
+            }
+          }
         }
+        closedir($dir);
+        return true;
+      }
+      else {
+        return copy($src, $dest);
+      }
     }
 
 

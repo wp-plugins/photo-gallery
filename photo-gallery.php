@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -43,6 +43,8 @@ function bwg_options_panel() {
   add_action('admin_print_styles-' . $themes_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $themes_page, 'bwg_options_scripts');
 
+  $generate_shortcode = add_submenu_page('galleries_bwg', 'Generate Shortcode', 'Generate Shortcode', 'manage_options', 'BWGShortcode', 'bw_gallery');
+
   $licensing_plugins_page = add_submenu_page('galleries_bwg', 'Licensing', 'Licensing', 'manage_options', 'licensing_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $licensing_plugins_page, 'bwg_licensing_styles');
 
@@ -59,8 +61,8 @@ function bw_gallery() {
   global $wpdb;
   require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
   $page = WDWLibrary::get('page');
-  if (($page != '') && (($page == 'galleries_bwg') || ($page != 'albums_bwg') || ($page != 'tags_bwg') || ($page != 'options_bwg') || ($page != 'themes_bwg') || ($page != 'licensing_bwg') || ($page != 'featured_plugins_bwg') || ($page != 'uninstall_bwg'))) {
-    require_once (WD_BWG_DIR . '/admin/controllers/BWGController' . ucfirst(strtolower($page)) . '.php');
+  if (($page != '') && (($page == 'galleries_bwg') || ($page == 'albums_bwg') || ($page == 'tags_bwg') || ($page == 'options_bwg') || ($page == 'themes_bwg') || ($page == 'licensing_bwg') || ($page == 'featured_plugins_bwg') || ($page == 'uninstall_bwg') || ($page == 'BWGShortcode'))) {
+    require_once(WD_BWG_DIR . '/admin/controllers/BWGController' . (($page == 'BWGShortcode') ? $page : ucfirst(strtolower($page))) . '.php');
     $controller_class = 'BWGController' . ucfirst(strtolower($page));
     $controller = new $controller_class();
     $controller->execute();
@@ -71,7 +73,7 @@ function bwg_ajax_frontend() {
   require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
   $page = WDWLibrary::get('action');
   if (($page != '') && ($page == 'GalleryBox')) {
-    require_once (WD_BWG_DIR . '/frontend/controllers/BWGController' . ucfirst($page) . '.php');
+    require_once(WD_BWG_DIR . '/frontend/controllers/BWGController' . ucfirst($page) . '.php');
     $controller_class = 'BWGController' . ucfirst($page);
     $controller = new $controller_class();
     $controller->execute();
@@ -93,7 +95,7 @@ add_action('wp_ajax_nopriv_bwg_captcha', 'bwg_captcha');
 
 // Upload.
 function bwg_UploadHandler() {
-  require_once (WD_BWG_DIR . '/filemanager/UploadHandler.php');
+  require_once(WD_BWG_DIR . '/filemanager/UploadHandler.php');
 }
 
 function bwg_filemanager_ajax() {
@@ -101,7 +103,7 @@ function bwg_filemanager_ajax() {
   require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
   $page = WDWLibrary::get('action');
   if (($page != '') && (($page == 'addImages') || ($page == 'addMusic'))) {
-    require_once (WD_BWG_DIR . '/filemanager/controller.php');
+    require_once(WD_BWG_DIR . '/filemanager/controller.php');
     $controller_class = 'FilemanagerController';
     $controller = new $controller_class();
     $controller->execute();
@@ -109,7 +111,7 @@ function bwg_filemanager_ajax() {
 }
 
 function bwg_edit_tag() {
-  require_once (WD_BWG_DIR . '/admin/controllers/BWGControllerTags_bwg.php');
+  require_once(WD_BWG_DIR . '/admin/controllers/BWGControllerTags_bwg.php');
   $controller_class = 'BWGControllerTags_bwg';
   $controller = new $controller_class();
   $controller->edit_tag();
@@ -120,7 +122,7 @@ function bwg_ajax() {
   require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
   $page = WDWLibrary::get('action');
   if ($page != '' && (($page == 'BWGShortcode') || ($page == 'addAlbumsGalleries') || ($page == 'editThumb') || ($page == 'addTags'))) {
-    require_once (WD_BWG_DIR . '/admin/controllers/BWGController' . ucfirst($page) . '.php');
+    require_once(WD_BWG_DIR . '/admin/controllers/BWGController' . ucfirst($page) . '.php');
     $controller_class = 'BWGController' . ucfirst($page);
     $controller = new $controller_class();
     $controller->execute();
@@ -152,6 +154,7 @@ function bwg_shortcode($params) {
         'sort_by' => 'order',
         'image_column_number' => 3,
         'images_per_page' => 15,
+        'image_title' => 'none',
         'image_enable_page' => 1,
         'thumb_width' => 120,
         'thumb_height' => 90,
@@ -217,6 +220,7 @@ function bwg_shortcode($params) {
         'compuct_album_thumb_height' => 90,
         'compuct_album_image_column_number' => 3,
         'compuct_album_images_per_page' => 15,
+        'compuct_album_image_title' => 'none',
         'compuct_album_image_thumb_width' => 120,
         'compuct_album_image_thumb_height' => 120,
         'compuct_album_enable_page' => 1,
@@ -236,6 +240,7 @@ function bwg_shortcode($params) {
         'extended_album_thumb_height' => 90,
         'extended_album_image_column_number' => 3,
         'extended_album_images_per_page' => 15,
+        'extended_album_image_title' => 'none',
         'extended_album_image_thumb_width' => 120,
         'extended_album_image_thumb_height' => 90,
         'extended_album_enable_page' => 1,
@@ -366,7 +371,6 @@ if (class_exists('WP_Widget')) {
 
 // Activate plugin.
 function bwg_activate() {
-  add_option("wd_bwg_version", '1.0.0', '', 'no');
   global $wpdb;
   $bwg_gallery = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_gallery` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -441,7 +445,10 @@ function bwg_activate() {
     `images_per_page` int(4) NOT NULL,
     `thumb_width` int(4) NOT NULL,
     `thumb_height` int(4) NOT NULL,
+    `upload_thumb_width` int(4) NOT NULL,
+    `upload_thumb_height` int(4) NOT NULL,
     `image_enable_page` tinyint(1) NOT NULL,
+    `image_title_show_hover` varchar(20) NOT NULL,
 
     `album_column_number` int(4) NOT NULL,
     `albums_per_page` int(4) NOT NULL,
@@ -540,6 +547,13 @@ function bwg_activate() {
     `thumb_hover_effect` varchar(128) NOT NULL,
     `thumb_hover_effect_value` varchar(128) NOT NULL,
     `thumb_transition` tinyint(1) NOT NULL,
+    `thumb_title_font_color` varchar(64) NOT NULL,
+    `thumb_title_font_style` varchar(64) NOT NULL,
+    `thumb_title_font_size` int(4) NOT NULL,
+    `thumb_title_font_weight` varchar(64) NOT NULL,
+    `thumb_title_margin` varchar(64) NOT NULL,
+    `thumb_title_shadow` varchar(64) NOT NULL,
+
     `page_nav_position` varchar(64) NOT NULL,
     `page_nav_align` varchar(64) NOT NULL,
     `page_nav_number` tinyint(1) NOT NULL,
@@ -882,7 +896,10 @@ function bwg_activate() {
     'images_per_page' => 30,
     'thumb_width' => 180,
     'thumb_height' => 90,
+    'upload_thumb_width' => 300,
+    'upload_thumb_height' => 300,
     'image_enable_page' => 1,
+    'image_title_show_hover' => 'none',
 
     'album_column_number' => 5,
     'albums_per_page' => 30,
@@ -965,6 +982,8 @@ function bwg_activate() {
       '%s',
 
       '%s',
+      '%d',
+      '%d',
       '%d',
       '%d',
       '%d',
@@ -1069,6 +1088,12 @@ function bwg_activate() {
       'thumb_hover_effect' => 'scale',
       'thumb_hover_effect_value' => '1.1',
       'thumb_transition' => 1,
+      'thumb_title_font_color' => 'CCCCCC',
+      'thumb_title_font_style' => 'segoe ui',
+      'thumb_title_font_size' => 16,
+      'thumb_title_font_weight' => 'bold',
+      'thumb_title_margin' => '2px',
+      'thumb_title_shadow' => '0px 0px 0px #888888',
 
       'page_nav_position' => 'bottom',
       'page_nav_align' => 'center',
@@ -1174,7 +1199,7 @@ function bwg_activate() {
       'album_compact_back_font_size' => 16,
       'album_compact_back_font_weight' => 'bold',
       'album_compact_back_padding' => '0',
-      'album_compact_title_font_color' => 'FFFFFF',
+      'album_compact_title_font_color' => 'CCCCCC',
       'album_compact_title_font_style' => 'segoe ui',
       'album_compact_title_font_size' => 16,
       'album_compact_title_font_weight' => 'bold',
@@ -1391,6 +1416,12 @@ function bwg_activate() {
       '%s',
       '%s',
       '%d',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
 
       '%s',
       '%s',
@@ -1715,6 +1746,12 @@ function bwg_activate() {
       'thumb_hover_effect' => 'rotate',
       'thumb_hover_effect_value' => '2deg',
       'thumb_transition' => 1,
+      'thumb_title_font_color' => 'CCCCCC',
+      'thumb_title_font_style' => 'segoe ui',
+      'thumb_title_font_size' => 16,
+      'thumb_title_font_weight' => 'bold',
+      'thumb_title_margin' => '5px',
+      'thumb_title_shadow' => '',
 
       'page_nav_position' => 'bottom',
       'page_nav_align' => 'center',
@@ -1820,7 +1857,7 @@ function bwg_activate() {
       'album_compact_back_font_size' => 14,
       'album_compact_back_font_weight' => 'normal',
       'album_compact_back_padding' => '0',
-      'album_compact_title_font_color' => '000000',
+      'album_compact_title_font_color' => 'CCCCCC',
       'album_compact_title_font_style' => 'segoe ui',
       'album_compact_title_font_size' => 16,
       'album_compact_title_font_weight' => 'bold',
@@ -2037,6 +2074,12 @@ function bwg_activate() {
       '%s',
       '%s',
       '%d',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
 
       '%s',
       '%s',
@@ -2342,6 +2385,21 @@ function bwg_activate() {
 
       '%d'
     ));
+  }
+  $version = str_replace('.', '', get_option("wd_bwg_version"));
+  $new_version = 101;
+  if ($version && $version < $new_version) {
+    require_once WD_BWG_DIR . "/update/bwg_update.php";
+    for ($i = $version; $i < $new_version; $i++) {
+      $func_name = 'bwg_update_' . $i;
+      if (function_exists($func_name)) {
+        $func_name();
+      }
+    }
+    update_option("wd_bwg_version", '1.0.1');
+  }
+  else {
+    add_option("wd_bwg_version", '1.0.1', '', 'no');
   }
 }
 register_activation_hook(__FILE__, 'bwg_activate');

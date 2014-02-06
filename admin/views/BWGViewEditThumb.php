@@ -67,8 +67,8 @@ class BWGViewEditThumb {
   public function crop() {
     global $WD_BWG_UPLOAD_DIR;
     $options = $this->model->get_option_data();
-    $thumb_width = $options->thumb_width;
-    $thumb_height = $options->thumb_height;
+    $thumb_width = $options->upload_thumb_width;
+    $thumb_height = $options->upload_thumb_height;
     $popup_width = ((int) (isset($_GET['width']) ? esc_html($_GET['width']) : '800')) - 50;
     $image_width = $popup_width - $thumb_width - 70;
     $popup_height = ((int) (isset($_GET['height']) ? esc_html($_GET['height']) : '500')) - 75;
@@ -237,8 +237,8 @@ class BWGViewEditThumb {
       // jQuery('#image_view').Jcrop();
       jQuery(window).load(function() {
         var ratio = parseInt('<?php echo $width_orig; ?>') / jQuery('#image_view').width();
-        var thumb_width = parseInt('<?php echo $options->thumb_width; ?>');
-        var thumb_height = parseInt('<?php echo $options->thumb_height; ?>');
+        var thumb_width = parseInt('<?php echo $options->upload_thumb_width; ?>');
+        var thumb_height = parseInt('<?php echo $options->upload_thumb_height; ?>');
         if (<?php echo $w; ?> == 0) {
           jQuery('#image_view').Jcrop({
             onChange: spider_update_thumb,
@@ -274,8 +274,8 @@ class BWGViewEditThumb {
       function spider_update_thumb(c) {
         jQuery('#crop_button').hide();
         jQuery('#croped_message').show();
-        var thumb_width = parseInt('<?php echo $options->thumb_width; ?>');
-        var thumb_height = parseInt('<?php echo $options->thumb_height; ?>');
+        var thumb_width = parseInt('<?php echo $options->upload_thumb_width; ?>');
+        var thumb_height = parseInt('<?php echo $options->upload_thumb_height; ?>');
         jQuery('#thumb_image_preview').css("margin-left", -c.x * (thumb_width / c.w) + "px");
         jQuery('#thumb_image_preview').css("margin-top", -c.y * (thumb_height / c.h) + "px");        
         jQuery('#thumb_image_preview').css("width", ((thumb_width / c.w) * jQuery('#image_view').width()) + "px");

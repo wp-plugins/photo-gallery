@@ -231,12 +231,12 @@ class  BWGViewThemes_bwg {
       </div>
       <div style="float: left; margin: 10px 0 0; display: none;" id="type_menu">
         <div id="type_Thumbnail" class="theme_type" onclick="bwg_change_theme_type('Thumbnail')">Thumbnails</div>
-        <div id="type_Masonry" class="theme_type" onclick="bwg_change_theme_type('Masonry')">Masonry</div>
+        <div id="type_Masonry" class="theme_type" style="opacity: 0.4; filter: Alpha(opacity=40);" title="This tab is disabled in free version">Masonry</div>
         <div id="type_Slideshow" class="theme_type" onclick="bwg_change_theme_type('Slideshow')">Slideshow</div>
         <div id="type_Image_browser" class="theme_type" onclick="bwg_change_theme_type('Image_browser')">Image Browser</div>
         <div id="type_Compact_album" class="theme_type" onclick="bwg_change_theme_type('Compact_album')">Compact Album</div>
         <div id="type_Extended_album" class="theme_type" onclick="bwg_change_theme_type('Extended_album')">Extended Album</div>
-        <div id="type_Blog_style" class="theme_type" onclick="bwg_change_theme_type('Blog_style')">Blog Style</div>
+        <div id="type_Blog_style" class="theme_type" style="opacity: 0.4; filter: Alpha(opacity=40);" title="This tab is disabled in free version">Blog Style</div>
         <div id="type_Lightbox" class="theme_type" onclick="bwg_change_theme_type('Lightbox')">Lightbox</div>
         <div id="type_Navigation" class="theme_type" onclick="bwg_change_theme_type('Navigation')">Page Navigation</div>
         <input type="hidden" id="current_type" name="current_type" value="<?php echo $current_type; ?>" />
@@ -308,6 +308,36 @@ class  BWGViewThemes_bwg {
                     <div class="spider_description">Use CSS type values.</div>
                   </td>
                 </tr>
+                <tr>
+                  <td class="spider_label"><label for="thumb_hover_effect">Hover effect: </label></td>
+                  <td>
+                    <select name="thumb_hover_effect" id="thumb_hover_effect" class="spider_int_input">
+                      <?php
+                      foreach ($hover_effects as $key => $hover_effect) {
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->thumb_hover_effect == $key) ? 'selected="selected"' : ''); ?>><?php echo $hover_effect; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="thumb_hover_effect_value">Hover effect value: </label></td>
+                  <td>
+                    <input type="text" name="thumb_hover_effect_value" id="thumb_hover_effect_value" value="<?php echo $row->thumb_hover_effect_value; ?>" class="spider_char_input"/>
+                    <div class="spider_description">E.g. Rotate: 10deg, Scale: 1.5, Skew: 10deg.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="thumb_transition1">Transition: </label></td>
+                  <td id="thumb_transition">
+                    <input type="radio" name="thumb_transition" id="thumb_transition1" value="1"<?php if ($row->thumb_transition == 1) echo 'checked="checked"'; ?> />
+                    <label for="thumb_transition1" id="thumb_transition1_lbl">Yes</label>
+                    <input type="radio" name="thumb_transition" id="thumb_transition0" value="0"<?php if ($row->thumb_transition == 0) echo 'checked="checked"'; ?> />
+                    <label for="thumb_transition0" id="thumb_transition0_lbl">No</label>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </fieldset>
@@ -363,13 +393,25 @@ class  BWGViewThemes_bwg {
             <table style="clear:both;">
               <tbody>
                 <tr>
-                  <td class="spider_label"><label for="thumb_hover_effect">Hover effect: </label></td>
+                  <td class="spider_label"><label for="thumb_title_font_size">Title font size: </label></td>
                   <td>
-                    <select name="thumb_hover_effect" id="thumb_hover_effect" class="spider_int_input">
+                    <input type="text" name="thumb_title_font_size" id="thumb_title_font_size" value="<?php echo $row->thumb_title_font_size; ?>" class="spider_int_input" onkeypress="return spider_check_isnum(event)"/> px
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="thumb_title_font_color">Title font color: </label></td>
+                  <td>
+                    <input type="text" name="thumb_title_font_color" id="thumb_title_font_color" value="<?php echo $row->thumb_title_font_color; ?>" class="color" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="thumb_title_font_style">Title font family: </label></td>
+                  <td>
+                    <select name="thumb_title_font_style" id="thumb_title_font_style">
                       <?php
-                      foreach ($hover_effects as $key => $hover_effect) {
+                      foreach ($font_families as $key => $font_family) {
                         ?>
-                        <option value="<?php echo $key; ?>" <?php echo (($row->thumb_hover_effect == $key) ? 'selected="selected"' : ''); ?>><?php echo $hover_effect; ?></option>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->thumb_title_font_style == $key) ? 'selected="selected"' : ''); ?>><?php echo $font_family; ?></option>
                         <?php
                       }
                       ?>
@@ -377,19 +419,31 @@ class  BWGViewThemes_bwg {
                   </td>
                 </tr>
                 <tr>
-                  <td class="spider_label"><label for="thumb_hover_effect_value">Hover effect value: </label></td>
+                  <td class="spider_label"><label for="thumb_title_font_weight">Title font weight: </label></td>
                   <td>
-                    <input type="text" name="thumb_hover_effect_value" id="thumb_hover_effect_value" value="<?php echo $row->thumb_hover_effect_value; ?>" class="spider_char_input"/>
-                    <div class="spider_description">E.g. Rotate: 10deg, Scale: 1.5, Skew: 10deg.</div>
+                    <select name="thumb_title_font_weight" id="thumb_title_font_weight">
+                      <?php
+                      foreach ($font_weights as $key => $font_weight) {
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->thumb_title_font_weight == $key) ? 'selected="selected"' : ''); ?>><?php echo $font_weight; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
                   </td>
                 </tr>
                 <tr>
-                  <td class="spider_label"><label for="thumb_transition1">Transition: </label></td>
-                  <td id="thumb_transition">
-                    <input type="radio" name="thumb_transition" id="thumb_transition1" value="1"<?php if ($row->thumb_transition == 1) echo 'checked="checked"'; ?> />
-                    <label for="thumb_transition1" id="thumb_transition1_lbl">Yes</label>
-                    <input type="radio" name="thumb_transition" id="thumb_transition0" value="0"<?php if ($row->thumb_transition == 0) echo 'checked="checked"'; ?> />
-                    <label for="thumb_transition0" id="thumb_transition0_lbl">No</label>
+                  <td class="spider_label"><label for="thumb_title_shadow">Title box shadow: </label></td>
+                  <td>
+                    <input type="text" name="thumb_title_shadow" id="thumb_title_shadow" value="<?php echo $row->thumb_title_shadow; ?>" class="spider_box_input" />
+                    <div class="spider_description">Use CSS type values.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="thumb_title_margin">Title margin: </label></td>
+                  <td>
+                    <input type="text" name="thumb_title_margin" id="thumb_title_margin" value="<?php echo $row->thumb_title_margin; ?>" class="spider_char_input" />
+                    <div class="spider_description">Use CSS type values.</div>
                   </td>
                 </tr>
               </tbody>

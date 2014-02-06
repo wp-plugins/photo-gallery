@@ -659,11 +659,12 @@ class BWGViewOptions_bwg {
               </tr>
               <tr>
                 <td class="spider_label_options">
-                  <label>Show album title:</label>
+                  <label>Show title:</label>
                 </td>
                 <td>
-                  <input type="radio" name="album_title_show_hover" id="album_title_show_hover_1" value="hover" <?php if ($row->album_title_show_hover == "hover") echo 'checked="checked"'; ?> /><label for="album_title_show_hover_1">Show on hover</label>
-                  <input type="radio" name="album_title_show_hover" id="album_title_show_hover_0" value="show" <?php if ($row->album_title_show_hover == "show") echo 'checked="checked"'; ?> /><label for="album_title_show_hover_0">Always show</label>
+                  <input type="radio" name="album_title_show_hover" id="album_title_show_hover_1" value="hover" <?php if ($row->album_title_show_hover == "hover") echo 'checked="checked"'; ?> /><label for="album_title_show_hover_1">Show on hover</label><br />
+                  <input type="radio" name="album_title_show_hover" id="album_title_show_hover_0" value="show" <?php if ($row->album_title_show_hover == "show") echo 'checked="checked"'; ?> /><label for="album_title_show_hover_0">Always show</label><br />
+                  <input type="radio" name="album_title_show_hover" id="album_title_show_hover_2" value="none" <?php if ($row->album_title_show_hover == "none") echo 'checked="checked"'; ?> /><label for="album_title_show_hover_2">Don't show</label>
                   <div class="spider_description"></div>
                 </td>
               </tr>
@@ -926,11 +927,32 @@ class BWGViewOptions_bwg {
               </tr>
               <tr>
                 <td class="spider_label_options">
-                  <label for="thumb_width">Thumbnail dimensions: </label>
+                  <label for="upload_thumb_width">Generated thumbnail dimensions: </label>
+                </td>
+                <td>
+                  <input type="text" name="upload_thumb_width" id="upload_thumb_width" value="<?php echo $row->upload_thumb_width; ?>" class="spider_int_input" /> x 
+                  <input type="text" name="upload_thumb_height" id="upload_thumb_height" value="<?php echo $row->upload_thumb_height; ?>" class="spider_int_input" /> px
+                  <div class="spider_description">The maximum size of the generated thumbnail. Its dimensions should be larger than the ones of the frontend thumbnail.</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label for="thumb_width">Frontend thumbnail dimensions: </label>
                 </td>
                 <td>
                   <input type="text" name="thumb_width" id="thumb_width" value="<?php echo $row->thumb_width; ?>" class="spider_int_input" /> x 
                   <input type="text" name="thumb_height" id="thumb_height" value="<?php echo $row->thumb_height; ?>" class="spider_int_input" /> px
+                  <div class="spider_description">The default size of the thumbnail which will be displayed in the website.</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label>Show image title:</label>
+                </td>
+                <td>
+                  <input type="radio" name="image_title_show_hover" id="image_title_show_hover_1" value="hover" <?php if ($row->image_title_show_hover == "hover") echo 'checked="checked"'; ?> /><label for="image_title_show_hover_1">Show on hover</label><br />
+                  <input type="radio" name="image_title_show_hover" id="image_title_show_hover_0" value="show" <?php if ($row->image_title_show_hover == "show") echo 'checked="checked"'; ?> /><label for="image_title_show_hover_0">Always show</label><br />
+                  <input type="radio" name="image_title_show_hover" id="image_title_show_hover_2" value="none" <?php if ($row->image_title_show_hover == "none") echo 'checked="checked"'; ?> /><label for="image_title_show_hover_2">Don't show</label>
                   <div class="spider_description"></div>
                 </td>
               </tr>

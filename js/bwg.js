@@ -735,12 +735,12 @@ function bwg_change_theme_type(type) {
   jQuery("#current_type").val(type);
 
   jQuery("#type_Thumbnail").attr("style", "background-color: #F4F4F4;");
-  jQuery("#type_Masonry").attr("style", "background-color: #F4F4F4;");
+  jQuery("#type_Masonry").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
   jQuery("#type_Slideshow").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Compact_album").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Extended_album").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Image_browser").attr("style", "background-color: #F4F4F4;");
-  jQuery("#type_Blog_style").attr("style", "background-color: #F4F4F4;");
+  jQuery("#type_Blog_style").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
   jQuery("#type_Lightbox").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Navigation").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_" + type).attr("style", "background-color: #CFCBCB;");

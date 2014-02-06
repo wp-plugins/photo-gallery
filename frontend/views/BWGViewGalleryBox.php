@@ -911,6 +911,9 @@ class BWGViewGalleryBox {
       function bwg_none(current_image_class, next_image_class, direction) {
         jQuery(current_image_class).css({'opacity' : 0, 'z-index': 1});
         jQuery(next_image_class).css({'opacity' : 1, 'z-index' : 2});
+        // Set active thumbnail.
+        jQuery(".bwg_filmstrip_thumbnail").removeClass("bwg_thumb_active").addClass("bwg_thumb_deactive");
+        jQuery("#bwg_filmstrip_thumbnail_" + bwg_current_key).removeClass("bwg_thumb_deactive").addClass("bwg_thumb_active");
       }
       function bwg_fade(current_image_class, next_image_class, direction) {
         // Set active thumbnail.
@@ -1178,7 +1181,8 @@ class BWGViewGalleryBox {
           spider_destroypopup(1000);
         }
         else if (e.keyCode === 32) { // Space.
-          jQuery(".bwg_play_pause").trigger(jQuery.browser.mobile ? 'touchend' : 'click');
+          var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+          jQuery(".bwg_play_pause").trigger(isMobile ? 'touchend' : 'click');
         }
       });
       function bwg_popup_resize() {
@@ -1312,7 +1316,8 @@ class BWGViewGalleryBox {
             });
             jQuery(".spider_popup_close_fullscreen").hide();
             if (jQuery(".bwg_ctrl_btn").hasClass("fa-pause")) {
-              jQuery(".bwg_play_pause").trigger(jQuery.browser.mobile ? 'touchend' : 'click');
+              var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+              jQuery(".bwg_play_pause").trigger(isMobile ? 'touchend' : 'click');
             }
           }
           else {
@@ -1345,7 +1350,8 @@ class BWGViewGalleryBox {
         }
       }
       jQuery(document).ready(function () {
-        var bwg_click = jQuery.browser.mobile ? 'touchend' : 'click';
+        var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+        var bwg_click = isMobile ? 'touchend' : 'click';
         if (navigator.appVersion.indexOf("MSIE 10") != -1 || navigator.appVersion.indexOf("MSIE 9") != -1) {
           setTimeout(function () {
             bwg_popup_resize();
@@ -1380,13 +1386,14 @@ class BWGViewGalleryBox {
           var evt = window.event || e // Equalize event object.
           evt = evt.originalEvent ? evt.originalEvent : evt; // Convert to originalEvent if possible.
           var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta // Check for detail first, because it is used by Opera and FF.
+          var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
           if (delta > 0) {
             // Scroll up.
-            jQuery(".bwg_filmstrip_left").trigger(jQuery.browser.mobile ? 'touchend' : 'click');
+            jQuery(".bwg_filmstrip_left").trigger(isMobile ? 'touchend' : 'click');
           }
           else {
             // Scroll down.
-            jQuery(".bwg_filmstrip_right").trigger(jQuery.browser.mobile ? 'touchend' : 'click');
+            jQuery(".bwg_filmstrip_right").trigger(isMobile ? 'touchend' : 'click');
           }
         });
         jQuery(".bwg_filmstrip_right").on(bwg_click, function () {

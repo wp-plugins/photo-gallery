@@ -939,6 +939,11 @@ class BWGViewSlideshow {
       function bwg_none_<?php echo $bwg; ?>(current_image_class, next_image_class, direction) {
         jQuery(current_image_class).css({'opacity' : 0, 'z-index': 1});
         jQuery(next_image_class).css({'opacity' : 1, 'z-index' : 2});
+        // Set active thumbnail.
+        jQuery(".bwg_slideshow_filmstrip_thumbnail_<?php echo $bwg; ?>").removeClass("bwg_slideshow_thumb_active_<?php echo $bwg; ?>").addClass("bwg_slideshow_thumb_deactive_<?php echo $bwg; ?>");
+        jQuery("#bwg_filmstrip_thumbnail_" + bwg_current_key_<?php echo $bwg; ?> + "_<?php echo $bwg; ?>").removeClass("bwg_slideshow_thumb_deactive_<?php echo $bwg; ?>").addClass("bwg_slideshow_thumb_active_<?php echo $bwg; ?>");
+        jQuery(".bwg_slideshow_dots_<?php echo $bwg; ?>").removeClass("bwg_slideshow_dots_active_<?php echo $bwg; ?>").addClass("bwg_slideshow_dots_deactive_<?php echo $bwg; ?>");
+        jQuery("#bwg_dots_" + bwg_current_key_<?php echo $bwg; ?> + "_<?php echo $bwg; ?>").removeClass("bwg_slideshow_dots_deactive_<?php echo $bwg; ?>").addClass("bwg_slideshow_dots_active_<?php echo $bwg; ?>");
       }
       function bwg_fade_<?php echo $bwg; ?>(current_image_class, next_image_class, direction) {
         // Set active thumbnail.
@@ -1231,7 +1236,8 @@ class BWGViewSlideshow {
         bwg_popup_resize_<?php echo $bwg; ?>();
       });
       jQuery(window).load(function () {
-        var bwg_click = jQuery.browser.mobile ? 'touchend' : 'click';
+        var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+        var bwg_click = isMobile ? 'touchend' : 'click';
         bwg_popup_resize_<?php echo $bwg; ?>();
         jQuery("#bwg_container1_<?php echo $bwg; ?>").css({visibility: 'visible'});
         jQuery(".bwg_slideshow_watermark_<?php echo $bwg; ?>").css({display: 'none'});
