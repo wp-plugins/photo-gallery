@@ -252,7 +252,7 @@ class FilemanagerView {
                 </div>
                 <div id="btnBrowseContainer">
                   <input id="jQueryUploader" type="file" name="files[]"
-                         data-url="<?php echo add_query_arg(array('action' => 'bwg_UploadHandler', 'dir' => $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '')), admin_url('admin-ajax.php')); ?>"
+                         data-url="<?php echo add_query_arg(array('action' => 'bwg_UploadHandler', 'dir' => $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '') . '/'), admin_url('admin-ajax.php')); ?>"
                          multiple>
                 </div>
                 <script>

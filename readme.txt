@@ -4,7 +4,7 @@ Donate link: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: gallery, galleries, photo , photo gallery , image gallery, video gallery, wordpress gallery plugin, images gallery, album , photo albums, Simple gallery, best gallery plugin , free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, image, photogallery, widget gallery, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, Fotogalerie, Galleria, galerie, galeri
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -180,8 +180,8 @@ Step 2:  Creating/Editing Galleries for the Photo Gallery.
 2.6 Published. Choose whether to publish the gallery or to leave it for the further publication.  
 2.7 Preview image. Indicate the image which will be used to preview the gallery. If you leave it blank, it will randomly pick one of the uploaded images included in the gallery.  
 2.8 Images. You can add photos by clicking Add Images button.   
-Disclaimer: The default size of the thumbnails will be set to the dimension set in Thumbnail Options of the Options section, so it is advised to make the necessary changes in advance to uploading an image.  
-The plugin is not using standard WordPress Media Manager, instead here you will be redirected to Photo Gallery File Manager. After uploading images you should mark them and press Open button.  
+
+The plugin is not using standard WordPress Media Manager, instead here you will be redirected to Photo Gallery File Manager. After uploading images you should mark them and press Add button.  
 Photo Gallery File Manager  
 2.8.1 Up. This button will allow you to move within the taxonomy of the folder to a higher level folder.  
 2.8.2 Make a directory. You can indicate the location of the directory to get images from.   
@@ -190,9 +190,11 @@ Photo Gallery File Manager
 2.8.5 Cut. You can cut images and directories.  
 2.8.6 Paste. You can paste copied/cut images and directories.  
 2.8.7 Remove items. You can remove any amount of items from the list.  
-2.8.8 Upload files. You can upload images from your PC and computer using this feature. Multi-upload is also possible here.   
+2.8.8 Upload files. You can upload images from your PC and other devices using this feature. Multi-upload is also possible.
+Important! Before uploading an image, you should provide dimensions for the generated thumbnail at the top of the Media Upload window or leave it to default value set in the Thumbnail options (Options Menu).     
 2.8.9 View options: View thumbnails. Displays images in Thumbnail view.  
 View list. Displays images in list view.  
+To view the uploaded items, you should Press Back button.    
 Now let`s explore the individual image options. Refer to the buttons on the right side and below.  
 2.9 Set Watermark. You can apply the created watermark by checking the image you want to add the watermark to and pressing the button. The watermark can be created in Options menu of the product.   
 2.10 Reset. You can reset the images to the default by selecting multiple/all images and pressing this button. It will remove all kind of changes, including crop, rotate and watermark.  
@@ -309,8 +311,12 @@ Advertisement position. Choose the positioning of the advertisement from the ava
 5.7 Thumbnail Options  
 5.7.1 Number of image columns. Provide the maximum number of image columns to be displayed with Thumbnails view.  
 5.7.2 Images per page. Provide the maximum number of images to be displayed in a single page.  
-5.7.3 Thumbnail dimensions. Specify the width and height of the image thumbnails.   
-5.7.4 Enable image pagination. Choose whether to have image pagination or not.  
+5.7.3 Show image title. Choose whether to always display the image title, have it displayed only when hovered or never display it.    
+5.7.4 Generated thumbnail dimensions. Provide the dimensions of the thumbnail image which will be generated from the original image.     
+5.7.5 Frontend thumbnail dimensions. Provide the dimensions of the image, which will be displayed in the front end as a thumbnail. This should be smaller than the generated thumbnail to keep the quality of the image.      
+5.7.6 Thumbnail dimensions. Specify the width and height of the image thumbnails.      
+5.7.7 Enable image pagination. Choose whether to have image pagination or not.     
+
   
 5.8 Image Options  
 5.7.1 Enable image title for Image Browser view. Choose whether to display image titles for the Image Browser view or not.  
@@ -669,6 +675,7 @@ Step 8: Publishing the Created Photo Gallery.
 To insert a gallery into a Page or a Post.   
 Open the post/page you want to display the gallery. Press the button named Photo Gallery. A camera icon will be inserted into the page/post. Click on the image and select the gallery/album display you want to use for that specific page/post.  
 Each shortcode uses three columns of parameters. The first column shows parameters specific for that view only, the second one shows Lightbox (except Slideshow view) parameters, the third one is referred to the Advertisement.   
+In addition you can add the shortcode using Shortcode Generator .     
 8.1 General Parameters (First Column)  
 8.1.1Thumbnails  
 Theme. Select the theme to be applied to the view.   
@@ -816,3 +823,11 @@ Theme. Choose the theme, which will be applied to the gallery/album correspondin
 9.4.5 Number. Provide the number of images to be displayed with the widget.  
 9.4.6 Dimensions. Specify the width and height of the widget.  
 9.4.7 Theme. Choose the theme, which will be applied to the gallery/album.  
+
+
+Step 10: Generating shortcode for the Photo Gallery.    
+ 
+To use the created galleries and albums for the custom location, you can generate custom shortcodes and edit the created shortcodes.    
+
+10.1 Generate. Clicking this button you will be able to create a special shortcode based on your option choices. The created shortcode will appear in the box below. It can be copied/cut and pasted into a post/page.     
+10.2 Import.Pasting the shortcode in the box below and pressing the button, you will be able to edit and make changes in the shortcode.The final shortcode can be copied/cut and pasted into a post/page.     
