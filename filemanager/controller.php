@@ -43,7 +43,7 @@ class FilemanagerController {
     }
 
     public function execute() {
-      $task = isset($_REQUEST['task']) ? $_REQUEST['task'] : 'display';
+      $task = isset($_REQUEST['task']) ? stripslashes($_REQUEST['task']) : 'display';
       if (method_exists($this, $task)) {
         $this->$task();
       }
@@ -70,31 +70,30 @@ class FilemanagerController {
     }
 
     public function make_dir() {
-      $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
+      $input_dir = (isset($_REQUEST['dir']) ? stripslashes($_REQUEST['dir']) : '');
       $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
 
-      $new_dir_path = $cur_dir_path . '/' . (isset($_REQUEST['new_dir_name']) ? $_REQUEST['new_dir_name'] : '');
+      $new_dir_path = $cur_dir_path . '/' . (isset($_REQUEST['new_dir_name']) ? stripslashes($_REQUEST['new_dir_name']) : '');
 
       $msg = '';
       if (file_exists($new_dir_path) == true) {
-        $msg = 'Directory already exists';
+        $msg = "Directory already exists.";
       }
       else {
         mkdir($new_dir_path);
       }
-      // $_SESSION['filemanager_msg'] = $msg;
       header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
       exit;
     }
 
     public function rename_item() {
-      $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
+      $input_dir = (isset($_REQUEST['dir']) ? stripslashes($_REQUEST['dir']) : '');
       $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
 
-      $file_names = explode(',', (isset($_REQUEST['file_names']) ? $_REQUEST['file_names'] : ''));
+      $file_names = explode('**#**', (isset($_REQUEST['file_names']) ? stripslashes($_REQUEST['file_names']) : ''));
       $file_name = $file_names[0];
 
-      $file_new_name = (isset($_REQUEST['file_new_name']) ? $_REQUEST['file_new_name'] : '');
+      $file_new_name = (isset($_REQUEST['file_new_name']) ? stripslashes($_REQUEST['file_new_name']) : '');
 
       $file_path = $cur_dir_path . '/' . $file_name;
       $thumb_file_path = $cur_dir_path . '/thumb/' . $file_name;
@@ -102,35 +101,34 @@ class FilemanagerController {
 
       $msg = '';
       if (file_exists($file_path) == false) {
-        $msg = 'File doesn\'t exists';
+        $msg = "File doesn't exist.";
       }
       elseif (is_dir($file_path) == true) {
         if (rename($file_path, $cur_dir_path . '/' . $file_new_name) == false) {
-            $msg = 'Can\'t rename the file';
+            $msg = "Can't rename the file.";
         }
       }
       elseif ((strrpos($file_name, '.') !== false)) {
         $file_extension = substr($file_name, strrpos($file_name, '.') + 1);
         if (rename($file_path, $cur_dir_path . '/' . $file_new_name . '.' . $file_extension) == false) {
-            $msg = 'Can\'t rename the file';
+            $msg = "Can't rename the file.";
         }
         rename($thumb_file_path, $cur_dir_path . '/thumb/' . $file_new_name . '.' . $file_extension);
         rename($original_file_path, $cur_dir_path . '/.original/' . $file_new_name . '.' . $file_extension);
       }
       else {
-        $msg = 'Can\'t rename the file';
+        $msg = "Can't rename the file.";
       }
       $_REQUEST['file_names'] = '';
-      // $_SESSION['filemanager_msg'] = $msg;
       header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
       exit;
     }
 
     public function remove_items() {
-      $input_dir = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
+      $input_dir = (isset($_REQUEST['dir']) ? stripslashes($_REQUEST['dir']) : '');
       $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
 
-      $file_names = explode(',', (isset($_REQUEST['file_names']) ? $_REQUEST['file_names'] : ''));
+      $file_names = explode('**#**', (isset($_REQUEST['file_names']) ? stripslashes($_REQUEST['file_names']) : ''));
 
       $msg = '';
       foreach ($file_names as $file_name) {
@@ -138,7 +136,7 @@ class FilemanagerController {
         $thumb_file_path = $cur_dir_path . '/thumb/' . $file_name;
         $original_file_path = $cur_dir_path . '/.original/' . $file_name;
         if (file_exists($file_path) == false) {
-          $msg = 'Some of the file can\'t be removed';
+          $msg = "Some of the files couldn't be removed.";
         }
         else {
           if (!is_dir(file_path)) {
@@ -149,7 +147,6 @@ class FilemanagerController {
         }
       }
       $_REQUEST['file_names'] = '';
-      // $_SESSION['filemanager_msg'] = $msg;
       header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
       exit;
     }
@@ -157,20 +154,21 @@ class FilemanagerController {
     public function paste_items() {
       $msg = '';
 
-      $file_names = explode(',', (isset($_REQUEST['clipboard_files']) ? $_REQUEST['clipboard_files'] : ''));
+      $file_names = explode('**#**', (isset($_REQUEST['clipboard_files']) ? stripslashes($_REQUEST['clipboard_files']) : ''));
       // $src_dir = $_SESSION['clipboard_src'];
-      $src_dir = (isset($_REQUEST['clipboard_src']) ? $_REQUEST['clipboard_src'] : '');
+      $src_dir = (isset($_REQUEST['clipboard_src']) ? stripslashes($_REQUEST['clipboard_src']) : '');
       $src_dir = $src_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $src_dir;
       // $dest_dir = $_SESSION['clipboard_dest'];
-      $dest_dir = (isset($_REQUEST['clipboard_dest']) ? $_REQUEST['clipboard_dest'] : '');
+      $dest_dir = (isset($_REQUEST['clipboard_dest']) ? stripslashes($_REQUEST['clipboard_dest']) : '');
       $dest_dir = $dest_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $dest_dir;
 
-      switch ((isset($_REQUEST['clipboard_task']) ? $_REQUEST['clipboard_task'] : '')) {
+      switch ((isset($_REQUEST['clipboard_task']) ? stripslashes($_REQUEST['clipboard_task']) : '')) {
         case 'copy':
           foreach ($file_names as $file_name) {
             $src = $src_dir . '/' . $file_name;
             if (file_exists($src) == false) {
-              $msg = 'Failed to copy some of the files';
+              $msg = "Failed to copy some of the files.";
+              $msg = $file_name;
               continue;
             }
             $dest = $dest_dir . '/' . $file_name;
@@ -199,7 +197,7 @@ class FilemanagerController {
             }
 
             if (!$this->copy_file_dir($src, $dest)) {
-              $msg = 'Failed to copy some of the files';
+              $msg = "Failed to copy some of the files.";
             }
             if (!is_dir($src_dir . '/' . $file_name)) {
               $this->copy_file_dir($thumb_src, $thumb_dest);
@@ -225,7 +223,7 @@ class FilemanagerController {
                 }
               }
               if ((file_exists($src) == false) || (file_exists($dest) == true) || (!rename($src, $dest))) {
-                $msg = 'Failed to move some of the files';
+                $msg = "Failed to move some of the files.";
               }
               if (!is_dir($src_dir . '/' . $file_name)) {
                 rename($thumb_src, $thumb_dest);
@@ -235,7 +233,6 @@ class FilemanagerController {
           }
           break;
       }
-      // $_SESSION['filemanager_msg'] = $msg;
       header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => $_REQUEST['extensions'], 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['dir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
       exit;
     }

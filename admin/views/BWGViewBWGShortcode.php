@@ -30,11 +30,7 @@ class BWGViewBWGShortcode {
     $from_menu = ((isset($_GET['page']) && (esc_html($_GET['page']) == 'BWGShortcode')) ? TRUE : FALSE);
     $effects = array(
       'none' => 'None',
-      'cubeH' => 'Cube Horizontal',
       'fade' => 'Fade',
-      'sliceV' => 'Slice Vertical',
-      'scaleOut' => 'Scale Out',
-      'blindH' => 'Blind Horizontal',
     );
     $watermark_fonts = array(
       'arial' => 'Arial',
@@ -61,7 +57,7 @@ class BWGViewBWGShortcode {
     <?php
     }
     ?>
-        <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/bwg_shortcode.css'; ?>">
+        <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/bwg_shortcode.css?ver='; ?><?php echo get_option("wd_bwg_version"); ?>">
         <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css'; ?>">
         <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/jquery.js"></script>
         <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/ui/jquery.ui.core.min.js"></script>
@@ -69,7 +65,7 @@ class BWGViewBWGShortcode {
         <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/ui/jquery.ui.position.min.js"></script>
         <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/ui/jquery.ui.tooltip.min.js"></script>
         
-        <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/bwg_shortcode.js?ver=1.0.1'; ?>"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/bwg_shortcode.js?ver='; ?><?php echo get_option("wd_bwg_version"); ?>"></script>
         <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/jscolor/jscolor.js'; ?>"></script>
         <?php
         if (!$from_menu) {

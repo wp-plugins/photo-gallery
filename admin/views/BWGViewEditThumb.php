@@ -93,6 +93,7 @@ class BWGViewEditThumb {
       $thumb_filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url;
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'crop', 'image_id' => $image_id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
+    ini_set('memory_limit', '-1');
     list($width_orig, $height_orig, $type_orig) = getimagesize($filename);
     if ($edit_type == 'crop') {
       if ($type_orig == 2) {
@@ -135,6 +136,7 @@ class BWGViewEditThumb {
         <?php
       }
     }
+    ini_restore('memory_limit');
     ?>
     <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/jquery.js"></script>
     <script src="<?php echo WD_BWG_URL . '/js/Jcrop-1902/js/jquery.Jcrop.min.js'; ?>" type="text/javascript"></script>
@@ -308,6 +310,7 @@ class BWGViewEditThumb {
       $thumb_filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url;
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'rotate', 'image_id' => $image_id, 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
+    ini_set('memory_limit', '-1');
     list($width_rotate, $height_rotate, $type_rotate) = getimagesize($filename);
     if ($edit_type == '270' || $edit_type == '90') {
       if ($type_rotate == 2) {
@@ -464,6 +467,7 @@ class BWGViewEditThumb {
         <?php
       }
     }
+    ini_restore('memory_limit');
     ?>
     <style>
       .spider_rotate {

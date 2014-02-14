@@ -300,6 +300,7 @@ class UploadHandler {
         $max_width / $img_width,
         $max_height / $img_height
       );
+      ini_set('memory_limit', '-1');
       if (($scale >= 1) || (($max_width === NULL) && ($max_height === NULL))) {
         if ($file_path !== $new_file_path) {
           return copy($file_path, $new_file_path);
@@ -310,6 +311,7 @@ class UploadHandler {
         error_log('Function not found: imagecreatetruecolor');
         return false;
       }
+      
       if (empty($options['crop'])) {
         $new_width = $img_width * $scale;
         $new_height = $img_height * $scale;
@@ -368,6 +370,7 @@ class UploadHandler {
       // Free up memory (imagedestroy does not delete files):
       @imagedestroy($src_img);
       @imagedestroy($new_img);
+      ini_restore('memory_limit');
       return $success;
     }
 
@@ -485,7 +488,7 @@ class UploadHandler {
       // Remove path information and dots around the filename, to prevent uploading
       // into different directories or replacing hidden system files.
       // Also remove control characters and spaces (\x00..\x20) around the filename:
-      $name = trim(basename(stripslashes($name)), ".\x00..\x20");
+      $name = trim(stripslashes($name), ".\x00..\x20");
       // Use a timestamp for empty filenames:
       if (!$name) {
         $name = str_replace('.', '-', microtime(true));
@@ -513,16 +516,17 @@ class UploadHandler {
 
     protected function orient_image($file_path) {
       if (!function_exists('exif_read_data')) {
-          return false;
+        return false;
       }
       $exif = @exif_read_data($file_path);
       if ($exif === false) {
-          return false;
+        return false;
       }
       $orientation = intval(@$exif['Orientation']);
       if (!in_array($orientation, array(3, 6, 8))) {
-          return false;
+        return false;
       }
+      ini_set('memory_limit', '-1');
       $image = @imagecreatefromjpeg($file_path);
       switch ($orientation) {
         case 3:
@@ -540,6 +544,7 @@ class UploadHandler {
       $success = imagejpeg($image, $file_path);
       // Free up memory (imagedestroy does not delete files):
       @imagedestroy($image);
+      ini_restore('memory_limit');
       return $success;
     }
 
@@ -594,21 +599,22 @@ class UploadHandler {
         if ($uploaded_file && is_uploaded_file($uploaded_file)) {
           // multipart/formdata uploads (POST method uploads)
           if ($append_file) {
-              file_put_contents(
-                  $file_path,
-                  fopen($uploaded_file, 'r'),
-                  FILE_APPEND
-              );
-          } else {
-              move_uploaded_file($uploaded_file, $file_path);
+            file_put_contents(
+              $file_path,
+              fopen($uploaded_file, 'r'),
+              FILE_APPEND
+            );
+          }
+          else {
+            move_uploaded_file($uploaded_file, $file_path);
           }
         }
         else {
           // Non-multipart uploads (PUT method support)
           file_put_contents(
-              $file_path,
-              fopen('php://input', 'r'),
-              $append_file ? FILE_APPEND : 0
+            $file_path,
+            fopen('php://input', 'r'),
+            $append_file ? FILE_APPEND : 0
           );
         }
         $file_size = $this->get_file_size($file_path, $append_file);
@@ -616,14 +622,14 @@ class UploadHandler {
           $file->url = $this->get_download_url($file->name);
           list($img_width, $img_height) = @getimagesize($file_path);
           if (is_int($img_width)) {
-              $this->handle_image_file($file_path, $file);
+            $this->handle_image_file($file_path, $file);
           }
         }
         else {
           $file->size = $file_size;
           if (!$content_range && $this->options['discard_aborted_uploads']) {
-              unlink($file_path);
-              $file->error = 'abort';
+            unlink($file_path);
+            $file->error = 'abort';
           }
         }
         $this->set_file_delete_properties($file);

@@ -7,6 +7,7 @@
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: 50px 50px;
+  border: none !important;
   display: none;
   height: 50px;
   left: 50%;
@@ -24,6 +25,7 @@
 }
 
 .spider_ajax_loading {
+  border: none !important;
   animation: spin 2.5s infinite linear;
   -moz-animation: spin 2.5s infinite linear;
   -o-animation: spin 2.5s infinite linear;

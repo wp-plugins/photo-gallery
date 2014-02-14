@@ -144,7 +144,13 @@ class WDWLibrary {
       }
     </script>
     <div class="tablenav-pages">
-      <span class="displaying-num"><?php echo $count_items; ?> items</span>
+      <span class="displaying-num">
+        <?php
+        if ($count_items != 0) {
+          echo $count_items; ?> item<?php echo (($count_items == 1) ? '' : 's');
+        }
+        ?>
+      </span>
       <?php
       if ($count_items > $items_per_page) {
         $first_page = "first-page";
@@ -259,7 +265,13 @@ class WDWLibrary {
       }
     </script>
     <div id="tablenav-pages" class="tablenav-pages">
-      <span class="displaying-num"><?php echo $count_items; ?> items</span>
+      <span class="displaying-num">
+        <?php
+        if ($count_items != 0) {
+          echo $count_items; ?> item<?php echo (($count_items == 1) ? '' : 's');
+        }
+        ?>
+      </span>
       <?php
       if ($count_items > $limit) {
         $first_page = "first-page";
@@ -396,10 +408,10 @@ class WDWLibrary {
         </span>
         <a class="<?php echo $next_page ?>" title="<?php echo __('Go to the next page', 'bwg'); ?>" onclick="spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 1)"><?php echo $next_button; ?></a>
         <a class="<?php echo $last_page ?>" title="<?php echo __('Go to the last page', 'bwg'); ?>" onclick="spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 2)"><?php echo $last_button; ?></a>
-        <?php
+      </span>
+      <?php
       }
       ?>
-      </span>
       <input type="hidden" id="page_number_<?php echo $current_view; ?>" name="page_number_<?php echo $current_view; ?>" value="<?php echo ((isset($_POST['page_number_' . $current_view])) ? (int) $_POST['page_number_' . $current_view] : 1); ?>" />
     </div>
     <?php

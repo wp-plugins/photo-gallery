@@ -34,7 +34,7 @@ class FilemanagerView {
         ?>
         <div id="file_manager_message" style="height:40px;">
           <div  style="background-color: #FFEBE8; border: 1px solid #CC0000; margin: 5px 15px 2px; padding: 5px 10px;">
-            <strong style="font-size:14px"><?php echo esc_html($_GET['filemanager_msg']); ?></strong>
+            <strong style="font-size:14px"><?php echo esc_html(stripslashes($_GET['filemanager_msg'])); ?></strong>
           </div>
         </div>
         <?php
@@ -76,21 +76,22 @@ class FilemanagerView {
         var sortBy = "<?php echo $sort_by; ?>";
         var sortOrder = "<?php echo $sort_order; ?>";
       </script>
-      <script src="<?php echo WD_BWG_URL; ?>/filemanager/js/default.js"></script>
-      <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default.css" type="text/css" rel="stylesheet">
+      <script src="<?php echo WD_BWG_URL; ?>/filemanager/js/default.js?ver=<?php echo get_option("wd_bwg_version"); ?>"></script>
+      <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default.css?ver=<?php echo get_option("wd_bwg_version"); ?>" type="text/css" rel="stylesheet">
       <?php
       switch ($items_view) {
         case 'list':
           ?>
-          <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default_view_list.css" type="text/css" rel="stylesheet">
+          <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default_view_list.css?ver=<?php echo get_option("wd_bwg_version"); ?>" type="text/css" rel="stylesheet">
           <?php
           break;
         case 'thumbs':
           ?>
-          <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default_view_thumbs.css" type="text/css" rel="stylesheet">
+          <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default_view_thumbs.css?ver=<?php echo get_option("wd_bwg_version"); ?>" type="text/css" rel="stylesheet">
           <?php
           break;
       }
+      $i = 0;
       ?>
 
       <form id="adminForm" name="adminForm" action="" method="post">
@@ -107,7 +108,9 @@ class FilemanagerView {
                 <a class="ctrl_bar_btn btn_paste" onclick="onBtnPasteClick(event, this);" title="<?php echo 'Paste'; ?>"> </a>
                 <a class="ctrl_bar_btn btn_remove_items" onclick="onBtnRemoveItemsClick(event, this);" title="<?php echo 'Remove items'; ?>"></a>
                 <span class="ctrl_bar_divider"></span>
-                <a class="ctrl_bar_btn btn_upload_files" onclick="onBtnShowUploaderClick(event, this);"><?php echo 'Upload files'; ?></a>
+                <span class="ctrl_bar_btn btn_primary">
+                  <a class="ctrl_bar_btn btn_upload_files" onclick="onBtnShowUploaderClick(event, this);"><?php echo 'Upload files'; ?></a>
+                </span>
               </div>
               <div class="ctrls_right">
                 <a class="ctrl_bar_btn btn_view_thumbs" onclick="onBtnViewThumbsClick(event, this);" title="<?php echo 'View thumbs'; ?>"></a>
@@ -130,6 +133,7 @@ class FilemanagerView {
               <div id="explorer_header_wrapper">
                 <div id="explorer_header_container">
                   <div id="explorer_header">
+                    <span class="item_numbering">#</span>
                     <span class="item_icon"></span>
                     <span class="item_name">
                       <span class="clickable" onclick="onNameHeaderClick(event, this);">
@@ -199,17 +203,18 @@ class FilemanagerView {
                           }
                           ?>
                             isDir="<?php echo $file['is_dir'] == true ? 'true' : 'false'; ?>">
+                        <span class="item_numbering"><?php echo ++$i; ?></span>
                         <span class="item_thumb">
-                            <img src="<?php echo $file['thumb']; ?>"/>
+                          <img src="<?php echo $file['thumb']; ?>"/>
                         </span>
                         <span class="item_icon">
-                            <img src="<?php echo $file['icon']; ?>"/>
+                          <img src="<?php echo $file['icon']; ?>"/>
                         </span>
                         <span class="item_name">
-                            <?php echo $file['name']; ?>
+                          <?php echo $file['name']; ?>
                         </span>
                         <span class="item_size">
-                            <?php echo $file['size']; ?>
+                          <?php echo $file['size']; ?>
                         </span>
                         <span class="item_date_modified">
                           <?php echo $file['date_modified']; ?>
@@ -223,13 +228,17 @@ class FilemanagerView {
               </div>
             </div>
             <div class="ctrls_bar ctrls_bar_footer">
+              <div class="ctrls_left">
+                <a class="ctrl_bar_btn btn_open btn_primary none_select" onclick="onBtnSelectAllClick();"><?php echo 'Select All'; ?></a>
+              </div>
               <div class="ctrls_right">
                 <span id="file_names_span">
                   <span>
                   </span>
                 </span>
-                <a class="ctrl_bar_btn btn_open"onclick="onBtnOpenClick(event, this);"><?php echo 'Add'; ?></a>
-                <a class="ctrl_bar_btn btn_cancel" onclick="onBtnCancelClick(event, this);"><?php echo 'Cancel'; ?></a>
+                <a class="ctrl_bar_btn btn_open btn_primary none_select" onclick="onBtnOpenClick(event, this);"><?php echo 'Add selected images to gallery'; ?></a>
+                <span class="ctrl_bar_empty_devider"></span>
+                <a class="ctrl_bar_btn btn_cancel btn_secondary none_select" onclick="onBtnCancelClick(event, this);"><?php echo 'Cancel'; ?></a>
               </div>
             </div>
           </div>
@@ -260,6 +269,7 @@ class FilemanagerView {
                     dataType: "json",
                     dropZone: jQuery("#uploader_hitter"),
                     submit: function (e, data) {
+                      jQuery("#uploader_progress_text").removeClass("uploader_text");
                       isUploading = true;
                       jQuery("#uploader_progress_bar").fadeIn();
                     },
@@ -270,19 +280,22 @@ class FilemanagerView {
                       if (data.loaded == data.total) {
                         isUploading = false;
                         jQuery("#uploader_progress_bar").fadeOut(function () {
-                            jQuery("#uploader_progress_text").text(messageFilesUploadComplete);
+                          jQuery("#uploader_progress_text").text(messageFilesUploadComplete);
+                          jQuery("#uploader_progress_text").addClass("uploader_text");
                         });
+                        jQuery(".btn_back").trigger("click");
                       }
                     },
                     done: function (e, data) {
                       jQuery.each(data.result.files, function (index, file) {
                         if (file.error) {
-                            alert(errorLoadingFile + ' :: ' + file.error);
+                          alert(errorLoadingFile + ' :: ' + file.error);
                         }
                         if (file.error) {
-                            jQuery("#uploaded_files ul").append(jQuery("<li class=uploaded_item_failed>" + "<?php echo 'Upload failed' ?> :: " + file.error + "</li>"));
-                        } else {
-                            jQuery("#uploaded_files ul").append(jQuery("<li class=uploaded_item>" + file.name + " (<?php echo 'Uploaded' ?>)" + "</li>"));
+                          jQuery("#uploaded_files ul").append(jQuery("<li class=uploaded_item_failed>" + "<?php echo 'Upload failed' ?> :: " + file.error + "</li>"));
+                        }
+                        else {
+                          jQuery("#uploaded_files ul").append(jQuery("<li class=uploaded_item>" + file.name + " (<?php echo 'Uploaded' ?>)" + "</li>"));
                         }
                       });
                     }
@@ -297,7 +310,7 @@ class FilemanagerView {
               <div id="uploader_progress_bar">
                 <div></div>
               </div>
-              <span id="uploader_progress_text">
+              <span id="uploader_progress_text" class="uploader_text">
                 <?php echo 'No files to upload'; ?>
               </span>
             </div>

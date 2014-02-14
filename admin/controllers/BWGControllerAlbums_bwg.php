@@ -228,7 +228,7 @@ class BWGControllerAlbums_bwg {
     $flag = FALSE;
     $album_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_album');
     foreach ($album_ids_col as $album_id) {
-      if (isset($_POST['check_' . $album_id])) {
+      if (isset($_POST['check_' . $album_id]) || isset($_POST['check_all_items'])) {
         $flag = TRUE;
         $query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_album WHERE id="%d"', $album_id);
         $query_gal = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_album_gallery WHERE id="%d" OR (is_album AND alb_gal_id="%d")', $album_id, $album_id);
@@ -260,11 +260,17 @@ class BWGControllerAlbums_bwg {
   public function publish_all() {
     global $wpdb;
     $flag = FALSE;
-    $alum_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_album');
-    foreach ($alum_ids_col as $album_id) {
-      if (isset($_POST['check_' . $album_id])) {
-        $flag = TRUE;
-        $wpdb->update($wpdb->prefix . 'bwg_album', array('published' => 1), array('id' => $album_id));
+    if (isset($_POST['check_all_items'])) {
+      $wpdb->query('UPDATE ' .  $wpdb->prefix . 'bwg_album SET published=1');
+      $flag = TRUE;
+    }
+    else {
+      $alum_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_album');
+      foreach ($alum_ids_col as $album_id) {
+        if (isset($_POST['check_' . $album_id])) {
+          $flag = TRUE;
+          $wpdb->update($wpdb->prefix . 'bwg_album', array('published' => 1), array('id' => $album_id));
+        }
       }
     }
     if ($flag) {
@@ -291,11 +297,17 @@ class BWGControllerAlbums_bwg {
   public function unpublish_all() {
     global $wpdb;
     $flag = FALSE;
-    $album_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_album');
-    foreach ($album_ids_col as $album_id) {
-      if (isset($_POST['check_' . $album_id])) {
-        $flag = TRUE;
-        $wpdb->update($wpdb->prefix . 'bwg_album', array('published' => 0), array('id' => $album_id));
+    if (isset($_POST['check_all_items'])) {
+      $wpdb->query('UPDATE ' .  $wpdb->prefix . 'bwg_album SET published=0');
+      $flag = TRUE;
+    }
+    else {
+      $album_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_album');
+      foreach ($album_ids_col as $album_id) {
+        if (isset($_POST['check_' . $album_id])) {
+          $flag = TRUE;
+          $wpdb->update($wpdb->prefix . 'bwg_album', array('published' => 0), array('id' => $album_id));
+        }
       }
     }
     if ($flag) {

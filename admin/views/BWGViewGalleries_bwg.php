@@ -54,6 +54,10 @@ class BWGViewGalleries_bwg {
       </h2>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table shoud be saved.</p></strong></div>
       <div class="buttons_div">
+        <span class="button non_selectable" onclick="spider_check_all_items()">
+          <input type="checkbox" id="check_all_items" name="check_all_items" onclick="spider_check_all_items_checkbox()" style="margin: 0; vertical-align: middle;" />
+          <span style="vertical-align: middle;">Select All</span>
+        </span>
         <input id="show_hide_weights"  class="button" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
         <input class="button" type="submit" onclick="spider_set_input_value('task', 'save_order')" value="Save Order" />
         <input class="button" type="submit" onclick="spider_set_input_value('task', 'publish_all')" value="Publish" />
@@ -73,7 +77,7 @@ class BWGViewGalleries_bwg {
       <table class="wp-list-table widefat fixed pages">
         <thead>
           <th class="table_small_col"></th>
-          <th class="manage-column column-cb check-column table_small_col"><input id="check_all" type="checkbox" style="margin:0;" /></th>
+          <th class="manage-column column-cb check-column table_small_col"><input id="check_all" type="checkbox" onclick="spider_check_all(this)" style="margin:0;" /></th>
           <th class="table_small_col <?php if ($order_by == 'id') {echo $order_class;} ?>">
             <a onclick="spider_set_input_value('task', '');
                         spider_set_input_value('order_by', 'id');
@@ -142,7 +146,7 @@ class BWGViewGalleries_bwg {
               ?>
               <tr id="tr_<?php echo $row_data->id; ?>" <?php echo $alternate; ?>>
                 <td class="connectedSortable table_small_col"><div title="Drag to re-order"class="handle" style="margin:5px auto 0 auto;"></div></td>
-                <td class="table_small_col check-column"><input id="check_<?php echo $row_data->id; ?>" name="check_<?php echo $row_data->id; ?>" type="checkbox" /></td>
+                <td class="table_small_col check-column"><input id="check_<?php echo $row_data->id; ?>" name="check_<?php echo $row_data->id; ?>" onclick="spider_check_all(this)" type="checkbox" /></td>
                 <td class="table_small_col"><?php echo $row_data->id; ?></td>
                 <td class="table_extra_large_col">
                   <img title="<?php echo $row_data->name; ?>" style="border: 1px solid #CCCCCC; max-width:60px; max-height:60px;" src="<?php echo $preview_image . '?date=' . date('Y-m-y H:i:s'); ?>">
@@ -238,12 +242,18 @@ class BWGViewGalleries_bwg {
           // Checkbox TD.
           var td_checkbox = document.createElement('td');
           td_checkbox.setAttribute('class', "table_small_col check-column");
+          td_checkbox.setAttribute('onclick', "spider_check_all(this)");
           tr.appendChild(td_checkbox);
           var input_checkbox = document.createElement('input');
           input_checkbox.setAttribute('id', "check_" + j);
           input_checkbox.setAttribute('name', "check_" + j);
           input_checkbox.setAttribute('type', "checkbox");
           td_checkbox.appendChild(input_checkbox);
+          // Numbering TD.
+          var td_numbering = document.createElement('td');
+          td_numbering.setAttribute('class', "table_small_col");
+          td_numbering.innerHTML = "";
+          tr.appendChild(td_numbering);
           // Thumb TD.
           var td_thumb = document.createElement('td');
           td_thumb.setAttribute('class', "table_extra_large_col");
@@ -451,10 +461,12 @@ class BWGViewGalleries_bwg {
       <h2><?php echo $page_title; ?></h2>
       <div style="float:right;">
         <input class="button" type="submit" onclick="if (spider_check_required('name', 'Name')) {return false;};
+                                                     spider_set_input_value('page_number', '1');
                                                      spider_set_input_value('task', 'save')" value="Save" />
         <input class="button" type="submit" onclick="if (spider_check_required('name', 'Name')) {return false;};
                                                      spider_set_input_value('task', 'apply')" value="Apply" />
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'cancel')" value="Cancel" />
+        <input class="button" type="submit" onclick="spider_set_input_value('page_number', '1');
+                                                     spider_set_input_value('task', 'cancel')" value="Cancel" />
       </div>
       <table style="clear:both;">
         <tbody>
@@ -557,6 +569,7 @@ class BWGViewGalleries_bwg {
     $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
     $image_order_by = (isset($_POST['image_order_by']) ? esc_html(stripslashes($_POST['image_order_by'])) : 'order');
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
+    $page_number = (isset($_POST['page_number']) ? esc_html(stripslashes($_POST['page_number'])) : 1);
     $ids_string = '';
     ?>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table should be saved.</p></strong></div>
@@ -564,7 +577,10 @@ class BWGViewGalleries_bwg {
         Add Images
       </a>
       <div class="buttons_div">
-        
+        <span class="button non_selectable" onclick="spider_check_all_items()">
+          <input type="checkbox" id="check_all_items" name="check_all_items" onclick="spider_check_all_items_checkbox()" style="margin: 0; vertical-align: middle;" />
+          <span style="vertical-align: middle;">Select All</span>
+        </span>
         <input id="show_hide_weights"  class="button" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
         <input class="button-primary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_set_watermark');
                                                              spider_ajax_save('galleries_form');
@@ -602,7 +618,8 @@ class BWGViewGalleries_bwg {
       <table id="images_table" class="wp-list-table widefat fixed pages">
         <thead>
           <th class="check-column table_small_col"></th>
-          <th class="manage-column column-cb check-column table_small_col"><input id="check_all" type="checkbox" style="margin:0;" /></th>
+          <th class="manage-column column-cb check-column table_small_col"><input id="check_all" type="checkbox" onclick="spider_check_all(this)" style="margin:0;" /></th>
+          <th class="table_small_col">#</th>
           <th class="table_extra_large_col">Thumbnail</th>
           <th class="table_extra_large_col <?php if ($image_order_by == 'filename') {echo $order_class;} ?>">
             <a onclick="spider_set_input_value('task', '');
@@ -649,6 +666,7 @@ class BWGViewGalleries_bwg {
         </thead>
         <tbody id="tbody_arr">
           <?php
+          $i = ($page_number - 1) * 20;
           if ($rows_data) {
             foreach ($rows_data as $row_data) {
               $alternate = (!isset($alternate) || $alternate == 'class="alternate"') ? '' : 'class="alternate"';
@@ -658,7 +676,8 @@ class BWGViewGalleries_bwg {
               ?>
               <tr id="tr_<?php echo $row_data->id; ?>" <?php echo $alternate; ?>>
                 <td class="connectedSortable table_small_col"><div title="Drag to re-order" class="handle" style="margin:5px auto 0 auto;"></div></td>
-                <td class="table_small_col check-column"><input id="check_<?php echo $row_data->id; ?>" name="check_<?php echo $row_data->id; ?>" type="checkbox" /></td>
+                <td class="table_small_col check-column"><input id="check_<?php echo $row_data->id; ?>" name="check_<?php echo $row_data->id; ?>" onclick="spider_check_all(this)" type="checkbox" /></td>
+                <td class="table_small_col"><?php echo ++$i; ?></td>
                 <td class="table_extra_large_col">
                   <a class="thickbox thickbox-preview" title="<?php echo $row_data->filename; ?>" href="<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display'/*thumb_display*/, 'image_id' => $row_data->id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>">
                     <img id="image_thumb_<?php echo $row_data->id; ?>" class="thumb" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $row_data->thumb_url . '?date=' . date('Y-m-y H:i:s'); ?>">

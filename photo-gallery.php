@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -23,7 +23,7 @@ else {
 function bwg_options_panel() {
   $galleries_page = add_menu_page('Photo Gallery', 'Photo Gallery', 'publish_posts', 'galleries_bwg', 'bw_gallery', WD_BWG_URL . '/images/best-wordpress-gallery.png');
 
-  $galleries_page = add_submenu_page('galleries_bwg', 'Galleries', 'Galleries', 'publish_posts', 'galleries_bwg', 'bw_gallery');
+  $galleries_page = add_submenu_page('galleries_bwg', 'Add Galleries/Images', 'Add Galleries/Images', 'publish_posts', 'galleries_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $galleries_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $galleries_page, 'bwg_scripts');
 
@@ -2387,7 +2387,7 @@ function bwg_activate() {
     ));
   }
   $version = str_replace('.', '', get_option("wd_bwg_version"));
-  $new_version = 101;
+  $new_version = 107;
   if ($version && $version < $new_version) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     for ($i = $version; $i < $new_version; $i++) {
@@ -2396,10 +2396,10 @@ function bwg_activate() {
         $func_name();
       }
     }
-    update_option("wd_bwg_version", '1.0.1');
+    update_option("wd_bwg_version", '1.0.7');
   }
   else {
-    add_option("wd_bwg_version", '1.0.1', '', 'no');
+    add_option("wd_bwg_version", '1.0.7', '', 'no');
   }
 }
 register_activation_hook(__FILE__, 'bwg_activate');
@@ -2413,7 +2413,7 @@ function bwg_styles() {
 // Plugin scripts.
 function bwg_scripts() {
   wp_enqueue_script('thickbox');
-  wp_enqueue_script('bwg_admin', WD_BWG_URL . '/js/bwg.js', array(), '1.0.0');
+  wp_enqueue_script('bwg_admin', WD_BWG_URL . '/js/bwg.js', array(), get_option("wd_bwg_version"));
   wp_enqueue_script('jquery');
   wp_enqueue_script('jquery-ui-sortable');
 }
@@ -2428,7 +2428,7 @@ function bwg_licensing_styles() {
 
 function bwg_options_scripts() {
   wp_enqueue_script('thickbox');
-  wp_enqueue_script('bwg_admin', WD_BWG_URL . '/js/bwg.js', array(), '1.0.0');
+  wp_enqueue_script('bwg_admin', WD_BWG_URL . '/js/bwg.js', array(), get_option("wd_bwg_version"));
   wp_enqueue_script('jquery');
   wp_enqueue_script('jscolor', WD_BWG_URL . '/js/jscolor/jscolor.js', array(), '1.3.9');
 }
@@ -2438,15 +2438,15 @@ function bwg_front_end_scripts() {
   wp_enqueue_script('jquery-ui-tooltip');
   wp_enqueue_style('jquery-ui', WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css');
 
-  wp_enqueue_script('bwg_frontend', WD_BWG_URL . '/js/bwg_frontend.js', array(), '1.0.0');
+  wp_enqueue_script('bwg_frontend', WD_BWG_URL . '/js/bwg_frontend.js', array(), get_option("wd_bwg_version"));
   wp_enqueue_style('bwg_frontend', WD_BWG_URL . '/css/bwg_frontend.css');
 
   // Styles/Scripts for popup.
-  wp_enqueue_style('font-awesome', WD_BWG_URL . '/css/font-awesome-4.0.1/css/font-awesome.css');
-  wp_enqueue_script('bwg_mCustomScrollbar', WD_BWG_URL . '/js/jquery.mCustomScrollbar.concat.min.js', array(), '1.0.0');
+  wp_enqueue_style('font-awesome', WD_BWG_URL . '/css/font-awesome-4.0.1/font-awesome.css');
+  wp_enqueue_script('bwg_mCustomScrollbar', WD_BWG_URL . '/js/jquery.mCustomScrollbar.concat.min.js', array(), get_option("wd_bwg_version"));
   wp_enqueue_style('bwg_mCustomScrollbar', WD_BWG_URL . '/css/jquery.mCustomScrollbar.css');
   wp_enqueue_script('jquery-fullscreen', WD_BWG_URL . '/js/jquery.fullscreen-0.4.1.js', array(), '0.4.1');
-  wp_enqueue_script('bwg_gallery_box', WD_BWG_URL . '/js/bwg_gallery_box.js', array(), '1.0.0');
+  wp_enqueue_script('bwg_gallery_box', WD_BWG_URL . '/js/bwg_gallery_box.js', array(), get_option("wd_bwg_version"));
   wp_localize_script('bwg_gallery_box', 'bwg_objectL10n', array(
     'bwg_field_required'  => __('field is required.', 'bwg'),
     'bwg_mail_validation' => __('This is not a valid email address.', 'bwg'),

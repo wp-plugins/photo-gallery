@@ -110,13 +110,14 @@ class BWGControllerGalleries_bwg {
   
   public function image_recover_all() {
     global $wpdb;
+    $gallery_id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
     $options = $wpdb->get_row('SELECT * FROM ' . $wpdb->prefix . 'bwg_option WHERE id=1');
     $thumb_width = $options->thumb_width;
     $thumb_height = $options->thumb_height;    
-    $gal_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_image');
-    foreach ($gal_ids_col as $gal_id) {
-      if (isset($_POST['check_' . $gal_id])) {
-        $this->recover_image($gal_id, $thumb_width, $thumb_height);
+    $image_ids_col = $wpdb->get_col($wpdb->prepare('SELECT id FROM ' . $wpdb->prefix . 'bwg_image WHERE gallery_id="%d"', $gallery_id));
+    foreach ($image_ids_col as $image_id) {
+      if (isset($_POST['check_' . $image_id]) || isset($_POST['check_all_items'])) {
+        $this->recover_image($image_id, $thumb_width, $thumb_height);
       }
     }
   }
@@ -131,7 +132,7 @@ class BWGControllerGalleries_bwg {
     list($width_orig, $height_orig, $type_orig) = getimagesize($filename);
     $percent = $width_orig / $thumb_width;
     $thumb_height = $height_orig / $percent;
-    
+    ini_set('memory_limit', '-1');
     if ($type_orig == 2) {
       $img_r = imagecreatefromjpeg($filename);
       $dst_r = ImageCreateTrueColor($thumb_width, $thumb_height);
@@ -166,6 +167,7 @@ class BWGControllerGalleries_bwg {
       imagedestroy($img_r);
       imagedestroy($dst_r);
     }
+    ini_restore('memory_limit');
     ?>
     <script language="javascript">
       var image_src = window.parent.document.getElementById("image_thumb_<?php echo $id; ?>").src;
@@ -182,10 +184,16 @@ class BWGControllerGalleries_bwg {
 
   public function image_publish_all() {
     global $wpdb;
-    $gal_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_image');
-    foreach ($gal_ids_col as $gal_id) {
-      if (isset($_POST['check_' . $gal_id])) {
-        $wpdb->update($wpdb->prefix . 'bwg_image', array('published' => 1), array('id' => $gal_id));
+    $gallery_id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
+    if (isset($_POST['check_all_items'])) {
+      $wpdb->query($wpdb->prepare('UPDATE ' .  $wpdb->prefix . 'bwg_image SET published=1 WHERE gallery_id="%d"', $gallery_id));
+    }
+    else {
+      $image_ids_col = $wpdb->get_col($wpdb->prepare('SELECT id FROM ' . $wpdb->prefix . 'bwg_image WHERE gallery_id="%d"', $gallery_id));
+      foreach ($image_ids_col as $image_id) {
+        if (isset($_POST['check_' . $image_id])) {
+          $wpdb->update($wpdb->prefix . 'bwg_image', array('published' => 1), array('id' => $image_id));
+        }
       }
     }
   }
@@ -198,10 +206,16 @@ class BWGControllerGalleries_bwg {
 
   public function image_unpublish_all() {
     global $wpdb;
-    $gal_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_image');
-    foreach ($gal_ids_col as $gal_id) {
-      if (isset($_POST['check_' . $gal_id])) {
-        $wpdb->update($wpdb->prefix . 'bwg_image', array('published' => 0), array('id' => $gal_id));
+    $gallery_id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
+    if (isset($_POST['check_all_items'])) {
+      $wpdb->query($wpdb->prepare('UPDATE ' .  $wpdb->prefix . 'bwg_image SET published=0 WHERE gallery_id="%d"', $gallery_id));
+    }
+    else {
+      $image_ids_col = $wpdb->get_col($wpdb->prepare('SELECT id FROM ' . $wpdb->prefix . 'bwg_image WHERE gallery_id="%d"', $gallery_id));
+      foreach ($image_ids_col as $image_id) {
+        if (isset($_POST['check_' . $image_id])) {
+          $wpdb->update($wpdb->prefix . 'bwg_image', array('published' => 0), array('id' => $image_id));
+        }
       }
     }
   }
@@ -223,9 +237,10 @@ class BWGControllerGalleries_bwg {
 
   public function image_delete_all() {
     global $wpdb;
-    $image_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_image');
+    $gallery_id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
+    $image_ids_col = $wpdb->get_col($wpdb->prepare('SELECT id FROM ' . $wpdb->prefix . 'bwg_image WHERE gallery_id="%d"', $gallery_id));
     foreach ($image_ids_col as $image_id) {
-      if (isset($_POST['check_' . $image_id])) {
+      if (isset($_POST['check_' . $image_id]) || isset($_POST['check_all_items'])) {
         $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image WHERE id="%d"', $image_id));
         $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_comment WHERE image_id="%d"', $image_id));
         $tag_ids = $wpdb->get_col($wpdb->prepare('SELECT tag_id FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE image_id="%d"', $image_id));
@@ -244,17 +259,17 @@ class BWGControllerGalleries_bwg {
     global $wpdb;
     global $WD_BWG_UPLOAD_DIR;
     $options = $wpdb->get_row('SELECT * FROM ' . $wpdb->prefix . 'bwg_option WHERE id=1');
+    $gallery_id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
+    $images = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE gallery_id="%d"', $gallery_id));
     switch ($options->built_in_watermark_type) {
       case 'text':
-        $images = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'bwg_image');
         foreach ($images as $image) {
-          if (isset($_POST['check_' . $image->id])) {
+          if (isset($_POST['check_' . $image->id]) || isset($_POST['check_all_items'])) {
             $this->set_text_watermark(ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, $options->built_in_watermark_text, $options->built_in_watermark_font, $options->built_in_watermark_font_size, '#' . $options->built_in_watermark_color, $options->built_in_watermark_opacity, $options->built_in_watermark_position);
           }
         }
         break;
       case 'image':
-        $images = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'bwg_image');
         foreach ($images as $image) {
           if (isset($_POST['check_' . $image->id])) {
             $this->set_image_watermark (ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, $options->built_in_watermark_url, $options->built_in_watermark_size, $options->built_in_watermark_size, $options->built_in_watermark_position);
@@ -321,7 +336,7 @@ class BWGControllerGalleries_bwg {
         $left = ($width - $watermark_sizes['width']) / 2;
         break;
     }
-
+    ini_set('memory_limit', '-1');
     if ($type == 2) {
       $image = imagecreatefromjpeg($original_filename);
       imagettftext($image, $watermark_font_size, 0, $left, $top, $watermark_color, $watermark_font, $watermark_text);
@@ -348,6 +363,7 @@ class BWGControllerGalleries_bwg {
       imagedestroy($image);
     }
     imagedestroy($watermark_image);
+    ini_restore('memory_limit');
   }
 
   function set_image_watermark ($original_filename, $dest_filename, $watermark_url, $watermark_height, $watermark_width, $watermark_position) {
@@ -376,7 +392,7 @@ class BWGControllerGalleries_bwg {
         $left = ($width - $watermark_width) / 2;
         break;
     }
-    
+    ini_set('memory_limit', '-1');
     if ($type_watermark == 2) {
       $watermark_image = imagecreatefromjpeg($watermark_url);        
     }
@@ -425,6 +441,7 @@ class BWGControllerGalleries_bwg {
       imagedestroy($tempimage);
     }
     imagedestroy($watermark_image);
+    ini_restore('memory_limit');
   }
 
   public function save_image_db() {
@@ -701,7 +718,7 @@ class BWGControllerGalleries_bwg {
     $flag = FALSE;
     $gal_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_gallery');
     foreach ($gal_ids_col as $gal_id) {
-      if (isset($_POST['check_' . $gal_id])) {
+      if (isset($_POST['check_' . $gal_id]) || isset($_POST['check_all_items'])) {
         $flag = TRUE;
         $query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_gallery WHERE id="%d"', $gal_id);
         $wpdb->query($query);
@@ -735,11 +752,17 @@ class BWGControllerGalleries_bwg {
   public function publish_all() {
     global $wpdb;
     $flag = FALSE;
-    $gal_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_gallery');
-    foreach ($gal_ids_col as $gal_id) {
-      if (isset($_POST['check_' . $gal_id])) {
-        $flag = TRUE;
-        $wpdb->update($wpdb->prefix . 'bwg_gallery', array('published' => 1), array('id' => $gal_id));
+    if (isset($_POST['check_all_items'])) {
+      $wpdb->query('UPDATE ' .  $wpdb->prefix . 'bwg_gallery SET published=1');
+      $flag = TRUE;
+    }
+    else {
+      $gal_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_gallery');
+      foreach ($gal_ids_col as $gal_id) {
+        if (isset($_POST['check_' . $gal_id])) {
+          $flag = TRUE;
+          $wpdb->update($wpdb->prefix . 'bwg_gallery', array('published' => 1), array('id' => $gal_id));
+        }
       }
     }
     if ($flag) {
@@ -766,11 +789,17 @@ class BWGControllerGalleries_bwg {
   public function unpublish_all() {
     global $wpdb;
     $flag = FALSE;
-    $gal_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_gallery');
-    foreach ($gal_ids_col as $gal_id) {
-      if (isset($_POST['check_' . $gal_id])) {
-        $flag = TRUE;
-        $wpdb->update($wpdb->prefix . 'bwg_gallery', array('published' => 0), array('id' => $gal_id));
+    if (isset($_POST['check_all_items'])) {
+      $wpdb->query('UPDATE ' .  $wpdb->prefix . 'bwg_gallery SET published=0');
+      $flag = TRUE;
+    }
+    else {
+      $gal_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_gallery');
+      foreach ($gal_ids_col as $gal_id) {
+        if (isset($_POST['check_' . $gal_id])) {
+          $flag = TRUE;
+          $wpdb->update($wpdb->prefix . 'bwg_gallery', array('published' => 0), array('id' => $gal_id));
+        }
       }
     }
     if ($flag) {

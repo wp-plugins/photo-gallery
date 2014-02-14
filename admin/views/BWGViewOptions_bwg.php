@@ -69,11 +69,7 @@ class BWGViewOptions_bwg {
     );
     $effects = array(
       'none' => 'None',
-      'cubeH' => 'Cube Horizontal',
       'fade' => 'Fade',
-      'sliceV' => 'Slice Vertical',
-      'scaleOut' => 'Scale Out',
-      'blindH' => 'Blind Horizontal',
     );
     ?>
     <form method="post" class="wrap" action="admin.php?page=options_bwg" style="float: left; width: 95%;">      

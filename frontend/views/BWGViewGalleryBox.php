@@ -35,7 +35,7 @@ class BWGViewGalleryBox {
     $thumb_height = (isset($_GET['thumb_height']) ? esc_html($_GET['thumb_height']) : 90);
     $image_width = (isset($_GET['image_width']) ? esc_html($_GET['image_width']) : 800);
     $image_height = (isset($_GET['image_height']) ? esc_html($_GET['image_height']) : 500);
-    $image_effect = (isset($_GET['image_effect']) ? esc_html($_GET['image_effect']) : 'fade');
+    $image_effect = ((isset($_GET['image_effect']) && esc_html($_GET['image_effect'])) ? esc_html($_GET['image_effect']) : 'fade');
     $sort_by = (isset($_GET['sort_by']) ? esc_html($_GET['sort_by']) : 'order');
     $enable_image_filmstrip = FALSE;
     $enable_image_fullscreen = (isset($_GET['enable_image_fullscreen']) ? esc_html($_GET['enable_image_fullscreen']) : 0);

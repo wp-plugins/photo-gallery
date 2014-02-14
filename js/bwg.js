@@ -13,61 +13,57 @@ function save_tag(tag_id) {
   var datas = "tagname="+tagname+"&"+"slug="+slug+"&"+"tag_id="+tag_id;
   var td_check,td_name,td_slug,td_count,td_edit,td_delete,massege;
   
- jQuery.ajax({ 
-  type: "POST",  
-  url: ajax_url + "=bwg_edit_tag",  
-  data: datas,  
-  success: function(html){
-  var tagname_slug=html;		
-  var array = tagname_slug.split(".");
-  if(array[0]=="The slug must be unique."){massege=array[0];}
-  
-  else { massege="Item Succesfully Saved.";
-  
-  jQuery("#td_check_" + tag_id).attr('class', 'table_small_col check-column');
-  td_check='<input id="check_'+tag_id+'" name="check_'+tag_id+'" type="checkbox" />';
-  jQuery("#td_check_" + tag_id).html(td_check);
-  
-  jQuery("#td_id_" + tag_id).attr('class', 'table_small_col');
-  jQuery("#td_id_" + tag_id).html(tag_id);
-  
-  jQuery("#td_name_" + tag_id).removeClass();
-  td_name='<a class="pointer" id="name'+tag_id+'" onclick="edit_tag('+tag_id+')"  title="Edit">'+array[0]+'</a>';
-  jQuery("#td_name_" + tag_id).html(td_name); 
-  
-  jQuery("#td_slug_" + tag_id).removeClass();
-  td_slug='<a class="pointer" id="slug'+tag_id+'" onclick="edit_tag('+tag_id+')"  title="Edit">'+array[1]+'</a>';
-  jQuery("#td_slug_" + tag_id).html(td_slug);
-  
-  jQuery("#td_count_" + tag_id).attr('class', 'table_big_col');
-  td_count='<a class="pointer" id="count'+tag_id+'" onclick="edit_tag('+tag_id+')"  title="Edit">'+array[2]+'</a>';
-  jQuery("#td_count_" + tag_id).html(td_count);
-  
-  td_edit='<a class="pointer" onclick="edit_tag('+tag_id+')" >Edit</a>';
-  jQuery("#td_edit_" + tag_id).html(td_edit);
+  jQuery.ajax({
+    type: "POST",  
+    url: ajax_url + "=bwg_edit_tag",  
+    data: datas,  
+    success: function(html) {
+      var tagname_slug=html;		
+      var array = tagname_slug.split(".");
+      if (array[0] == "The slug must be unique.") {
+        massege = array[0];
+      }
+      else {
+        massege = "Item Succesfully Saved.";
+        jQuery("#td_check_" + tag_id).attr('class', 'table_small_col check-column');
+        td_check='<input id="check_'+tag_id+'" name="check_'+tag_id+'" type="checkbox" />';
+        jQuery("#td_check_" + tag_id).html(td_check);
+        jQuery("#td_id_" + tag_id).attr('class', 'table_small_col');
+        jQuery("#td_id_" + tag_id).html(tag_id);
+        jQuery("#td_name_" + tag_id).removeClass();
+        td_name='<a class="pointer" id="name'+tag_id+'" onclick="edit_tag('+tag_id+')"  title="Edit">'+array[0]+'</a>';
+        jQuery("#td_name_" + tag_id).html(td_name); 
+        jQuery("#td_slug_" + tag_id).removeClass();
+        td_slug='<a class="pointer" id="slug'+tag_id+'" onclick="edit_tag('+tag_id+')"  title="Edit">'+array[1]+'</a>';
+        jQuery("#td_slug_" + tag_id).html(td_slug);
+        jQuery("#td_count_" + tag_id).attr('class', 'table_big_col');
+        td_count='<a class="pointer" id="count'+tag_id+'" onclick="edit_tag('+tag_id+')"  title="Edit">'+array[2]+'</a>';
+        jQuery("#td_count_" + tag_id).html(td_count);
+        td_edit='<a class="pointer" onclick="edit_tag('+tag_id+')" >Edit</a>';
+        jQuery("#td_edit_" + tag_id).html(td_edit);
 
-  var func1="spider_set_input_value('task', 'delete');";
-  var func2="spider_set_input_value('current_id', "+tag_id+");";
-  var func3="spider_form_submit('event', 'tags_form')";
-  td_delete='<a class="pointer" onclick="'+func1+func2+func3+'" >Delete</a>';
-  jQuery("#td_delete_" + tag_id).html(td_delete);
-  }
-  if((jQuery( ".updated" ) && jQuery( ".updated" ).attr("id")!='wordpress_message_2' ) || (jQuery( ".error" ) && jQuery( ".error" ).css("display")=="block"))
-  {
-  if(jQuery( ".updated" ) && jQuery( ".updated" ).attr("id")!='wordpress_message_2' ){
-  jQuery(".updated").html("<strong><p>"+massege+"</p></strong>"); 
-  }
-  else {
-  jQuery(".error").html("<strong><p>"+massege+"</p></strong>"); 
-  jQuery(".error").attr('class', 'updated');
-  }
-  }
-  else {
-  jQuery( "#wordpress_message_1" ).css("display","block")
-  }
-  }  
-});
+        var func1="spider_set_input_value('task', 'delete');";
+        var func2="spider_set_input_value('current_id', "+tag_id+");";
+        var func3="spider_form_submit('event', 'tags_form')";
+        td_delete='<a class="pointer" onclick="'+func1+func2+func3+'" >Delete</a>';
+        jQuery("#td_delete_" + tag_id).html(td_delete);
+      }
+      if ((jQuery( ".updated" ) && jQuery( ".updated" ).attr("id")!='wordpress_message_2' ) || (jQuery( ".error" ) && jQuery( ".error" ).css("display")=="block")) {
+        if (jQuery( ".updated" ) && jQuery( ".updated" ).attr("id")!='wordpress_message_2' ){
+          jQuery(".updated").html("<strong><p>"+massege+"</p></strong>"); 
+        }
+        else {
+          jQuery(".error").html("<strong><p>"+massege+"</p></strong>"); 
+          jQuery(".error").attr('class', 'updated');
+        }
+      }
+      else {
+        jQuery("#wordpress_message_1").css("display", "block");
+      }
+    }  
+  });
 }
+
 function spider_ajax_save(form_id) {
   var search_value = jQuery("#search_value").val();
   var current_id = jQuery("#current_id").val();
@@ -90,9 +86,16 @@ function spider_ajax_save(form_id) {
   post_data["task"] = "ajax_search";
   post_data["ajax_task"] = ajax_task;
   post_data["image_current_id"] = image_current_id;
+  var flag = false;
+  if (jQuery("#check_all_items").attr('checked') == 'checked') {
+    post_data["check_all_items"] = jQuery("#check_all_items").val();
+    flag = true;
+    jQuery('#check_all_items').attr('checked', false);
+  }
   for (var i in ids_array) {
     if (jQuery("#check_" + ids_array[i]).attr('checked') == 'checked') {
       post_data["check_" + ids_array[i]] = jQuery("#check_" + ids_array[i]).val();
+      flag = true;
     }
     post_data["input_filename_" + ids_array[i]] = jQuery("#input_filename_" + ids_array[i]).val();
     post_data["image_url_" + ids_array[i]] = jQuery("#image_url_" + ids_array[i]).val();
@@ -137,20 +140,20 @@ function spider_ajax_save(form_id) {
       else if (ajax_task == 'image_publish') {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Published.</p></strong>");
       }
-      else if (ajax_task == 'image_publish_all') {
-        jQuery('#draganddrop').html("<strong><p>Items Succesfully Published.</p></strong>");
-      }
-      else if (ajax_task == 'image_unpublish') {
-        jQuery('#draganddrop').html("<strong><p>Item Succesfully Unpublished.</p></strong>");
-      }
-      else if (ajax_task == 'image_unpublish_all') {
-        jQuery('#draganddrop').html("<strong><p>Items Succesfully Unpublished.</p></strong>");
-      }
       else if (ajax_task == 'image_unpublish') {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Unpublished.</p></strong>");
       }
       else if (ajax_task == 'image_delete') {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Deleted.</p></strong>");
+      }
+      else if (!flag && ((ajax_task == 'image_publish_all') || (ajax_task == 'image_unpublish_all') || (ajax_task == 'image_delete_all') || (ajax_task == 'image_set_watermark') || (ajax_task == 'image_recover_all'))) {
+        jQuery('#draganddrop').html("<strong><p>You must select at least one item.</p></strong>");
+      }
+      else if (ajax_task == 'image_publish_all') {
+        jQuery('#draganddrop').html("<strong><p>Items Succesfully Published.</p></strong>");
+      }
+      else if (ajax_task == 'image_unpublish_all') {
+        jQuery('#draganddrop').html("<strong><p>Items Succesfully Unpublished.</p></strong>");
       }
       else if (ajax_task == 'image_delete_all') {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Deleted.</p></strong>");
@@ -311,6 +314,32 @@ function spider_show_hide_weights() {
     jQuery("#th_order").hide(0);
     jQuery("#tbody_arr").find(".spider_order").hide(0);
     jQuery("#show_hide_weights").val("Show order column");
+  }
+}
+
+// Check all items.
+function spider_check_all_items() {
+  spider_check_all_items_checkbox();
+  // if (!jQuery('#check_all').attr('checked')) {
+    jQuery('#check_all').trigger('click');
+  // }
+}
+function spider_check_all_items_checkbox() {
+  if (jQuery('#check_all_items').attr('checked')) {
+    jQuery('#check_all_items').attr('checked', false);
+    jQuery('#draganddrop').hide();
+  }
+  else {
+    jQuery('#check_all_items').attr('checked', true);
+    jQuery('#draganddrop').html("<strong><p>Selected all " + jQuery(".displaying-num").html() + ".</p></strong>");
+    jQuery('#draganddrop').show();
+  }
+}
+
+function spider_check_all(current) {
+  if (!jQuery(current).attr('checked')) {
+    jQuery('#check_all_items').attr('checked', false);
+    jQuery('#draganddrop').hide();
   }
 }
 

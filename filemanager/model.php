@@ -65,14 +65,14 @@ class FilemanagerModel {
       // if (isset($_REQUEST[$key])) {
         if (isset($_REQUEST[$key])) {
           // $_SESSION[$key] = $_REQUEST[$key];
-          $_REQUEST[$key] = $_REQUEST[$key];
+          $_REQUEST[$key] = stripslashes($_REQUEST[$key]);
         }
         else {
           // $_SESSION[$key] = $default;
-          $_REQUEST[$key] = $default;
+          $_REQUEST[$key] = stripslashes($default);
         }
         // return $_SESSION[$key];
-        return $_REQUEST[$key];
+        return stripslashes($_REQUEST[$key]);
       // }
       // return '';
     }

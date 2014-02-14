@@ -54,6 +54,10 @@ class BWGViewAlbums_bwg {
       </h2>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table shoud be saved.</p></strong></div>
       <div class="buttons_div">
+        <span class="button non_selectable" onclick="spider_check_all_items()">
+          <input type="checkbox" id="check_all_items" name="check_all_items" onclick="spider_check_all_items_checkbox()" style="margin: 0; vertical-align: middle;" />
+          <span style="vertical-align: middle;">Select All</span>
+        </span>
         <input id="show_hide_weights"  class="button" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
         <input class="button" type="submit" onclick="spider_set_input_value('task', 'save_order')" value="Save Order" />
         <input class="button" type="submit" onclick="spider_set_input_value('task', 'publish_all')" value="Publish" />
@@ -73,7 +77,7 @@ class BWGViewAlbums_bwg {
       <table class="wp-list-table widefat fixed pages">
         <thead>
           <th class="table_small_col"></th>
-          <th class="manage-column column-cb check-column table_small_col"><input id="check_all" type="checkbox" style="margin:0;" /></th>
+          <th class="manage-column column-cb check-column table_small_col"><input id="check_all" onclick="spider_check_all(this)" type="checkbox" style="margin:0;" /></th>
           <th class="table_small_col <?php if ($order_by == 'id') {echo $order_class;} ?>">
             <a onclick="spider_set_input_value('task', '');
                         spider_set_input_value('order_by', 'id');
@@ -142,7 +146,7 @@ class BWGViewAlbums_bwg {
               ?>
               <tr id="tr_<?php echo $row_data->id; ?>" <?php echo $alternate; ?>>
                 <td class="connectedSortable table_small_col"><div class="handle" style="margin:5px auto 0 auto;" title="Drag to re-order"></div></td>
-                <td class="table_small_col check-column"><input id="check_<?php echo $row_data->id; ?>" name="check_<?php echo $row_data->id; ?>" type="checkbox" /></td>
+                <td class="table_small_col check-column"><input id="check_<?php echo $row_data->id; ?>" name="check_<?php echo $row_data->id; ?>" onclick="spider_check_all(this)" type="checkbox" /></td>
                 <td class="table_small_col"><?php echo $row_data->id; ?></td>                
                 <td><a onclick="spider_set_input_value('task', 'edit');
                                 spider_set_input_value('current_id', '<?php echo $row_data->id; ?>');

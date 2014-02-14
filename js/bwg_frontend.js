@@ -37,7 +37,7 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     display: 'table-cell'
   });
   jQuery.post(
-    ((jQuery.browser.msie) ? window.location : jQuery('#' + form_id).attr('action')),
+    window.location,
     post_data,
     function (data) {
       var str = jQuery(data).find('#' + id).parent().html();
