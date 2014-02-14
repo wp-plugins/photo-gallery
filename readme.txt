@@ -62,7 +62,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Social sharing possibility (Facebook, Google+, Twitter) (commercial version)  
 *   Dynamic Photo Gallery Tag Cloud widget  with image tag cloud and text tag cloud options(commercial version)  
 *   WordPress Tag cloud hosted widget  
-*   Photo Gallery Slideshow widget with 5 special effects (15 effects with commercial version)  
+*   Photo Gallery Slideshow widget (15 effects with commercial version)  
 *   Photo Gallery Widget for displaying albums and galleries as widgets
 ### Supported languages 
 
