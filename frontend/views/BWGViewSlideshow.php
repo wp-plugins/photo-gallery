@@ -145,8 +145,7 @@ class BWGViewSlideshow {
         -moz-backface-visibility: hidden;
         -ms-backface-visibility: hidden;*/
       }
-
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_wrap_<?php echo $bwg; ?> {
+#bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_wrap_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->slideshow_cont_bg_color; ?>;
         border-collapse: collapse;
         display: table;
@@ -229,17 +228,14 @@ class BWGViewSlideshow {
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?> {
         right: 0;
       }
-      
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover,
+     #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover,
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?>:hover {
         visibility: visible;
       }
-      
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover span {
+     #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover span {
         left: 20px;
       }
-
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?>:hover span {
+  #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?>:hover span {
         left: auto;
         right: 20px;
       }
@@ -279,8 +275,7 @@ class BWGViewSlideshow {
         color: #<?php echo $theme_row->slideshow_close_rl_btn_hover_color; ?>;
         cursor: pointer;
       }
-      
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_container_<?php echo $bwg; ?> {
+     #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_container_<?php echo $bwg; ?> {
         display: table;
         position: absolute;
         text-align: center;
@@ -289,7 +284,6 @@ class BWGViewSlideshow {
         width: <?php echo $image_width; ?>px;
         height: <?php echo $image_height; ?>px;
       }
-      
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_filmstrip_container_<?php echo $bwg; ?> {
         display: table;
         height: <?php echo $slideshow_filmstrip_height; ?>px;
@@ -457,13 +451,11 @@ class BWGViewSlideshow {
         word-break: break-word;
         <?php if (!$enable_slideshow_filmstrip && $slideshow_description_position[0] == $theme_row->slideshow_filmstrip_pos) echo $theme_row->slideshow_filmstrip_pos . ':' . ($theme_row->slideshow_dots_height + 4) . 'px;'; ?>        
       }
-      
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_description_text_<?php echo $bwg; ?> * {
+     #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_description_text_<?php echo $bwg; ?> * {
         text-decoration: none;
         color: #<?php echo $theme_row->slideshow_description_color; ?> !important;                
       }
-
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slide_container_<?php echo $bwg; ?> {
+  #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slide_container_<?php echo $bwg; ?> {
         display: table-cell;
         margin: 0 auto;
         position: absolute;
@@ -512,8 +504,7 @@ class BWGViewSlideshow {
         filter: Alpha(opacity=100);
         position: absolute;
       }
-
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_<?php echo $bwg; ?> {
+ #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_<?php echo $bwg; ?> {
         display: inline-block;
         position: relative;
         width: <?php echo $theme_row->slideshow_dots_width; ?>px;
@@ -525,8 +516,7 @@ class BWGViewSlideshow {
         overflow: hidden;
         z-index: 17;
       }
-
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_container_<?php echo $bwg; ?> {
+ #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_container_<?php echo $bwg; ?> {
         display: block;
         overflow: hidden;
         position: absolute;
@@ -625,10 +615,7 @@ class BWGViewSlideshow {
                   <span class="bwg_slideshow_image_span_<?php echo $bwg; ?>" id="image_id_<?php echo $bwg; ?>_<?php echo $image_row->id; ?>">
                     <span class="bwg_slideshow_image_span1_<?php echo $bwg; ?>">
                       <span class="bwg_slideshow_image_span2_<?php echo $bwg; ?>">
-                        <img id="bwg_slideshow_image_<?php echo $bwg; ?>"
-                             class="bwg_slideshow_image_<?php echo $bwg; ?>"
-                             src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>"
-                             image_id="<?php echo $image_row->id; ?>" />
+                        <img id="bwg_slideshow_image_<?php echo $bwg; ?>" class="bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
                       </span>
                     </span>
                   </span>
@@ -640,9 +627,7 @@ class BWGViewSlideshow {
                   <span class="bwg_slideshow_image_second_span_<?php echo $bwg; ?>" id="image_id_<?php echo $bwg; ?>_<?php echo $image_row->id; ?>">
                     <span class="bwg_slideshow_image_span1_<?php echo $bwg; ?>">
                       <span class="bwg_slideshow_image_span2_<?php echo $bwg; ?>">
-                        <img id="bwg_slideshow_image_second_<?php echo $bwg; ?>"
-                             class="bwg_slideshow_image_<?php echo $bwg; ?>"
-                             src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" />
+                        <img id="bwg_slideshow_image_second_<?php echo $bwg; ?>"  class="bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" />
                       </span>
                     </span>
                   </span>

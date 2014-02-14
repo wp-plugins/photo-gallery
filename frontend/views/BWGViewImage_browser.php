@@ -162,8 +162,7 @@ class BWGViewImage_browser {
 				height: inherit !important;
 				width: 100%;				
       }
-
-      @media only screen and (max-width : 320px) {
+ @media only screen and (max-width : 320px) {
 				#bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .displaying-num_<?php echo $bwg; ?> {
 				  display: none;
 				}
@@ -201,8 +200,7 @@ class BWGViewImage_browser {
 				  font-size: 10px !important;
 				}				
       }
-
-      /*pagination styles*/
+ /*pagination styles*/
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .tablenav-pages_<?php echo $bwg; ?> {
 				text-align: <?php echo $theme_row->page_nav_align; ?>;
 				font-size: <?php echo $theme_row->page_nav_font_size; ?>px;
@@ -419,10 +417,7 @@ class BWGViewImage_browser {
                       }
                       ?>
                       <a style="position:relative;" href="javascript:spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);">
-                        <img class="bwg_image_browser_img_<?php echo $bwg; ?>"
-                             src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>"
-                             alt="<?php echo $image_row->alt; ?>"
-                             title="<?php echo $image_row->alt; ?>" />
+                        <img class="bwg_image_browser_img_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" title="<?php echo $image_row->alt; ?>" />
                       </a>
                     <script>	
                       setTimeout(function(){

@@ -299,8 +299,7 @@ class BWGViewAlbum_compact_preview {
         word-break: break-all;
         word-wrap: break-word;
       }
-
-      /*Pagination styles.*/
+  /*Pagination styles.*/
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .tablenav-pages_<?php echo $bwg; ?> {
         text-align: <?php echo $theme_row->page_nav_align; ?>;
         font-size: <?php echo $theme_row->page_nav_font_size; ?>px;
@@ -357,8 +356,7 @@ class BWGViewAlbum_compact_preview {
         box-shadow: <?php echo $theme_row->page_nav_box_shadow; ?>;
         <?php echo ($theme_row->page_nav_button_transition ) ? 'transition: all 0.3s ease 0s;-webkit-transition: all 0.3s ease 0s;' : ''; ?>
       }
-
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_back_<?php echo $bwg; ?> {
+ #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_back_<?php echo $bwg; ?> {
         background-color: rgba(0, 0, 0, 0);
         color: #<?php echo $theme_row->album_compact_back_font_color; ?> !important;
         cursor: pointer;
@@ -369,8 +367,7 @@ class BWGViewAlbum_compact_preview {
         text-decoration: none;
         padding: <?php echo $theme_row->album_compact_back_padding; ?>;
       }
-
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_popup_overlay_<?php echo $bwg; ?> {
+ #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_popup_overlay_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->lightbox_overlay_bg_color; ?>;
         opacity: <?php echo $theme_row->lightbox_overlay_bg_transparent / 100; ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_overlay_bg_transparent; ?>);
@@ -450,8 +447,7 @@ class BWGViewAlbum_compact_preview {
                       <span class="bwg_album_thumb_<?php echo $bwg; ?>">
                         <span class="bwg_album_thumb_span1_<?php echo $bwg; ?>">
                           <span class="bwg_album_thumb_span2_<?php echo $bwg; ?>">
-                            <img style="padding: 0 !important; max-height: none !important; max-width: none !important; width: <?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;"
-                                 src="<?php echo $preview_url; ?>" />
+                            <img style="padding: 0 !important; max-height: none !important; max-width: none !important; width: <?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" src="<?php echo $preview_url; ?>" />
                             <?php
                             if ($params['compuct_album_title'] == 'hover') {
                               ?>
@@ -540,11 +536,7 @@ class BWGViewAlbum_compact_preview {
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_span1_<?php echo $bwg; ?>">
                         <span class="bwg_standart_thumb_span2_<?php echo $bwg; ?>">
-                          <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;"
-                               id="<?php echo $image_row->id; ?>"
-                               src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>"
-                               alt="<?php echo $image_row->alt; ?>"
-                               title="<?php echo $image_row->alt; ?>" />
+                          <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>"  src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" title="<?php echo $image_row->alt; ?>" />
                           <?php
                           if ($params['compuct_album_image_title'] == 'hover') {
                             ?>

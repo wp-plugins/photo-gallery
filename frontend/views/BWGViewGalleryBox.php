@@ -414,8 +414,7 @@ class BWGViewGalleryBox {
       .bwg_google {
         color: #<?php echo $theme_row->lightbox_comment_share_button_color; ?>;
       }
-
-      .bwg_image_container {
+.bwg_image_container {
         display: table;
         position: absolute;
         text-align: center;
@@ -423,7 +422,6 @@ class BWGViewGalleryBox {
         vertical-align: middle;
         width: 100%;
       }
-      
       .bwg_filmstrip_container {
         display: table;
         height: <?php echo $image_filmstrip_height; ?>px;
@@ -661,10 +659,7 @@ class BWGViewGalleryBox {
               <span class="bwg_popup_image_span" id="image_id_<?php echo $image_row->id; ?>">
                 <span class="bwg_popup_image_span1" style="display: table; width: inherit; height: inherit;">
                   <span class="bwg_popup_image_span2" style="display: table-cell; vertical-align: middle; text-align: center;">
-                    <img id="bwg_popup_image"
-                         class="bwg_popup_image"
-                         src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>"
-                         image_id="<?php echo $image_row->id; ?>" />
+                    <img id="bwg_popup_image" class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
                   </span>
                 </span>
               </span>
@@ -682,9 +677,7 @@ class BWGViewGalleryBox {
               <span class="bwg_popup_image_second_span" id="image_id_<?php echo $image_row->id; ?>">
                 <span class="bwg_popup_image_span1" style="display: table; width: inherit; height: inherit;">
                   <span class="bwg_popup_image_span2" style="display: table-cell; vertical-align: middle; text-align: center;">
-                    <img id="bwg_popup_image_second"
-                         class="bwg_popup_image"
-                         src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" />
+                    <img id="bwg_popup_image_second" class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" />
                   </span>
                 </span>
               </span>
