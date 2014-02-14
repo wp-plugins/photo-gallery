@@ -45,7 +45,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Multiple views to choose from:  Masonry, Thumbnails, Image Browser, Slideshow and Blog Style for galleries and Compact Album, Extended Album views for albums   
 *   Supports the following types of image files:  JPG, JPEG, PNG and GIF   
 *   Editable themes for changing different features, colors and dimensions   
-*   unlimited quantity of photos    
+*   Unlimited quantity of photos    
 *   Possibility of adding unlimited quantity of galleries/albums   
 *   Detailed three-column visual shortcode for adding created gallery/galleries and album/albums into the posts and pages.    
 *   Detailed  (Extended) album and compact album view  
@@ -58,7 +58,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Possibility of adding Watermarks/Advertisements for each individual image  
 *   Direct Image download and original image display capabilities   
 *   Commenting possibility with Captcha protection possibility (commercial version)  
-*   Comment-managing possibility  to avoid spamming (Unpublish/Delete) (commercial version)  
+*   Comment-managing possibility to avoid spamming (Unpublish/Delete) (commercial version)  
 *   Social sharing possibility (Facebook, Google+, Twitter) (commercial version)  
 *   Dynamic Photo Gallery Tag Cloud widget  with image tag cloud and text tag cloud options(commercial version)  
 *   WordPress Tag cloud hosted widget  
