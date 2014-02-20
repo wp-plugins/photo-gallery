@@ -59,6 +59,11 @@ function spider_destroypopup(duration) {
     jQuery("html").attr("style", "overflow:auto !important");
   }
   isPopUpOpened = false;
+  var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+  var viewportmeta = document.querySelector('meta[name="viewport"]');
+  if (isMobile && viewportmeta) {
+    viewportmeta.content = 'width=device-width, initial-scale=1';
+  }
 }
 
 // Submit popup.

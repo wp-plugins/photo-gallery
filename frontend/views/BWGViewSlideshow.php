@@ -145,7 +145,7 @@ class BWGViewSlideshow {
         -moz-backface-visibility: hidden;
         -ms-backface-visibility: hidden;*/
       }
-#bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_wrap_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_wrap_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->slideshow_cont_bg_color; ?>;
         border-collapse: collapse;
         display: table;
@@ -228,14 +228,15 @@ class BWGViewSlideshow {
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?> {
         right: 0;
       }
-     #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover,
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover,
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?>:hover {
         visibility: visible;
       }
-     #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover span {
+
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover span {
         left: 20px;
       }
-  #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?>:hover span {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?>:hover span {
         left: auto;
         right: 20px;
       }
@@ -275,7 +276,7 @@ class BWGViewSlideshow {
         color: #<?php echo $theme_row->slideshow_close_rl_btn_hover_color; ?>;
         cursor: pointer;
       }
-     #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_container_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_container_<?php echo $bwg; ?> {
         display: table;
         position: absolute;
         text-align: center;
@@ -451,11 +452,11 @@ class BWGViewSlideshow {
         word-break: break-word;
         <?php if (!$enable_slideshow_filmstrip && $slideshow_description_position[0] == $theme_row->slideshow_filmstrip_pos) echo $theme_row->slideshow_filmstrip_pos . ':' . ($theme_row->slideshow_dots_height + 4) . 'px;'; ?>        
       }
-     #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_description_text_<?php echo $bwg; ?> * {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_description_text_<?php echo $bwg; ?> * {
         text-decoration: none;
         color: #<?php echo $theme_row->slideshow_description_color; ?> !important;                
       }
-  #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slide_container_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slide_container_<?php echo $bwg; ?> {
         display: table-cell;
         margin: 0 auto;
         position: absolute;
@@ -504,7 +505,7 @@ class BWGViewSlideshow {
         filter: Alpha(opacity=100);
         position: absolute;
       }
- #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_<?php echo $bwg; ?> {
         display: inline-block;
         position: relative;
         width: <?php echo $theme_row->slideshow_dots_width; ?>px;
@@ -516,7 +517,7 @@ class BWGViewSlideshow {
         overflow: hidden;
         z-index: 17;
       }
- #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_container_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_container_<?php echo $bwg; ?> {
         display: block;
         overflow: hidden;
         position: absolute;
@@ -541,7 +542,6 @@ class BWGViewSlideshow {
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_deactive_<?php echo $bwg; ?> {
       }
-
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_span1_<?php echo $bwg; ?> {
         display: table; 
         width: inherit; 
@@ -572,7 +572,6 @@ class BWGViewSlideshow {
         data_<?php echo $bwg; ?>["<?php echo $key; ?>"]["date"] = "<?php echo $image_row->date; ?>";
         <?php
       }
-      
       ?>    
     </script>
     <div id="bwg_container1_<?php echo $bwg; ?>">
@@ -591,9 +590,7 @@ class BWGViewSlideshow {
                     $current_key = $key;
                   }
                 ?>
-                <span id="bwg_dots_<?php echo $key; ?>_<?php echo $bwg; ?>" class="bwg_slideshow_dots_<?php echo $bwg; ?> <?php echo (($image_row->id == $current_image_id) ? 'bwg_slideshow_dots_active_' . $bwg : 'bwg_slideshow_dots_deactive_' . $bwg); ?>" onclick="bwg_change_image_<?php echo $bwg; ?>(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), '<?php echo $key; ?>', data_<?php echo $bwg; ?>)"
-                  image_id="<?php echo $image_row->id; ?>"
-                  image_key="<?php echo $key; ?>">
+                <span id="bwg_dots_<?php echo $key; ?>_<?php echo $bwg; ?>" class="bwg_slideshow_dots_<?php echo $bwg; ?> <?php echo (($image_row->id == $current_image_id) ? 'bwg_slideshow_dots_active_' . $bwg : 'bwg_slideshow_dots_deactive_' . $bwg); ?>" onclick="bwg_change_image_<?php echo $bwg; ?>(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), '<?php echo $key; ?>', data_<?php echo $bwg; ?>)" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $key; ?>">
                 </span>
                 <?php
                 }
@@ -627,7 +624,7 @@ class BWGViewSlideshow {
                   <span class="bwg_slideshow_image_second_span_<?php echo $bwg; ?>" id="image_id_<?php echo $bwg; ?>_<?php echo $image_row->id; ?>">
                     <span class="bwg_slideshow_image_span1_<?php echo $bwg; ?>">
                       <span class="bwg_slideshow_image_span2_<?php echo $bwg; ?>">
-                        <img id="bwg_slideshow_image_second_<?php echo $bwg; ?>"  class="bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" />
+                        <img id="bwg_slideshow_image_second_<?php echo $bwg; ?>" class="bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" />
                       </span>
                     </span>
                   </span>
@@ -734,7 +731,6 @@ class BWGViewSlideshow {
             jQuery(".bwg_slideshow_title_span_<?php echo $bwg; ?>").height(height);
             jQuery(".bwg_slideshow_description_span_<?php echo $bwg; ?>").width(width);
             jQuery(".bwg_slideshow_description_span_<?php echo $bwg; ?>").height(height);
-
             jQuery(".bwg_slideshow_watermark_<?php echo $bwg; ?>").css({display: ''});
             if (jQuery.trim(jQuery(".bwg_slideshow_title_text_<?php echo $bwg; ?>").text())) {
               jQuery(".bwg_slideshow_title_text_<?php echo $bwg; ?>").css({display: ''});
@@ -745,7 +741,6 @@ class BWGViewSlideshow {
           }
         });
       }
-
       var bwg_current_key_<?php echo $bwg; ?> = '<?php echo (isset($current_key) ? $current_key : ''); ?>';
       var bwg_current_filmstrip_pos_<?php echo $bwg; ?> = <?php echo $current_pos; ?>;
       // Set filmstrip initial position.
@@ -824,7 +819,6 @@ class BWGViewSlideshow {
           jQuery(".bwg_slideshow_filmstrip_right_<?php echo $bwg; ?>").show();
         }
       }
-
       function bwg_testBrowser_cssTransitions_<?php echo $bwg; ?>() {
         return bwg_testDom_<?php echo $bwg; ?>('Transition');
       }
@@ -853,13 +847,11 @@ class BWGViewSlideshow {
           return bwg_fallback3d_<?php echo $bwg; ?>(current_image_class, next_image_class, direction);
         }
         bwg_trans_in_progress_<?php echo $bwg; ?> = true;
-
         // Set active thumbnail.
         jQuery(".bwg_slideshow_filmstrip_thumbnail_<?php echo $bwg; ?>").removeClass("bwg_slideshow_thumb_active_<?php echo $bwg; ?>").addClass("bwg_slideshow_thumb_deactive_<?php echo $bwg; ?>");
         jQuery("#bwg_filmstrip_thumbnail_" + bwg_current_key_<?php echo $bwg; ?> + "_<?php echo $bwg; ?>").removeClass("bwg_slideshow_thumb_deactive_<?php echo $bwg; ?>").addClass("bwg_slideshow_thumb_active_<?php echo $bwg; ?>");
         jQuery(".bwg_slideshow_dots_<?php echo $bwg; ?>").removeClass("bwg_slideshow_dots_active_<?php echo $bwg; ?>").addClass("bwg_slideshow_dots_deactive_<?php echo $bwg; ?>");
         jQuery("#bwg_dots_" + bwg_current_key_<?php echo $bwg; ?> + "_<?php echo $bwg; ?>").removeClass("bwg_slideshow_dots_deactive_<?php echo $bwg; ?>").addClass("bwg_slideshow_dots_active_<?php echo $bwg; ?>");
-
         jQuery(".bwg_slide_bg_<?php echo $bwg; ?>").css('perspective', 1000);
         jQuery(current_image_class).css({
           transform : 'translateZ(' + tz + 'px)',
@@ -936,7 +928,6 @@ class BWGViewSlideshow {
         jQuery("#bwg_filmstrip_thumbnail_" + bwg_current_key_<?php echo $bwg; ?> + "_<?php echo $bwg; ?>").removeClass("bwg_slideshow_thumb_deactive_<?php echo $bwg; ?>").addClass("bwg_slideshow_thumb_active_<?php echo $bwg; ?>");
         jQuery(".bwg_slideshow_dots_<?php echo $bwg; ?>").removeClass("bwg_slideshow_dots_active_<?php echo $bwg; ?>").addClass("bwg_slideshow_dots_deactive_<?php echo $bwg; ?>");
         jQuery("#bwg_dots_" + bwg_current_key_<?php echo $bwg; ?> + "_<?php echo $bwg; ?>").removeClass("bwg_slideshow_dots_deactive_<?php echo $bwg; ?>").addClass("bwg_slideshow_dots_active_<?php echo $bwg; ?>");
-
         if (bwg_testBrowser_cssTransitions_<?php echo $bwg; ?>()) {
           jQuery(next_image_class).css('transition', 'opacity ' + bwg_transition_duration_<?php echo $bwg; ?> + 'ms linear');
           jQuery(current_image_class).css({'opacity' : 0, 'z-index': 1});
@@ -963,13 +954,11 @@ class BWGViewSlideshow {
           return bwg_fallback_<?php echo $bwg; ?>(current_image_class, next_image_class, direction);
         }
         bwg_trans_in_progress_<?php echo $bwg; ?> = true;
-
         // Set active thumbnail.
         jQuery(".bwg_slideshow_filmstrip_thumbnail_<?php echo $bwg; ?>").removeClass("bwg_slideshow_thumb_active_<?php echo $bwg; ?>").addClass("bwg_slideshow_thumb_deactive_<?php echo $bwg; ?>");
         jQuery("#bwg_filmstrip_thumbnail_" + bwg_current_key_<?php echo $bwg; ?> + "_<?php echo $bwg; ?>").removeClass("bwg_slideshow_thumb_deactive_<?php echo $bwg; ?>").addClass("bwg_slideshow_thumb_active_<?php echo $bwg; ?>");
         jQuery(".bwg_slideshow_dots_<?php echo $bwg; ?>").removeClass("bwg_slideshow_dots_active_<?php echo $bwg; ?>").addClass("bwg_slideshow_dots_deactive_<?php echo $bwg; ?>");
         jQuery("#bwg_dots_" + bwg_current_key_<?php echo $bwg; ?> + "_<?php echo $bwg; ?>").removeClass("bwg_slideshow_dots_deactive_<?php echo $bwg; ?>").addClass("bwg_slideshow_dots_active_<?php echo $bwg; ?>");
-
         // The time (in ms) added to/subtracted from the delay total for each new gridlet.
         var count = (bwg_transition_duration_<?php echo $bwg; ?>) / (cols + rows);
         // Gridlet creator (divisions of the image grid, positioned with background-images to replicate the look of an entire slide image when assembled)
@@ -1099,7 +1088,6 @@ class BWGViewSlideshow {
       function bwg_blindH_<?php echo $bwg; ?>(current_image_class, next_image_class, direction) {
         bwg_grid_<?php echo $bwg; ?>(10, 1, 0, 0, 0, .7, 0, current_image_class, next_image_class);
       }
-
       function iterator_<?php echo $bwg; ?>() {
         var iterator = 1;
         if (<?php echo $enable_slideshow_shuffle; ?>) {
@@ -1107,7 +1095,6 @@ class BWGViewSlideshow {
         }
         return iterator;
       }
-
       function bwg_change_image_<?php echo $bwg; ?>(current_key, key, data_<?php echo $bwg; ?>, from_effect) {
         if (data_<?php echo $bwg; ?>[key]) {
           if (jQuery('.bwg_ctrl_btn_<?php echo $bwg; ?>').hasClass('fa-pause')) {
@@ -1125,7 +1112,6 @@ class BWGViewSlideshow {
             }
             
           }
-
           if (bwg_trans_in_progress_<?php echo $bwg; ?>) {
             event_stack_<?php echo $bwg; ?>.push(current_key + '-' + key);
             return;
@@ -1137,21 +1123,16 @@ class BWGViewSlideshow {
           else if (bwg_current_key_<?php echo $bwg; ?> == key) {
             return;
           }
-
           jQuery(".bwg_slideshow_watermark_<?php echo $bwg; ?>").css({display: 'none'});
           jQuery(".bwg_slideshow_title_text_<?php echo $bwg; ?>").css({display: 'none'});
           jQuery(".bwg_slideshow_description_text_<?php echo $bwg; ?>").css({display: 'none'});
-
           // Set active thumbnail position.
           bwg_current_filmstrip_pos_<?php echo $bwg; ?> = key * (jQuery(".bwg_slideshow_filmstrip_thumbnail_<?php echo $bwg; ?>").width() + 2 + 2 * <?php echo $theme_row->lightbox_filmstrip_thumb_border_width; ?>);
           bwg_current_key_<?php echo $bwg; ?> = key;
-          
-
           // Change image id, title, description.
           jQuery("#bwg_slideshow_image_<?php echo $bwg; ?>").attr('image_id', data_<?php echo $bwg; ?>[key]["id"]);
           jQuery(".bwg_slideshow_title_text_<?php echo $bwg; ?>").text(data_<?php echo $bwg; ?>[key]["alt"]);
           jQuery(".bwg_slideshow_description_text_<?php echo $bwg; ?>").html(jQuery('<div />').html(data_<?php echo $bwg; ?>[key]["description"]).text());
-
           var current_image_class = "#image_id_<?php echo $bwg; ?>_" + data_<?php echo $bwg; ?>[current_key]["id"];
           var next_image_class = "#image_id_<?php echo $bwg; ?>_" + data_<?php echo $bwg; ?>[key]["id"];
           bwg_<?php echo $slideshow_effect; ?>_<?php echo $bwg; ?>(current_image_class, next_image_class, direction);
@@ -1183,11 +1164,9 @@ class BWGViewSlideshow {
           });
           // Set watermark container size.
           bwg_change_watermark_container_<?php echo $bwg; ?>();
-
           jQuery(".bwg_slideshow_filmstrip_container_<?php echo $bwg; ?>").css({width: <?php echo $image_width; ?>});
           jQuery(".bwg_slideshow_filmstrip_<?php echo $bwg; ?>").css({width: (<?php echo $image_width; ?> - 40)});
           jQuery(".bwg_slideshow_dots_container_<?php echo $bwg; ?>").css({width: <?php echo $image_width; ?>});
-
           jQuery("#bwg_slideshow_play_pause-ico_<?php echo $bwg; ?>").css({fontSize: (<?php echo $theme_row->slideshow_play_pause_btn_size; ?>)});
           jQuery(".bwg_slideshow_watermark_image_<?php echo $bwg; ?>").css({maxWidth: <?php echo $watermark_width; ?>, maxHeight: <?php echo $watermark_height; ?>});
           jQuery(".bwg_slideshow_watermark_text_<?php echo $bwg; ?>, .bwg_slideshow_watermark_text_<?php echo $bwg; ?>:hover").css({fontSize: (<?php echo $watermark_font_size; ?>)});
@@ -1206,7 +1185,6 @@ class BWGViewSlideshow {
           });
           // Set watermark container size.
           bwg_change_watermark_container_<?php echo $bwg; ?>();
-
           jQuery(".bwg_slideshow_filmstrip_container_<?php echo $bwg; ?>").css({width: (parent_width)});
           jQuery(".bwg_slideshow_filmstrip_<?php echo $bwg; ?>").css({width: (parent_width - 40)});
           jQuery(".bwg_slideshow_dots_container_<?php echo $bwg; ?>").css({width: (parent_width)});
@@ -1231,7 +1209,6 @@ class BWGViewSlideshow {
         setTimeout(function () {
           bwg_change_watermark_container_<?php echo $bwg; ?>();
         }, 500);
-
         // Set image container height.
         jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").height(jQuery(".bwg_slideshow_image_wrap_<?php echo $bwg; ?>").height() - <?php echo $slideshow_filmstrip_height; ?>);
         
@@ -1286,10 +1263,8 @@ class BWGViewSlideshow {
             }
           }, 500);
         });
-
         // Set filmstrip initial position.
         bwg_set_filmstrip_pos_<?php echo $bwg; ?>(jQuery(".bwg_slideshow_filmstrip_<?php echo $bwg; ?>").width());
-
         // Play/pause.
         jQuery("#bwg_slideshow_play_pause_<?php echo $bwg; ?>").on(bwg_click, function () {
           if (jQuery(".bwg_ctrl_btn_<?php echo $bwg; ?>").hasClass("fa-play")) {
@@ -1310,7 +1285,6 @@ class BWGViewSlideshow {
             }
           }
         });
-
         if (<?php echo $enable_slideshow_autoplay; ?>) {
           play_<?php echo $bwg; ?>();
           jQuery(".bwg_slideshow_play_pause_<?php echo $bwg; ?>").attr("title", "<?php echo __('Pause', 'bwg'); ?>");

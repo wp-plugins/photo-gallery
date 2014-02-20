@@ -36,7 +36,7 @@ class FilemanagerModel {
       $session_data = array();
       $session_data['sort_by'] = $this->get_from_session('sort_by', 'name');
       $session_data['sort_order'] = $this->get_from_session('sort_order', 'asc');
-      $session_data['items_view'] = $this->get_from_session('items_view', 'list');
+      $session_data['items_view'] = $this->get_from_session('items_view', 'thumbs');
       $session_data['clipboard_task'] = $this->get_from_session('clipboard_task', '');
       $session_data['clipboard_files'] = $this->get_from_session('clipboard_files', '');
       $session_data['clipboard_src'] = $this->get_from_session('clipboard_src', '');
@@ -83,7 +83,8 @@ class FilemanagerModel {
 
       $components = array();
       $component = array();
-      $component['name'] = 'root';
+      global $WD_BWG_UPLOAD_DIR;
+      $component['name'] = $WD_BWG_UPLOAD_DIR;
       $component['path'] = $path;
       $components[] = $component;
       for ($i = 0; $i < count($dir_names); $i++) {
@@ -134,7 +135,7 @@ class FilemanagerModel {
           $file['is_dir'] = FALSE;
           $file['name'] = $file_name;
           $file['filename'] = substr($file_name, 0, strrpos($file_name, '.'));
-          $file['type'] = end(explode('.', $file_name));
+          $file['type'] = strtolower(end(explode('.', $file_name)));
           $icon = $icons_dir_url . '/' . $file['type'] . '.png';
           if (file_exists($icons_dir_path . '/' . $file['type'] . '.png') == FALSE) {
             $icon = $icons_dir_url . '/' . '_blank.png';

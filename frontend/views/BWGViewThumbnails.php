@@ -198,7 +198,7 @@ class BWGViewThumbnails {
         word-break: break-all;
         word-wrap: break-word;
       }
-/*pagination styles*/
+      /*pagination styles*/
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .tablenav-pages_<?php echo $bwg; ?> {
         text-align: <?php echo $theme_row->page_nav_align; ?>;
         font-size: <?php echo $theme_row->page_nav_font_size; ?>px;
@@ -332,7 +332,7 @@ class BWGViewThumbnails {
                   <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                     <span class="bwg_standart_thumb_span1_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_span2_<?php echo $bwg; ?>">
-                        <img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;"  id="<?php echo $image_row->id; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" title="<?php echo $image_row->alt; ?>" />
+                        <img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" title="<?php echo $image_row->alt; ?>" />
                         <?php
                         if ($params['image_title'] == 'hover') {
                           ?>

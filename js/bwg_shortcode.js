@@ -163,6 +163,8 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_image_title_hover").css('display', '');
       jQuery("#tr_image_enable_page").css('display', '');
       jQuery("#tr_thumb_width_height").css('display', '');
+      jQuery("#bwg_pro_version").html('Thumbnails');
+      jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/thumbnails-view-2/");
       break;
 
     }
@@ -227,6 +229,8 @@ function bwg_gallery_type(gallery_type) {
       else {
         bwg_enable_disable('none', 'tr_slideshow_music_url', 'slideshow_music_no');
       }
+      jQuery("#bwg_pro_version").html('Slideshow');
+      jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/slideshow-view/");
       break;
 
     }
@@ -236,6 +240,8 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_image_browser_width_height").css('display', '');
       jQuery("#tr_image_browser_title_enable").css('display', '');
       jQuery("#tr_image_browser_description_enable").css('display', '');
+      jQuery("#bwg_pro_version").html('Image Browser');
+      jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/image-browser-view/");
       break;
 
     }
@@ -251,6 +257,8 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_compuct_album_image_title").css('display', '');
       jQuery("#tr_compuct_album_image_thumb_width_height").css('display', '');
       jQuery("#tr_compuct_album_enable_page").css('display', '');
+      jQuery("#bwg_pro_version").html('Compact Album');
+      jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/compact-album-view/");
       break;
 
     }
@@ -265,6 +273,8 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_extended_album_image_title").css('display', '');
       jQuery("#tr_extended_album_image_thumb_width_height").css('display', '');
       jQuery("#tr_extended_album_enable_page").css('display', '');
+      jQuery("#bwg_pro_version").html('Extended Album');
+      jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/extended-album-view/");
       break;
 
     }

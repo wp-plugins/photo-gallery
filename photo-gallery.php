@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -2387,7 +2387,7 @@ function bwg_activate() {
     ));
   }
   $version = str_replace('.', '', get_option("wd_bwg_version"));
-  $new_version = 107;
+  $new_version = 109;
   if ($version && $version < $new_version) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     for ($i = $version; $i < $new_version; $i++) {
@@ -2396,10 +2396,10 @@ function bwg_activate() {
         $func_name();
       }
     }
-    update_option("wd_bwg_version", '1.0.7');
+    update_option("wd_bwg_version", '1.0.9');
   }
   else {
-    add_option("wd_bwg_version", '1.0.7', '', 'no');
+    add_option("wd_bwg_version", '1.0.9', '', 'no');
   }
 }
 register_activation_hook(__FILE__, 'bwg_activate');
@@ -2414,6 +2414,14 @@ function bwg_styles() {
 function bwg_scripts() {
   wp_enqueue_script('thickbox');
   wp_enqueue_script('bwg_admin', WD_BWG_URL . '/js/bwg.js', array(), get_option("wd_bwg_version"));
+  global $wp_scripts;
+  if (isset($wp_scripts->registered['jquery'])) {
+    $jquery = $wp_scripts->registered['jquery'];
+    if (!isset($jquery->ver) OR version_compare($jquery->ver, '1.10.2', '<')) {
+      wp_deregister_script('jquery');
+      wp_register_script('jquery', FALSE, array('jquery-core', 'jquery-migrate'), '1.10.2' );
+    }
+  }
   wp_enqueue_script('jquery');
   wp_enqueue_script('jquery-ui-sortable');
 }
@@ -2429,11 +2437,27 @@ function bwg_licensing_styles() {
 function bwg_options_scripts() {
   wp_enqueue_script('thickbox');
   wp_enqueue_script('bwg_admin', WD_BWG_URL . '/js/bwg.js', array(), get_option("wd_bwg_version"));
+  global $wp_scripts;
+  if (isset($wp_scripts->registered['jquery'])) {
+    $jquery = $wp_scripts->registered['jquery'];
+    if (!isset($jquery->ver) OR version_compare($jquery->ver, '1.10.2', '<')) {
+      wp_deregister_script('jquery');
+      wp_register_script('jquery', FALSE, array('jquery-core', 'jquery-migrate'), '1.10.2' );
+    }
+  }
   wp_enqueue_script('jquery');
   wp_enqueue_script('jscolor', WD_BWG_URL . '/js/jscolor/jscolor.js', array(), '1.3.9');
 }
 
 function bwg_front_end_scripts() {
+  global $wp_scripts;
+  if (isset($wp_scripts->registered['jquery'])) {
+    $jquery = $wp_scripts->registered['jquery'];
+    if (!isset($jquery->ver) OR version_compare($jquery->ver, '1.10.2', '<')) {
+      wp_deregister_script('jquery');
+      wp_register_script('jquery', FALSE, array('jquery-core', 'jquery-migrate'), '1.10.2' );
+    }
+  }
   wp_enqueue_script('jquery');
   wp_enqueue_script('jquery-ui-tooltip');
   wp_enqueue_style('jquery-ui', WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css');

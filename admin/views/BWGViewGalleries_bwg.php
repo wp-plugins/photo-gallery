@@ -451,9 +451,9 @@ class BWGViewGalleries_bwg {
           document.getElementById("ids_string").value += j + ',';
           j_int++;
           j = 'pr_' + j_int;
-          jQuery("#show_hide_weights").val("Hide order column");
-          spider_show_hide_weights();
         }
+        jQuery("#show_hide_weights").val("Hide order column");
+        spider_show_hide_weights();
       }
     </script>
     <form class="wrap" method="post" id="galleries_form" action="admin.php?page=galleries_bwg" style="float: left; width: 95%;">

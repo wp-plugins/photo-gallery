@@ -119,9 +119,9 @@ class FilemanagerView {
             </div>
             <div id="path">
               <?php
-              foreach ($file_manager_data['path_components'] as $path_component) {
+              foreach ($file_manager_data['path_components'] as $key => $path_component) {
                 ?>
-                <a class="path_component path_dir"
+                <a <?php echo ($key == 0) ? 'title="To change upload directory go to Options page."' : ''; ?> class="path_component path_dir"
                    onclick="onPathComponentClick(event, this, '<?php echo addslashes($path_component['path']); ?>');">
                     <?php echo $path_component['name']; ?></a>
                 <a class="path_component path_separator"><?php echo '/'; ?></a>
@@ -236,7 +236,7 @@ class FilemanagerView {
                   <span>
                   </span>
                 </span>
-                <a class="ctrl_bar_btn btn_open btn_primary none_select" onclick="onBtnOpenClick(event, this);"><?php echo 'Add selected images to gallery'; ?></a>
+                <a class="ctrl_bar_btn btn_open btn_primary none_select" onclick="onBtnOpenClick(event, this);"><?php echo ((isset($_REQUEST['callback']) && esc_html($_REQUEST['callback']) == 'bwg_add_image') ? 'Add selected images to gallery' : 'Add'); ?></a>
                 <span class="ctrl_bar_empty_devider"></span>
                 <a class="ctrl_bar_btn btn_cancel btn_secondary none_select" onclick="onBtnCancelClick(event, this);"><?php echo 'Cancel'; ?></a>
               </div>
@@ -283,7 +283,9 @@ class FilemanagerView {
                           jQuery("#uploader_progress_text").text(messageFilesUploadComplete);
                           jQuery("#uploader_progress_text").addClass("uploader_text");
                         });
-                        jQuery(".btn_back").trigger("click");
+                        setTimeout(function () {
+                          onBtnBackClick();
+                        }, 500);
                       }
                     },
                     done: function (e, data) {

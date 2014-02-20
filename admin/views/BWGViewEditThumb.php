@@ -81,6 +81,7 @@ class BWGViewEditThumb {
     $h = (isset($_POST['h']) ? (int) $_POST['h'] : 0);
 
     if (isset($_GET['image_url'])) {
+      $image_data = new stdClass();
       $image_data->image_url = (isset($_GET['image_url']) ? esc_html($_GET['image_url']) : '');
       $image_data->thumb_url = (isset($_GET['thumb_url']) ? esc_html($_GET['thumb_url']) : '');
       $filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url;
@@ -298,6 +299,7 @@ class BWGViewEditThumb {
     $edit_type = (isset($_POST['edit_type']) ? esc_html($_POST['edit_type']) : '');
 
     if (isset($_GET['image_url'])) {
+      $image_data = new stdClass();
       $image_data->image_url = (isset($_GET['image_url']) ? esc_html($_GET['image_url']) : '');
       $image_data->thumb_url = (isset($_GET['thumb_url']) ? esc_html($_GET['thumb_url']) : '');
       $filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url;

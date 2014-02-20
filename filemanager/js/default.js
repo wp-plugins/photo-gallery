@@ -271,9 +271,9 @@ function onBtnViewListClick(event, obj) {
 
 function onBtnBackClick(event, obj) {
   if ((isUploading == false) || (confirm(warningCancelUploads) == true)) {
-    jQuery("#uploader").fadeOut(function () {
+    // jQuery("#uploader").fadeOut(function () {
       submit("", null, null, null, null, null, null, null, null, null, null);
-    });
+    // });
   }
 }
 
@@ -331,6 +331,10 @@ function onFileClick(event, obj) {
     if (filesSelected.indexOf(objName) == -1) {
       filesSelected.push(objName);
       keyFileSelected = obj;
+    }
+    else {
+      filesSelected.splice(filesSelected.indexOf(objName), 1);
+      jQuery(obj).removeClass("explorer_item_select");
     }
   }
   else if (event.shiftKey == true) {

@@ -162,7 +162,7 @@ class BWGViewImage_browser {
 				height: inherit !important;
 				width: 100%;				
       }
- @media only screen and (max-width : 320px) {
+      @media only screen and (max-width : 320px) {
 				#bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .displaying-num_<?php echo $bwg; ?> {
 				  display: none;
 				}
@@ -200,7 +200,7 @@ class BWGViewImage_browser {
 				  font-size: 10px !important;
 				}				
       }
- /*pagination styles*/
+      /*pagination styles*/
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .tablenav-pages_<?php echo $bwg; ?> {
 				text-align: <?php echo $theme_row->page_nav_align; ?>;
 				font-size: <?php echo $theme_row->page_nav_font_size; ?>px;
@@ -447,7 +447,6 @@ class BWGViewImage_browser {
                           }
                         }
                       }, 3);
-
                       jQuery(window).resize(function() {
                         if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 108) {
                           jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');					  

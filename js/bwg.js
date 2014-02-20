@@ -330,9 +330,14 @@ function spider_check_all_items_checkbox() {
     jQuery('#draganddrop').hide();
   }
   else {
+    var saved_items = (parseInt(jQuery(".displaying-num").html()) ? parseInt(jQuery(".displaying-num").html()) : 0);
+    var added_items = (jQuery('input[id^="check_pr_"]').length ? parseInt(jQuery('input[id^="check_pr_"]').length) : 0);
+    var items_count = added_items + saved_items;
     jQuery('#check_all_items').attr('checked', true);
-    jQuery('#draganddrop').html("<strong><p>Selected all " + jQuery(".displaying-num").html() + ".</p></strong>");
-    jQuery('#draganddrop').show();
+    if (items_count) {
+      jQuery('#draganddrop').html("<strong><p>Selected " + items_count + " item" + (items_count > 1 ? "s" : "") + ".</p></strong>");
+      jQuery('#draganddrop').show();
+    }
   }
 }
 

@@ -30,7 +30,21 @@ class BWGViewBWGShortcode {
     $from_menu = ((isset($_GET['page']) && (esc_html($_GET['page']) == 'BWGShortcode')) ? TRUE : FALSE);
     $effects = array(
       'none' => 'None',
+      'cubeH' => 'Cube Horizontal',
+      'cubeV' => 'Cube Vertical',
       'fade' => 'Fade',
+      'sliceH' => 'Slice Horizontal',
+      'sliceV' => 'Slice Vertical',
+      'slideH' => 'Slide Horizontal',
+      'slideV' => 'Slide Vertical',
+      'scaleOut' => 'Scale Out',
+      'scaleIn' => 'Scale In',
+      'blockScale' => 'Block Scale',
+      'kaleidoscope' => 'Kaleidoscope',
+      'fan' => 'Fan',
+      'blindH' => 'Blind Horizontal',
+      'blindV' => 'Blind Vertical',
+      'random' => 'Random',
     );
     $watermark_fonts = array(
       'arial' => 'Arial',
@@ -89,7 +103,7 @@ class BWGViewBWGShortcode {
         }
         else {
         ?>
-        <div id="display_panel" style="width: 99%; margin-top: 10px;">
+        <div id="display_panel" style="width: 99%; margin-top: 30px;">
         <?php
         }
         ?>
@@ -398,7 +412,7 @@ class BWGViewBWGShortcode {
                         <?php
                         foreach ($effects as $key => $effect) {
                           ?>
-                          <option value="<?php echo $key; ?>" <?php echo ($option_row->slideshow_type == $key) ? 'selected' : ''; ?>><?php echo $effect; ?></option>
+                          <option value="<?php echo $key; ?>" <?php echo ($key != 'none' && $key != 'fade') ? 'disabled="disabled" title="This effect is disabled in free version."' : ''; ?> <?php echo ($option_row->slideshow_type == $key) ? 'selected' : ''; ?>><?php echo $effect; ?></option>
                           <?php
                         }
                         ?>
@@ -550,7 +564,7 @@ class BWGViewBWGShortcode {
                         <?php
                         foreach ($effects as $key => $effect) {
                           ?>
-                          <option value="<?php echo $key; ?>" <?php echo ($option_row->popup_type == $key) ? 'selected' : ''; ?>><?php echo $effect; ?></option>
+                          <option value="<?php echo $key; ?>" <?php echo ($key != 'none' && $key != 'fade') ? 'disabled="disabled" title="This effect is disabled in free version."' : ''; ?> <?php echo ($option_row->popup_type == $key) ? 'selected' : ''; ?>><?php echo $effect; ?></option>
                           <?php
                         }
                         ?>
@@ -723,12 +737,14 @@ class BWGViewBWGShortcode {
           ?>
             </div>
           </div>
+          
           <div class="mceActionPanel">
             <div style="float:left;">
-              <input type="button" id="cancel" name="cancel" value="Cancel" onClick="tinyMCEPopup.close();" />
+              <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="line-height: 25px; padding: 0 5px; text-decoration: none; vertical-align: middle; width: inherit; float: left;" href="http://wpdemo.web-dorado.com/thumbnails-view-2/">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
             </div>
             <div style="float:right;">
               <input type="submit" id="insert" name="insert" value="Insert" onClick="bwg_insert_shortcode('');" />
+              <input type="button" id="cancel" name="cancel" value="Cancel" onClick="tinyMCEPopup.close();" />
             </div>
           </div>
         </form>
@@ -737,9 +753,12 @@ class BWGViewBWGShortcode {
           else {
             ?>
             <hr style="float: left; width: 100%;" />
-            <input type="button" class="button-primary" id="insert" name="insert" value="Generate" onclick="bwg_insert_shortcode('');" />
-            <input type="button" class="button" id="import" name="import" value="Import" onclick="bwg_update_shortcode()" />
-            <textarea style="width: 100%; resize: vertical" id="bwg_shortcode" rows="4" onkeydown="bwg_onKeyDown(event)"></textarea>
+            <span style="float: left; width: 100%;">
+              <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="display: table; margin-bottom: 5px;" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
+              <input type="button" class="button-primary" id="insert" name="insert" value="Generate" onclick="bwg_insert_shortcode('');" />
+              <input type="button" class="button" id="import" name="import" value="Import" onclick="bwg_update_shortcode()" />
+              <textarea style="width: 100%; resize: vertical; margin-top: 5px;" id="bwg_shortcode" rows="4" onkeydown="bwg_onKeyDown(event)"></textarea>
+            </span>
             </div>
             <?php
           }

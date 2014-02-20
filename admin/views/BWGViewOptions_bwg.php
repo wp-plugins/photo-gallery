@@ -69,7 +69,21 @@ class BWGViewOptions_bwg {
     );
     $effects = array(
       'none' => 'None',
+      'cubeH' => 'Cube Horizontal',
+      'cubeV' => 'Cube Vertical',
       'fade' => 'Fade',
+      'sliceH' => 'Slice Horizontal',
+      'sliceV' => 'Slice Vertical',
+      'slideH' => 'Slide Horizontal',
+      'slideV' => 'Slide Vertical',
+      'scaleOut' => 'Scale Out',
+      'scaleIn' => 'Scale In',
+      'blockScale' => 'Block Scale',
+      'kaleidoscope' => 'Kaleidoscope',
+      'fan' => 'Fan',
+      'blindH' => 'Blind Horizontal',
+      'blindV' => 'Blind Vertical',
+      'random' => 'Random',
     );
     ?>
     <form method="post" class="wrap" action="admin.php?page=options_bwg" style="float: left; width: 95%;">      
@@ -463,7 +477,7 @@ class BWGViewOptions_bwg {
                     <?php
                     foreach ($effects as $key => $effect) {
                       ?>
-                      <option value="<?php echo $key; ?>" <?php if ($row->popup_type == $key) echo 'selected="selected"'; ?>><?php echo $effect; ?></option>
+                      <option value="<?php echo $key; ?>" <?php echo ($key != 'none' && $key != 'fade') ? 'disabled="disabled" title="This effect is disabled in free version."' : ''; ?> <?php if ($row->popup_type == $key) echo 'selected="selected"'; ?>><?php echo $effect; ?></option>
                       <?php
                     }
                     ?>
@@ -713,7 +727,7 @@ class BWGViewOptions_bwg {
                           <?php
                           foreach ($effects as $key => $effect) {
                             ?>
-                            <option value="<?php echo $key; ?>" <?php if ($row->slideshow_type == $key) echo 'selected="selected"'; ?>><?php echo $effect; ?></option>
+                            <option value="<?php echo $key; ?>" <?php echo ($key != 'none' && $key != 'fade') ? 'disabled="disabled" title="This effect is disabled in free version."' : ''; ?> <?php if ($row->slideshow_type == $key) echo 'selected="selected"'; ?>><?php echo $effect; ?></option>
                             <?php
                           }
                           ?>

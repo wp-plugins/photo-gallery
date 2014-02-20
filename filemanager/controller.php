@@ -139,9 +139,11 @@ class FilemanagerController {
           $msg = "Some of the files couldn't be removed.";
         }
         else {
-          if (!is_dir(file_path)) {
-            $this->remove_file_dir($file_path);
+          $this->remove_file_dir($file_path);
+          if (file_exists($thumb_file_path)) {
             $this->remove_file_dir($thumb_file_path);
+          }
+          if (file_exists($original_file_path)) {
             $this->remove_file_dir($original_file_path);
           }
         }

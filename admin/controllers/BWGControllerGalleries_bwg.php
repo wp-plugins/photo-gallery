@@ -500,8 +500,11 @@ class BWGControllerGalleries_bwg {
             '%d',
             '%d',
           ));
-          $image_id = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_image');
-          $_POST['check_' . $image_id] = 'on';
+          $new_image_id = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_image');
+          if (isset($_POST['check_' . $image_id])) {
+            $_POST['check_' . $new_image_id] = 'on';
+          }
+          $image_id = $new_image_id;
           if (isset($_POST['image_current_id']) && strpos(esc_html($_POST['image_current_id']), 'pr_') !== FALSE) {
             $_POST['image_current_id'] = $image_id;
           }
