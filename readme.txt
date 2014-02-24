@@ -172,7 +172,7 @@ If the installation succeeded you will see the success message. If any problem o
   
   
 Step 2:  Creating/Editing Galleries for the Photo Gallery.   
-2.1 On the left menu select Photo Gallery> Galleries> Add new.  
+2.1 On the left menu select Photo Gallery>Add Galleries/Images> Add new.  
 2.2 Name. Specify the name of the gallery.  
 2.3 Slug. Specify the alias in your website for the gallery.  
 2.4 Description. Fill in the information you would like to share with the gallery. The description will be visible with some of the gallery views.  
@@ -190,7 +190,8 @@ Photo Gallery File Manager
 2.8.5 Cut. You can cut images and directories.  
 2.8.6 Paste. You can paste copied/cut images and directories.  
 2.8.7 Remove items. You can remove any amount of items from the list.  
-2.8.8 Upload files. You can upload images from your PC and other devices using this feature. Multi-upload is also possible.
+2.8.8 Upload files. You can upload images from your PC and other devices using this feature. Multi-upload is also possible. To upload all images, you should first press Ctrl+A.    
+To add the images to your Gallery, you should press Add the selected images to gallery button.    
 Important! Before uploading an image, you should provide dimensions for the generated thumbnail at the top of the Media Upload window or leave it to default value set in the Thumbnail options (Options Menu).     
 2.8.9 View options: View thumbnails. Displays images in Thumbnail view.  
 View list. Displays images in list view.  
