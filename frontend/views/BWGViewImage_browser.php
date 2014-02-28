@@ -372,7 +372,7 @@ class BWGViewImage_browser {
           <div class="image_browser_images_conteiner_<?php echo $bwg; ?>">
             <div class="image_browser_images_<?php echo $bwg; ?>" id="bwg_standart_thumbnails_<?php echo $bwg; ?>" >
               <div id="ajax_loading_<?php echo $bwg; ?>" style="position:absolute;">
-                <div id="opacity_div_<?php echo $bwg; ?>" style="display:none; background-color:(255, 255, 255, 0.7); position:absolute; z-index:105;"></div>
+                <div id="opacity_div_<?php echo $bwg; ?>" style="display:none; background-color: rgba(255, 255, 255, 0.7); position:absolute; z-index:105;"></div>
                 <span id="loading_div_<?php echo $bwg; ?>" style="display:none; text-align:center; position:relative; vertical-align:middle; z-index:107">
                   <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="float: none; width:50px;">
                 </span>

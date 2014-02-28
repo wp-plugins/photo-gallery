@@ -63,8 +63,25 @@ function save_tag(tag_id) {
     }  
   });
 }
-
-function spider_ajax_save(form_id) {
+var bwg_save_count = 50;
+function spider_ajax_save(form_id, tr_group) {
+  var ajax_task = jQuery("#ajax_task").val();
+  if (!tr_group) {
+    var tr_group = 1;
+  }
+  else if (ajax_task == 'ajax_apply' || ajax_task == 'ajax_save') {
+    ajax_task = '';
+  }
+  var name = jQuery("#name").val();
+  var slug = jQuery("#slug").val();
+  if ((typeof tinyMCE != "undefined") && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden()) {
+    var description = tinyMCE.activeEditor.getContent();
+  }
+  else {
+    var description = jQuery("#description").val();
+  }
+  var preview_image = jQuery("#preview_image").val();
+  var published = jQuery("input[name=published]:checked").val();
   var search_value = jQuery("#search_value").val();
   var current_id = jQuery("#current_id").val();
   var page_number = jQuery("#page_number").val();
@@ -72,11 +89,23 @@ function spider_ajax_save(form_id) {
   var ids_string = jQuery("#ids_string").val();
   var image_order_by = jQuery("#image_order_by").val();
   var asc_or_desc = jQuery("#asc_or_desc").val();
-  var ajax_task = jQuery("#ajax_task").val();
+  
   var image_current_id = jQuery("#image_current_id").val();
   ids_array = ids_string.split(",");
+  var tr_count = ids_array.length;
+  if (tr_count > bwg_save_count) {
+    // Remove items form begin and end of array.
+    ids_array.splice(tr_group * bwg_save_count, ids_array.length);
+    ids_array.splice(0, (tr_group - 1) * bwg_save_count);
+    ids_string = ids_array.join(",");
+  }
 
   var post_data = {};
+  post_data["name"] = name;
+  post_data["slug"] = slug;
+  post_data["description"] = description;
+  post_data["preview_image"] = preview_image;
+  post_data["published"] = published;
   post_data["search_value"] = search_value;
   post_data["current_id"] = current_id;
   post_data["page_number"] = page_number;
@@ -93,84 +122,106 @@ function spider_ajax_save(form_id) {
     jQuery('#check_all_items').attr('checked', false);
   }
   for (var i in ids_array) {
-    if (jQuery("#check_" + ids_array[i]).attr('checked') == 'checked') {
-      post_data["check_" + ids_array[i]] = jQuery("#check_" + ids_array[i]).val();
-      flag = true;
+    if (ids_array[i]) {
+      if (jQuery("#check_" + ids_array[i]).attr('checked') == 'checked') {
+        post_data["check_" + ids_array[i]] = jQuery("#check_" + ids_array[i]).val();
+        flag = true;
+      }
+      post_data["input_filename_" + ids_array[i]] = jQuery("#input_filename_" + ids_array[i]).val();
+      post_data["image_url_" + ids_array[i]] = jQuery("#image_url_" + ids_array[i]).val();
+      post_data["thumb_url_" + ids_array[i]] = jQuery("#thumb_url_" + ids_array[i]).val();
+      post_data["image_description_" + ids_array[i]] = jQuery("#image_description_" + ids_array[i]).val();
+      post_data["image_alt_text_" + ids_array[i]] = jQuery("#image_alt_text_" + ids_array[i]).val();
+      post_data["input_date_modified_" + ids_array[i]] = jQuery("#input_date_modified_" + ids_array[i]).val();
+      post_data["input_size_" + ids_array[i]] = jQuery("#input_size_" + ids_array[i]).val();
+      post_data["input_filetype_" + ids_array[i]] = jQuery("#input_filetype_" + ids_array[i]).val();
+      post_data["input_resolution_" + ids_array[i]] = jQuery("#input_resolution_" + ids_array[i]).val();
+      post_data["input_crop_" + ids_array[i]] = jQuery("#input_crop_" + ids_array[i]).val();
+      post_data["order_input_" + ids_array[i]] = jQuery("#order_input_" + ids_array[i]).val();
+      post_data["tags_" + ids_array[i]] = jQuery("#tags_" + ids_array[i]).val();
     }
-    post_data["input_filename_" + ids_array[i]] = jQuery("#input_filename_" + ids_array[i]).val();
-    post_data["image_url_" + ids_array[i]] = jQuery("#image_url_" + ids_array[i]).val();
-    post_data["thumb_url_" + ids_array[i]] = jQuery("#thumb_url_" + ids_array[i]).val();
-    post_data["image_description_" + ids_array[i]] = jQuery("#image_description_" + ids_array[i]).val();
-    post_data["image_alt_text_" + ids_array[i]] = jQuery("#image_alt_text_" + ids_array[i]).val();
-    post_data["input_date_modified_" + ids_array[i]] = jQuery("#input_date_modified_" + ids_array[i]).val();
-    post_data["input_size_" + ids_array[i]] = jQuery("#input_size_" + ids_array[i]).val();
-    post_data["input_filetype_" + ids_array[i]] = jQuery("#input_filetype_" + ids_array[i]).val();
-    post_data["input_resolution_" + ids_array[i]] = jQuery("#input_resolution_" + ids_array[i]).val();
-    // post_data["input_rotate_" + ids_array[i]] = jQuery("#input_rotate_" + ids_array[i]).val();
-    // post_data["input_flip_" + ids_array[i]] = jQuery("#input_flip_" + ids_array[i]).val();
-    post_data["input_crop_" + ids_array[i]] = jQuery("#input_crop_" + ids_array[i]).val();
-    post_data["order_input_" + ids_array[i]] = jQuery("#order_input_" + ids_array[i]).val();
-    post_data["tags_" + ids_array[i]] = jQuery("#tags_" + ids_array[i]).val();
   }
   // Loading.
-  jQuery("#opacity_div").css('width', jQuery("#images_table").css('width'));
-  jQuery("#opacity_div").css('height', jQuery("#images_table").css('height'));
-  jQuery("#loading_div").css('width', jQuery("#images_table").width());
-  jQuery("#loading_div").css('height', jQuery("#images_table").height());
-  document.getElementById("opacity_div").style.display = 'block';
-  document.getElementById("loading_div").style.display = 'block';
+  jQuery('#opacity_div').show();
+  jQuery('#loading_div').show();
 
   jQuery.post(
     jQuery('#' + form_id).action,
     post_data,
 
     function (data) {
+      var str = jQuery(data).find("#current_id").val();
+      jQuery("#current_id").val(str);
+    }
+  ).success(function (data, textStatus, errorThrown) {
+    if (tr_count > bwg_save_count * tr_group) {
+      spider_ajax_save(form_id, ++tr_group);
+      return;
+    }
+    else {
       var str = jQuery(data).find('#images_table').html();
       jQuery('#images_table').html(str);
-      var str = jQuery(data).find('#tablenav-pages').html();
-      jQuery('#tablenav-pages').html(str);
+      var str = jQuery(data).find('.tablenav').html();
+      jQuery('.tablenav').html(str);
       jQuery("#show_hide_weights").val("Hide order column");
       spider_show_hide_weights();
       spider_run_checkbox();
-    }
-  ).success(function (jqXHR, textStatus, errorThrown) {
-      if (ajax_task == 'recover') {
+
+      if (ajax_task == 'ajax_apply') {
+        jQuery('#message_div').html("<strong><p>Items Succesfully Saved.</p></strong>");
+        jQuery('#message_div').show();
+      }
+      else if (ajax_task == 'recover') {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Recovered.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_publish') {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Published.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_unpublish') {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Unpublished.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_delete') {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Deleted.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (!flag && ((ajax_task == 'image_publish_all') || (ajax_task == 'image_unpublish_all') || (ajax_task == 'image_delete_all') || (ajax_task == 'image_set_watermark') || (ajax_task == 'image_recover_all'))) {
         jQuery('#draganddrop').html("<strong><p>You must select at least one item.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_publish_all') {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Published.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_unpublish_all') {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Unpublished.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_delete_all') {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Deleted.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_set_watermark') {
         jQuery('#draganddrop').html("<strong><p>Watermarks Succesfully Set.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_recover_all') {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Reset.</p></strong>");
+        jQuery('#draganddrop').show();
       }
       else {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Saved.</p></strong>");
+        jQuery('#draganddrop').show();
       }
-      jQuery('#draganddrop').attr("style", "");
-      document.getElementById("opacity_div").style.display = 'none';
-      document.getElementById("loading_div").style.display = 'none';
-    });
+      if (ajax_task == "ajax_save") {
+        jQuery('#' + form_id).submit();
+      }
+      jQuery('#opacity_div').hide();
+      jQuery('#loading_div').hide();
+    }
+  });
   // if (event.preventDefault) {
   // event.preventDefault();
   // }

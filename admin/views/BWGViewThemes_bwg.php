@@ -36,6 +36,14 @@ class  BWGViewThemes_bwg {
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to create, edit and delete themes.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-6/6-1.html">Read More in User Manual</a>
+        <?php
+        if (get_option("wd_bwg_theme_version")) {
+          ?>
+          <br />
+          This feature is disabled for the non-commercial version.
+          <?php
+        }
+        ?>
       </div>
       <div style="float: right; text-align: right;">
         <a style="color: red; text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
@@ -44,6 +52,24 @@ class  BWGViewThemes_bwg {
         </a>
       </div>
     </div>
+    <?php
+    if (get_option("wd_bwg_theme_version")) {
+      ?>
+      <div style="clear: both; float: left; width: 97%;">
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_thumbnails.png'; ?>" />
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_masonry.png'; ?>" />
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_slideshow.png'; ?>" />
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_image_browser.png'; ?>" />
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_compact_album.png'; ?>" />
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_extended_album.png'; ?>" />
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_blog_style.png'; ?>" />
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_lightbox.png'; ?>" />
+        <img style="max-width: 100%;" src="<?php echo WD_BWG_URL . '/images/theme_page_navigation.png'; ?>" />
+      </div>
+      <?php
+      die();
+    }
+    ?>
     <form class="wrap" id="themes_form" method="post" action="admin.php?page=themes_bwg" style="float: left; width: 95%;">
       <span class="theme_icon"></span>
       <h2>
@@ -52,7 +78,7 @@ class  BWGViewThemes_bwg {
                                                spider_form_submit(event, 'themes_form')">Add new</a>
       </h2>
       <div class="buttons_div">
-        <input class="button" type="submit" onclick="if (confirm('Do you want to delete selected items?')) {
+        <input class="button-secondary" type="submit" onclick="if (confirm('Do you want to delete selected items?')) {
                                                        spider_set_input_value('task', 'delete_all');
                                                      } else {
                                                        return false;
@@ -220,9 +246,9 @@ class  BWGViewThemes_bwg {
       <span class="theme_icon"></span>
       <h2><?php echo $page_title; ?></h2>
       <div style="float: right; margin: 0 5px 0 0;">
-        <input class="button" type="submit" onclick="if (spider_check_required('name', 'Name')) {return false;}; spider_set_input_value('task', 'save')" value="Save"/>
-        <input class="button" type="submit" onclick="if (spider_check_required('name', 'Name')) {return false;}; spider_set_input_value('task', 'apply')" value="Apply"/>
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'cancel')" value="Cancel"/>
+        <input class="button-secondary" type="submit" onclick="if (spider_check_required('name', 'Name')) {return false;}; spider_set_input_value('task', 'save')" value="Save"/>
+        <input class="button-secondary" type="submit" onclick="if (spider_check_required('name', 'Name')) {return false;}; spider_set_input_value('task', 'apply')" value="Apply"/>
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'cancel')" value="Cancel"/>
         <input title="Reset to default theme" class="button-primary" type="submit" onclick="if (confirm('Do you want to reset to default?')) {
                                                                  spider_set_input_value('task', 'reset');
                                                                } else {

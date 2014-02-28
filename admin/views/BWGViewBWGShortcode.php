@@ -142,9 +142,9 @@ class BWGViewBWGShortcode {
               <table>
                 <tbody>
                   <tr id="tr_theme">
-                    <td class="spider_label"><label for="theme">Theme: </label></td>
+                    <td <?php echo (get_option("wd_bwg_theme_version") ? 'title="This option is disabled in free version." class="spider_label spider_free_version_label"' : 'class="spider_label"'); ?>><label for="theme">Theme: </label></td>
                     <td>
-                      <select name="theme" id="theme" style="width:150px;">
+                      <select name="theme" id="theme" style="width:150px;" <?php echo (get_option("wd_bwg_theme_version") ? 'disabled="disabled"' : ''); ?>>
                         <option value="0" selected="selected">Select Theme</option>
                         <?php
                         foreach ($theme_rows as $theme_row) {
@@ -472,7 +472,7 @@ class BWGViewBWGShortcode {
                   <tr id="tr_slideshow_enable_title">
                     <td class="spider_label"><label>Enable Image Title: </label></td>
                     <td>
-                      <input type="radio" name="slideshow_enable_title" id="slideshow_title_yes" value="1" <?php echo ($option_row->slideshow_enable_title) ? 'checked' : ''; ?> onClick="bwg_enable_disable('', 'tr_slideshow_title_position', 'slideshow_title_no')" /><label for="slideshow_title_yes">Yes</label>
+                      <input type="radio" name="slideshow_enable_title" id="slideshow_title_yes" value="1" <?php echo ($option_row->slideshow_enable_title) ? 'checked' : ''; ?> onClick="bwg_enable_disable('', 'tr_slideshow_title_position', 'slideshow_title_yes')" /><label for="slideshow_title_yes">Yes</label>
                       <input type="radio" name="slideshow_enable_title" id="slideshow_title_no" value="0" <?php echo ($option_row->slideshow_enable_title) ? '' : 'checked'; ?> onClick="bwg_enable_disable('none', 'tr_slideshow_title_position', 'slideshow_title_no')" /><label for="slideshow_title_no">No</label>
                     </td>
                   </tr>
@@ -503,7 +503,7 @@ class BWGViewBWGShortcode {
                   <tr id="tr_slideshow_enable_description">
                     <td class="spider_label"><label>Enable Image Description: </label></td>
                     <td>
-                      <input type="radio" name="slideshow_enable_description" id="slideshow_description_yes" value="1" <?php echo ($option_row->slideshow_enable_description) ? 'checked' : ''; ?> onClick="bwg_enable_disable('', 'tr_slideshow_description_position', 'slideshow_description_no')" /><label for="slideshow_description_yes">Yes</label>
+                      <input type="radio" name="slideshow_enable_description" id="slideshow_description_yes" value="1" <?php echo ($option_row->slideshow_enable_description) ? 'checked' : ''; ?> onClick="bwg_enable_disable('', 'tr_slideshow_description_position', 'slideshow_description_yes')" /><label for="slideshow_description_yes">Yes</label>
                       <input type="radio" name="slideshow_enable_description" id="slideshow_description_no" value="0" <?php echo ($option_row->slideshow_enable_description) ? '' : 'checked'; ?> onClick="bwg_enable_disable('none', 'tr_slideshow_description_position', 'slideshow_description_no')" /><label for="slideshow_description_no">No</label>
                     </td>
                   </tr>
@@ -756,7 +756,7 @@ class BWGViewBWGShortcode {
             <span style="float: left; width: 100%;">
               <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="display: table; margin-bottom: 5px;" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
               <input type="button" class="button-primary" id="insert" name="insert" value="Generate" onclick="bwg_insert_shortcode('');" />
-              <input type="button" class="button" id="import" name="import" value="Import" onclick="bwg_update_shortcode()" />
+              <input type="button" class="button-secondary" id="import" name="import" value="Import" onclick="bwg_update_shortcode()" />
               <textarea style="width: 100%; resize: vertical; margin-top: 5px;" id="bwg_shortcode" rows="4" onkeydown="bwg_onKeyDown(event)"></textarea>
             </span>
             </div>

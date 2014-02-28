@@ -96,6 +96,10 @@ class FilemanagerView {
 
       <form id="adminForm" name="adminForm" action="" method="post">
         <div id="wrapper">
+          <div id="opacity_div" style="background-color: rgba(0, 0, 0, 0.2); position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99998;"></div>
+          <div id="loading_div" style="text-align: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999;">
+            <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="margin-top: 200px; width:50px;">
+          </div>
           <div id="file_manager">
             <div class="ctrls_bar ctrls_bar_header">
               <div class="ctrls_left">
@@ -294,14 +298,18 @@ class FilemanagerView {
                           alert(errorLoadingFile + ' :: ' + file.error);
                         }
                         if (file.error) {
-                          jQuery("#uploaded_files ul").append(jQuery("<li class=uploaded_item_failed>" + "<?php echo 'Upload failed' ?> :: " + file.error + "</li>"));
+                          jQuery("#uploaded_files ul").prepend(jQuery("<li class=uploaded_item_failed>" + "<?php echo 'Upload failed' ?> :: " + file.error + "</li>"));
                         }
                         else {
-                          jQuery("#uploaded_files ul").append(jQuery("<li class=uploaded_item>" + file.name + " (<?php echo 'Uploaded' ?>)" + "</li>"));
+                          jQuery("#uploaded_files ul").prepend(jQuery("<li class=uploaded_item>" + file.name + " (<?php echo 'Uploaded' ?>)" + "</li>"));
                         }
                       });
                     }
                   });
+                  jQuery(window).load(function () {
+                    jQuery("#opacity_div").hide();
+                    jQuery("#loading_div").hide();
+                  })
                 </script>
               </div>
             </label>

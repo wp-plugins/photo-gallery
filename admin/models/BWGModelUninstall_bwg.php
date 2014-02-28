@@ -29,6 +29,7 @@ class BWGModelUninstall_bwg {
     $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_option");
     $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_theme");
     delete_option("wd_bwg_version");
+    delete_option("wd_bwg_theme_version");
     // Delete terms.
     $terms = get_terms('bwg_tag', array('orderby' => 'count', 'hide_empty' => 0));
     foreach ($terms as $term) {

@@ -55,69 +55,69 @@ class BWGViewLicensing_bwg {
             <td class="icon-replace yes">yes</td>
           </tr>
           <tr class="alt">
-            <td>Default Theme + Possibility of Creating New Themes</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
             <td>Watermarking Possibility</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr class="alt">
+          <tr>
             <td>Advertising Possibility</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr>
+          <tr class="alt">
             <td>Image Download</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr class="alt">
+          <tr>
             <td>Standard Thumbnails View</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr>
+          <tr class="alt">
             <td>Standard Slideshow View</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr class="alt">
+          <tr>
             <td>Standard Image Browser View</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr>
+          <tr class="alt">
             <td>Standard Compact Album</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr class="alt">
+          <tr>
             <td>Standard Extended Album</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr>
+          <tr class="alt">
             <td>Basic Tag Cloud Widget</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr class="alt">
+          <tr>
             <td>Photo Gallery Slideshow Widget</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr>
+          <tr class="alt">
             <td>Photo Gallery Widget</td>
             <td class="icon-replace yes">yes</td>
             <td class="icon-replace yes">yes</td>
           </tr>
-          <tr class="alt">
+          <tr>
             <td>Slideshow/Lightbox Effects</td>
-            <td style="text-align:center;">5</td>
+            <td style="text-align:center;">1</td>
             <td style="text-align:center;">15</td>
+          </tr>
+          <tr class="alt">
+            <td>Possibility of Editing/Creating Themes</td>
+            <td class="icon-replace no">no</td>
+            <td class="icon-replace yes">yes</td>
           </tr>
           <tr>
             <td>Standard Masonry View </td>

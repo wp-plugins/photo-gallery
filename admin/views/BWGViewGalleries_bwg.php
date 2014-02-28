@@ -54,15 +54,15 @@ class BWGViewGalleries_bwg {
       </h2>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table shoud be saved.</p></strong></div>
       <div class="buttons_div">
-        <span class="button non_selectable" onclick="spider_check_all_items()">
+        <span class="button-secondary non_selectable" onclick="spider_check_all_items()">
           <input type="checkbox" id="check_all_items" name="check_all_items" onclick="spider_check_all_items_checkbox()" style="margin: 0; vertical-align: middle;" />
           <span style="vertical-align: middle;">Select All</span>
         </span>
-        <input id="show_hide_weights"  class="button" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'save_order')" value="Save Order" />
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'publish_all')" value="Publish" />
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'unpublish_all')" value="Unpublish" />
-        <input class="button" type="submit" onclick="if (confirm('Do you want to delete selected items?')) {
+        <input id="show_hide_weights"  class="button-secondary" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'save_order')" value="Save Order" />
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'publish_all')" value="Publish" />
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'unpublish_all')" value="Unpublish" />
+        <input class="button-secondary" type="submit" onclick="if (confirm('Do you want to delete selected items?')) {
                                                        spider_set_input_value('task', 'delete_all');
                                                      } else {
                                                        return false;
@@ -191,6 +191,7 @@ class BWGViewGalleries_bwg {
     $page_title = (($id != 0) ? 'Edit gallery ' . $row->name : 'Create new gallery');
     ?>
     <div style="clear: both; float: left; width: 95%;">
+      <div id="message_div" class="updated" style="display: none;"></div>
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to add/edit gallery.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-2.html">Read More in User Manual</a>
@@ -218,12 +219,12 @@ class BWGViewGalleries_bwg {
         }
       }
       var j_int = 0;
-      var j = 'pr_' + j_int;
+      var bwg_j = 'pr_' + j_int;
       function bwg_add_image(files) {
         var tbody = document.getElementById('tbody_arr');
         for (var i in files) {
           var tr = document.createElement('tr');
-          tr.setAttribute('id', "tr_" + j);
+          tr.setAttribute('id', "tr_" + bwg_j);
           if (tbody.firstChild) {
             tbody.insertBefore(tr, tbody.firstChild);
           }
@@ -245,8 +246,8 @@ class BWGViewGalleries_bwg {
           td_checkbox.setAttribute('onclick', "spider_check_all(this)");
           tr.appendChild(td_checkbox);
           var input_checkbox = document.createElement('input');
-          input_checkbox.setAttribute('id', "check_" + j);
-          input_checkbox.setAttribute('name', "check_" + j);
+          input_checkbox.setAttribute('id', "check_" + bwg_j);
+          input_checkbox.setAttribute('name', "check_" + bwg_j);
           input_checkbox.setAttribute('type', "checkbox");
           td_checkbox.appendChild(input_checkbox);
           // Numbering TD.
@@ -260,11 +261,11 @@ class BWGViewGalleries_bwg {
           tr.appendChild(td_thumb);
           var a_thumb = document.createElement('a');
           a_thumb.setAttribute('class', "thickbox thickbox-preview");
-          a_thumb.setAttribute('href', "<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display'/*thumb_display*/, 'width' => '650', 'height' => '500'), admin_url('admin-ajax.php')); ?>&image_id=" + j + "&TB_iframe=1");
+          a_thumb.setAttribute('href', "<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display'/*thumb_display*/, 'width' => '650', 'height' => '500'), admin_url('admin-ajax.php')); ?>&image_id=" + bwg_j + "&TB_iframe=1");
           a_thumb.setAttribute('title', files[i]['name']);
           td_thumb.appendChild(a_thumb);
           var img_thumb = document.createElement('img');
-          img_thumb.setAttribute('id', "image_thumb_" + j);
+          img_thumb.setAttribute('id', "image_thumb_" + bwg_j);
           img_thumb.setAttribute('class', "thumb");
           img_thumb.setAttribute('src', files[i]['thumb']);
           a_thumb.appendChild(img_thumb);
@@ -274,12 +275,12 @@ class BWGViewGalleries_bwg {
           tr.appendChild(td_filename);
           var div_filename = document.createElement('div');
           div_filename.setAttribute('class', "filename");
-          div_filename.setAttribute('id', "filename_" + j);
+          div_filename.setAttribute('id', "filename_" + bwg_j);
           td_filename.appendChild(div_filename);
           var strong_filename = document.createElement('strong');
           div_filename.appendChild(strong_filename);
           var a_filename = document.createElement('a');
-          a_filename.setAttribute('href', "<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display', 'width' => '800', 'height' => '500'), admin_url('admin-ajax.php')); ?>&image_id=" + j + "&TB_iframe=1");
+          a_filename.setAttribute('href', "<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display', 'width' => '800', 'height' => '500'), admin_url('admin-ajax.php')); ?>&image_id=" + bwg_j + "&TB_iframe=1");
           a_filename.setAttribute('class', "spider_word_wrap thickbox thickbox-preview");
           a_filename.setAttribute('title', files[i]['filename']);
           a_filename.innerHTML = files[i]['filename'];
@@ -287,25 +288,25 @@ class BWGViewGalleries_bwg {
           var div_date_modified = document.createElement('div');
           div_date_modified.setAttribute('class', "fileDescription");
           div_date_modified.setAttribute('title', "Date modified");
-          div_date_modified.setAttribute('id', "date_modified_" + j);
+          div_date_modified.setAttribute('id', "date_modified_" + bwg_j);
           div_date_modified.innerHTML = files[i]['date_modified'];
           td_filename.appendChild(div_date_modified);
           var div_fileresolution = document.createElement('div');
           div_fileresolution.setAttribute('class', "fileDescription");
           div_fileresolution.setAttribute('title', "Image Resolution");
-          div_fileresolution.setAttribute('id', "fileresolution" + j);
+          div_fileresolution.setAttribute('id', "fileresolution" + bwg_j);
           div_fileresolution.innerHTML = files[i]['resolution'];
           td_filename.appendChild(div_fileresolution);
           var div_filesize = document.createElement('div');
           div_filesize.setAttribute('class', "fileDescription");
           div_filesize.setAttribute('title', "Image size");
-          div_filesize.setAttribute('id', "filesize" + j);
+          div_filesize.setAttribute('id', "filesize" + bwg_j);
           div_filesize.innerHTML = files[i]['size'];
           td_filename.appendChild(div_filesize);
           var div_filetype = document.createElement('div');
           div_filetype.setAttribute('class', "fileDescription");
           div_filetype.setAttribute('title', "Image type");
-          div_filetype.setAttribute('id', "filetype" + j);
+          div_filetype.setAttribute('id', "filetype" + bwg_j);
           div_filetype.innerHTML = files[i]['filetype'];
           td_filename.appendChild(div_filetype);
           var div_edit = document.createElement('div');
@@ -315,7 +316,7 @@ class BWGViewGalleries_bwg {
           div_edit.appendChild(span_edit_crop);
           var a_crop = document.createElement('a');
           a_crop.setAttribute('class', "thickbox thickbox-preview");
-          a_crop.setAttribute('onclick', "spider_set_href(this, '" + j + "', 'crop');");
+          a_crop.setAttribute('onclick', "spider_set_href(this, '" + bwg_j + "', 'crop');");
           a_crop.innerHTML = "Crop";
           span_edit_crop.appendChild(a_crop);
           div_edit.innerHTML += " | ";
@@ -324,7 +325,7 @@ class BWGViewGalleries_bwg {
           div_edit.appendChild(span_edit_rotate);
           var a_rotate = document.createElement('a');
           a_rotate.setAttribute('class', "thickbox thickbox-preview");
-          a_rotate.setAttribute('onclick', "spider_set_href(this, '" + j + "', 'rotate');");
+          a_rotate.setAttribute('onclick', "spider_set_href(this, '" + bwg_j + "', 'rotate');");
           a_rotate.innerHTML = "Rotate";
           span_edit_rotate.appendChild(a_rotate);
           div_edit.innerHTML += " | "
@@ -332,48 +333,48 @@ class BWGViewGalleries_bwg {
           span_edit_recover.setAttribute('class', "edit_thumb");
           div_edit.appendChild(span_edit_recover);
           var a_recover = document.createElement('a');
-          a_recover.setAttribute('onclick', 'if (confirm("Do you want to reset the image?")) { spider_set_input_value("ajax_task", "recover"); spider_set_input_value("image_current_id", "' + j + '"); spider_ajax_save("galleries_form");} return false;');
+          a_recover.setAttribute('onclick', 'if (confirm("Do you want to reset the image?")) { spider_set_input_value("ajax_task", "recover"); spider_set_input_value("image_current_id", "' + bwg_j + '"); spider_ajax_save("galleries_form");} return false;');
           a_recover.innerHTML = "Reset";
           span_edit_recover.appendChild(a_recover);
           var input_image_url = document.createElement('input');
-          input_image_url.setAttribute('id', "image_url_" + j);
-          input_image_url.setAttribute('name', "image_url_" + j);
+          input_image_url.setAttribute('id', "image_url_" + bwg_j);
+          input_image_url.setAttribute('name', "image_url_" + bwg_j);
           input_image_url.setAttribute('type', "hidden");
           input_image_url.setAttribute('value', files[i]['url']);
           td_filename.appendChild(input_image_url);
           var input_thumb_url = document.createElement('input');
-          input_thumb_url.setAttribute('id', "thumb_url_" + j);
-          input_thumb_url.setAttribute('name', "thumb_url_" + j);
+          input_thumb_url.setAttribute('id', "thumb_url_" + bwg_j);
+          input_thumb_url.setAttribute('name', "thumb_url_" + bwg_j);
           input_thumb_url.setAttribute('type', "hidden");
           input_thumb_url.setAttribute('value', files[i]['thumb_url']);
           td_filename.appendChild(input_thumb_url);
           var input_filename = document.createElement('input');
-          input_filename.setAttribute('id', "input_filename_" + j);
-          input_filename.setAttribute('name', "input_filename_" + j);
+          input_filename.setAttribute('id', "input_filename_" + bwg_j);
+          input_filename.setAttribute('name', "input_filename_" + bwg_j);
           input_filename.setAttribute('type', "hidden");
           input_filename.setAttribute('value', files[i]['filename']);
           td_filename.appendChild(input_filename);
           var input_date_modified = document.createElement('input');
-          input_date_modified.setAttribute('id', "input_date_modified_" + j);
-          input_date_modified.setAttribute('name', "input_date_modified_" + j);
+          input_date_modified.setAttribute('id', "input_date_modified_" + bwg_j);
+          input_date_modified.setAttribute('name', "input_date_modified_" + bwg_j);
           input_date_modified.setAttribute('type', "hidden");
           input_date_modified.setAttribute('value', files[i]['date_modified']);
           td_filename.appendChild(input_date_modified);
           var input_resolution = document.createElement('input');
-          input_resolution.setAttribute('id', "input_resolution_" + j);
-          input_resolution.setAttribute('name', "input_resolution_" + j);
+          input_resolution.setAttribute('id', "input_resolution_" + bwg_j);
+          input_resolution.setAttribute('name', "input_resolution_" + bwg_j);
           input_resolution.setAttribute('type', "hidden");
           input_resolution.setAttribute('value', files[i]['resolution']);
           td_filename.appendChild(input_resolution);
           var input_size = document.createElement('input');
-          input_size.setAttribute('id', "input_size_" + j);
-          input_size.setAttribute('name', "input_size_" + j);
+          input_size.setAttribute('id', "input_size_" + bwg_j);
+          input_size.setAttribute('name', "input_size_" + bwg_j);
           input_size.setAttribute('type', "hidden");
           input_size.setAttribute('value', files[i]['size']);
           td_filename.appendChild(input_size);
           var input_filetype = document.createElement('input');
-          input_filetype.setAttribute('id', "input_filetype_" + j);
-          input_filetype.setAttribute('name', "input_filetype_" + j);
+          input_filetype.setAttribute('id', "input_filetype_" + bwg_j);
+          input_filetype.setAttribute('name', "input_filetype_" + bwg_j);
           input_filetype.setAttribute('type', "hidden");
           input_filetype.setAttribute('value', files[i]['filetype']);
           td_filename.appendChild(input_filetype);
@@ -382,8 +383,8 @@ class BWGViewGalleries_bwg {
           td_alt.setAttribute('class', "table_extra_large_col");
           tr.appendChild(td_alt);
           var input_alt = document.createElement('input');
-          input_alt.setAttribute('id', "image_alt_text_" + j);
-          input_alt.setAttribute('name', "image_alt_text_" + j);
+          input_alt.setAttribute('id', "image_alt_text_" + bwg_j);
+          input_alt.setAttribute('name', "image_alt_text_" + bwg_j);
           input_alt.setAttribute('type', "text");
           input_alt.setAttribute('size', "24");
           input_alt.setAttribute('value', files[i]['filename']);
@@ -393,8 +394,8 @@ class BWGViewGalleries_bwg {
           td_desc.setAttribute('class', "table_extra_large_col");
           tr.appendChild(td_desc);
           var textarea_desc = document.createElement('textarea');
-          textarea_desc.setAttribute('id', "image_description_" + j);
-          textarea_desc.setAttribute('name', "image_description_" + j);
+          textarea_desc.setAttribute('id', "image_description_" + bwg_j);
+          textarea_desc.setAttribute('name', "image_description_" + bwg_j);
           textarea_desc.setAttribute('rows', "2");
           textarea_desc.setAttribute('cols', "20");
           textarea_desc.setAttribute('style', "resize:vertical;");
@@ -405,17 +406,17 @@ class BWGViewGalleries_bwg {
           tr.appendChild(td_tag);
           var a_tag = document.createElement('a');
           a_tag.setAttribute('class', "button button-small button-primary thickbox thickbox-preview");
-          a_tag.setAttribute('href', "<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500'), admin_url('admin-ajax.php')); ?>&image_id=" + j + "&TB_iframe=1");
+          a_tag.setAttribute('href', "<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500'), admin_url('admin-ajax.php')); ?>&image_id=" + bwg_j + "&TB_iframe=1");
           a_tag.innerHTML = 'Add tag';
           td_tag.appendChild(a_tag);
           var div_tag = document.createElement('div');
           div_tag.setAttribute('class', "tags_div");
-          div_tag.setAttribute('id', "tags_div_" + j);
+          div_tag.setAttribute('id', "tags_div_" + bwg_j);
           td_tag.appendChild(div_tag);
           var hidden_tag = document.createElement('input');
           hidden_tag.setAttribute('type', "hidden");
-          hidden_tag.setAttribute('id', "tags_" + j);
-          hidden_tag.setAttribute('name', "tags_" + j);
+          hidden_tag.setAttribute('id', "tags_" + bwg_j);
+          hidden_tag.setAttribute('name', "tags_" + bwg_j);
           hidden_tag.setAttribute('value', "");
           td_tag.appendChild(hidden_tag);
           // Order TD.
@@ -424,8 +425,8 @@ class BWGViewGalleries_bwg {
           td_order.setAttribute('style', "display: none;");
           tr.appendChild(td_order);
           var input_order = document.createElement('input');
-          input_order.setAttribute('id', "order_input_" + j);
-          input_order.setAttribute('name', "order_input_" + j);
+          input_order.setAttribute('id', "order_input_" + bwg_j);
+          input_order.setAttribute('name', "order_input_" + bwg_j);
           input_order.setAttribute('type', "text");
           input_order.setAttribute('value', 0 - j_int);
           input_order.setAttribute('size', "1");
@@ -435,7 +436,7 @@ class BWGViewGalleries_bwg {
           td_publish.setAttribute('class', "table_big_col");
           tr.appendChild(td_publish);
           var a_publish = document.createElement('a');
-          a_publish.setAttribute('onclick', "spider_set_input_value('ajax_task', 'image_unpublish');spider_set_input_value('image_current_id', '" + j + "');spider_ajax_save('galleries_form');");
+          a_publish.setAttribute('onclick', "spider_set_input_value('ajax_task', 'image_unpublish');spider_set_input_value('image_current_id', '" + bwg_j + "');spider_ajax_save('galleries_form');");
           td_publish.appendChild(a_publish);
           var img_publish = document.createElement('img');
           img_publish.setAttribute('src', "<?php echo WD_BWG_URL . '/images/publish.png'; ?>");
@@ -445,12 +446,12 @@ class BWGViewGalleries_bwg {
           td_delete.setAttribute('class', "table_big_col");
           tr.appendChild(td_delete);
           var a_delete = document.createElement('a');
-          a_delete.setAttribute('onclick', "spider_set_input_value('ajax_task', 'image_delete');spider_set_input_value('image_current_id', '" + j + "');spider_ajax_save('galleries_form');");
+          a_delete.setAttribute('onclick', "spider_set_input_value('ajax_task', 'image_delete');spider_set_input_value('image_current_id', '" + bwg_j + "');spider_ajax_save('galleries_form');");
           a_delete.innerHTML = 'Delete';
           td_delete.appendChild(a_delete);
-          document.getElementById("ids_string").value += j + ',';
+          document.getElementById("ids_string").value += bwg_j + ',';
           j_int++;
-          j = 'pr_' + j_int;
+          bwg_j = 'pr_' + j_int;
         }
         jQuery("#show_hide_weights").val("Hide order column");
         spider_show_hide_weights();
@@ -460,12 +461,15 @@ class BWGViewGalleries_bwg {
       <span class="gallery-icon"></span>
       <h2><?php echo $page_title; ?></h2>
       <div style="float:right;">
-        <input class="button" type="submit" onclick="if (spider_check_required('name', 'Name')) {return false;};
+        <input class="button-secondary" type="button" onclick="if (spider_check_required('name', 'Name')) {return false;};
                                                      spider_set_input_value('page_number', '1');
+                                                     spider_set_input_value('ajax_task', 'ajax_save');
+                                                     spider_ajax_save('galleries_form');
                                                      spider_set_input_value('task', 'save')" value="Save" />
-        <input class="button" type="submit" onclick="if (spider_check_required('name', 'Name')) {return false;};
-                                                     spider_set_input_value('task', 'apply')" value="Apply" />
-        <input class="button" type="submit" onclick="spider_set_input_value('page_number', '1');
+        <input class="button-secondary" type="button" onclick="if (spider_check_required('name', 'Name')) {return false;};
+                                                     spider_set_input_value('ajax_task', 'ajax_apply');
+                                                     spider_ajax_save('galleries_form')" value="Apply" />
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('page_number', '1');
                                                      spider_set_input_value('task', 'cancel')" value="Cancel" />
       </div>
       <table style="clear:both;">
@@ -529,14 +533,6 @@ class BWGViewGalleries_bwg {
                     onclick="spider_remove_url('button_preview_image', 'preview_image', 'delete_preview_image', 'img_preview_image')"></span>
             </td>
           </tr>
-          <!--<tr>
-            <td class="spider_label"><label for="content-add_media">Images: </label></td>
-            <td>
-              <a href="<?php echo add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_image', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" class="button-primary thickbox thickbox-preview" id="content-add_media" title="Add Images" onclick="return false;" style="margin-bottom:5px;">
-                Add Images
-              </a>
-            </td>
-          </tr>-->
           <tr>
             <td colspan=2>
               <?php
@@ -557,6 +553,10 @@ class BWGViewGalleries_bwg {
         }
         ?>
       </script>
+      <div id="opacity_div" style="display: none; background-color: rgba(0, 0, 0, 0.2); position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99998;"></div>
+      <div id="loading_div" style="display:none; text-align: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999;">
+        <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="margin-top: 200px; width:50px;">
+      </div>
     </form>
     <?php
   }
@@ -577,27 +577,24 @@ class BWGViewGalleries_bwg {
         Add Images
       </a>
       <div class="buttons_div">
-        <span class="button non_selectable" onclick="spider_check_all_items()">
+        <span class="button-secondary non_selectable" onclick="spider_check_all_items()">
           <input type="checkbox" id="check_all_items" name="check_all_items" onclick="spider_check_all_items_checkbox()" style="margin: 0; vertical-align: middle;" />
           <span style="vertical-align: middle;">Select All</span>
         </span>
-        <input id="show_hide_weights"  class="button" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
+        <input id="show_hide_weights"  class="button-secondary" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
         <input class="button-primary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_set_watermark');
                                                              spider_ajax_save('galleries_form');
                                                              return false;" value="Set Watermark" />
-        <input class="button" type="submit" onclick="spider_set_input_value('ajax_task', 'image_recover_all');
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_recover_all');
                                                              spider_ajax_save('galleries_form');
                                                              return false;" value="Reset" />
-        <!--<input class="button-primary" type="submit" onclick="spider_set_input_value('ajax_task', '');
-                                                             spider_ajax_save('galleries_form');
-                                                             return false;" value="Save Images" />-->
-        <input class="button" type="submit" onclick="spider_set_input_value('ajax_task', 'image_publish_all');
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_publish_all');
                                                      spider_ajax_save('galleries_form');
                                                      return false;" value="Publish" />
-        <input class="button" type="submit" onclick="spider_set_input_value('ajax_task', 'image_unpublish_all');
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_unpublish_all');
                                                      spider_ajax_save('galleries_form');
                                                      return false;" value="Unpublish" />
-        <input class="button" type="submit" onclick="if (confirm('Do you want to delete selected items?')) {
+        <input class="button-secondary" type="submit" onclick="if (confirm('Do you want to delete selected items?')) {
                                                        spider_set_input_value('ajax_task', 'image_delete_all');
                                                        spider_ajax_save('galleries_form');
                                                        return false;
@@ -611,10 +608,7 @@ class BWGViewGalleries_bwg {
         WDWLibrary::ajax_html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form');
         ?>
       </div>
-      <div id="opacity_div" style="display:none; background-color:rgba(0, 0, 0, 0.2); position: absolute;"></div>
-      <div id="loading_div" style="display:none; text-align:center; position:absolute;">
-        <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="margin-top:60px; width:50px;">
-      </div>
+
       <table id="images_table" class="wp-list-table widefat fixed pages">
         <thead>
           <th class="check-column table_small_col"></th>

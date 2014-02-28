@@ -51,12 +51,12 @@ class BWGViewTags_bwg {
       <span class="tag_icon"></span>
       <h2>Tags</h2>
       <div class="buttons_div">
-        <input class="button" type="submit" value="Save" onclick="if (confirm('Do you want to edit items?')){
+        <input class="button-secondary" type="submit" value="Save" onclick="if (confirm('Do you want to edit items?')){
                                                                     spider_set_input_value('task', 'edit_tags');
                                                                   } else {
                                                                     return false;
                                                                   }" />
-        <input class="button" type="submit" value="Delete" onclick="if (confirm('Do you want to delete selected items?')) {
+        <input class="button-secondary" type="submit" value="Delete" onclick="if (confirm('Do you want to delete selected items?')) {
                                                                       spider_set_input_value('task', 'delete_all');
                                                                     } else {
                                                                       return false;

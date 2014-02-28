@@ -61,6 +61,14 @@ class BWGViewUninstall_bwg {
               </ol>
             </td>
           </tr>
+          <tfoot>
+            <tr>
+              <th>
+                <input type="checkbox" name="bwg_delete_files" id="bwg_delete_files" style="vertical-align: middle;" />
+                <label for="bwg_delete_files">&nbsp;Delete the folder containing uploaded images.</label>
+              </th>
+            </tr>
+          </tfoot>
         </table>
         <p style="text-align: center;">
           Do you really want to uninstall Photo Gallery?
@@ -70,15 +78,15 @@ class BWGViewUninstall_bwg {
         </p>
         <p style="text-align: center;">
           <input type="submit" value="UNINSTALL" class="button-primary" onclick="if (check_yes.checked) { 
-                                                                                                      if (confirm('You are About to Uninstall Photo Gallery from WordPress.\nThis Action Is Not Reversible.')) {
-                                                                                                          spider_set_input_value('task', 'uninstall');
-                                                                                                      } else {
-                                                                                                          return false;
-                                                                                                      }
-                                                                                                    }
-                                                                                                    else {
-                                                                                                      return false;
-                                                                                                    }" />
+                                                                                    if (confirm('You are About to Uninstall Photo Gallery from WordPress.\nThis Action Is Not Reversible.')) {
+                                                                                        spider_set_input_value('task', 'uninstall');
+                                                                                    } else {
+                                                                                        return false;
+                                                                                    }
+                                                                                  }
+                                                                                  else {
+                                                                                    return false;
+                                                                                  }" />
         </p>
       </div>
       <input id="task" name="task" type="hidden" value="" />
@@ -88,12 +96,37 @@ class BWGViewUninstall_bwg {
 
   public function uninstall() {
     $this->model->delete_db_tables();
+    $flag = TRUE;
+    if (isset($_POST['bwg_delete_files'])) {
+      function delfiles($del_file) {
+        if (is_dir($del_file)) {
+          $del_folder = scandir($del_file);
+          foreach ($del_folder as $file) {
+            if ($file != '.' and $file != '..') {
+              delfiles($del_file . '/' . $file);
+            }
+          }
+          if (!rmdir($del_file)) {
+            $flag = FALSE;
+          }
+        }
+        else {
+          if (!unlink($del_file)) {
+            $flag = FALSE;
+          }
+        }
+      }
+      global $WD_BWG_UPLOAD_DIR;
+      if (is_dir(ABSPATH . $WD_BWG_UPLOAD_DIR)) {
+        delfiles(ABSPATH . $WD_BWG_UPLOAD_DIR);
+      }
+    }
     global $wpdb;
     $prefix = $wpdb->prefix;
     $deactivate_url = wp_nonce_url('plugins.php?action=deactivate&amp;plugin=photo-gallery/photo-gallery.php', 'deactivate-plugin_photo-gallery/photo-gallery.php');
     ?>
     <div id="message" class="updated fade">
-      <p>The following Database Tables succesfully deleted:</p>
+      <p>The following Database Tables successfully deleted:</p>
       <p><?php echo $prefix; ?>bwg_album,</p>
       <p><?php echo $prefix; ?>bwg_album_gallery,</p>
       <p><?php echo $prefix; ?>bwg_gallery,</p>
@@ -102,6 +135,9 @@ class BWGViewUninstall_bwg {
       <p><?php echo $prefix; ?>bwg_image_tag,</p>
       <p><?php echo $prefix; ?>bwg_option,</p>
       <p><?php echo $prefix; ?>bwg_theme.</p>
+    </div>
+    <div class="<?php echo ($flag) ? 'updated' : 'error'?>">
+      <p><?php echo ($flag) ? 'The folder was successfully deleted.' : 'An error occurred when deleting the folder.'?></p>
     </div>
     <div class="wrap">
       <h2>Uninstall Photo Gallery</h2>

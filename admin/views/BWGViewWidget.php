@@ -147,7 +147,7 @@ class BWGViewWidget extends BWGControllerWidget {
       <input class="widefat" style="width:25%;" id="<?php echo $id_height; ?>" name="<?php echo $name_height; ?>'" type="text" value="<?php echo $instance['height']; ?>"/> px
     </p>
     <p>
-      <select name="<?php echo $name_theme_id; ?>" id="<?php echo $id_theme_id; ?>" class="widefat">
+      <select name="<?php echo $name_theme_id; ?>" id="<?php echo $id_theme_id; ?>" class="widefat" <?php echo (get_option("wd_bwg_theme_version") ? 'title="This option is disabled in free version."  disabled="disabled"' : ''); ?>>
         <?php
         foreach ($theme_rows as $theme_row) {
           ?>

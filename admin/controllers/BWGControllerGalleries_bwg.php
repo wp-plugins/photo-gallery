@@ -58,16 +58,6 @@ class BWGControllerGalleries_bwg {
     $view->edit($id);
   }
 
-  public function save_images() {
-    $this->save_db();
-    global $wpdb;
-    if (!isset($_POST['current_id']) || (esc_html(stripslashes($_POST['current_id'])) == 0) || (esc_html(stripslashes($_POST['current_id'])) == '')) {
-      $_POST['current_id'] = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_gallery');
-    }
-    $this->save_image_db();
-    $this->edit();
-  }
-
   public function save_order_images() {
     global $wpdb;
     $imageids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_image');
@@ -90,11 +80,22 @@ class BWGControllerGalleries_bwg {
   }
 
   public function ajax_search() {
+    if (isset($_POST['ajax_task']) && ((esc_html($_POST['ajax_task']) == 'ajax_apply') || (esc_html($_POST['ajax_task']) == 'ajax_save'))) {
+      // Save gallery on "apply" and "save".
+      $this->save_db();
+      global $wpdb;
+      if (!isset($_POST['current_id']) || (esc_html(stripslashes($_POST['current_id'])) == 0) || (esc_html(stripslashes($_POST['current_id'])) == '')) {
+        // If gallery saved first time(insert in db).
+        $_POST['current_id'] = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_gallery');
+      }
+    }
     $this->save_image_db();
     $this->save_order_images();
     if (isset($_POST['ajax_task']) && esc_html($_POST['ajax_task']) != '') {
       $ajax_task = esc_html($_POST['ajax_task']);
-      $this->$ajax_task();
+      if (method_exists($this, $ajax_task)) {
+        $this->$ajax_task();
+      }
     }
     $this->edit();
   }
@@ -552,23 +553,8 @@ class BWGControllerGalleries_bwg {
   }
 
   public function save() {
-    $this->save_db();
-    global $wpdb;
-    if (!isset($_POST['current_id']) || (esc_html(stripslashes($_POST['current_id'])) == 0) || (esc_html(stripslashes($_POST['current_id'])) == '')) {
-      $_POST['current_id'] = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_gallery');
-    }
-    $this->save_image_db();
+    echo WDWLibrary::message('Item Succesfully Saved.', 'updated');
     $this->display();
-  }
-
-  public function apply() {
-    $this->save_db();
-    global $wpdb;
-    if (!isset($_POST['current_id']) || (esc_html(stripslashes($_POST['current_id'])) == 0) || (esc_html(stripslashes($_POST['current_id'])) == '')) {
-      $_POST['current_id'] = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_gallery');
-    }
-    $this->save_image_db();
-    $this->edit();
   }
 
   public function delete_unknown_images() {

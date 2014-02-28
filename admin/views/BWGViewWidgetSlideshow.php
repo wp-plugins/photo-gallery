@@ -131,7 +131,7 @@ class BWGViewWidgetSlideshow extends BWGControllerWidgetSlideshow {
       <input type="radio" name="<?php echo $name_shuffle; ?>" id="<?php echo $id_shuffle . "_0"; ?>" value="0" <?php if (!$instance['shuffle']) echo 'checked="checked"'; ?> /><label for="<?php echo $id_shuffle . "_0"; ?>">No</label>     
     </p>
     <p>
-      <select name="<?php echo $name_theme_id; ?>" id="<?php echo $id_theme_id; ?>" class="widefat">
+      <select name="<?php echo $name_theme_id; ?>" id="<?php echo $id_theme_id; ?>" class="widefat" <?php echo (get_option("wd_bwg_theme_version") ? 'title="This option is disabled in free version."  disabled="disabled"' : ''); ?>>
         <?php
         foreach ($theme_rows as $theme_row) {
           ?>

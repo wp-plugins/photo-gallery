@@ -54,15 +54,15 @@ class BWGViewAlbums_bwg {
       </h2>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table shoud be saved.</p></strong></div>
       <div class="buttons_div">
-        <span class="button non_selectable" onclick="spider_check_all_items()">
+        <span class="button-secondary non_selectable" onclick="spider_check_all_items()">
           <input type="checkbox" id="check_all_items" name="check_all_items" onclick="spider_check_all_items_checkbox()" style="margin: 0; vertical-align: middle;" />
           <span style="vertical-align: middle;">Select All</span>
         </span>
-        <input id="show_hide_weights"  class="button" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'save_order')" value="Save Order" />
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'publish_all')" value="Publish" />
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'unpublish_all')" value="Unpublish" />
-        <input class="button" type="submit" onclick="if (confirm('Do you want to delete selected items?')) {
+        <input id="show_hide_weights"  class="button-secondary" type="button" onclick="spider_show_hide_weights();return false;" value="Hide order column" />
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'save_order')" value="Save Order" />
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'publish_all')" value="Publish" />
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'unpublish_all')" value="Unpublish" />
+        <input class="button-secondary" type="submit" onclick="if (confirm('Do you want to delete selected items?')) {
                                                        spider_set_input_value('task', 'delete_all');
                                                      } else {
                                                        return false;
@@ -260,9 +260,9 @@ class BWGViewAlbums_bwg {
       <span class="album-icon"></span>
       <h2><?php echo $page_title; ?></h2>
       <div style="float:right;">
-        <input class="button" type="submit" onclick="if(spider_check_required('name', 'Name')){return false;};spider_set_input_value('task', 'save')" value="Save" />
-        <input class="button" type="submit" onclick="if(spider_check_required('name', 'Name')){return false;};spider_set_input_value('task', 'apply')" value="Apply" />
-        <input class="button" type="submit" onclick="spider_set_input_value('task', 'cancel')" value="Cancel" />
+        <input class="button-secondary" type="submit" onclick="if(spider_check_required('name', 'Name')){return false;};spider_set_input_value('task', 'save')" value="Save" />
+        <input class="button-secondary" type="submit" onclick="if(spider_check_required('name', 'Name')){return false;};spider_set_input_value('task', 'apply')" value="Apply" />
+        <input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'cancel')" value="Cancel" />
       </div>
       <table style="clear:both;">
         <tbody>

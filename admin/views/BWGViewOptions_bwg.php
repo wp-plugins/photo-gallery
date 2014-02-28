@@ -92,7 +92,7 @@ class BWGViewOptions_bwg {
       <div style="display: inline-block; width: 100%;">
         <div style="float: right;">
           <input class="button-primary" type="submit" onclick="if (spider_check_required('title', 'Title')) {return false;}; spider_set_input_value('task', 'save')" value="Save" />
-          <input class="button" type="submit" onclick="if (confirm('Do you want to reset to default?')) {
+          <input class="button-secondary" type="submit" onclick="if (confirm('Do you want to reset to default?')) {
                                                                  spider_set_input_value('task', 'reset');
                                                                } else {
                                                                  return false;
