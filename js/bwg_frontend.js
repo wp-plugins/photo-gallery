@@ -49,7 +49,7 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     // window.scroll(0, spider_get_pos(document.getElementById(form_id)));
     jQuery("html, body").animate({scrollTop: jQuery('#' + form_id).offset().top - 150}, 500);
     // For masonry view.
-    jQuery(".bwg_masonry_thumb_span_" + current_view + " a img").last().on("load", function() {
+    jQuery(".bwg_masonry_thumb_spun_" + current_view + " a img").last().on("load", function() {
       window["bwg_masonry_" + current_view]();
     });
   });

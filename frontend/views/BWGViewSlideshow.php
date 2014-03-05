@@ -372,21 +372,21 @@ class BWGViewSlideshow {
         position: relative;
         vertical-align: middle;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_watermark_span_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_watermark_spun_<?php echo $bwg; ?> {
         display: table-cell;
         overflow: hidden;
         position: relative;
         text-align: <?php echo $watermark_position[1]; ?>;
         vertical-align: <?php echo $watermark_position[0]; ?>;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_title_span_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_title_spun_<?php echo $bwg; ?> {
         display: table-cell;
         overflow: hidden;
         position: relative;
         text-align: <?php echo $slideshow_title_position[1]; ?>;
         vertical-align: <?php echo $slideshow_title_position[0]; ?>;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_description_span_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_description_spun_<?php echo $bwg; ?> {
         display: table-cell;
         overflow: hidden;
         position: relative;
@@ -473,7 +473,7 @@ class BWGViewSlideshow {
         height: inherit;
         width: inherit;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_span_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_spun_<?php echo $bwg; ?> {
         width: inherit;
         height: inherit;
         display: table-cell;
@@ -483,7 +483,7 @@ class BWGViewSlideshow {
         vertical-align: middle;
         z-index: 2;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_second_span_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_second_spun_<?php echo $bwg; ?> {
         width: inherit;
         height: inherit;
         display: table-cell;
@@ -542,12 +542,12 @@ class BWGViewSlideshow {
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_deactive_<?php echo $bwg; ?> {
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_span1_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_spun1_<?php echo $bwg; ?> {
         display: table; 
         width: inherit; 
         height: inherit;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_span2_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_image_spun2_<?php echo $bwg; ?> {
         display: table-cell; 
         vertical-align: middle; 
         text-align: center;
@@ -609,9 +609,9 @@ class BWGViewSlideshow {
                 if ($image_row->id == $current_image_id) {
                   $current_key = $key;
                   ?>
-                  <span class="bwg_slideshow_image_span_<?php echo $bwg; ?>" id="image_id_<?php echo $bwg; ?>_<?php echo $image_row->id; ?>">
-                    <span class="bwg_slideshow_image_span1_<?php echo $bwg; ?>">
-                      <span class="bwg_slideshow_image_span2_<?php echo $bwg; ?>">
+                  <span class="bwg_slideshow_image_spun_<?php echo $bwg; ?>" id="image_id_<?php echo $bwg; ?>_<?php echo $image_row->id; ?>">
+                    <span class="bwg_slideshow_image_spun1_<?php echo $bwg; ?>">
+                      <span class="bwg_slideshow_image_spun2_<?php echo $bwg; ?>">
                         <img id="bwg_slideshow_image_<?php echo $bwg; ?>" class="bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
                       </span>
                     </span>
@@ -621,9 +621,9 @@ class BWGViewSlideshow {
                 }
                 else {
                   ?>
-                  <span class="bwg_slideshow_image_second_span_<?php echo $bwg; ?>" id="image_id_<?php echo $bwg; ?>_<?php echo $image_row->id; ?>">
-                    <span class="bwg_slideshow_image_span1_<?php echo $bwg; ?>">
-                      <span class="bwg_slideshow_image_span2_<?php echo $bwg; ?>">
+                  <span class="bwg_slideshow_image_second_spun_<?php echo $bwg; ?>" id="image_id_<?php echo $bwg; ?>_<?php echo $image_row->id; ?>">
+                    <span class="bwg_slideshow_image_spun1_<?php echo $bwg; ?>">
+                      <span class="bwg_slideshow_image_spun2_<?php echo $bwg; ?>">
                         <img id="bwg_slideshow_image_second_<?php echo $bwg; ?>" class="bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" />
                       </span>
                     </span>
@@ -651,7 +651,7 @@ class BWGViewSlideshow {
           <div class="bwg_slideshow_image_container_<?php echo $bwg; ?>" style="position: absolute;">
             <div class="bwg_slideshow_watermark_container_<?php echo $bwg; ?>">
               <div style="display:table; margin:0 auto;">
-                <span class="bwg_slideshow_watermark_span_<?php echo $bwg; ?>" id="bwg_slideshow_watermark_container_<?php echo $bwg; ?>">
+                <span class="bwg_slideshow_watermark_spun_<?php echo $bwg; ?>" id="bwg_slideshow_watermark_container_<?php echo $bwg; ?>">
                   <?php
                   if ($watermark_type == 'image') {
                   ?>
@@ -677,7 +677,7 @@ class BWGViewSlideshow {
           <div class="bwg_slideshow_image_container_<?php echo $bwg; ?>" style="position: absolute;">
             <div class="bwg_slideshow_watermark_container_<?php echo $bwg; ?>">
               <div style="display:table; margin:0 auto;">
-                <span class="bwg_slideshow_title_span_<?php echo $bwg; ?>">
+                <span class="bwg_slideshow_title_spun_<?php echo $bwg; ?>">
                   <div class="bwg_slideshow_title_text_<?php echo $bwg; ?>" style="<?php if (!$current_image_alt) echo 'display:none;'; ?>">
                     <?php echo $current_image_alt; ?>
                   </div>
@@ -692,7 +692,7 @@ class BWGViewSlideshow {
           <div class="bwg_slideshow_image_container_<?php echo $bwg; ?>" style="position: absolute;">
             <div class="bwg_slideshow_watermark_container_<?php echo $bwg; ?>">
               <div style="display:table; margin:0 auto;">
-                <span class="bwg_slideshow_description_span_<?php echo $bwg; ?>">
+                <span class="bwg_slideshow_description_spun_<?php echo $bwg; ?>">
                   <div class="bwg_slideshow_description_text_<?php echo $bwg; ?>" style="<?php if (!$current_image_description) echo 'display:none;'; ?>">
                     <?php echo html_entity_decode(str_replace("\r\n", esc_html('<br />'), $current_image_description)); ?>
                   </div>
@@ -725,12 +725,12 @@ class BWGViewSlideshow {
             var bwg_current_image_span = jQuery(this).find("img");
             var width = bwg_current_image_span.width();
             var height = bwg_current_image_span.height();
-            jQuery(".bwg_slideshow_watermark_span_<?php echo $bwg; ?>").width(width);
-            jQuery(".bwg_slideshow_watermark_span_<?php echo $bwg; ?>").height(height);
-            jQuery(".bwg_slideshow_title_span_<?php echo $bwg; ?>").width(width);
-            jQuery(".bwg_slideshow_title_span_<?php echo $bwg; ?>").height(height);
-            jQuery(".bwg_slideshow_description_span_<?php echo $bwg; ?>").width(width);
-            jQuery(".bwg_slideshow_description_span_<?php echo $bwg; ?>").height(height);
+            jQuery(".bwg_slideshow_watermark_spun_<?php echo $bwg; ?>").width(width);
+            jQuery(".bwg_slideshow_watermark_spun_<?php echo $bwg; ?>").height(height);
+            jQuery(".bwg_slideshow_title_spun_<?php echo $bwg; ?>").width(width);
+            jQuery(".bwg_slideshow_title_spun_<?php echo $bwg; ?>").height(height);
+            jQuery(".bwg_slideshow_description_spun_<?php echo $bwg; ?>").width(width);
+            jQuery(".bwg_slideshow_description_spun_<?php echo $bwg; ?>").height(height);
             jQuery(".bwg_slideshow_watermark_<?php echo $bwg; ?>").css({display: ''});
             if (jQuery.trim(jQuery(".bwg_slideshow_title_text_<?php echo $bwg; ?>").text())) {
               jQuery(".bwg_slideshow_title_text_<?php echo $bwg; ?>").css({display: ''});

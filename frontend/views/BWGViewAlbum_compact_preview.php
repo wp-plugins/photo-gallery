@@ -88,7 +88,7 @@ class BWGViewAlbum_compact_preview {
         -moz-box-sizing: content-box;
         box-sizing: content-box;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_span1_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_spun1_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->album_compact_thumb_bg_color; ?>;
         border-radius: <?php echo $theme_row->album_compact_thumb_border_radius; ?>;
         border: <?php echo $theme_row->album_compact_thumb_border_width; ?>px <?php echo $theme_row->album_compact_thumb_border_style; ?> #<?php echo $theme_row->album_compact_thumb_border_color; ?>;
@@ -107,7 +107,7 @@ class BWGViewAlbum_compact_preview {
         -webkit-backface-visibility: visible;
         -ms-backface-visibility: visible;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_span1_<?php echo $bwg; ?>:hover {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_spun1_<?php echo $bwg; ?>:hover {
         opacity: 1;
         filter: Alpha(opacity=100);
         transform: <?php echo $theme_row->album_compact_thumb_hover_effect; ?>(<?php echo $theme_row->album_compact_thumb_hover_effect_value; ?>);
@@ -119,7 +119,7 @@ class BWGViewAlbum_compact_preview {
         -ms-backface-visibility: hidden;
         z-index: 102;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_span2_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_spun2_<?php echo $bwg; ?> {
         display: inline-block;
         height: <?php echo $params['compuct_album_thumb_height']; ?>px;
         overflow: hidden;
@@ -141,7 +141,7 @@ class BWGViewAlbum_compact_preview {
       <?php
       if ($params['compuct_album_title'] == 'show') { // Show album/gallery title at the bottom.
         ?>
-        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_span1_<?php echo $bwg; ?> {
+        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun1_<?php echo $bwg; ?> {
           display: block;
           opacity: 1;
           filter: Alpha(opacity=100);
@@ -152,7 +152,7 @@ class BWGViewAlbum_compact_preview {
       }
       elseif ($params['compuct_album_title'] == 'hover') { // Show album/gallery title on hover.
         ?>
-        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_span1_<?php echo $bwg; ?> {
+        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun1_<?php echo $bwg; ?> {
           display: table;
           height: inherit;
           left: -3000px;
@@ -165,13 +165,13 @@ class BWGViewAlbum_compact_preview {
         <?php
       }
       ?>
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_span1_<?php echo $bwg; ?>:hover .bwg_title_span1_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_spun1_<?php echo $bwg; ?>:hover .bwg_title_spun1_<?php echo $bwg; ?> {
         left: <?php echo $theme_row->album_compact_thumb_padding; ?>px;
         top: <?php echo $theme_row->album_compact_thumb_padding; ?>px;
         opacity: 1;
         filter: Alpha(opacity=100);
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_span2_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun2_<?php echo $bwg; ?> {
         color: #<?php echo $theme_row->album_compact_title_font_color; ?>;
         display: table-cell;
         font-family: <?php echo $theme_row->album_compact_title_font_style; ?>;
@@ -197,7 +197,7 @@ class BWGViewAlbum_compact_preview {
         text-decoration: none;
       }
       /*Image thumbs styles.*/
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span1_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun1_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->thumb_bg_color; ?>;
         border-radius: <?php echo $theme_row->thumb_border_radius; ?>;
         border: <?php echo $theme_row->thumb_border_width; ?>px <?php echo $theme_row->thumb_border_style; ?> #<?php echo $theme_row->thumb_border_color; ?>;
@@ -214,7 +214,7 @@ class BWGViewAlbum_compact_preview {
         width: <?php echo $params['compuct_album_image_thumb_width']; ?>px;
         z-index: 100;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span1_<?php echo $bwg; ?>:hover {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun1_<?php echo $bwg; ?>:hover {
         -ms-transform: <?php echo $theme_row->thumb_hover_effect; ?>(<?php echo $theme_row->thumb_hover_effect_value; ?>);
         -webkit-transform: <?php echo $theme_row->thumb_hover_effect; ?>(<?php echo $theme_row->thumb_hover_effect_value; ?>);
         backface-visibility: hidden;
@@ -227,7 +227,7 @@ class BWGViewAlbum_compact_preview {
         z-index: 102;
         position: relative;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span2_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun2_<?php echo $bwg; ?> {
         display: inline-block;
         height: <?php echo $params['compuct_album_image_thumb_height']; ?>px;
         overflow: hidden;
@@ -253,7 +253,7 @@ class BWGViewAlbum_compact_preview {
       <?php
       if ($params['compuct_album_image_title'] == 'show') { // Show image title at the bottom.
         ?>
-        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_span1_<?php echo $bwg; ?> {
+        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_spun1_<?php echo $bwg; ?> {
           display: block;
           margin: 0 auto;
           opacity: 1;
@@ -265,7 +265,7 @@ class BWGViewAlbum_compact_preview {
       }
       elseif ($params['compuct_album_image_title'] == 'hover') { // Show image title on hover.
         ?>
-        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_span1_<?php echo $bwg; ?> {
+        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_spun1_<?php echo $bwg; ?> {
           display: table;
           height: inherit;
           left: -3000px;
@@ -278,13 +278,13 @@ class BWGViewAlbum_compact_preview {
         <?php
       }
       ?>
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span1_<?php echo $bwg; ?>:hover .bwg_image_title_span1_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun1_<?php echo $bwg; ?>:hover .bwg_image_title_spun1_<?php echo $bwg; ?> {
         left: <?php echo $theme_row->thumb_padding; ?>px;
         top: <?php echo $theme_row->thumb_padding; ?>px;
         opacity: 1;
         filter: Alpha(opacity=100);
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_span2_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_spun2_<?php echo $bwg; ?> {
         color: #<?php echo $theme_row->thumb_title_font_color; ?>;
         display: table-cell;
         font-family: <?php echo $theme_row->thumb_title_font_style; ?>;
@@ -434,7 +434,7 @@ class BWGViewAlbum_compact_preview {
                     $preview_url = site_url() . '/' . $WD_BWG_UPLOAD_DIR . $preview_image;
                     $preview_path = ABSPATH . $WD_BWG_UPLOAD_DIR . $preview_image;
                   }
-                  list($image_thumb_width, $image_thumb_height) = getimagesize($preview_path);
+                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode($preview_path));
                   $scale = max($params['compuct_album_thumb_width'] / $image_thumb_width, $params['compuct_album_thumb_height'] / $image_thumb_height);
                   $image_thumb_width *= $scale;
                   $image_thumb_height *= $scale;
@@ -444,14 +444,14 @@ class BWGViewAlbum_compact_preview {
                     ?>
                     <a style="font-size: 0;" <?php echo ($from !== "widget" ? "onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_compact_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "')\"" : "href='" . $permalink . "'") ?>>
                       <span class="bwg_album_thumb_<?php echo $bwg; ?>">
-                        <span class="bwg_album_thumb_span1_<?php echo $bwg; ?>">
-                          <span class="bwg_album_thumb_span2_<?php echo $bwg; ?>">
+                        <span class="bwg_album_thumb_spun1_<?php echo $bwg; ?>">
+                          <span class="bwg_album_thumb_spun2_<?php echo $bwg; ?>">
                             <img style="padding: 0 !important; max-height: none !important; max-width: none !important; width: <?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" src="<?php echo $preview_url; ?>" />
                             <?php
                             if ($params['compuct_album_title'] == 'hover') {
                               ?>
-                              <span class="bwg_title_span1_<?php echo $bwg; ?>">
-                                <span class="bwg_title_span2_<?php echo $bwg; ?>">
+                              <span class="bwg_title_spun1_<?php echo $bwg; ?>">
+                                <span class="bwg_title_spun2_<?php echo $bwg; ?>">
                                   <?php echo $title; ?>
                                 </span>
                               </span>
@@ -463,8 +463,8 @@ class BWGViewAlbum_compact_preview {
                         <?php
                         if ($params['compuct_album_title'] == 'show') {
                           ?>
-                          <span class="bwg_title_span1_<?php echo $bwg; ?>">
-                            <span class="bwg_title_span2_<?php echo $bwg; ?>">
+                          <span class="bwg_title_spun1_<?php echo $bwg; ?>">
+                            <span class="bwg_title_spun2_<?php echo $bwg; ?>">
                               <?php echo $title; ?>
                             </span>
                           </span>
@@ -524,7 +524,7 @@ class BWGViewAlbum_compact_preview {
                     $params_array['watermark_width'] = $params['watermark_width'];
                     $params_array['watermark_height'] = $params['watermark_height'];
                   }
-                  list($image_thumb_width, $image_thumb_height) = getimagesize(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url);
+                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url));
                   $scale = max($params['compuct_album_image_thumb_width'] / $image_thumb_width, $params['compuct_album_image_thumb_height'] / $image_thumb_height);
                   $image_thumb_width *= $scale;
                   $image_thumb_height *= $scale;
@@ -533,14 +533,14 @@ class BWGViewAlbum_compact_preview {
                   ?>
                   <a style="font-size: 0;" href="javascript:spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);">
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
-                      <span class="bwg_standart_thumb_span1_<?php echo $bwg; ?>">
-                        <span class="bwg_standart_thumb_span2_<?php echo $bwg; ?>">
+                      <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
+                        <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
                           <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" title="<?php echo $image_row->alt; ?>" />
                           <?php
                           if ($params['compuct_album_image_title'] == 'hover') {
                             ?>
-                            <span class="bwg_image_title_span1_<?php echo $bwg; ?>">
-                              <span class="bwg_image_title_span2_<?php echo $bwg; ?>">
+                            <span class="bwg_image_title_spun1_<?php echo $bwg; ?>">
+                              <span class="bwg_image_title_spun2_<?php echo $bwg; ?>">
                                 <?php echo $image_row->alt; ?>
                               </span>
                             </span>
@@ -552,8 +552,8 @@ class BWGViewAlbum_compact_preview {
                       <?php
                       if ($params['compuct_album_image_title'] == 'show') {
                         ?>
-                        <span class="bwg_image_title_span1_<?php echo $bwg; ?>">
-                          <span class="bwg_image_title_span2_<?php echo $bwg; ?>">
+                        <span class="bwg_image_title_spun1_<?php echo $bwg; ?>">
+                          <span class="bwg_image_title_spun2_<?php echo $bwg; ?>">
                             <?php echo $image_row->alt; ?>
                           </span>
                         </span>

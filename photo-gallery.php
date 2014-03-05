@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -16,7 +16,8 @@ if ($wpdb->query("SHOW TABLES LIKE '" . $wpdb->prefix . "bwg_option'")) {
   $WD_BWG_UPLOAD_DIR = $wpdb->get_var($wpdb->prepare('SELECT images_directory FROM ' . $wpdb->prefix . 'bwg_option WHERE id="%d"', 1)) . '/photo-gallery';
 }
 else {
-  $WD_BWG_UPLOAD_DIR = 'wp-content/uploads/photo-gallery';
+  $upload_dir = wp_upload_dir();
+  $WD_BWG_UPLOAD_DIR = str_replace(ABSPATH, '', $upload_dir['basedir']) . '/photo-gallery';
 }
 
 // Plugin menu.
@@ -2387,7 +2388,7 @@ function bwg_activate() {
     ));
   }
   $version = str_replace('.', '', get_option("wd_bwg_version"));
-  $new_version = 110;
+  $new_version = 112;
   if ($version && $version < $new_version) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     for ($i = $version; $i < $new_version; $i++) {
@@ -2396,10 +2397,10 @@ function bwg_activate() {
         $func_name();
       }
     }
-    update_option("wd_bwg_version", '1.1.0');
+    update_option("wd_bwg_version", '1.1.2');
   }
   else {
-    add_option("wd_bwg_version", '1.1.0', '', 'no');
+    add_option("wd_bwg_version", '1.1.2', '', 'no');
     add_option("wd_bwg_theme_version", '1.0.0', '', 'no');
   }
 }

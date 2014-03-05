@@ -95,7 +95,6 @@ class BWGViewUninstall_bwg {
   }
 
   public function uninstall() {
-    $this->model->delete_db_tables();
     $flag = TRUE;
     if (isset($_POST['bwg_delete_files'])) {
       function delfiles($del_file) {
@@ -117,11 +116,14 @@ class BWGViewUninstall_bwg {
         }
       }
       global $WD_BWG_UPLOAD_DIR;
-      if (is_dir(ABSPATH . $WD_BWG_UPLOAD_DIR)) {
-        delfiles(ABSPATH . $WD_BWG_UPLOAD_DIR);
+      if ($WD_BWG_UPLOAD_DIR) {
+        if (is_dir(ABSPATH . $WD_BWG_UPLOAD_DIR)) {
+          delfiles(ABSPATH . $WD_BWG_UPLOAD_DIR);
+        }
       }
     }
     global $wpdb;
+    $this->model->delete_db_tables();
     $prefix = $wpdb->prefix;
     $deactivate_url = wp_nonce_url('plugins.php?action=deactivate&amp;plugin=photo-gallery/photo-gallery.php', 'deactivate-plugin_photo-gallery/photo-gallery.php');
     ?>

@@ -97,7 +97,7 @@ class BWGViewThumbnails {
         -moz-box-sizing: border-box;
         box-sizing: border-box;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span1_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun1_<?php echo $bwg; ?> {
         -moz-box-sizing: content-box;
         box-sizing: content-box;
         background-color: #<?php echo $theme_row->thumb_bg_color; ?>;
@@ -116,7 +116,7 @@ class BWGViewThumbnails {
         width: <?php echo $params['thumb_width']; ?>px;
         z-index: 100;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span1_<?php echo $bwg; ?>:hover {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun1_<?php echo $bwg; ?>:hover {
         -ms-transform: <?php echo $theme_row->thumb_hover_effect; ?>(<?php echo $theme_row->thumb_hover_effect_value; ?>);
         -webkit-transform: <?php echo $theme_row->thumb_hover_effect; ?>(<?php echo $theme_row->thumb_hover_effect_value; ?>);
         backface-visibility: hidden;
@@ -129,7 +129,7 @@ class BWGViewThumbnails {
         z-index: 102;
         position: relative;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span2_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun2_<?php echo $bwg; ?> {
         display: inline-block;
         height: <?php echo $params['thumb_height']; ?>px;
         overflow: hidden;
@@ -153,7 +153,7 @@ class BWGViewThumbnails {
       <?php
       if ($params['image_title'] == 'show') { // Show image title at the bottom.
         ?>
-        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_span1_<?php echo $bwg; ?> {
+        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun1_<?php echo $bwg; ?> {
           display: block;
           margin: 0 auto;
           opacity: 1;
@@ -165,7 +165,7 @@ class BWGViewThumbnails {
       }
       elseif ($params['image_title'] == 'hover') { // Show image title on hover.
         ?>
-        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_span1_<?php echo $bwg; ?> {
+        #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun1_<?php echo $bwg; ?> {
           display: table;
           height: inherit;
           left: -3000px;
@@ -178,13 +178,13 @@ class BWGViewThumbnails {
         <?php
       }
       ?>
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_span1_<?php echo $bwg; ?>:hover .bwg_title_span1_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun1_<?php echo $bwg; ?>:hover .bwg_title_spun1_<?php echo $bwg; ?> {
         left: <?php echo $theme_row->thumb_padding; ?>px;
         top: <?php echo $theme_row->thumb_padding; ?>px;
         opacity: 1;
         filter: Alpha(opacity=100);
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_span2_<?php echo $bwg; ?> {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun2_<?php echo $bwg; ?> {
         color: #<?php echo $theme_row->thumb_title_font_color; ?>;
         display: table-cell;
         font-family: <?php echo $theme_row->thumb_title_font_style; ?>;
@@ -321,7 +321,7 @@ class BWGViewThumbnails {
                   $params_array['watermark_width'] = $params['watermark_width'];
                   $params_array['watermark_height'] = $params['watermark_height'];
                 }
-                list($image_thumb_width, $image_thumb_height) = getimagesize(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url);
+                list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url));
                 $scale = max($params['thumb_width'] / $image_thumb_width, $params['thumb_height'] / $image_thumb_height);
                 $image_thumb_width *= $scale;
                 $image_thumb_height *= $scale;
@@ -330,14 +330,14 @@ class BWGViewThumbnails {
                 ?>
                 <a style="font-size: 0;" href="javascript:spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);">
                   <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
-                    <span class="bwg_standart_thumb_span1_<?php echo $bwg; ?>">
-                      <span class="bwg_standart_thumb_span2_<?php echo $bwg; ?>">
+                    <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
+                      <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
                         <img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" title="<?php echo $image_row->alt; ?>" />
                         <?php
                         if ($params['image_title'] == 'hover') {
                           ?>
-                          <span class="bwg_title_span1_<?php echo $bwg; ?>">
-                            <span class="bwg_title_span2_<?php echo $bwg; ?>">
+                          <span class="bwg_title_spun1_<?php echo $bwg; ?>">
+                            <span class="bwg_title_spun2_<?php echo $bwg; ?>">
                               <?php echo $image_row->alt; ?>
                             </span>
                           </span>
@@ -349,8 +349,8 @@ class BWGViewThumbnails {
                     <?php
                     if ($params['image_title'] == 'show') {
                       ?>
-                      <span class="bwg_title_span1_<?php echo $bwg; ?>">
-                        <span class="bwg_title_span2_<?php echo $bwg; ?>">
+                      <span class="bwg_title_spun1_<?php echo $bwg; ?>">
+                        <span class="bwg_title_spun2_<?php echo $bwg; ?>">
                           <?php echo $image_row->alt; ?>
                         </span>
                       </span>

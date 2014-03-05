@@ -95,7 +95,7 @@ class BWGViewEditThumb {
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'crop', 'image_id' => $image_id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
     ini_set('memory_limit', '-1');
-    list($width_orig, $height_orig, $type_orig) = getimagesize($filename);
+    list($width_orig, $height_orig, $type_orig) = getimagesize(htmlspecialchars_decode($filename));
     if ($edit_type == 'crop') {
       if ($type_orig == 2) {
         $img_r = imagecreatefromjpeg($filename);
@@ -313,7 +313,7 @@ class BWGViewEditThumb {
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'rotate', 'image_id' => $image_id, 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
     ini_set('memory_limit', '-1');
-    list($width_rotate, $height_rotate, $type_rotate) = getimagesize($filename);
+    list($width_rotate, $height_rotate, $type_rotate) = getimagesize(htmlspecialchars_decode($filename));
     if ($edit_type == '270' || $edit_type == '90') {
       if ($type_rotate == 2) {
         $source = imagecreatefromjpeg($filename);

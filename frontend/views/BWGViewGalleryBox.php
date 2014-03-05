@@ -498,7 +498,7 @@ class BWGViewGalleryBox {
         position: relative;
         vertical-align: middle;
       }
-      .bwg_watermark_span {
+      .bwg_watermark_spun {
         display: table-cell;
         overflow: hidden;
         position: relative;
@@ -543,7 +543,7 @@ class BWGViewGalleryBox {
         height: inherit;
         width: inherit;
       }
-      .bwg_popup_image_span {
+      .bwg_popup_image_spun {
         height: inherit;
         display: table-cell;
         filter: Alpha(opacity=100);
@@ -553,7 +553,7 @@ class BWGViewGalleryBox {
         width: inherit;
         z-index: 2;
       }
-      .bwg_popup_image_second_span {
+      .bwg_popup_image_second_spun {
         width: inherit;
         height: inherit;
         display: table-cell;
@@ -645,9 +645,9 @@ class BWGViewGalleryBox {
             if ($image_row->id == $current_image_id) {
               $current_key = $key;
               ?>
-              <span class="bwg_popup_image_span" id="image_id_<?php echo $image_row->id; ?>">
-                <span class="bwg_popup_image_span1" style="display: table; width: inherit; height: inherit;">
-                  <span class="bwg_popup_image_span2" style="display: table-cell; vertical-align: middle; text-align: center;">
+              <span class="bwg_popup_image_spun" id="image_id_<?php echo $image_row->id; ?>">
+                <span class="bwg_popup_image_spun1" style="display: table; width: inherit; height: inherit;">
+                  <span class="bwg_popup_image_spun2" style="display: table-cell; vertical-align: middle; text-align: center;">
                     <img id="bwg_popup_image" class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
                   </span>
                 </span>
@@ -663,9 +663,9 @@ class BWGViewGalleryBox {
             }
             else {
               ?>
-              <span class="bwg_popup_image_second_span" id="image_id_<?php echo $image_row->id; ?>">
-                <span class="bwg_popup_image_span1" style="display: table; width: inherit; height: inherit;">
-                  <span class="bwg_popup_image_span2" style="display: table-cell; vertical-align: middle; text-align: center;">
+              <span class="bwg_popup_image_second_spun" id="image_id_<?php echo $image_row->id; ?>">
+                <span class="bwg_popup_image_spun1" style="display: table; width: inherit; height: inherit;">
+                  <span class="bwg_popup_image_spun2" style="display: table-cell; vertical-align: middle; text-align: center;">
                     <img id="bwg_popup_image_second" class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" />
                   </span>
                 </span>
@@ -686,7 +686,7 @@ class BWGViewGalleryBox {
       <div class="bwg_image_container">
         <div class="bwg_watermark_container">
           <div style="display:table; margin:0 auto;">
-            <span class="bwg_watermark_span" id="bwg_watermark_container">
+            <span class="bwg_watermark_spun" id="bwg_watermark_container">
               <?php
               if ($watermark_type == 'image') {
               ?>
@@ -727,8 +727,8 @@ class BWGViewGalleryBox {
             var bwg_current_image_span = jQuery(this).find("img");
             var width = jQuery(this).find("img").width();
             var height = bwg_current_image_span.height();
-            jQuery(".bwg_watermark_span").width(width);
-            jQuery(".bwg_watermark_span").height(height);
+            jQuery(".bwg_watermark_spun").width(width);
+            jQuery(".bwg_watermark_spun").height(height);
             jQuery(".bwg_watermark").css({display: ''});
             // Set watermark image size.
             var comment_container_width = 0;
@@ -1536,7 +1536,7 @@ class BWGViewGalleryBox {
               jQuery(".bwg_image_wrap").css({width: bwg_popup_current_width - comment_container_width});
               jQuery(".bwg_image_container").css({height: bwg_popup_current_height - <?php echo $image_filmstrip_height; ?>});
               // jQuery(".bwg_slide_bg").css({height: bwg_popup_current_height - <?php echo $image_filmstrip_height; ?>});
-              // jQuery(".bwg_popup_image_span1").css({height: bwg_popup_current_height - <?php echo $image_filmstrip_height; ?>});
+              // jQuery(".bwg_popup_image_spun1").css({height: bwg_popup_current_height - <?php echo $image_filmstrip_height; ?>});
               jQuery(".bwg_popup_image").css({
                 maxWidth: bwg_popup_current_width - comment_container_width,
                 maxHeight: bwg_popup_current_height - <?php echo $image_filmstrip_height; ?>

@@ -130,7 +130,7 @@ class BWGControllerGalleries_bwg {
     $filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url;
     $thumb_filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url;
     copy(str_replace('/thumb/', '/.original/', ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url), ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url);    
-    list($width_orig, $height_orig, $type_orig) = getimagesize($filename);
+    list($width_orig, $height_orig, $type_orig) = getimagesize(htmlspecialchars_decode($filename));
     $percent = $width_orig / $thumb_width;
     $thumb_height = $height_orig / $percent;
     ini_set('memory_limit', '-1');
@@ -309,7 +309,7 @@ class BWGControllerGalleries_bwg {
 
   function set_text_watermark ($original_filename, $dest_filename, $watermark_text, $watermark_font, $watermark_font_size, $watermark_color, $watermark_transparency, $watermark_position) {
     $watermark_transparency = 127 - ($watermark_transparency * 1.27);
-    list($width, $height, $type) = getimagesize($original_filename);
+    list($width, $height, $type) = getimagesize(htmlspecialchars_decode($original_filename));
     $watermark_image = imagecreatetruecolor($width, $height);
 
     $watermark_color = $this->bwg_hex2rgb($watermark_color);
@@ -368,8 +368,8 @@ class BWGControllerGalleries_bwg {
   }
 
   function set_image_watermark ($original_filename, $dest_filename, $watermark_url, $watermark_height, $watermark_width, $watermark_position) {
-    list($width, $height, $type) = getimagesize($original_filename);
-    list($width_watermark, $height_watermark, $type_watermark) = getimagesize($watermark_url);
+    list($width, $height, $type) = getimagesize(htmlspecialchars_decode($original_filename));
+    list($width_watermark, $height_watermark, $type_watermark) = getimagesize(htmlspecialchars_decode($watermark_url));
 
     $watermark_width = $width * $watermark_width / 100;
     $watermark_height = $height_watermark * $watermark_width / $width_watermark;
