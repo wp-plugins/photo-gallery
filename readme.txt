@@ -42,7 +42,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 ### The list of the features:
 
 *   100% Responsive   
-*   Multiple views to choose from: Thumbnails, Image Browser, Slideshow and Compact Album, Extended Album views for albums   
+*   Multiple views to choose from: Thumbnails, Image Browser, Slideshow  for galleries and Compact Album, Extended Album views for albums   
 *   Masonry and Blog Style View (commercial version)
 *   Supports the following types of image files:  JPG, JPEG, PNG and GIF   
 *   Editable themes (commercial version)  
