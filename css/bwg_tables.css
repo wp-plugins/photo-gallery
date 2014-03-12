@@ -459,3 +459,8 @@
   height: 30px;
   
 }
+
+.spider_search_value {
+  height: 2em;
+  margin: 0 0 4px;
+}

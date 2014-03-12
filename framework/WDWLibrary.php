@@ -61,7 +61,7 @@ class WDWLibrary {
       </script>
       <div class="alignleft actions" style="">
         <label for="search_value" style="font-size:14px; width:50px; display:inline-block;"><?php echo $search_by; ?>:</label>
-        <input type="text" id="search_value" name="search_value" value="<?php echo esc_html($search_value); ?>" style="width:150px;" />
+        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" style="width:150px;" />
       </div>
       <div class="alignleft actions">
         <input type="button" value="Search" onclick="spider_search()" class="button-secondary action">
@@ -208,7 +208,7 @@ class WDWLibrary {
       </script>
       <div class="alignleft actions" style="">
         <label for="search_value" style="font-size:14px; width:60px; display:inline-block;"><?php echo $search_by; ?>:</label>
-        <input type="text" id="search_value" name="search_value" value="<?php echo esc_html($search_value); ?>" style="width:150px;" />
+        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" style="width:150px;" />
       </div>
       <div class="alignleft actions">
         <input type="button" value="Search" onclick="spider_search()" class="button-secondary action">

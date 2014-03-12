@@ -1159,8 +1159,9 @@ class BWGViewSlideshow {
           jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").css({height: (<?php echo $image_height - $slideshow_filmstrip_height; ?>)});
           
           jQuery(".bwg_slideshow_image_<?php echo $bwg; ?>").css({
-            maxWidth: <?php echo $image_width; ?>,
-            maxHeight: <?php echo $image_height - $slideshow_filmstrip_height; ?>
+            /*maxWidth: <?php echo $image_width; ?>,
+            maxHeight: <?php echo $image_height - $slideshow_filmstrip_height; ?>*/
+            cssText: "max-width: <?php echo $image_width; ?>px !important; max-height: <?php echo $image_height - $slideshow_filmstrip_height; ?>px !important;"
           });
           // Set watermark container size.
           bwg_change_watermark_container_<?php echo $bwg; ?>();

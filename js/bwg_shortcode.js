@@ -319,7 +319,7 @@ function bwg_onKeyDown(e) {
   var e = e || window.event;
   var chCode1 = e.which || e.paramlist_keyCode;
   if (chCode1 != 37 && chCode1 != 38 && chCode1 != 39 && chCode1 != 40) {
-    if (!e.ctrlKey || (chCode1 != 86 && chCode1 != 67 && chCode1 != 65 && chCode1 != 88)) {
+    if ((!e.ctrlKey && !e.metaKey) || (chCode1 != 86 && chCode1 != 67 && chCode1 != 65 && chCode1 != 88)) {
       e.preventDefault();
     }
   }

@@ -302,7 +302,7 @@ function onDateModifiedHeaderClick(event, obj) {
 function onKeyDown(e) {
   var e = e || window.event;
   var chCode1 = e.which || e.paramlist_keyCode;
-  if (e.ctrlKey && chCode1 == 65) {
+  if ((e.ctrlKey || e.metaKey) && chCode1 == 65) {
     jQuery(".explorer_item").addClass("explorer_item_select");
     filesSelected = [];
     jQuery(".explorer_item").each(function() {
@@ -327,7 +327,7 @@ function onFileMOut(event, obj) {
 function onFileClick(event, obj) {
   jQuery(".explorer_item").removeClass("explorer_item_select");
   var objName = jQuery(obj).attr("name");
-  if (event.ctrlKey == true) {
+  if (event.ctrlKey == true || event.metaKey == true) {
     if (filesSelected.indexOf(objName) == -1) {
       filesSelected.push(objName);
       keyFileSelected = obj;
@@ -374,7 +374,7 @@ function onFileDragStart(event, obj) {
   var objName = jQuery(obj).attr("name");
   if (filesSelected.indexOf(objName) < 0) {
     jQuery(".explorer_item").removeClass("explorer_item_select");
-    if (event.ctrlKey == true) {
+    if (event.ctrlKey == true || event.metaKey == true) {
       if (filesSelected.indexOf(objName) == -1) {
         filesSelected.push(objName);
         keyFileSelected = obj;
@@ -414,7 +414,7 @@ function onFileDrop(event, obj) {
   if ((dragFiles.length == 0) || (dragFiles.indexOf(destDirName) >= 0)) {
     return false;
   }
-  var clipboardTask = event.ctrlKey == true ? "copy" : "cut";
+  var clipboardTask = (event.ctrlKey == true || event.metaKey == true) ? "copy" : "cut";
   var clipboardDest = dir + DS + destDirName;
   submit("paste_items", null, null, null, null, null, null, clipboardTask, dragFiles.join(","), dir, clipboardDest);
   event.preventDefault();
