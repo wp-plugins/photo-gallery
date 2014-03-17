@@ -156,7 +156,7 @@ class BWGViewAlbums_bwg {
                   <img title="<?php echo $row_data->name; ?>" style="border: 1px solid #CCCCCC; max-width:60px; max-height:60px;" src="<?php echo $preview_image; ?>">
                 </td>
                 <td class="spider_order table_medium_col"><input id="order_input_<?php echo $row_data->id; ?>" name="order_input_<?php echo $row_data->id; ?>" type="text" size="1" value="<?php echo $row_data->order; ?>" /></td>
-                <td><?php echo $row_data->display_name; ?></td>
+                <td><?php echo get_userdata($row_data->author)->display_name; ?></td>
                 <td class="table_big_col"><a onclick="spider_set_input_value('task', '<?php echo $published; ?>');spider_set_input_value('current_id', '<?php echo $row_data->id; ?>');spider_form_submit(event, 'albums_form')" href=""><img src="<?php echo WD_BWG_URL . '/images/' . $published_image . '.png'; ?>"></img></a></td>
                 <td class="table_big_col"><a onclick="spider_set_input_value('task', 'edit');
                                                       spider_set_input_value('current_id', '<?php echo $row_data->id; ?>');

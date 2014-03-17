@@ -4,7 +4,7 @@ Donate link: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: photo, photo gallery, image gallery, video gallery, gallery, galleries,  wordpress gallery plugin, images gallery, album, photo albums, Simple gallery, best gallery plugin, free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, photogallery, widget gallery, image, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, Fotogalerie, Galleria, galerie, galeri
 Requires at least: 3.0
 Tested up to: 3.8.1
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -179,39 +179,40 @@ Step 2:  Creating/Editing Galleries for the Photo Gallery.
 2.4 Description. Fill in the information you would like to share with the gallery. The description will be visible with some of the gallery views.  
 2.5 Author. This indicates the author of the gallery. It automatically includes the name of the logged in user, who has added the gallery.   
 2.6 Published. Choose whether to publish the gallery or to leave it for the further publication.  
-2.7 Preview image. Indicate the image which will be used to preview the gallery. If you leave it blank, it will randomly pick one of the uploaded images included in the gallery.  
-2.8 Images. You can add photos by clicking Add Images button.   
+2.7 Preview image. Indicate the gallery image which will be used to preview the gallery. If you leave it blank, it will automatically pick the first gallery image among the uploaded files. 
+2.8 Images. You can add photos to the gallery by clicking Add Images button.   
 
-The plugin is not using standard WordPress Media Manager, instead here you will be redirected to Photo Gallery File Manager. After uploading images you should mark them and press Add button.  
+The Photo Gallery plugin is not using standard WordPress Media Manager, instead here you will be redirected to Photo Gallery File Manager. After uploading images you should mark them and press Add button.  
 Photo Gallery File Manager  
 2.8.1 Up. This button will allow you to move within the taxonomy of the folder to a higher level folder.  
-2.8.2 Make a directory. You can indicate the location of the directory to get images from.   
-2.8.3 Rename item. You can rename the chosen images without leaving the uploader.  
-2.8.4 Copy. You can copy images and directories.  
+2.8.2 Make a directory. You can indicate the location of the directory to get images to be used in the gallery.   
+2.8.3 Rename item. You can rename the chosen gallery images without leaving the uploader.  
+2.8.4 Copy. You can copy images and directories to use in the galleries and albums.  
 2.8.5 Cut. You can cut images and directories.  
 2.8.6 Paste. You can paste copied/cut images and directories.  
 2.8.7 Remove items. You can remove any amount of items from the list.  
-2.8.8 Upload files. You can upload images from your PC and other devices using this feature. Multi-upload is also possible. To upload all images, you should first press Ctrl+A.    
+2.8.8 Upload files. You can upload images from your PC and other devices using this feature. Multi-upload is also possible. To upload all images, you should first press Ctrl+A.
+    
 To add the images to your Gallery, you should press Add the selected images to gallery button.    
 Important! Before uploading an image, you should provide dimensions for the generated thumbnail at the top of the Media Upload window or leave it to default value set in the Thumbnail options (Options Menu).     
 2.8.9 View options: View thumbnails. Displays images in Thumbnail view.  
 View list. Displays images in list view.  
-To view the uploaded items, you should Press Back button.    
-Now let`s explore the individual image options. Refer to the buttons on the right side and below.  
-2.9 Set Watermark. You can apply the created watermark by checking the image you want to add the watermark to and pressing the button. The watermark can be created in Options menu of the product.   
-2.10 Reset. You can reset the images to the default by selecting multiple/all images and pressing this button. It will remove all kind of changes, including crop, rotate and watermark.  
-2.11 Show order column. You can either Drag and Drop images to change the positioning of the images or prefer order column, where you can provide numbering for the images. This option is more useful when you have multiple pages of images and it is not convenient to use Drag/Drop.  
+  
+Now let`s explore the individual gallery image options. Refer to the buttons on the right side and below.  
+2.9 Set Watermark. You can apply the created watermark by checking the image you want to add the watermark to and pressing the button. The watermark can be created in Options menu of the product.  You can also add the watermark to all gallery images first selecting all gallery images and then pressing Set watermark button.  
+2.10 Reset. You can reset the gallery images to the default by selecting multiple/all images and pressing this button. It will remove all kind of changes, including crop, rotate and watermark.  
+2.11 Show order column. You can either Drag and Drop images to change the positioning of the images in the gallery or prefer order column, where you can provide numbering for the images to be displayed in a gallery. This option is more useful when you have multiple pages of images and it is not convenient to use Drag/Drop.  
 2.12 Save images. Using this button you can save only the changes made with the images, the changes with the gallery as a whole should be saved with the upper Save button.  
-2.13 Publish. Check the images you want to publish and press the button.  
-2.14 Unpublish. Check the images you want to temporary unpublish and press the button.  
-2.15 Delete. Check the images you want to remove from the album and press the button.  
+2.13 Publish. Check the images you want to publish in the gallery and press the button.  
+2.14 Unpublish. Check the images you want to temporary unpublish from the gallery and press the button.  
+2.15 Delete. Check the images you want to remove from the gallery or album and press the button.  
 2.16 Crop. You can crop the image for creating the Thumbnail for the large image. The thumbnail will be available with some of the gallery views.  
-2.17 Rotate. You can rotate the thumbnail image. The change will also affect the larger image.  
+2.17 Rotate. You can rotate the thumbnail image. The change will also affect the larger image displayed within the gallery.  
 2.18 Reset. If you want to return to the original image, undo crop and reset, you can use this button.  
-2.19 Alt/Title. Provide a title for each image.  
-2.20 Description. You can additionally have a description for the images to provide detailed information.  
-2.21 Tags. Each image can have a number of tags from the list of created tags.  
-2.22 Published. Choose whether to publish or unpublish the uploaded images.  
+2.19 Alt/Title. Provide a title for each gallery image.  
+2.20 Description. You can additionally have a description for the gallery images to provide detailed information.  
+2.21 Tags. Each gallery image can have a number of tags from the list of created tags.  
+2.22 Published. Choose whether to publish or unpublish the uploaded images within the gallery.  
   
 Step 3:  Creating/Editing Tags for the Photo Gallery galleries and albums.  
 3.1 On the left menu select Photo Gallery> Tags.  
@@ -226,19 +227,19 @@ Step 4:  Creating/Editing Albums for the Photo Gallery.
 4.4 Description. Provide a detailed description for the album.  
 4.5 Author. The author of the album will be automatically set by the logged in user, who creates the album.  
 4.6 Published. Choose whether to publish the album or not.  
-4.7 Preview Image. Choose the preview image for the album. If you leave it blank it will randomly use an image used in the album.  
-4.8 Albums and Galleries. Choose the galleries or already created albums to be used in the album.  
+4.7 Preview Image. Choose the preview image for the album. If you leave it blank it will automatically use the first image used in the album.  
+4.8 Albums and Galleries. Choose the galleries or already created albums to be used in the album. Here you can add multiple galleries and albums. There is no such limitation. 
 4.9 Drag/Drop. After adding the albums you will be able to use drag/drop option to set the order for the albums to be displayed.  
   
 Step 5:   Editing Options for Photo Gallery.  
-Here you can change default options for different views of Photo Gallery views, as well as general options. You can simply navigate here choosing the corresponding tab.  
+Here you can change default options for different views of Photo Gallery, as well as general options of the galleries and albums. You can simply navigate here choosing the corresponding tab.  
 5.1 Global Options of Photo Gallery.  
-5.1.1 Images directory. Provide an image directory location which will host the uploaded images.  
-5.1.2 Gallery role. Choose whether only author can make changes in the galleries or not.  
+5.1.1 Images directory. Provide an image directory location which will host the uploaded gallery images.  
+5.1.2 Gallery role. Choose whether only author can make changes in the gallery or not.  
 5.1.3 Album role. Choose whether only author can make changes in the albums or not.  
-5.1.4 Image role. Choose whether only author can make changes in the images or not.  
+5.1.4 Image role. Choose whether only author can make changes in the gallery images or not.  
   
-5.2 Watermark. You can use this option to add different types of watermarks on your images.  
+5.2 Watermark. You can use this option to add different types of watermarks on your gallery images.  
 5.2.1 Watermark Type. Choose what kind of advertisement you want to use from provided 2 options (text, image) or not to use watermarks in your galleries and albums.  
 5.2.2 Text  
 Watermark text. Provide the text which will be displayed over the gallery/album images.  
@@ -252,7 +253,7 @@ Watermark URL. Provide the absolute URL of the image which will be used for the 
 Watermark image size. Define the size (in percentage for the responsive look) of the image used for the watermark.  
 Watermark position. Choose the positioning of the watermark from the available 9 options.  
   
-5.3. Advertisement. You can use this option to add advertisement to your website.  
+5.3. Advertisement. You can use this option to add advertisement over the gallery or album images.  
 5.3.1 Advertisement Type. Choose what kind of advertisement you want to use from the provided 2 options (text, image) or not to use ads in your galleries and albums.  
 5.3.2 Text  
 Advertisement text. Provide the text which will be displayed over the gallery/album images.  
@@ -270,20 +271,20 @@ Advertisement opacity. Define the level of opacity for the advertisement, provid
 Advertisement position. Choose the positioning of the advertisement from the available 9 options.  
   
 5.4 Lightbox   
-5.4.1 Ligthbox dimensions. Define the width and height of the lightbox.  
-5.4.2 Lightbox effect. Select the effect which will be applied to the slideshow of images in the lightbox.  
+5.4.1 Ligthbox dimensions. Define the width and height of the lightbox which will be displayed with some of the gallery and album views.  
+5.4.2 Lightbox effect. Select the effect which will be applied to the slideshow of gallry images in the lightbox.  
 5.4.3 Interval. Provide the time interval between the display of slideshow images in seconds.  
-5.4.4 Enable filmstrip. Choose whether to include the filmstrip of images in the lightbox or not.  
+5.4.4 Enable filmstrip. Choose whether to include the filmstrip of gallery or album images in the lightbox or not.  
 5.4.5 Filmstrip height. Define the height of the filmstrip in pixels.  
 5.4.6 Enable control buttons. Choose whether to display control buttons in the lightbox or not.  
 5.4.7 Enable fullscreen. Choose whether to have a possibility of entering Fullscreen from the lightbox or not.  
-5.4.8 Enable comments. Choose whether to display comments with the images or not.  
+5.4.8 Enable comments. Choose whether to display comments with the gallery images or not.  
 5.4.9 Enable Captcha for comments. Choose whether to have Captcha field for the possibility of adding comments as a human verification or not.  
 5.4.10 Enable original image display button. Choose whether to allow displaying original images upon clicking the button or not.  
-5.4.11 Enable image download. Choose whether to allow downloading the images or not.  
-5.4.12 Enable Facebook button. Choose whether to display Facebook share button with the images or not.  
-5.4.13 Enable Twitter button. Choose whether to display twit button with the images or not.  
-5.4.14 Enable Google+ button. Choose whether to display Google+ share button with the images or not.  
+5.4.11 Enable image download. Choose whether to allow downloading the gallery images or not.  
+5.4.12 Enable Facebook button. Choose whether to display Facebook share button with the gallery images or not.  
+5.4.13 Enable Twitter button. Choose whether to display twit button with the gallery images or not.  
+5.4.14 Enable Google+ button. Choose whether to display Google+ share button with the gallery images or not.  
   
 5.5 Album Options  
 5.5.1 Number of album columns. Provide the maximum number of columns to be displayed within a single album.  
@@ -299,9 +300,9 @@ Advertisement position. Choose the positioning of the advertisement from the ava
 5.6.2 Interval. Provide the time interval between the slideshow images in seconds.  
 5.6.3 Slideshow dimensions. Define the width and height of the slideshow.  
 5.6.4 Enable autoplay. Choose either to have the slideshow auto played or allow the users to change the images with a click.  
-5.6.5 Enable shuffle. Choose whether to have the images randomized in the slideshow or not.  
+5.6.5 Enable shuffle. Choose whether to have the gallery images randomized in the slideshow or not.  
 5.6.6 Enable control buttons. Choose whether to display control buttons with image slideshow views or not.  
-5.6.7 Enable slideshow filmstrip. Choose whether to include the filmstrip of images in the slideshow or not.  
+5.6.7 Enable slideshow filmstrip. Choose whether to include the filmstrip of gallery images in the slideshow or not.  
 5.6.8 Slideshow filmstrip height. Define the height for the filmstrip for the slideshow.  
 5.6.9 Enable image title. Choose whether to display the titles for the slideshow images or not.  
 5.6.10 Title position. Select the positioning for the image title from the provided options.  
@@ -312,11 +313,11 @@ Advertisement position. Choose the positioning of the advertisement from the ava
   
 5.7 Thumbnail Options  
 5.7.1 Number of image columns. Provide the maximum number of image columns to be displayed with Thumbnails view.  
-5.7.2 Images per page. Provide the maximum number of images to be displayed in a single page.  
+5.7.2 Images per page. Provide the maximum number of gallery images to be displayed in a single page.  
 5.7.3 Show image title. Choose whether to always display the image title, have it displayed only when hovered or never display it.    
 5.7.4 Generated thumbnail dimensions. Provide the dimensions of the thumbnail image which will be generated from the original image.     
 5.7.5 Frontend thumbnail dimensions. Provide the dimensions of the image, which will be displayed in the front end as a thumbnail. This should be smaller than the generated thumbnail to keep the quality of the image.      
-5.7.6 Thumbnail dimensions. Specify the width and height of the image thumbnails.      
+5.7.6 Thumbnail dimensions. Specify the width and height of the gallery image thumbnails.      
 5.7.7 Enable image pagination. Choose whether to have image pagination or not.     
 
   
@@ -330,7 +331,7 @@ Advertisement position. Choose the positioning of the advertisement from the ava
 5.8.7 Enable Pagination for Blog Style view. Choose whether to have pagination for the Blog Style view or not.  
   
 Step 6:  Creating/Editing Themes for different views of the Photo Gallery.  
-Use one of the default themes or click `Add new` button to create a new theme.  
+Use one of the default Photo Gallery themes or click `Add new` button to create a new theme.  
 6.1 Thumbnails.  
 6.1.1 Name. Provide a name for the theme.  
 6.1.2 Margin. Define the space around the thumbnail in pixels.   
@@ -351,16 +352,16 @@ Use one of the default themes or click `Add new` button to create a new theme.
   
 6.2 Masonry  
 6.2.1 Name. Provide a name for the theme.  
-6.2.2 Padding. Define the padding of the individual images.   
-6.2.3 Border width. Define the border with for the individual images.   
+6.2.2 Padding. Define the padding of the individual gallery images.   
+6.2.3 Border width. Define the border with for the individual gallery images.   
 6.2.4 Border style. Select the style of the border from the provided options.   
 6.2.5 Border color. Select the border color for the border.   
-6.2.6 Border radius. Define the border radius for the individual images using CSS type values.   
-6.2.7 Transparency. Specify the level of transparency for the individual images.   
+6.2.6 Border radius. Define the border radius for the individual gallery images using CSS type values.   
+6.2.7 Transparency. Specify the level of transparency for the individual gallery images.   
 6.2.8 Background color. Select a background color for the overall masonry box.   
 6.2.9 Background transparency. Specify the background transparency level.   
 6.2.10 Alignment. Choose the alignment of the masonry box in the page/post.   
-6.2.11 Hover effect. Select the effect of the individual images when hovered or chose to have none.  
+6.2.11 Hover effect. Select the effect of the individual gallery images when hovered or chose to have none.  
 6.2.12 Hover effect value. Specify the value of the chosen hover effect using CSS type values.   
 6.2.13 Transition. Choose whether to have a transition with hover effects or not.  
   
@@ -667,28 +668,28 @@ Use one of the default themes or click `Add new` button to create a new theme.
 6.9.19 Button text. Choose whether to have text or navigation arrow set for the page navigation.  
   
 Step 7: Editing comments.  
-7.1 Image. Choose the image you want to moderate the comments for.  
-7.2 Name. Choose the author of the comments, if there are multiple comments for the chosen image.  
-7.3 Publish. Click to publish the comment.  
-7.4 Unpublish. Click to unpublish the comment.  
-7.5 Delete. Click to delete the comment.  
+7.1 Image. Choose the gallery image you want to moderate the comments for.  
+7.2 Name. Choose the author of the comments, if there are multiple comments for the chosen gallery image.  
+7.3 Publish. Click to publish the gallery image comment.  
+7.4 Unpublish. Click to unpublish the gallery image comment.  
+7.5 Delete. Click to delete the gallery image comment.  
   
 Step 8: Publishing the Created Photo Gallery.   
 To insert a gallery into a Page or a Post.   
 Open the post/page you want to display the gallery. Press the button named Photo Gallery. A camera icon will be inserted into the page/post. Click on the image and select the gallery/album display you want to use for that specific page/post.  
-Each shortcode uses three columns of parameters. The first column shows parameters specific for that view only, the second one shows Lightbox (except Slideshow view) parameters, the third one is referred to the Advertisement.   
+Each Photo Gallery shortcode uses three columns of parameters. The first column shows parameters specific for that Photo Gallery view only, the second one shows Lightbox (except Slideshow view) parameters, the third one is referred to the Advertisement.   
 In addition you can add the shortcode using Shortcode Generator .     
 8.1 General Parameters (First Column)  
 8.1.1Thumbnails  
-Theme. Select the theme to be applied to the view.   
+Theme. Select the theme to be applied to this Photo Gallery view.   
 Gallery. Select the gallery.   
-Sort by. Choose the option to use for image sequence.   
+Sort by. Choose the option to use for the gallery image sequence.   
 Max. number of image columns. Provide the number of image columns in a page.  
 Images per page. Provide the maximum number of images per page.  
 Enable pagination. Choose whether to have pagination for the view or not.  
 Image thumbnail dimensions. Define the thumbnail width and height in pixels.  
 8.1.2 Masonry  
-Theme. Select the theme to be applied to the view.   
+Theme. Select the theme to be applied to this Photo Gallery view.   
 Gallery. Select the gallery.   
 Sort by. Choose the option to use for image sequence.   
 Max. number of image columns. Provide the number of image columns in a page.  
@@ -696,7 +697,7 @@ Images per page. Provide the maximum number of images per page.
 Enable pagination. Choose whether to have pagination for the view or not.  
 Image thumbnail width. Provide the thumbnail width for the images.  
 8.1.3 Slideshow  
-Theme. Select the theme to be applied to the view.  
+Theme. Select the theme to be applied to this Photo Gallery view.  
 Gallery. Select the gallery.   
 Sort by. Choose the option to use for image sequence.   
 Slideshow Effect. Select the effect to be applied to the slideshow.  
@@ -708,14 +709,14 @@ Enable control buttons. Choose whether to display control buttons or not.
 Enable slideshow filmstrip. Choose whether to have a thumbnail filmstrip with slideshow view or not.  
 Slideshow Filmstrip height. Specify the height for the filmstrip.  
 8.1.4 Image Browser   
-Theme. Select the theme to be applied to the view.  
+Theme. Select the theme to be applied to this Photo Gallery view.  
 Gallery. Select the gallery.   
 Sort by. Choose the option to use for image sequence.   
 Image width. Set the width for the image.  
 Enable image title. Choose whether to have an image title displayed within the view or not.  
 Enable image description. Choose whether to have an image description displayed within the view or not.  
 8.1.5 Compact Album.  
-Theme. Select the theme to be applied to the view.  
+Theme. Select the theme to be applied to this Photo Gallery view.  
 Album. Select the album.   
 Max. number of album columns. Provide the maximum number of albums to be displayed in a single column.  
 Albums per page. Provide the number of albums to be displayed in a single page.  
@@ -726,7 +727,7 @@ Images per page. Set the number of images to be displayed in a single page.
 Image thumbnail dimensions. Set the image thumbnail width and height for the album images.  
 Enable pagination. Choose whether to have pagination for the compact album view or not.  
 8.1.6 Extended Album  
-Theme. Select the theme to be applied to the view.  
+Theme. Select the theme to be applied to this Photo Gallery view.  
 Album. Select album.   
 Albums per page. Provide the number of albums to be displayed in a single page.   
 Album row height. Set the height for the album rows.  
@@ -737,7 +738,7 @@ Images per page. Define the number of images to be displayed in a single page.
 Image thumbnail dimensions. Define the image thumbnail width and height for the album images.  
 Enable pagination. Choose whether to have pagination for the extended albums or not.  
 8.1.7 Blog Style  
-Theme. Select the theme to be applied to the view.  
+Theme. Select the theme to be applied to this Photo Gallery view.  
 Gallery. Select the gallery.   
 Sort by. Choose the option to use for the image sequence.   
 Image width. Set the image width for the Blog Style view.  
@@ -821,7 +822,7 @@ Theme. Choose the theme, which will be applied to the gallery/album correspondin
 9.4.1 Title. Provide a title for the widget.  
 9.4.2 Choose whether to display an album or gallery.  
 9.4.3 Select Gallery/Select Album. Select the gallery/album to be displayed with the widget.  
-9.4.4 Choose whether to display random or the last   
+9.4.4 Choose whether to display random or the last few images of the gallery or album.   
 9.4.5 Number. Provide the number of images to be displayed with the widget.  
 9.4.6 Dimensions. Specify the width and height of the widget.  
 9.4.7 Theme. Choose the theme, which will be applied to the gallery/album.  

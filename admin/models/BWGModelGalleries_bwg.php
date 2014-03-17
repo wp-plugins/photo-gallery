@@ -49,21 +49,21 @@ class BWGModelGalleries_bwg {
   public function get_rows_data() {
     global $wpdb;
     if (!current_user_can('manage_options') && $wpdb->get_var("SELECT gallery_role FROM " . $wpdb->prefix . "bwg_option")) {
-      $where = " WHERE table1.author=" . get_current_user_id();
+      $where = " WHERE author=" . get_current_user_id();
     }
     else {
-      $where = " WHERE table1.author>=0 ";
+      $where = " WHERE author>=0 ";
     }
-    $where .= ((isset($_POST['search_value'])) ? ' AND table1.name LIKE "%' . esc_html(stripslashes($_POST['search_value'])) . '%"' : '');
+    $where .= ((isset($_POST['search_value'])) ? ' AND name LIKE "%' . esc_html(stripslashes($_POST['search_value'])) . '%"' : '');
     $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
-    $order_by = ' ORDER BY table1.`' . ((isset($_POST['order_by']) && esc_html(stripslashes($_POST['order_by'])) != '') ? esc_html(stripslashes($_POST['order_by'])) : 'order') . '` ' . $asc_or_desc;
+    $order_by = ' ORDER BY `' . ((isset($_POST['order_by']) && esc_html(stripslashes($_POST['order_by'])) != '') ? esc_html(stripslashes($_POST['order_by'])) : 'order') . '` ' . $asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
       $limit = ((int) $_POST['page_number'] - 1) * 20;
     }
     else {
       $limit = 0;
     }
-    $query = "SELECT table1.*,table2.display_name FROM " . $wpdb->prefix . "bwg_gallery as table1 LEFT JOIN " . $wpdb->prefix . "users as table2 ON table1.author=table2.id " . $where . $order_by . " LIMIT " . $limit . ",20";
+    $query = "SELECT * FROM " . $wpdb->prefix . "bwg_gallery " . $where . $order_by . " LIMIT " . $limit . ",20";
     $rows = $wpdb->get_results($query);
     return $rows;
   }

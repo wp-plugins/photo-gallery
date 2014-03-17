@@ -85,7 +85,7 @@ class BWGControllerGalleries_bwg {
       $this->save_db();
       global $wpdb;
       if (!isset($_POST['current_id']) || (esc_html(stripslashes($_POST['current_id'])) == 0) || (esc_html(stripslashes($_POST['current_id'])) == '')) {
-        // If gallery saved first time(insert in db).
+        // If gallery saved first time (insert in db).
         $_POST['current_id'] = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_gallery');
       }
     }
@@ -562,13 +562,6 @@ class BWGControllerGalleries_bwg {
     $wpdb->query('DELETE FROM ' . $wpdb->prefix . 'bwg_image WHERE gallery_id=0');
   }
 
-  // Return random image from gallery for gallery preview.
-  public function get_image_for_gallery($gallery_id) {
-    global $wpdb;
-    $preview_image = $wpdb->get_var($wpdb->prepare("SELECT thumb_url FROM " . $wpdb->prefix . "bwg_image WHERE gallery_id='%d' ORDER BY rand() limit 1", $gallery_id));
-    return $preview_image;
-  }
-  
   public function bwg_get_unique_slug($slug, $id) {
     global $wpdb;
     $slug = sanitize_title($slug);
@@ -619,7 +612,17 @@ class BWGControllerGalleries_bwg {
     $slug = $this->bwg_get_unique_slug($slug, $id);
     $description = (isset($_POST['description']) ? stripslashes($_POST['description']) : '');
     $preview_image = (isset($_POST['preview_image']) ? esc_html(stripslashes($_POST['preview_image'])) : '');
-    $random_preview_image = (($preview_image == '') ? $this->get_image_for_gallery($id) : '');
+    if ($preview_image == '') {
+      if ($id != 0) {
+        $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT random_preview_image FROM " . $wpdb->prefix . "bwg_gallery WHERE id='%d'", $id));
+        if ($random_preview_image == '') {
+          $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT thumb_url FROM " . $wpdb->prefix . "bwg_image WHERE gallery_id='%d' ORDER BY `order`", $id));
+        }
+      }
+      else {
+        $random_preview_image = (isset($_POST['thumb_url_pr_0']) ? esc_html(stripslashes($_POST['thumb_url_pr_0'])) : '');
+      }
+    }
     $published = (isset($_POST['published']) ? (int) $_POST['published'] : 1);
     if ($id != 0) {
       $save = $wpdb->update($wpdb->prefix . 'bwg_gallery', array(

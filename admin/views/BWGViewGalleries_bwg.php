@@ -160,7 +160,7 @@ class BWGViewGalleries_bwg {
                                 spider_set_input_value('current_id', '<?php echo $row_data->id; ?>');
                                 spider_form_submit(event, 'galleries_form')" href="" title="Edit"><?php echo $row_data->name; ?></a></td>
                 <td><?php echo $row_data->slug; ?></td>
-                <td><?php echo $row_data->display_name; ?></td>
+                <td><?php echo get_userdata($row_data->author)->display_name; ?></td>
                 <td class="spider_order table_medium_col"><input id="order_input_<?php echo $row_data->id; ?>" name="order_input_<?php echo $row_data->id; ?>" type="text" size="1" value="<?php echo $row_data->order; ?>" /></td>
                 <td class="table_big_col"><a onclick="spider_set_input_value('task', '<?php echo $published; ?>');spider_set_input_value('current_id', '<?php echo $row_data->id; ?>');spider_form_submit(event, 'galleries_form')" href=""><img src="<?php echo WD_BWG_URL . '/images/' . $published_image . '.png'; ?>"></img></a></td>
                 <td class="table_big_col"><a onclick="spider_set_input_value('task', 'edit');

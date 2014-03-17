@@ -75,12 +75,12 @@ class BWGControllerAlbums_bwg {
   public function get_image_for_album($album_id) {
     global $wpdb;
     $preview_image = '';
-    $gallery_row = $wpdb->get_row($wpdb->prepare("SELECT t1.preview_image,t1.random_preview_image FROM " . $wpdb->prefix . "bwg_gallery as t1 INNER JOIN " . $wpdb->prefix . "bwg_album_gallery as t2 on t1.id=t2.alb_gal_id WHERE t2.is_album=0 AND t2.album_id='%d' AND (t1.preview_image<>'' OR t1.random_preview_image<>'') ORDER BY rand() limit 1", $album_id));
+    $gallery_row = $wpdb->get_row($wpdb->prepare("SELECT t1.preview_image,t1.random_preview_image FROM " . $wpdb->prefix . "bwg_gallery as t1 INNER JOIN " . $wpdb->prefix . "bwg_album_gallery as t2 on t1.id=t2.alb_gal_id WHERE t2.is_album=0 AND t2.album_id='%d' AND (t1.preview_image<>'' OR t1.random_preview_image<>'') ORDER BY t2.`order`", $album_id));
     if ($gallery_row) {
       $preview_image = (($gallery_row->preview_image) ? $gallery_row->preview_image : $gallery_row->random_preview_image);
     }
     if (!$preview_image) {
-      $album_row = $wpdb->get_row($wpdb->prepare("SELECT t1.preview_image,t1.random_preview_image FROM " . $wpdb->prefix . "bwg_album as t1 INNER JOIN " . $wpdb->prefix . "bwg_album_gallery as t2 on t1.id=t2.alb_gal_id WHERE t2.is_album=1 AND t2.album_id='%d' AND (t1.preview_image<>'' OR t1.random_preview_image<>'') ORDER BY rand() limit 1", $album_id));
+      $album_row = $wpdb->get_row($wpdb->prepare("SELECT t1.preview_image,t1.random_preview_image FROM " . $wpdb->prefix . "bwg_album as t1 INNER JOIN " . $wpdb->prefix . "bwg_album_gallery as t2 on t1.id=t2.alb_gal_id WHERE t2.is_album=1 AND t2.album_id='%d' AND (t1.preview_image<>'' OR t1.random_preview_image<>'') ORDER BY t2.`order`", $album_id));
       if ($album_row) {
         $preview_image = (($album_row->preview_image) ? $album_row->preview_image : $album_row->random_preview_image);
       }
@@ -143,7 +143,6 @@ class BWGControllerAlbums_bwg {
     $published = ((isset($_POST['published']) && esc_html(stripslashes($_POST['published'])) != '') ? esc_html(stripslashes($_POST['published'])) : '');
     $albums_galleries = (isset($_POST['albums_galleries']) ? esc_html(stripslashes($_POST['albums_galleries'])) : '');
     if ($id != 0) {
-      $random_preview_image = (($preview_image == '') ? $this->get_image_for_album($id) : '');
       $save = $wpdb->update($wpdb->prefix . 'bwg_album', array(
       'name' => $name,
       'slug' => $slug,
