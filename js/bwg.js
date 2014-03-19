@@ -122,7 +122,7 @@ function spider_ajax_save(form_id, tr_group) {
     jQuery('#check_all_items').attr('checked', false);
   }
   for (var i in ids_array) {
-    if (ids_array[i]) {
+    if (ids_array.hasOwnProperty(i) && ids_array[i]) {
       if (jQuery("#check_" + ids_array[i]).attr('checked') == 'checked') {
         post_data["check_" + ids_array[i]] = jQuery("#check_" + ids_array[i]).val();
         flag = true;

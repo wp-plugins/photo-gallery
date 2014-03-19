@@ -38,7 +38,6 @@ class BWGViewAlbum_extended_preview {
     }
     $type = (isset($_POST['type_' . $bwg]) ? esc_html($_POST['type_' . $bwg]) : 'album');
     $album_gallery_id = (isset($_POST['album_gallery_id_' . $bwg]) ? esc_html($_POST['album_gallery_id_' . $bwg]) : $params['album_id']);
-    $album_gallery_id = (isset($_POST['album_gallery_id_' . $bwg]) ? esc_html($_POST['album_gallery_id_' . $bwg]) : $params['album_id']);
     if (!$album_gallery_id) {
       echo WDWLibrary::message(__('There is no album selected or the album was deleted.', 'bwg'), 'error');
       return;

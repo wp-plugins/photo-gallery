@@ -36,7 +36,7 @@ class BWGViewThumbnails {
       $options_row = $this->model->get_options_row_data();
       $params['gallery_id'] = $params['id'];
       $params['images_per_page'] = $params['count'];
-      $params['sort_by'] = (($params['show'] == 'random') ? 'RAND()' : 'date');
+      $params['sort_by'] = (($params['show'] == 'random') ? 'RAND()' : 'order');
       $params['image_enable_page'] = 0;
       $params['image_title'] = $options_row->image_title_show_hover;
       $params['thumb_height'] = $params['height'];
@@ -292,7 +292,7 @@ class BWGViewThumbnails {
                   'image_width' => $params['popup_width'],
                   'image_height' => $params['popup_height'],
                   'image_effect' => $params['popup_effect'],
-                  'sort_by' => (isset($params['type']) ? 'date' : (($params['sort_by'] == 'RAND()') ? 'order' : $params['sort_by'])),
+                  'sort_by' => (isset($params['type']) ? 'order' : (($params['sort_by'] == 'RAND()') ? 'order' : $params['sort_by'])),
                   'enable_image_filmstrip' => $params['popup_enable_filmstrip'],
                   'image_filmstrip_height' => $params['popup_filmstrip_height'],
                   'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],

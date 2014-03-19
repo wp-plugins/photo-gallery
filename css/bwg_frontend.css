@@ -1,3 +1,8 @@
+div[id^="bwg_container"] p {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 .spider_popup_loading,
 .footer-list-block .bwp_gallery .spider_popup_loading,
 .footer-list-block .bwp_gallery_tags .spider_popup_loading {

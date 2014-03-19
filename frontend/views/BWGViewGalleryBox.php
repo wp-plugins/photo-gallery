@@ -316,7 +316,7 @@ class BWGViewGalleryBox {
       }
       .bwg_comments p,
       .bwg_comment_body_p {
-        margin: 5px;
+        margin: 5px !important;;
         text-align: left;
         word-wrap: break-word;
         word-break: break-word;
