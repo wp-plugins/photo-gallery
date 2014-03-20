@@ -151,7 +151,7 @@ class BWGViewThumbnails {
         text-align: center;
       }
       <?php
-      if ($params['image_title'] == 'show') { // Show image title at the bottom.
+      if ($params['image_title'] == 'show') { /* Show image title at the bottom.*/
         ?>
         #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun1_<?php echo $bwg; ?> {
           display: block;
@@ -163,7 +163,7 @@ class BWGViewThumbnails {
         }
         <?php
       }
-      elseif ($params['image_title'] == 'hover') { // Show image title on hover.
+      elseif ($params['image_title'] == 'hover') { /* Show image title on hover.*/
         ?>
         #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun1_<?php echo $bwg; ?> {
           display: table;

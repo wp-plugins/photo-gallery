@@ -139,7 +139,7 @@ class BWGViewAlbum_compact_preview {
         text-decoration: none;
       }
       <?php
-      if ($params['compuct_album_title'] == 'show') { // Show album/gallery title at the bottom.
+      if ($params['compuct_album_title'] == 'show') { /* Show album/gallery title at the bottom.*/
         ?>
         #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun1_<?php echo $bwg; ?> {
           display: block;
@@ -150,7 +150,7 @@ class BWGViewAlbum_compact_preview {
         }
         <?php
       }
-      elseif ($params['compuct_album_title'] == 'hover') { // Show album/gallery title on hover.
+      elseif ($params['compuct_album_title'] == 'hover') { /* Show album/gallery title on hover.*/
         ?>
         #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_title_spun1_<?php echo $bwg; ?> {
           display: table;
@@ -251,7 +251,7 @@ class BWGViewAlbum_compact_preview {
         text-align: center;
       }
       <?php
-      if ($params['compuct_album_image_title'] == 'show') { // Show image title at the bottom.
+      if ($params['compuct_album_image_title'] == 'show') { /* Show image title at the bottom.*/
         ?>
         #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_spun1_<?php echo $bwg; ?> {
           display: block;
@@ -263,7 +263,7 @@ class BWGViewAlbum_compact_preview {
         }
         <?php
       }
-      elseif ($params['compuct_album_image_title'] == 'hover') { // Show image title on hover.
+      elseif ($params['compuct_album_image_title'] == 'hover') { /* Show image title on hover.*/
         ?>
         #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_spun1_<?php echo $bwg; ?> {
           display: table;

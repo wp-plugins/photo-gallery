@@ -267,7 +267,7 @@ class BWGViewAlbum_extended_preview {
         text-align: center;
       }
       <?php
-      if ($params['extended_album_image_title'] == 'show') { // Show image title at the bottom.
+      if ($params['extended_album_image_title'] == 'show') { /* Show image title at the bottom.*/
         ?>
         #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_spun1_<?php echo $bwg; ?> {
           display: block;
@@ -279,7 +279,7 @@ class BWGViewAlbum_extended_preview {
         }
         <?php
       }
-      elseif ($params['extended_album_image_title'] == 'hover') { // Show image title on hover.
+      elseif ($params['extended_album_image_title'] == 'hover') { /* Show image title on hover.*/
         ?>
         #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_title_spun1_<?php echo $bwg; ?> {
           display: table;
