@@ -43,9 +43,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 
 *   100% Responsive   
 *   Multiple views to choose from: Thumbnails, Image Browser, Slideshow  for galleries and Compact Album, Extended Album views for albums   
-*   Masonry and Blog Style View (commercial version)
 *   Supports the following types of image files:  JPG, JPEG, PNG and GIF   
-*   Editable themes (commercial version)  
 *   Unlimited quantity of photos    
 *   Possibility of adding unlimited quantity of galleries/albums   
 *   Detailed three-column visual shortcode for adding created gallery/galleries and album/albums into the posts and pages.    
@@ -58,13 +56,22 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Audio track playback possibility with the image slideshow  
 *   Possibility of adding Watermarks/Advertisements for each individual image  
 *   Direct Image download and original image display capabilities   
-*   Commenting possibility with Captcha protection possibility (commercial version)  
-*   Comment-managing possibility to avoid spamming (Unpublish/Delete) (commercial version)  
-*   Social sharing possibility (Facebook, Google+, Twitter) (commercial version)  
-*   Dynamic Photo Gallery Tag Cloud widget  with image tag cloud and text tag cloud options(commercial version)  
 *   WordPress Tag cloud hosted widget  
-*   Photo Gallery Slideshow widget (15 effects with commercial version)  
+*   Photo Gallery Slideshow widget  
 *   Photo Gallery Widget for displaying albums and galleries as widgets
+
+Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
+
+*   Masonry View. 
+*   Blog Style View.   
+*   Slideshow/Lightbox 15 effects.    
+*   Editable themes.   
+*   Commenting possibility with Captcha protection possibility.   
+*   Comment-managing possibility to avoid spamming (Unpublish/Delete).    
+*   Social sharing possibility (Facebook, Google+, Twitter).    
+*   Dynamic Photo Gallery Tag Cloud widget  with image tag cloud and text tag cloud options.   
+
+
 ### Supported languages 
 
  *If you need language of Photo Gallery which is not included in this list, please contact us and we will do the translation of Photo Gallery within 3 days. If you find some mistakes in the translation of Photo Gallery, please contact  us and we will correct it within 3 days.*  
