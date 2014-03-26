@@ -89,9 +89,11 @@ class FilemanagerController {
     public function rename_item() {
       $input_dir = (isset($_REQUEST['dir']) ? stripslashes($_REQUEST['dir']) : '');
       $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
+      $cur_dir_path = htmlspecialchars_decode($cur_dir_path, ENT_COMPAT | ENT_QUOTES);
 
       $file_names = explode('**#**', (isset($_REQUEST['file_names']) ? stripslashes($_REQUEST['file_names']) : ''));
       $file_name = $file_names[0];
+      $file_name = htmlspecialchars_decode($file_name, ENT_COMPAT | ENT_QUOTES);
 
       $file_new_name = (isset($_REQUEST['file_new_name']) ? stripslashes($_REQUEST['file_new_name']) : '');
 
@@ -127,11 +129,13 @@ class FilemanagerController {
     public function remove_items() {
       $input_dir = (isset($_REQUEST['dir']) ? stripslashes($_REQUEST['dir']) : '');
       $cur_dir_path = $input_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $input_dir;
+      $cur_dir_path = htmlspecialchars_decode($cur_dir_path, ENT_COMPAT | ENT_QUOTES);
 
       $file_names = explode('**#**', (isset($_REQUEST['file_names']) ? stripslashes($_REQUEST['file_names']) : ''));
 
       $msg = '';
       foreach ($file_names as $file_name) {
+        $file_name = htmlspecialchars_decode($file_name, ENT_COMPAT | ENT_QUOTES);
         $file_path = $cur_dir_path . '/' . $file_name;
         $thumb_file_path = $cur_dir_path . '/thumb/' . $file_name;
         $original_file_path = $cur_dir_path . '/.original/' . $file_name;
@@ -160,13 +164,16 @@ class FilemanagerController {
       // $src_dir = $_SESSION['clipboard_src'];
       $src_dir = (isset($_REQUEST['clipboard_src']) ? stripslashes($_REQUEST['clipboard_src']) : '');
       $src_dir = $src_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $src_dir;
+      $src_dir = htmlspecialchars_decode($src_dir, ENT_COMPAT | ENT_QUOTES);
       // $dest_dir = $_SESSION['clipboard_dest'];
       $dest_dir = (isset($_REQUEST['clipboard_dest']) ? stripslashes($_REQUEST['clipboard_dest']) : '');
       $dest_dir = $dest_dir == '' ? $this->uploads_dir : $this->uploads_dir . '/' . $dest_dir;
+      $dest_dir = htmlspecialchars_decode($dest_dir, ENT_COMPAT | ENT_QUOTES);
 
       switch ((isset($_REQUEST['clipboard_task']) ? stripslashes($_REQUEST['clipboard_task']) : '')) {
         case 'copy':
           foreach ($file_names as $file_name) {
+            $file_name = htmlspecialchars_decode($file_name, ENT_COMPAT | ENT_QUOTES);
             $src = $src_dir . '/' . $file_name;
             if (file_exists($src) == false) {
               $msg = "Failed to copy some of the files.";
@@ -210,6 +217,7 @@ class FilemanagerController {
         case 'cut':
           if ($src_dir != $dest_dir) {
             foreach ($file_names as $file_name) {
+              $file_name = htmlspecialchars_decode($file_name, ENT_COMPAT | ENT_QUOTES);
               $src = $src_dir . '/' . $file_name;
               $dest = $dest_dir . '/' . $file_name;
               if (!is_dir($src_dir . '/' . $file_name)) {

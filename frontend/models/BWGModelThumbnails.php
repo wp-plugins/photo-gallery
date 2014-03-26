@@ -35,7 +35,7 @@ class BWGModelThumbnails {
     return $row;
   }
 
-  public function get_image_rows_data($id, $images_per_page, $sort_by, $bwg, $type) {
+  public function get_image_rows_data($id, $images_per_page, $sort_by, $bwg, $type, $sort_direction = ' ASC ') {
     global $wpdb;
     if ($sort_by == 'size' || $sort_by == 'resolution') {
       $sort_by = ' CAST(' . $sort_by . ' AS SIGNED) ';
@@ -56,10 +56,10 @@ class BWGModelThumbnails {
       $limit_str = '';
     }
     if($type == 'tag') {
-      $row = $wpdb->get_results($wpdb->prepare('SELECT image.* FROM ' . $wpdb->prefix . 'bwg_image as image INNER JOIN ' . $wpdb->prefix . 'bwg_image_tag as tag ON image.id=tag.image_id WHERE image.published=1 AND tag.tag_id="%d" ORDER BY ' . $sort_by . ' ASC', $id));      
+      $row = $wpdb->get_results($wpdb->prepare('SELECT image.* FROM ' . $wpdb->prefix . 'bwg_image as image INNER JOIN ' . $wpdb->prefix . 'bwg_image_tag as tag ON image.id=tag.image_id WHERE image.published=1 AND tag.tag_id="%d" ORDER BY ' . $sort_by . $sort_direction, $id));      
     }
     else {
-      $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY ' . $sort_by . ' ASC ' . $limit_str, $id));
+      $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY ' . $sort_by . $sort_direction . $limit_str, $id));
     }
     return $row;
   }

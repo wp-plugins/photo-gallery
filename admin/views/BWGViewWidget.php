@@ -1,6 +1,6 @@
 <?php
 
-class BWGViewWidget extends BWGControllerWidget {
+class BWGViewWidget {
   ////////////////////////////////////////////////////////////////////////////////////////
   // Events                                                                             //
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -135,7 +135,8 @@ class BWGViewWidget extends BWGControllerWidget {
     </p>    
     <p>
       <input type="radio" name="<?php echo $name_show; ?>" id="<?php echo $id_show . "_1"; ?>" value="random" onclick="bwg_change_type(event, this)" <?php if ($instance['show'] == "random") echo 'checked="checked"'; ?> /><label for="<?php echo $id_show . "_1"; ?>">Random</label>
-      <input type="radio" name="<?php echo $name_show; ?>" id="<?php echo $id_show . "_2"; ?>" value="last" onclick="bwg_change_type(event, this)" <?php if ($instance['show'] == "last") echo 'checked="checked"'; ?> /><label for="<?php echo $id_show . "_2"; ?>">Last</label>          
+      <input type="radio" name="<?php echo $name_show; ?>" id="<?php echo $id_show . "_2"; ?>" value="first" onclick="bwg_change_type(event, this)" <?php if ($instance['show'] == "first") echo 'checked="checked"'; ?> /><label for="<?php echo $id_show . "_2"; ?>">First</label>
+      <input type="radio" name="<?php echo $name_show; ?>" id="<?php echo $id_show . "_3"; ?>" value="last" onclick="bwg_change_type(event, this)" <?php if ($instance['show'] == "last") echo 'checked="checked"'; ?> /><label for="<?php echo $id_show . "_3"; ?>">Last</label>
     </p>
     <p>
       <label for="<?php echo $id_count; ?>">Count:</label>
@@ -147,7 +148,7 @@ class BWGViewWidget extends BWGControllerWidget {
       <input class="widefat" style="width:25%;" id="<?php echo $id_height; ?>" name="<?php echo $name_height; ?>'" type="text" value="<?php echo $instance['height']; ?>"/> px
     </p>
     <p>
-      <select name="<?php echo $name_theme_id; ?>" id="<?php echo $id_theme_id; ?>" class="widefat" <?php echo (get_option("wd_bwg_theme_version") ? 'title="This option is disabled in free version."  disabled="disabled"' : ''); ?>>
+      <select name="<?php echo $name_theme_id; ?>" id="<?php echo $id_theme_id; ?>" class="widefat">
         <?php
         foreach ($theme_rows as $theme_row) {
           ?>

@@ -29,7 +29,7 @@ class BWGModelAlbum_compact_preview {
     return $row;
   }
 
-  public function get_alb_gals_row($id, $albums_per_page, $sort_by, $bwg) {
+  public function get_alb_gals_row($id, $albums_per_page, $sort_by, $bwg, $sort_direction = ' ASC ') {
     global $wpdb;
     if (isset($_POST['page_number_' . $bwg]) && $_POST['page_number_' . $bwg]) {
       $limit = ((int) $_POST['page_number_' . $bwg] - 1) * $albums_per_page;
@@ -43,7 +43,7 @@ class BWGModelAlbum_compact_preview {
     else {
       $limit_str = '';
     }
-    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_album_gallery WHERE album_id="%d" ORDER BY ' . ($sort_by == "RAND()" ? '' : '`') . $sort_by . ($sort_by == "RAND()" ? '' : '`') . ' ASC ' . $limit_str, $id));
+    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_album_gallery WHERE album_id="%d" ORDER BY ' . ($sort_by == "RAND()" ? '' : '`') . $sort_by . ($sort_by == "RAND()" ? '' : '`') . $sort_direction . $limit_str, $id));
     return $row;
   }
 
@@ -61,7 +61,7 @@ class BWGModelAlbum_compact_preview {
     return $row;
   }
 
-  public function get_image_rows_data($id, $images_per_page, $sort_by, $bwg) {
+  public function get_image_rows_data($id, $images_per_page, $sort_by, $bwg, $sort_direction = ' ASC ') {
     global $wpdb;
     if (isset($_POST['page_number_' . $bwg]) && $_POST['page_number_' . $bwg]) {
       $limit = ((int) $_POST['page_number_' . $bwg] - 1) * $images_per_page;
@@ -75,7 +75,7 @@ class BWGModelAlbum_compact_preview {
     else {
       $limit_str = '';
     }
-    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY `' . $sort_by . '` ASC ' . $limit_str, $id));
+    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY `' . $sort_by . '` ' . $sort_direction . $limit_str, $id));
     return $row;
   }
 

@@ -416,7 +416,7 @@ class BWGViewImage_browser {
                         <?php
                       }
                       ?>
-                      <a style="position:relative;" href="javascript:spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);">
+                      <a style="position:relative;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
                         <img class="bwg_image_browser_img_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                       </a>
                     <script>	
@@ -502,6 +502,14 @@ class BWGViewImage_browser {
         <div id="spider_popup_overlay_<?php echo $bwg; ?>" class="spider_popup_overlay" onclick="spider_destroypopup(1000)"></div>
       </div>
     </div>
+    <script>
+      jQuery(window).load(function () {
+        /* Disable right click.*/
+        jQuery('div[id^="bwg_container"]').bind("contextmenu", function (e) {
+          return false;
+        });
+      });
+    </script>
     <?php
     if ($from_shortcode) {
       return;

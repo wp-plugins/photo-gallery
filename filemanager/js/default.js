@@ -235,13 +235,13 @@ function onBtnRenameItemClick(event, obj) {
 
 function onBtnCopyClick(event, obj) {
   if (filesSelected.length != 0) {
-    submit("", null, null, null, null, null, null, "copy", filesSelected.join(","), dir, null);
+    submit("", null, null, null, null, null, null, "copy", filesSelected.join("**#**"), dir, null);
   }
 }
 
 function onBtnCutClick(event, obj) {
   if (filesSelected.length != 0) {
-    submit("", null, null, null, null, null, null, "cut", filesSelected.join(","), dir, null);
+    submit("", null, null, null, null, null, null, "cut", filesSelected.join("**#**"), dir, null);
   }
 }
 
@@ -416,7 +416,7 @@ function onFileDrop(event, obj) {
   }
   var clipboardTask = (event.ctrlKey == true || event.metaKey == true) ? "copy" : "cut";
   var clipboardDest = dir + DS + destDirName;
-  submit("paste_items", null, null, null, null, null, null, clipboardTask, dragFiles.join(","), dir, clipboardDest);
+  submit("paste_items", null, null, null, null, null, null, clipboardTask, dragFiles.join("**#**"), dir, clipboardDest);
   event.preventDefault();
 }
 

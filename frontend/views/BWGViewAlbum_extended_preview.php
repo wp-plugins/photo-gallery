@@ -449,7 +449,7 @@ class BWGViewAlbum_extended_preview {
                     $preview_url = site_url() . '/' . $WD_BWG_UPLOAD_DIR . $preview_image;
                     $preview_path = ABSPATH . $WD_BWG_UPLOAD_DIR . $preview_image;
                   }
-                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode($preview_path));
+                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode($preview_path, ENT_COMPAT | ENT_QUOTES));
                   $scale = max($params['extended_album_thumb_width'] / $image_thumb_width, $params['extended_album_thumb_height'] / $image_thumb_height);
                   $image_thumb_width *= $scale;
                   $image_thumb_height *= $scale;
@@ -559,14 +559,14 @@ class BWGViewAlbum_extended_preview {
                     $params_array['watermark_width'] = $params['watermark_width'];
                     $params_array['watermark_height'] = $params['watermark_height'];
                   }
-                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url));
+                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
                   $scale = max($params['extended_album_image_thumb_width'] / $image_thumb_width, $params['extended_album_image_thumb_height'] / $image_thumb_height);
                   $image_thumb_width *= $scale;
                   $image_thumb_height *= $scale;
                   $thumb_left = ($params['extended_album_image_thumb_width'] - $image_thumb_width) / 2;
                   $thumb_top = ($params['extended_album_image_thumb_height'] - $image_thumb_height) / 2;
                   ?>
-                  <a style="font-size: 0;" href="javascript:spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);">
+                  <a style="font-size: 0;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                         <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">

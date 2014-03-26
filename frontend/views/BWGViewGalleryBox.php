@@ -279,6 +279,13 @@ class BWGViewGalleryBox {
         text-align: center;
         width: inherit;
       }
+      .bwg_image_wrap * {
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
       .bwg_comment_wrap {
         bottom: 0;
         left: 0;
@@ -1319,6 +1326,23 @@ class BWGViewGalleryBox {
         }
       }
       jQuery(document).ready(function () {
+        /* Disable right click.*/
+        jQuery(".bwg_image_wrap").bind("contextmenu", function (e) {
+          return false;
+        });
+        /*if (typeof jQuery().swiperight !== 'undefined' && jQuery.isFunction(jQuery().swiperight)) {
+          jQuery('body').find('.bwg_image_wrap *').on('swiperight', function () {
+            bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data)
+            return false;
+          });
+        }
+        if (typeof jQuery().swipeleft !== 'undefined' && jQuery.isFunction(jQuery().swipeleft)) {
+          jQuery('body').find('.bwg_image_wrap *').on('swipeleft', function () {
+            bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data);
+            return false;
+          });
+        }*/
+
         bwg_reset_zoom();
         var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
         var bwg_click = isMobile ? 'touchend' : 'click';
@@ -1341,12 +1365,14 @@ class BWGViewGalleryBox {
         /* Set image container height.*/
         jQuery(".bwg_image_container").height(jQuery(".bwg_image_wrap").height() - <?php echo $image_filmstrip_height; ?>);
         /* Show image info in cloud.*/
-        jQuery(".bwg_info").tooltip({
-          track: true,
-          content: function () {
-              return jQuery(this).prop('title');
-          }
-        });
+        if (typeof jQuery().tooltip !== 'undefined' && jQuery.isFunction(jQuery().tooltip)) {
+          jQuery(".bwg_info").tooltip({
+            track: true,
+            content: function () {
+                return jQuery(this).prop('title');
+            }
+          });
+        }
         /* Change default scrollbar in comments.*/
         jQuery(".bwg_comments").mCustomScrollbar({scrollInertia: 150});
         var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" /*FF doesn't recognize mousewheel as of FF3.x*/

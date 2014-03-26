@@ -151,6 +151,15 @@ html, body, div, span, th, td, a {
 
 .upload_thumb_dim {
   width: 50px;
+  display: inline-block;
+  margin: 0;
+  background-repeat: no-repeat;
+  min-width: 32px !important;
+  height: 32px !important;
+  padding: 0;
+  vertical-align: middle;
+  color: #808080;
+  cursor: default;
 }
 
 .upload_thumb {

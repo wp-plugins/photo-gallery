@@ -112,7 +112,7 @@ class UploadHandler {
           'thumb' => array(
             'max_width' => ((isset($_POST['upload_thumb_width']) && (int) $_POST['upload_thumb_width']) ? (int) $_POST['upload_thumb_width'] : 300),
             'max_height' => ((isset($_POST['upload_thumb_height']) && (int) $_POST['upload_thumb_height']) ? (int) $_POST['upload_thumb_height'] : 300),
-            'jpeg_quality' => 100
+            'jpeg_quality' => 90
           ),
         )
       );
@@ -290,7 +290,7 @@ class UploadHandler {
         error_log('Function not found: getimagesize');
         return false;
       }
-      list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($file_path));
+      list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($file_path, ENT_COMPAT | ENT_QUOTES));
       if (!$img_width || !$img_height) {
         return false;
       }
@@ -330,7 +330,7 @@ class UploadHandler {
         $dst_y = 0 - ($new_height - $max_height) / 2;
         $new_img = @imagecreatetruecolor($max_width, $max_height);
       }
-      list($width, $height, $type) = getimagesize(htmlspecialchars_decode($file_path));
+      list($width, $height, $type) = getimagesize(htmlspecialchars_decode($file_path, ENT_COMPAT | ENT_QUOTES));
       // switch (strtolower(substr(strrchr($file_name, '.'), 1))) {
       switch ($type) {
         case 2:
@@ -431,7 +431,7 @@ class UploadHandler {
         $file->error = $this->get_error_message('max_number_of_files');
         return false;
       }
-      list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($uploaded_file));
+      list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($uploaded_file, ENT_COMPAT | ENT_QUOTES));
       if (is_int($img_width)) {
         if ($this->options['max_width'] && $img_width > $this->options['max_width']) {
           $file->error = $this->get_error_message('max_width');
@@ -620,7 +620,7 @@ class UploadHandler {
         $file_size = $this->get_file_size($file_path, $append_file);
         if ($file_size === $file->size) {
           $file->url = $this->get_download_url($file->name);
-          list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($file_path));
+          list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($file_path, ENT_COMPAT | ENT_QUOTES));
           if (is_int($img_width)) {
             $this->handle_image_file($file_path, $file);
           }

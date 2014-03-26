@@ -251,8 +251,8 @@ class FilemanagerView {
             <div class="ctrls_bar ctrls_bar_header">
               <div class="ctrls_left upload_thumb">
                 Generated Thumbnail Maximum Dimensions:
-                <input type="text" class="ctrl_bar_btn upload_thumb_dim" name="upload_thumb_width" id="upload_thumb_width" value="<?php echo $this->controller->get_options_data()->upload_thumb_width; ?>" /> x 
-                <input type="text" class="ctrl_bar_btn upload_thumb_dim" name="upload_thumb_height" id="upload_thumb_height" value="<?php echo $this->controller->get_options_data()->upload_thumb_height; ?>" /> px
+                <input type="text" class="upload_thumb_dim" name="upload_thumb_width" id="upload_thumb_width" value="<?php echo $this->controller->get_options_data()->upload_thumb_width; ?>" /> x 
+                <input type="text" class="upload_thumb_dim" name="upload_thumb_height" id="upload_thumb_height" value="<?php echo $this->controller->get_options_data()->upload_thumb_height; ?>" /> px
               </div>
               <div class="ctrls_right">
                 <a class="ctrl_bar_btn btn_back" onclick="onBtnBackClick(event, this);" title="<?php echo 'Back'; ?>"></a>
@@ -287,10 +287,10 @@ class FilemanagerView {
                           jQuery("#uploader_progress_text").text(messageFilesUploadComplete);
                           jQuery("#uploader_progress_text").addClass("uploader_text");
                         });
-                        setTimeout(function () {
-                          onBtnBackClick();
-                        }, 500);
                       }
+                    },
+                    stop: function (e, data) {
+                      onBtnBackClick();
                     },
                     done: function (e, data) {
                       jQuery.each(data.result.files, function (index, file) {

@@ -84,24 +84,24 @@ class BWGViewEditThumb {
       $image_data = new stdClass();
       $image_data->image_url = (isset($_GET['image_url']) ? esc_html($_GET['image_url']) : '');
       $image_data->thumb_url = (isset($_GET['thumb_url']) ? esc_html($_GET['thumb_url']) : '');
-      $filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url;
-      $thumb_filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url;
+      $filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url, ENT_COMPAT | ENT_QUOTES);
+      $thumb_filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url, ENT_COMPAT | ENT_QUOTES);
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'crop', 'image_id' => $image_id, 'image_url' => $image_data->image_url, 'thumb_url' => $image_data->thumb_url, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
     else {
       $image_data = $this->model->get_image_data($image_id);
-      $filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url;
-      $thumb_filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url;
+      $filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url, ENT_COMPAT | ENT_QUOTES);
+      $thumb_filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url, ENT_COMPAT | ENT_QUOTES);
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'crop', 'image_id' => $image_id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
     ini_set('memory_limit', '-1');
-    list($width_orig, $height_orig, $type_orig) = getimagesize(htmlspecialchars_decode($filename));
+    list($width_orig, $height_orig, $type_orig) = getimagesize($filename);
     if ($edit_type == 'crop') {
       if ($type_orig == 2) {
         $img_r = imagecreatefromjpeg($filename);
         $dst_r = ImageCreateTrueColor($thumb_width, $thumb_height);
         imagecopyresampled($dst_r, $img_r, 0, 0, $x, $y, $thumb_width, $thumb_height, $w, $h);
-        imagejpeg($dst_r, $thumb_filename, 100);
+        imagejpeg($dst_r, $thumb_filename, 90);
         imagedestroy($img_r);
         imagedestroy($dst_r);
       }
@@ -302,25 +302,25 @@ class BWGViewEditThumb {
       $image_data = new stdClass();
       $image_data->image_url = (isset($_GET['image_url']) ? esc_html($_GET['image_url']) : '');
       $image_data->thumb_url = (isset($_GET['thumb_url']) ? esc_html($_GET['thumb_url']) : '');
-      $filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url;
-      $thumb_filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url;
+      $filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url, ENT_COMPAT | ENT_QUOTES);
+      $thumb_filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url, ENT_COMPAT | ENT_QUOTES);
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'rotate', 'image_id' => $image_id, 'image_url' => $image_data->image_url, 'thumb_url' => $image_data->thumb_url, 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
     else {
       $image_data = $this->model->get_image_data($image_id);
-      $filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url;
-      $thumb_filename = ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url;
+      $filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->image_url, ENT_COMPAT | ENT_QUOTES);
+      $thumb_filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url, ENT_COMPAT | ENT_QUOTES);
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'rotate', 'image_id' => $image_id, 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
     ini_set('memory_limit', '-1');
-    list($width_rotate, $height_rotate, $type_rotate) = getimagesize(htmlspecialchars_decode($filename));
+    list($width_rotate, $height_rotate, $type_rotate) = getimagesize($filename);
     if ($edit_type == '270' || $edit_type == '90') {
       if ($type_rotate == 2) {
         $source = imagecreatefromjpeg($filename);
         $thumb_source = imagecreatefromjpeg($thumb_filename);
         $rotate = imagerotate($source, $edit_type, 0);
         $thumb_rotate = imagerotate($thumb_source, $edit_type, 0);
-        imagejpeg($thumb_rotate, $thumb_filename, 100);
+        imagejpeg($thumb_rotate, $thumb_filename, 90);
         imagejpeg($rotate, $filename, 100);
         imagedestroy($source);
         imagedestroy($rotate);
@@ -417,7 +417,7 @@ class BWGViewEditThumb {
         imagejpeg($flip, $filename, 100);
         $thumb_source = imagecreatefromjpeg($thumb_filename);
         $thumb_flip = bwg_image_flip($thumb_source, $edit_type);
-        imagejpeg($thumb_flip, $thumb_filename, 100);
+        imagejpeg($thumb_flip, $thumb_filename, 90);
         imagedestroy($source);
         imagedestroy($flip);
         imagedestroy($thumb_source);

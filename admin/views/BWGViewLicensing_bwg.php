@@ -120,12 +120,12 @@ class BWGViewLicensing_bwg {
             <td class="icon-replace yes">yes</td>
           </tr>
           <tr>
-            <td>Standard Masonry View </td>
+            <td>Pro Masonry View </td>
             <td class="icon-replace no">no</td>
             <td class="icon-replace yes">yes</td>
           </tr>
           <tr class="alt">
-            <td>Standard Blog Style View</td>
+            <td>Pro Blog Style View</td>
             <td class="icon-replace no">no</td>
             <td class="icon-replace yes">yes</td>
           </tr>

@@ -32,11 +32,15 @@ class BWGViewThumbnails {
       $params['image_title'] = 'none';
     }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
+    $sort_direction = ' ASC ';
     if ($from) {
       $options_row = $this->model->get_options_row_data();
       $params['gallery_id'] = $params['id'];
       $params['images_per_page'] = $params['count'];
       $params['sort_by'] = (($params['show'] == 'random') ? 'RAND()' : 'order');
+      if ($params['show'] == 'last') {
+        $sort_direction = ' DESC ';
+      }
       $params['image_enable_page'] = 0;
       $params['image_title'] = $options_row->image_title_show_hover;
       $params['thumb_height'] = $params['height'];
@@ -82,7 +86,7 @@ class BWGViewThumbnails {
       echo WDWLibrary::message(__('There is no gallery selected or the gallery was deleted.', 'bwg'), 'error');
       return;
     }
-    $image_rows = $this->model->get_image_rows_data($params['gallery_id'], $params['images_per_page'], $params['sort_by'], $bwg, $type);
+    $image_rows = $this->model->get_image_rows_data($params['gallery_id'], $params['images_per_page'], $params['sort_by'], $bwg, $type, $sort_direction);
     if (!$image_rows) {
       echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
     }
@@ -321,14 +325,14 @@ class BWGViewThumbnails {
                   $params_array['watermark_width'] = $params['watermark_width'];
                   $params_array['watermark_height'] = $params['watermark_height'];
                 }
-                list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url));
+                list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
                 $scale = max($params['thumb_width'] / $image_thumb_width, $params['thumb_height'] / $image_thumb_height);
                 $image_thumb_width *= $scale;
                 $image_thumb_height *= $scale;
                 $thumb_left = ($params['thumb_width'] - $image_thumb_width) / 2;
                 $thumb_top = ($params['thumb_height'] - $image_thumb_height) / 2;
                 ?>
-                <a style="font-size: 0;" href="javascript:spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);">
+                <a style="font-size: 0;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
                   <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                     <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">

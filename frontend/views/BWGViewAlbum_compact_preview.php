@@ -33,10 +33,14 @@ class BWGViewAlbum_compact_preview {
     }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $type = (isset($_POST['type_' . $bwg]) ? esc_html($_POST['type_' . $bwg]) : (isset($params['type']) ? $params['type'] : 'album'));
+    $sort_direction = ' ASC ';
     if ($from === "widget") {
       $options_row = $this->model->get_options_row_data();
       $params['album_id'] = $params['id'];
       $params['sort_by'] = $params['show'] == 'random' ? 'RAND()' : 'order';
+      if ($params['show'] == 'last') {
+        $sort_direction = ' DESC ';
+      }
       $params['compuct_albums_per_page'] = $params['count'];
       $params['compuct_album_column_number'] = $options_row->album_column_number;
       $params['compuct_album_thumb_height'] = $params['height'];
@@ -58,7 +62,7 @@ class BWGViewAlbum_compact_preview {
     if ($type == 'gallery') {
       $items_per_page = $params['compuct_album_images_per_page'];
       $items_col_num = $params['compuct_album_image_column_number'];
-      $image_rows = $this->model->get_image_rows_data($album_gallery_id, $items_per_page, $params['sort_by'], $bwg);
+      $image_rows = $this->model->get_image_rows_data($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
       $page_nav = $this->model->gallery_page_nav($album_gallery_id, $items_per_page, $bwg);
       $album_gallery_div_id = 'bwg_album_compact_' . $bwg;
       $album_gallery_div_class = 'bwg_standart_thumbnails_' . $bwg;
@@ -66,7 +70,7 @@ class BWGViewAlbum_compact_preview {
     else {
       $items_per_page = $params['compuct_albums_per_page'];
       $items_col_num = $params['compuct_album_column_number'];
-      $album_galleries_row = $this->model->get_alb_gals_row($album_gallery_id, $items_per_page, $params['sort_by'], $bwg);
+      $album_galleries_row = $this->model->get_alb_gals_row($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
       $page_nav = $this->model->album_page_nav($album_gallery_id, $items_per_page, $bwg);
       $album_gallery_div_id = 'bwg_album_compact_' . $bwg;
       $album_gallery_div_class = 'bwg_album_thumbnails_' . $bwg;
@@ -434,7 +438,7 @@ class BWGViewAlbum_compact_preview {
                     $preview_url = site_url() . '/' . $WD_BWG_UPLOAD_DIR . $preview_image;
                     $preview_path = ABSPATH . $WD_BWG_UPLOAD_DIR . $preview_image;
                   }
-                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode($preview_path));
+                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode($preview_path, ENT_COMPAT | ENT_QUOTES));
                   $scale = max($params['compuct_album_thumb_width'] / $image_thumb_width, $params['compuct_album_thumb_height'] / $image_thumb_height);
                   $image_thumb_width *= $scale;
                   $image_thumb_height *= $scale;
@@ -524,14 +528,14 @@ class BWGViewAlbum_compact_preview {
                     $params_array['watermark_width'] = $params['watermark_width'];
                     $params_array['watermark_height'] = $params['watermark_height'];
                   }
-                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url));
+                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
                   $scale = max($params['compuct_album_image_thumb_width'] / $image_thumb_width, $params['compuct_album_image_thumb_height'] / $image_thumb_height);
                   $image_thumb_width *= $scale;
                   $image_thumb_height *= $scale;
                   $thumb_left = ($params['compuct_album_image_thumb_width'] - $image_thumb_width) / 2;
                   $thumb_top = ($params['compuct_album_image_thumb_height'] - $image_thumb_height) / 2;
                   ?>
-                  <a style="font-size: 0;" href="javascript:spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);">
+                  <a style="font-size: 0;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                         <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
