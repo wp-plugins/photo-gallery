@@ -534,7 +534,7 @@ class BWGViewSlideshow {
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_dots_thumbnails_<?php echo $bwg; ?> {
         left: 0px;
-        font-size: <?php echo ($theme_row->slideshow_dots_height + $theme_row->slideshow_dots_margin); ?>px;
+        font-size: 0;
         margin: 0 auto;
         overflow: hidden;
         position: relative;
@@ -1212,7 +1212,7 @@ class BWGViewSlideshow {
         jQuery('div[id^="bwg_container"]').bind("contextmenu", function () {
           return false;
         });
-        /*if (typeof jQuery().swiperight !== 'undefined' && jQuery.isFunction(jQuery().swiperight)) {
+        if (typeof jQuery().swiperight !== 'undefined' && jQuery.isFunction(jQuery().swiperight)) {
           jQuery('#bwg_container1_<?php echo $bwg; ?>').swiperight(function () {
             bwg_change_image_<?php echo $bwg; ?>(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), (parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()) - iterator_<?php echo $bwg; ?>()) >= 0 ? (parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()) - iterator_<?php echo $bwg; ?>()) % data_<?php echo $bwg; ?>.length : data_<?php echo $bwg; ?>.length - 1, data_<?php echo $bwg; ?>);
             return false;
@@ -1223,7 +1223,7 @@ class BWGViewSlideshow {
             bwg_change_image_<?php echo $bwg; ?>(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), (parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()) + iterator_<?php echo $bwg; ?>()) % data_<?php echo $bwg; ?>.length, data_<?php echo $bwg; ?>);
             return false;
           });
-        }*/
+        }
 
         var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
         var bwg_click = isMobile ? 'touchend' : 'click';

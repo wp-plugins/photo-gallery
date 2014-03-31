@@ -195,7 +195,7 @@ class BWGViewThumbnails {
         font-size: <?php echo $theme_row->thumb_title_font_size; ?>px;
         font-weight: <?php echo $theme_row->thumb_title_font_weight; ?>;
         height: inherit;
-        margin: <?php echo $theme_row->thumb_title_margin; ?>;
+        padding: <?php echo $theme_row->thumb_title_margin; ?>;
         text-shadow: <?php echo $theme_row->thumb_title_shadow; ?>;
         vertical-align: middle;
         width: inherit;

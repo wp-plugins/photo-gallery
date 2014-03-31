@@ -1330,18 +1330,18 @@ class BWGViewGalleryBox {
         jQuery(".bwg_image_wrap").bind("contextmenu", function (e) {
           return false;
         });
-        /*if (typeof jQuery().swiperight !== 'undefined' && jQuery.isFunction(jQuery().swiperight)) {
-          jQuery('body').find('.bwg_image_wrap *').on('swiperight', function () {
+        if (typeof jQuery().swiperight !== 'undefined' && jQuery.isFunction(jQuery().swiperight)) {
+          jQuery('#spider_popup_wrap').swiperight(function () {
             bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data)
             return false;
           });
         }
         if (typeof jQuery().swipeleft !== 'undefined' && jQuery.isFunction(jQuery().swipeleft)) {
-          jQuery('body').find('.bwg_image_wrap *').on('swipeleft', function () {
+          jQuery('#spider_popup_wrap').swipeleft(function () {
             bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data);
             return false;
           });
-        }*/
+        }
 
         bwg_reset_zoom();
         var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
