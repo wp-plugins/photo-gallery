@@ -79,18 +79,29 @@ class BWGViewWidgetSlideshow {
     $slideshow_effects = array(
       'none' => 'None',
       'cubeH' => 'Cube Horizontal',
+      'cubeV' => 'Cube Vertical',
       'fade' => 'Fade',
+      'sliceH' => 'Slice Horizontal',
       'sliceV' => 'Slice Vertical',
+      'slideH' => 'Slide Horizontal',
+      'slideV' => 'Slide Vertical',
       'scaleOut' => 'Scale Out',
+      'scaleIn' => 'Scale In',
+      'blockScale' => 'Block Scale',
+      'kaleidoscope' => 'Kaleidoscope',
+      'fan' => 'Fan',
       'blindH' => 'Blind Horizontal',
+      'blindV' => 'Blind Vertical',
+      'random' => 'Random',
     );
     $instance = wp_parse_args((array) $instance, $defaults);
     $gallery_rows = $this->model->get_gallery_rows_data();
     $theme_rows = $this->model->get_theme_rows_data();
+    $options_row = $this->model->get_options_row_data();
     ?>
     <p>
       <label for="<?php echo $id_title; ?>">Title:</label>
-      <input class="widefat" id="<?php echo $id_title; ?>" name="<?php echo $name_title; ?>'" type="text" value="<?php echo $instance['title']; ?>"/>
+      <input class="widefat" id="<?php echo $id_title; ?>" name="<?php echo $name_title; ?>" type="text" value="<?php echo $instance['title']; ?>"/>
     </p>    
     <p>
       <select name="<?php echo $name_gallery_id; ?>" id="<?php echo $id_gallery_id; ?>" class="widefat">
@@ -106,16 +117,20 @@ class BWGViewWidgetSlideshow {
     </p>
     <p>
       <label for="<?php echo $id_width; ?>">Dimensions:</label>
-      <input class="widefat" style="width:25%;" id="<?php echo $id_width; ?>" name="<?php echo $name_width; ?>'" type="text" value="<?php echo $instance['width']; ?>"/> x 
-      <input class="widefat" style="width:25%;" id="<?php echo $id_height; ?>" name="<?php echo $name_height; ?>'" type="text" value="<?php echo $instance['height']; ?>"/> px
+      <input class="widefat" style="width:25%;" id="<?php echo $id_width; ?>" name="<?php echo $name_width; ?>" type="text" value="<?php echo $instance['width']; ?>"/> x 
+      <input class="widefat" style="width:25%;" id="<?php echo $id_height; ?>" name="<?php echo $name_height; ?>" type="text" value="<?php echo $instance['height']; ?>"/> px
+    </p>
+    <p title="This option is disabled in free version." <?php echo ($options_row->slideshow_enable_filmstrip ? 'style="color: #7F7F7F;"' : 'style="display: none;"'); ?>>
+      <label>Filmstrip height:</label>
+      <input disabled="disabled" class="widefat" style="width: 25%; color: #7F7F7F;" type="text" value="40" /> px
     </p>
     <p>
-      <label for="<?php echo $id_effect; ?>">Slideshow Effect:</label>
+      <label for="<?php echo $id_effect; ?>">Slideshow effect:</label>
       <select name="<?php echo $name_effect; ?>" id="<?php echo $id_effect; ?>" class="widefat">        
         <?php
         foreach ($slideshow_effects as $key => $slideshow_effect) {
           ?>
-          <option value="<?php echo $key; ?>" <?php if ($instance['effect'] == $key) echo 'selected="selected"'; ?>><?php echo $slideshow_effect; ?></option>
+          <option value="<?php echo $key; ?>" <?php echo ($key != 'none' && $key != 'fade') ? 'disabled="disabled" title="This effect is disabled in free version."' : ''; ?> <?php if ($instance['effect'] == $key) echo 'selected="selected"'; ?>><?php echo $slideshow_effect; ?></option>
           <?php
         }
         ?>
@@ -123,7 +138,7 @@ class BWGViewWidgetSlideshow {
     </p>
     <p>
       <label for="<?php echo $id_interval; ?>">Time interval:</label>
-      <input class="widefat" style="width:25%;" id="<?php echo $id_interval; ?>" name="<?php echo $name_interval; ?>'" type="text" value="<?php echo $instance['interval']; ?>" /> sec.
+      <input class="widefat" style="width:25%;" id="<?php echo $id_interval; ?>" name="<?php echo $name_interval; ?>" type="text" value="<?php echo $instance['interval']; ?>" /> sec.
     </p>
     <p>
       <label>Enable shuffle:</label>

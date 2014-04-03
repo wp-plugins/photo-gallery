@@ -684,8 +684,8 @@ class BWGViewGalleryBox {
             </div>
           </div>
         </div>
-        <a id="spider_popup_left" href="javascript:bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data);"><span id="spider_popup_left-ico"><span><i class="bwg_prev_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-left"></i></span></span></a>
-        <a id="spider_popup_right" href="javascript:bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data);"><span id="spider_popup_right-ico"><span><i class="bwg_next_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-right"></i></span></span></a>
+        <a id="spider_popup_left" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data); return false;"><span id="spider_popup_left-ico"><span><i class="bwg_prev_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-left"></i></span></span></a>
+        <a id="spider_popup_right" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data); return false;"><span id="spider_popup_right-ico"><span><i class="bwg_next_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-right"></i></span></span></a>
       </div>
       <?php
       if ($watermark_type != 'none') {
@@ -716,7 +716,7 @@ class BWGViewGalleryBox {
       }
       ?>
     </div>
-    <a class="spider_popup_close" href="javascript:spider_destroypopup(1000);"><span><i class="bwg_close_btn fa fa-times"></i></span></a>
+    <a class="spider_popup_close" onclick="spider_destroypopup(1000); return false;"><span><i class="bwg_close_btn fa fa-times"></i></span></a>
 
     <script>
       var bwg_trans_in_progress = false;

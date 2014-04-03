@@ -464,3 +464,9 @@
   height: 2em;
   margin: 0 0 4px;
 }
+
+#th_order,
+.spider_order {
+  display: none;
+}
+

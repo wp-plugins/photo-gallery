@@ -138,7 +138,6 @@ class BWGControllerAlbums_bwg {
     $slug = $this->bwg_get_unique_slug($slug, $id);
     $description = (isset($_POST['description']) ? stripslashes($_POST['description']) : '');
     $preview_image = ((isset($_POST['preview_image']) && esc_html(stripslashes($_POST['preview_image'])) != '') ? esc_html(stripslashes($_POST['preview_image'])) : '');
-    $order = ((isset($_POST['order']) && esc_html(stripslashes($_POST['order'])) != '') ? esc_html(stripslashes($_POST['order'])) : '');
     $author = get_current_user_id();
     $published = ((isset($_POST['published']) && esc_html(stripslashes($_POST['published'])) != '') ? esc_html(stripslashes($_POST['published'])) : '');
     $albums_galleries = (isset($_POST['albums_galleries']) ? esc_html(stripslashes($_POST['albums_galleries'])) : '');
@@ -158,7 +157,7 @@ class BWGControllerAlbums_bwg {
         'description' => $description,
         'preview_image' => $preview_image,
         'random_preview_image' => '',
-        'order' => $order,	
+        'order' => ((int) $wpdb->get_var('SELECT MAX(`order`) FROM ' . $wpdb->prefix . 'bwg_album')) + 1,
         'author' => $author,
         'published' => $published
       ), array(

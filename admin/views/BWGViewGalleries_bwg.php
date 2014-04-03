@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 class BWGViewGalleries_bwg {
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ class BWGViewGalleries_bwg {
         <a href="" class="add-new-h2" onclick="spider_set_input_value('task', 'add');
                                                spider_form_submit(event, 'galleries_form')">Add new</a>
       </h2>
-      <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table shoud be saved.</p></strong></div>
+      <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table should be saved.</p></strong></div>
       <div class="buttons_div">
         <span class="button-secondary non_selectable" onclick="spider_check_all_items()">
           <input type="checkbox" id="check_all_items" name="check_all_items" onclick="spider_check_all_items_checkbox()" style="margin: 0; vertical-align: middle;" />
