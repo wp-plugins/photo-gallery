@@ -172,7 +172,7 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_album">
-                    <td class="spider_label"><label for="album">Album: </label></td>
+                    <td title="The selected album expanded content will be displayed." class="spider_label"><label for="album">Album: </label></td>
                     <td>
                       <select name="album" id="album" style="width:150px;">
                         <option value="0" selected="selected">Select Album</option>
@@ -550,6 +550,15 @@ class BWGViewBWGShortcode {
 
                 <!--Lightbox view-->
                 <tbody id="tbody_popup">
+                  <tr id="tr_popup_fullscreen">
+                    <td title="Enable full width feature for the lightbox." class="spider_label">
+                      <label>Full width lightbox:</label>
+                    </td>
+                    <td>
+                      <input type="radio" name="popup_fullscreen" id="popup_fullscreen_1" value="1" <?php if ($option_row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen()" /><label for="popup_fullscreen_1">Yes</label>
+                      <input type="radio" name="popup_fullscreen" id="popup_fullscreen_0" value="0" <?php if (!$option_row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen()" /><label for="popup_fullscreen_0">No</label>
+                    </td>
+                  </tr>	
                   <tr id="tr_popup_width_height">
                     <td title="Maximum values for lightbox width and height." class="spider_label"><label for="popup_width">Lightbox dimensions: </label></td>
                     <td>
@@ -737,7 +746,6 @@ class BWGViewBWGShortcode {
           ?>
             </div>
           </div>
-          
           <div class="mceActionPanel">
             <div style="float:left;">
               <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="line-height: 25px; padding: 0 5px; text-decoration: none; vertical-align: middle; width: inherit; float: left;" href="http://wpdemo.web-dorado.com/thumbnails-view-2/">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
@@ -763,7 +771,10 @@ class BWGViewBWGShortcode {
             <?php
           }
           ?>
-        <script>window.onload = bwg_shortcode_load;</script>
+        <script>
+	  window.onload = bwg_shortcode_load;
+          window.onload = bwg_popup_fullscreen;		  
+	</script>
         <script type="text/javascript">
           bwg_update_shortcode();
           <?php if (!$from_menu) { ?>
@@ -938,6 +949,14 @@ class BWGViewBWGShortcode {
                 jQuery("#popup_height").val(short_code['popup_height']);
                 jQuery("select[id=popup_effect] option[value='" + short_code['popup_effect'] + "']").attr('selected', 'selected');
                 jQuery("#popup_interval").val(short_code['popup_interval']);
+              if (short_code['popup_fullscreen'] == 1) {
+                jQuery("#popup_fullscreen_1").attr('checked', 'checked'); 
+                jQuery("#tr_popup_width_height").css('display', 'none');
+              }
+              else {
+                jQuery("#popup_fullscreen_0").attr('checked', 'checked');
+                jQuery("#tr_popup_width_height").css('display', '');
+              }
                 if (short_code['popup_enable_filmstrip'] == 1) {
                   jQuery("#popup_filmstrip_yes").attr('checked', 'checked');
                   jQuery("#popup_filmstrip_height").val(short_code['popup_filmstrip_height']);
@@ -1126,6 +1145,7 @@ class BWGViewBWGShortcode {
             }
             // Lightbox paramteres.
             if (gallery_type != 'slideshow') {
+              tagtext += ' popup_fullscreen="' + jQuery("input[name=popup_fullscreen]:checked").val() + '"';			
               tagtext += ' popup_width="' + jQuery("#popup_width").val() + '"';
               tagtext += ' popup_height="' + jQuery("#popup_height").val() + '"';
               tagtext += ' popup_effect="' + jQuery("#popup_effect").val() + '"';

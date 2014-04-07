@@ -25,7 +25,7 @@ class BWGViewAddAlbumsGalleries {
   public function display() {
     $album_id = ((isset($_GET['album_id'])) ? esc_html(stripslashes($_GET['album_id'])) : ((isset($_POST['album_id'])) ? esc_html(stripslashes($_POST['album_id'])) : ''));
     $rows_data = $this->model->get_rows_data($album_id);
-    $page_nav = $this->model->page_nav();
+    $page_nav = $this->model->page_nav($album_id);
     $search_value = ((isset($_POST['search_value'])) ? esc_html(stripslashes($_POST['search_value'])) : '');
     $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
     $order_by = (isset($_POST['order_by']) ? esc_html(stripslashes($_POST['order_by'])) : 'name');

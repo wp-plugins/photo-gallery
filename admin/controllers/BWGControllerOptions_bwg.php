@@ -159,6 +159,8 @@ class BWGControllerOptions_bwg {
     $built_in_watermark_font = (isset($_POST['built_in_watermark_font']) ? esc_html(stripslashes($_POST['built_in_watermark_font'])) : '');
     $built_in_watermark_color = (isset($_POST['built_in_watermark_color']) ? esc_html(stripslashes($_POST['built_in_watermark_color'])) : '');
     $gallery_role = (isset($_POST['gallery_role']) ? esc_html(stripslashes($_POST['gallery_role'])) : 0);
+    $image_right_click = (isset($_POST['image_right_click']) ? esc_html(stripslashes($_POST['image_right_click'])) : 0);
+    $popup_fullscreen = (isset($_POST['popup_fullscreen']) ? esc_html(stripslashes($_POST['popup_fullscreen'])) : 0);
     $album_role = (isset($_POST['album_role']) ? esc_html(stripslashes($_POST['album_role'])) : 0);
     $image_role = (isset($_POST['image_role']) ? esc_html(stripslashes($_POST['image_role'])) : 0);
 
@@ -240,6 +242,8 @@ class BWGControllerOptions_bwg {
       'built_in_watermark_color' => $built_in_watermark_color,
       'built_in_watermark_opacity' => $built_in_watermark_opacity,          
       'gallery_role' => $gallery_role,
+      'image_right_click' => $image_right_click,
+      'popup_fullscreen' => $popup_fullscreen,
       'album_role' => $album_role,
       'image_role' => $image_role
       ), array('id' => 1));

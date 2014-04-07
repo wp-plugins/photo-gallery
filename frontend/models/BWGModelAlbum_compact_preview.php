@@ -50,14 +50,18 @@ class BWGModelAlbum_compact_preview {
   public function get_album_row_data($id) {
     global $wpdb;
     $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_album WHERE published=1 AND id="%d"', $id));
-    $row->permalink = $this->bwg_create_post($row->name, $row->slug, "album", $id);
+    if ($row) {
+      $row->permalink = $this->bwg_create_post($row->name, $row->slug, "album", $id);
+    }
     return $row;
   }
 
   public function get_gallery_row_data($id) {
     global $wpdb;
     $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_gallery WHERE published=1 AND id="%d"', $id));
-    $row->permalink = $this->bwg_create_post($row->name, $row->slug, "gallery", $id);
+    if ($row) {
+      $row->permalink = $this->bwg_create_post($row->name, $row->slug, "gallery", $id);
+    }
     return $row;
   }
 

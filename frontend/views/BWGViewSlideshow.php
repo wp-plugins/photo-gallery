@@ -27,6 +27,7 @@ class BWGViewSlideshow {
     global $WD_BWG_UPLOAD_DIR;
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $options_row = $this->model->get_options_row_data();
+    $image_right_click = $options_row->image_right_click;
     if (!$from) {
       $theme_id = (isset($params['theme_id']) ? esc_html($params['theme_id']) : 1);
       $gallery_id = (isset($params['gallery_id']) ? esc_html($params['gallery_id']) : 0);
@@ -239,7 +240,6 @@ class BWGViewSlideshow {
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_right_<?php echo $bwg; ?>:hover {
         visibility: visible;
       }
-
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left_<?php echo $bwg; ?>:hover span {
         left: 20px;
       }
@@ -597,8 +597,7 @@ class BWGViewSlideshow {
                     $current_key = $key;
                   }
                 ?>
-                <span id="bwg_dots_<?php echo $key; ?>_<?php echo $bwg; ?>" class="bwg_slideshow_dots_<?php echo $bwg; ?> <?php echo (($image_row->id == $current_image_id) ? 'bwg_slideshow_dots_active_' . $bwg : 'bwg_slideshow_dots_deactive_' . $bwg); ?>" onclick="bwg_change_image_<?php echo $bwg; ?>(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), '<?php echo $key; ?>', data_<?php echo $bwg; ?>)" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $key; ?>">
-                </span>
+                <span id="bwg_dots_<?php echo $key; ?>_<?php echo $bwg; ?>" class="bwg_slideshow_dots_<?php echo $bwg; ?> <?php echo (($image_row->id == $current_image_id) ? 'bwg_slideshow_dots_active_' . $bwg : 'bwg_slideshow_dots_deactive_' . $bwg); ?>" onclick="bwg_change_image_<?php echo $bwg; ?>(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), '<?php echo $key; ?>', data_<?php echo $bwg; ?>)" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $key; ?>"></span>
                 <?php
                 }
                 ?>
@@ -884,10 +883,10 @@ class BWGViewSlideshow {
         /* After transition.*/
         jQuery(".bwg_slider_<?php echo $bwg; ?>").one('webkitTransitionEnd transitionend otransitionend oTransitionEnd mstransitionend', jQuery.proxy(bwg_after_trans));
         function bwg_after_trans() {
-          /* if (bwg_from_focus_<?php echo $bwg; ?>) {
-              bwg_from_focus_<?php echo $bwg; ?> = false;
-              return;
-             }*/
+          /*if (bwg_from_focus_<?php echo $bwg; ?>) {
+            bwg_from_focus_<?php echo $bwg; ?> = false;
+            return;
+          }*/
           jQuery(current_image_class).removeAttr('style');
           jQuery(next_image_class).removeAttr('style');
           jQuery(".bwg_slider_<?php echo $bwg; ?>").removeAttr('style');
@@ -1118,7 +1117,6 @@ class BWGViewSlideshow {
             else if (current_key == '-2') { /* Dots.*/
               current_key = jQuery(".bwg_slideshow_dots_active_<?php echo $bwg; ?>").attr("image_key");
             }
-            
           }
           if (bwg_trans_in_progress_<?php echo $bwg; ?>) {
             event_stack_<?php echo $bwg; ?>.push(current_key + '-' + key);
@@ -1165,7 +1163,6 @@ class BWGViewSlideshow {
           jQuery(".bwg_slideshow_image_wrap_<?php echo $bwg; ?>").css({height: <?php echo $image_height; ?>});
           jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").css({width: <?php echo $image_width; ?>});
           jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").css({height: (<?php echo $image_height - $slideshow_filmstrip_height; ?>)});
-          
           jQuery(".bwg_slideshow_image_<?php echo $bwg; ?>").css({
             /*maxWidth: <?php echo $image_width; ?>,
             maxHeight: <?php echo $image_height - $slideshow_filmstrip_height; ?>*/
@@ -1208,10 +1205,16 @@ class BWGViewSlideshow {
         bwg_popup_resize_<?php echo $bwg; ?>();
       });
       jQuery(window).load(function () {
-        /* Disable right click.*/
-        jQuery('div[id^="bwg_container"]').bind("contextmenu", function () {
-          return false;
-        });
+      	<?php
+        if ($image_right_click) {
+          ?>
+          /* Disable right click.*/
+          jQuery('div[id^="bwg_container"]').bind("contextmenu", function () {
+            return false;
+          });
+          <?php
+        }
+        ?>
         if (typeof jQuery().swiperight !== 'undefined' && jQuery.isFunction(jQuery().swiperight)) {
           jQuery('#bwg_container1_<?php echo $bwg; ?>').swiperight(function () {
             bwg_change_image_<?php echo $bwg; ?>(parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()), (parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()) - iterator_<?php echo $bwg; ?>()) >= 0 ? (parseInt(jQuery('#bwg_current_image_key_<?php echo $bwg; ?>').val()) - iterator_<?php echo $bwg; ?>()) % data_<?php echo $bwg; ?>.length : data_<?php echo $bwg; ?>.length - 1, data_<?php echo $bwg; ?>);
@@ -1237,8 +1240,7 @@ class BWGViewSlideshow {
         }, 500);
         /* Set image container height.*/
         jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").height(jQuery(".bwg_slideshow_image_wrap_<?php echo $bwg; ?>").height() - <?php echo $slideshow_filmstrip_height; ?>);
-        
-        var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"; /* FF doesn't recognize mousewheel as of FF3.x*/
+        var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"; /* FF doesn't recognize mousewheel as of FF3.x */
         jQuery('.bwg_slideshow_filmstrip_<?php echo $bwg; ?>').bind(mousewheelevt, function(e) {
           var evt = window.event || e; /* Equalize event object.*/
           evt = evt.originalEvent ? evt.originalEvent : evt; /* Convert to originalEvent if possible.*/

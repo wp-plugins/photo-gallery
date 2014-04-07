@@ -31,6 +31,9 @@ class BWGViewAlbum_compact_preview {
     if (!isset($params['compuct_album_image_title'])) {
       $params['compuct_album_image_title'] = 'none';
     }
+    if (!isset($params['popup_fullscreen'])) {
+      $params['popup_fullscreen'] = 0;
+    }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $type = (isset($_POST['type_' . $bwg]) ? esc_html($_POST['type_' . $bwg]) : (isset($params['type']) ? $params['type'] : 'album'));
     $sort_direction = ' ASC ';
@@ -49,13 +52,14 @@ class BWGViewAlbum_compact_preview {
       $params['compuct_album_enable_page'] = 0;  
       $params['compuct_album_image_title'] = $options_row->image_title_show_hover;
     }
+
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
     if (!$theme_row) {
       echo WDWLibrary::message(__('There is no theme selected or the theme was deleted.', 'bwg'), 'error');
       return;
     }
     $album_gallery_id = (isset($_POST['album_gallery_id_' . $bwg]) ? esc_html($_POST['album_gallery_id_' . $bwg]) : $params['album_id']);
-    if (!$album_gallery_id) {
+    if (!$album_gallery_id || ($type == 'album' && !$this->model->get_album_row_data($album_gallery_id))) {
       echo WDWLibrary::message(__('There is no album selected or the album was deleted.', 'bwg'), 'error');
       return;
     }
@@ -63,6 +67,10 @@ class BWGViewAlbum_compact_preview {
       $items_per_page = $params['compuct_album_images_per_page'];
       $items_col_num = $params['compuct_album_image_column_number'];
       $image_rows = $this->model->get_image_rows_data($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
+      if (!$image_rows) {
+        echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
+        return;
+      }
       $page_nav = $this->model->gallery_page_nav($album_gallery_id, $items_per_page, $bwg);
       $album_gallery_div_id = 'bwg_album_compact_' . $bwg;
       $album_gallery_div_class = 'bwg_standart_thumbnails_' . $bwg;
@@ -71,6 +79,10 @@ class BWGViewAlbum_compact_preview {
       $items_per_page = $params['compuct_albums_per_page'];
       $items_col_num = $params['compuct_album_column_number'];
       $album_galleries_row = $this->model->get_alb_gals_row($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
+      if (!$album_galleries_row) {
+        echo WDWLibrary::message(__('There is no album selected or the album was deleted.', 'bwg'), 'error');
+        return;
+      }
       $page_nav = $this->model->album_page_nav($album_gallery_id, $items_per_page, $bwg);
       $album_gallery_div_id = 'bwg_album_compact_' . $bwg;
       $album_gallery_div_class = 'bwg_album_thumbnails_' . $bwg;
@@ -412,6 +424,9 @@ class BWGViewAlbum_compact_preview {
                 foreach ($album_galleries_row as $album_galallery_row) {
                   if ($album_galallery_row->is_album) {
                     $album_row = $this->model->get_album_row_data($album_galallery_row->alb_gal_id);
+                    if (!$album_row) {
+                      continue;
+                    }
                     $preview_image = $album_row->preview_image;
                     if (!$preview_image) {
                       $preview_image = $album_row->random_preview_image;
@@ -422,6 +437,9 @@ class BWGViewAlbum_compact_preview {
                   }
                   else {
                     $gallery_row = $this->model->get_gallery_row_data($album_galallery_row->alb_gal_id);
+                    if (!$gallery_row) {
+                      continue;
+                    }
                     $preview_image = $gallery_row->preview_image;
                     if (!$preview_image) {
                       $preview_image = $gallery_row->random_preview_image;
@@ -496,6 +514,7 @@ class BWGViewAlbum_compact_preview {
                     'theme_id' => $params['theme_id'],
                     'thumb_width' => $params['compuct_album_image_thumb_width'],
                     'thumb_height' => $params['compuct_album_image_thumb_height'],
+                    'open_with_fullscreen' => $params['popup_fullscreen'],
                     'image_width' => $params['popup_width'],
                     'image_height' => $params['popup_height'],
                     'image_effect' => $params['popup_effect'],
@@ -582,6 +601,9 @@ class BWGViewAlbum_compact_preview {
         <div id="spider_popup_overlay_<?php echo $bwg; ?>" class="spider_popup_overlay" onclick="spider_destroypopup(1000)"></div>
       </div>
     </div>
+    <script>
+      var bwg_current_url = '<?php echo add_query_arg($current_url, '', home_url($wp->request)); ?>';
+    </script>
     <?php
     if ($from_shortcode) {
       return;

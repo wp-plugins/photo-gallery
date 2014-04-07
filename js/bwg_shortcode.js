@@ -54,6 +54,15 @@ function bwg_enable_disable(display, id, current) {
   jQuery("#" + id).css('display', display);
 }
 
+function bwg_popup_fullscreen() { 
+  if (jQuery("#popup_fullscreen_1").is(':checked')) {
+    jQuery("#tr_popup_width_height").css('display', 'none');
+  }
+  else {
+    jQuery("#tr_popup_width_height").css('display', '');
+  }
+}
+
 function bwg_change_label(id, text) {
   jQuery('#' + id).html(text);
 }
@@ -312,6 +321,7 @@ function bwg_gallery_type(gallery_type) {
     jQuery("#tr_popup_enable_facebook").css('display', '');
     jQuery("#tr_popup_enable_twitter").css('display', '');
     jQuery("#tr_popup_enable_google").css('display', '');
+    bwg_popup_fullscreen();
   }
 }
 

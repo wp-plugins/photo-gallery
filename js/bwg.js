@@ -795,6 +795,15 @@ function bwg_enable_disable(display, id, current) {
   jQuery("#" + id).css('display', display);
 }
 
+function bwg_popup_fullscreen() {
+  if (jQuery("#popup_fullscreen_1").is(':checked')) {
+    jQuery("#tr_popup_dimensions").css('display', 'none');
+  }
+  else {
+    jQuery("#tr_popup_dimensions").css('display', '');
+  }
+}
+
 function spider_check_isnum(e) {
   var chCode1 = e.which || e.paramlist_keyCode;
   if (chCode1 > 31 && (chCode1 < 48 || chCode1 > 57) && (chCode1 != 46) && (chCode1 != 45)) {

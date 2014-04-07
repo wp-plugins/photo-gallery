@@ -112,6 +112,8 @@ class BWGModelOptions_bwg {
       $row->built_in_watermark_color = 'FFFFFF';
       $row->built_in_watermark_opacity = 30;
 
+      $row->image_right_click = 0;
+      $row->popup_fullscreen = 0;
       $row->gallery_role = 0;
       $row->album_role = 0;
       $row->image_role = 0;

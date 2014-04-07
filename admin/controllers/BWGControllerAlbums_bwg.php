@@ -210,7 +210,7 @@ class BWGControllerAlbums_bwg {
   public function delete($id) {
     global $wpdb;
     $query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_album WHERE id="%d"', $id);
-    $query_gal = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_album_gallery WHERE id="%d" OR (is_album AND alb_gal_id="%d")', $id, $id);
+    $query_gal = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_album_gallery WHERE album_id="%d" OR (is_album AND alb_gal_id="%d")', $id, $id);
     if ($wpdb->query($query)) {
       $wpdb->query($query_gal);
       echo WDWLibrary::message('Item Succesfully Deleted.', 'updated');
@@ -229,7 +229,7 @@ class BWGControllerAlbums_bwg {
       if (isset($_POST['check_' . $album_id]) || isset($_POST['check_all_items'])) {
         $flag = TRUE;
         $query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_album WHERE id="%d"', $album_id);
-        $query_gal = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_album_gallery WHERE id="%d" OR (is_album AND alb_gal_id="%d")', $album_id, $album_id);
+        $query_gal = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_album_gallery WHERE album_id="%d" OR (is_album AND alb_gal_id="%d")', $album_id, $album_id);
         $wpdb->query($query);
         $wpdb->query($query_gal);
       }

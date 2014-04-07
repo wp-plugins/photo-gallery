@@ -128,6 +128,16 @@ class BWGViewOptions_bwg {
               </tr>
               <tr>
                 <td class="spider_label_options">
+                  <label>Right click protection:</label>
+                </td>
+                <td>
+                  <input type="radio" name="image_right_click" id="image_right_click_1" value="1" <?php if ($row->image_right_click) echo 'checked="checked"'; ?> /><label for="image_right_click_1">Yes</label>
+                  <input type="radio" name="image_right_click" id="image_right_click_0" value="0" <?php if (!$row->image_right_click) echo 'checked="checked"'; ?> /><label for="image_right_click_0">No</label>
+                  <div class="spider_description">Disable image right click possibility.</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="spider_label_options">
                   <label>Gallery role:</label>
                 </td>
                 <td>
@@ -301,7 +311,7 @@ class BWGViewOptions_bwg {
                 </table>
               </td>
               <td style="width: 50%; vertical-align: top;height: 100%; display: table-cell;">
-                <span id="preview_built_in_watermark" style="display:table-cell; background-image:url(<?php echo WD_BWG_URL . '/images/watermark_preview.jpg'?>);background-size:100% 100%;width:400px;height:400px;padding-top: 4px; position:relative;">
+                <span id="preview_built_in_watermark" style="display:table-cell; background-image:url('<?php echo WD_BWG_URL . '/images/watermark_preview.jpg'?>');background-size:100% 100%;width:400px;height:400px;padding-top: 4px; position:relative;">
                 </span>
               </td>
             </tr>
@@ -447,7 +457,7 @@ class BWGViewOptions_bwg {
                 </table>
               </td>
               <td style="width: 50%; vertical-align: top;height: 100%; display: table-cell;">
-                <span id="preview_watermark" style="display:table-cell; background-image:url(<?php echo WD_BWG_URL . '/images/watermark_preview.jpg'?>);background-size:100% 100%;width:400px;height:400px;padding-top: 4px; position:relative;">
+                <span id="preview_watermark" style="display:table-cell; background-image:url('<?php echo WD_BWG_URL . '/images/watermark_preview.jpg'?>');background-size:100% 100%;width:400px;height:400px;padding-top: 4px; position:relative;">
                 </span>
               </td>
             </tr>
@@ -457,8 +467,18 @@ class BWGViewOptions_bwg {
         <!--Lightbox-->
         <div class="spider_div_options" id="div_content_3">        
           <table>
-            <tbody>
-              <tr>
+            <tbody>			
+              <tr id="tr_popup_fullscreen">
+                <td class="spider_label_options">
+                  <label>Full width lightbox:</label>
+                </td>
+                <td>
+                  <input type="radio" name="popup_fullscreen" id="popup_fullscreen_1" value="1" <?php if ($row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen()" /><label for="popup_fullscreen_1">Yes</label>
+                  <input type="radio" name="popup_fullscreen" id="popup_fullscreen_0" value="0" <?php if (!$row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen()" /><label for="popup_fullscreen_0">No</label>
+                  <div class="spider_description">Enable full width feature for the lightbox.</div>
+                </td>
+              </tr>			
+              <tr id="tr_popup_dimensions" >
                 <td class="spider_label_options">
                   <label for="popup_width">Lightbox dimensions:</label>
                 </td>
@@ -1066,6 +1086,7 @@ class BWGViewOptions_bwg {
         window.onload = bwg_inputs();
         window.onload = bwg_watermark('watermark_type_<?php echo $row->watermark_type ?>');
         window.onload = bwg_built_in_watermark('watermark_type_<?php echo $row->built_in_watermark_type ?>');
+	window.onload = bwg_popup_fullscreen;
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_download', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_download', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_0'" ?>);

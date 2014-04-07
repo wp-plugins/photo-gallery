@@ -138,9 +138,15 @@ class BWGViewUninstall_bwg {
       <p><?php echo $prefix; ?>bwg_option,</p>
       <p><?php echo $prefix; ?>bwg_theme.</p>
     </div>
+    <?php
+    if (isset($_POST['bwg_delete_files'])) {
+    ?>
     <div class="<?php echo ($flag) ? 'updated' : 'error'?>">
       <p><?php echo ($flag) ? 'The folder was successfully deleted.' : 'An error occurred when deleting the folder.'?></p>
     </div>
+    <?php
+    }
+    ?>
     <div class="wrap">
       <h2>Uninstall Photo Gallery</h2>
       <p><strong><a href="<?php echo $deactivate_url; ?>">Click Here</a> To Finish the Uninstallation and Photo Gallery will be Deactivated Automatically.</strong></p>

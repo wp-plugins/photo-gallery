@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.9
+ * Version: 1.1.10
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -257,6 +257,7 @@ function bwg_shortcode($params) {
 
   if ($params['gallery_type'] != 'slideshow') {
     shortcode_atts(array(
+	'popup_fullscreen' => 0,
         'popup_width' => 800,
         'popup_height' => 600,
         'popup_effect' => 'fade',
@@ -297,6 +298,7 @@ function bwg_shortcode($params) {
         'watermark_position' => 'bottom-right',
       ), $params);
       break;
+
     }
     default: {
       $params['watermark_type'] = 'none';
@@ -304,7 +306,7 @@ function bwg_shortcode($params) {
     }
   }
   foreach ($params as $key => $param) {
-    if (empty($param[$key]) == false) {
+    if (empty($param[$key]) == FALSE) {
       $param[$key] = esc_html(addslashes($param[$key]));
     }
   }
@@ -524,6 +526,8 @@ function bwg_activate() {
     `built_in_watermark_color` varchar(255) NOT NULL,
     `built_in_watermark_opacity` int(4) NOT NULL,
 
+    `image_right_click` tinyint(1) NOT NULL,
+    `popup_fullscreen` tinyint(1) NOT NULL,
     `gallery_role` tinyint(1) NOT NULL,
     `album_role` tinyint(1) NOT NULL,
     `image_role` tinyint(1) NOT NULL,
@@ -755,55 +759,55 @@ function bwg_activate() {
     `masonry_thumb_hover_effect_value` varchar(128) NOT NULL,
     `masonry_thumb_transition` tinyint(1) NOT NULL,
 
-    `slideshow_cont_bg_color`	varchar(64) NOT NULL,
-    `slideshow_close_btn_transparent`	int(4) NOT NULL,
+    `slideshow_cont_bg_color` varchar(64) NOT NULL,
+    `slideshow_close_btn_transparent` int(4) NOT NULL,
     `slideshow_rl_btn_bg_color`	varchar(64) NOT NULL,
     `slideshow_rl_btn_border_radius` varchar(64) NOT NULL,
-    `slideshow_rl_btn_border_width`	int(4) NOT NULL,
-    `slideshow_rl_btn_border_style`	varchar(64) NOT NULL,
-    `slideshow_rl_btn_border_color`	varchar(64) NOT NULL,
-    `slideshow_rl_btn_box_shadow`	varchar(128) NOT NULL,
+    `slideshow_rl_btn_border_width` int(4) NOT NULL,
+    `slideshow_rl_btn_border_style` varchar(64) NOT NULL,
+    `slideshow_rl_btn_border_color` varchar(64) NOT NULL,
+    `slideshow_rl_btn_box_shadow` varchar(128) NOT NULL,
     `slideshow_rl_btn_color` varchar(64) NOT NULL,
-    `slideshow_rl_btn_height`	int(4) NOT NULL,
-    `slideshow_rl_btn_size`	int(4) NOT NULL,
+    `slideshow_rl_btn_height` int(4) NOT NULL,
+    `slideshow_rl_btn_size` int(4) NOT NULL,
     `slideshow_rl_btn_width` int(4) NOT NULL,
     `slideshow_close_rl_btn_hover_color` varchar(64) NOT NULL,
-    `slideshow_filmstrip_pos`	varchar(64) NOT NULL,
+    `slideshow_filmstrip_pos` varchar(64) NOT NULL,
     `slideshow_filmstrip_thumb_border_width` int(4) NOT NULL,
     `slideshow_filmstrip_thumb_border_style` varchar(64) NOT NULL,
     `slideshow_filmstrip_thumb_border_color` varchar(64) NOT NULL,
-    `slideshow_filmstrip_thumb_border_radius`	varchar(64) NOT NULL,
+    `slideshow_filmstrip_thumb_border_radius` varchar(64) NOT NULL,
     `slideshow_filmstrip_thumb_margin` varchar(64) NOT NULL,
-    `slideshow_filmstrip_thumb_active_border_width`	int(4) NOT NULL,
-    `slideshow_filmstrip_thumb_active_border_color`	varchar(64) NOT NULL,
-    `slideshow_filmstrip_thumb_deactive_transparent`	int(4) NOT NULL,
-    `slideshow_filmstrip_rl_bg_color`	varchar(64) NOT NULL,
+    `slideshow_filmstrip_thumb_active_border_width` int(4) NOT NULL,
+    `slideshow_filmstrip_thumb_active_border_color` varchar(64) NOT NULL,
+    `slideshow_filmstrip_thumb_deactive_transparent` int(4) NOT NULL,
+    `slideshow_filmstrip_rl_bg_color` varchar(64) NOT NULL,
     `slideshow_filmstrip_rl_btn_color` varchar(64) NOT NULL,
-    `slideshow_filmstrip_rl_btn_size`	int(4) NOT NULL,
+    `slideshow_filmstrip_rl_btn_size` int(4) NOT NULL,
     `slideshow_title_font_size` int(4) NOT NULL,
     `slideshow_title_font` varchar(64) NOT NULL,
-    `slideshow_title_color`	varchar(64) NOT NULL,
+    `slideshow_title_color` varchar(64) NOT NULL,
     `slideshow_title_opacity` int(4) NOT NULL,
-    `slideshow_title_border_radius`	varchar(64) NOT NULL,
-    `slideshow_title_background_color`	varchar(64) NOT NULL,
-    `slideshow_title_padding`	varchar(64) NOT NULL,
+    `slideshow_title_border_radius` varchar(64) NOT NULL,
+    `slideshow_title_background_color` varchar(64) NOT NULL,
+    `slideshow_title_padding` varchar(64) NOT NULL,
     `slideshow_description_font_size` int(4) NOT NULL,
     `slideshow_description_font` varchar(64) NOT NULL,
-    `slideshow_description_color`	varchar(64) NOT NULL,
+    `slideshow_description_color` varchar(64) NOT NULL,
     `slideshow_description_opacity` int(4) NOT NULL,
-    `slideshow_description_border_radius`	varchar(64) NOT NULL,
-    `slideshow_description_background_color`	varchar(64) NOT NULL,
-    `slideshow_description_padding`	varchar(64) NOT NULL,
+    `slideshow_description_border_radius` varchar(64) NOT NULL,
+    `slideshow_description_background_color` varchar(64) NOT NULL,
+    `slideshow_description_padding` varchar(64) NOT NULL,
     `slideshow_dots_width` int(4) NOT NULL,
     `slideshow_dots_height` int(4) NOT NULL,
-    `slideshow_dots_border_radius`	varchar(64) NOT NULL,
-    `slideshow_dots_background_color`	varchar(64) NOT NULL,
+    `slideshow_dots_border_radius` varchar(64) NOT NULL,
+    `slideshow_dots_background_color` varchar(64) NOT NULL,
     `slideshow_dots_margin` int(4) NOT NULL,
-    `slideshow_dots_active_background_color`	varchar(64) NOT NULL,
+    `slideshow_dots_active_background_color` varchar(64) NOT NULL,
     `slideshow_dots_active_border_width` int(4) NOT NULL,
-    `slideshow_dots_active_border_color`	varchar(64) NOT NULL,
-    `slideshow_play_pause_btn_size`	int(4) NOT NULL,
-    `slideshow_rl_btn_style`	varchar(64) NOT NULL,
+    `slideshow_dots_active_border_color` varchar(64) NOT NULL,
+    `slideshow_play_pause_btn_size` int(4) NOT NULL,
+    `slideshow_rl_btn_style` varchar(64) NOT NULL,
 
     `blog_style_margin` varchar(128) NOT NULL,
     `blog_style_padding` varchar(128) NOT NULL,
@@ -815,7 +819,7 @@ function bwg_activate() {
     `blog_style_box_shadow` varchar(128) NOT NULL,
     `blog_style_transparent` int(4) NOT NULL,
     `blog_style_align` varchar(128) NOT NULL,
-	  `blog_style_share_buttons_bg_color` varchar(128) NOT NULL,
+    `blog_style_share_buttons_bg_color` varchar(128) NOT NULL,
     `blog_style_share_buttons_margin` varchar(128) NOT NULL,
     `blog_style_share_buttons_border_radius` varchar(128) NOT NULL,
     `blog_style_share_buttons_border_width` int(4) NOT NULL,
@@ -968,6 +972,8 @@ function bwg_activate() {
     'built_in_watermark_color' => 'FFFFFF',
     'built_in_watermark_opacity' => 30,
 
+    'image_right_click' => 0,
+    'popup_fullscreen' => 0,
     'gallery_role' => 0,
     'album_role' => 0,
     'image_role' => 0
@@ -1058,6 +1064,8 @@ function bwg_activate() {
       '%s',
       '%d',
 
+      '%d',
+      '%d',
       '%d',
       '%d',
       '%d',
@@ -2381,20 +2389,15 @@ function bwg_activate() {
       '%d'
     ));
   }
-  $version = str_replace('.', '', get_option("wd_bwg_version"));
-  $new_version = 119;
-  if ($version && $version < $new_version) {
+  $version = get_option("wd_bwg_version");
+  $new_version = '1.1.10';
+  if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
-    for ($i = $version; $i < $new_version; $i++) {
-      $func_name = 'bwg_update_' . $i;
-      if (function_exists($func_name)) {
-        $func_name();
-      }
-    }
-    update_option("wd_bwg_version", '1.1.9');
+    bwg_update($version);
+    update_option("wd_bwg_version", $new_version);
   }
   else {
-    add_option("wd_bwg_version", '1.1.9', '', 'no');
+    add_option("wd_bwg_version", $new_version, '', 'no');
     add_option("wd_bwg_theme_version", '1.0.0', '', 'no');
   }
 }
@@ -2446,6 +2449,7 @@ function bwg_options_scripts() {
 }
 
 function bwg_front_end_scripts() {
+  $version = get_option("wd_bwg_version");
   global $wp_scripts;
   if (isset($wp_scripts->registered['jquery'])) {
     $jquery = $wp_scripts->registered['jquery'];
@@ -2456,18 +2460,18 @@ function bwg_front_end_scripts() {
   }
   wp_enqueue_script('jquery');
   wp_enqueue_script('jquery-ui-tooltip');
-  wp_enqueue_style('jquery-ui', WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css');
+  wp_enqueue_style('jquery-ui', WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css', array(), $version);
 
-  wp_enqueue_script('bwg_frontend', WD_BWG_URL . '/js/bwg_frontend.js', array(), get_option("wd_bwg_version"));
-  wp_enqueue_style('bwg_frontend', WD_BWG_URL . '/css/bwg_frontend.css');
+  wp_enqueue_script('bwg_frontend', WD_BWG_URL . '/js/bwg_frontend.js', array(), $version);
+  wp_enqueue_style('bwg_frontend', WD_BWG_URL . '/css/bwg_frontend.css', array(), $version);
 
   // Styles/Scripts for popup.
-  wp_enqueue_style('bwg_font-awesome', WD_BWG_URL . '/css/font-awesome-4.0.1/font-awesome.css');
-  wp_enqueue_script('bwg_jquery_mobile', WD_BWG_URL . '/js/jquery.mobile.js', array(), get_option("wd_bwg_version"));
-  wp_enqueue_script('bwg_mCustomScrollbar', WD_BWG_URL . '/js/jquery.mCustomScrollbar.concat.min.js', array(), get_option("wd_bwg_version"));
-  wp_enqueue_style('bwg_mCustomScrollbar', WD_BWG_URL . '/css/jquery.mCustomScrollbar.css');
+  wp_enqueue_style('bwg_font-awesome', WD_BWG_URL . '/css/font-awesome-4.0.1/font-awesome.css', array(), '4.0.1');
+  wp_enqueue_script('bwg_jquery_mobile', WD_BWG_URL . '/js/jquery.mobile.js', array(), $version);
+  wp_enqueue_script('bwg_mCustomScrollbar', WD_BWG_URL . '/js/jquery.mCustomScrollbar.concat.min.js', array(), $version);
+  wp_enqueue_style('bwg_mCustomScrollbar', WD_BWG_URL . '/css/jquery.mCustomScrollbar.css', array(), $version);
   wp_enqueue_script('jquery-fullscreen', WD_BWG_URL . '/js/jquery.fullscreen-0.4.1.js', array(), '0.4.1');
-  wp_enqueue_script('bwg_gallery_box', WD_BWG_URL . '/js/bwg_gallery_box.js', array(), get_option("wd_bwg_version"));
+  wp_enqueue_script('bwg_gallery_box', WD_BWG_URL . '/js/bwg_gallery_box.js', array(), $version);
   wp_localize_script('bwg_gallery_box', 'bwg_objectL10n', array(
     'bwg_field_required'  => __('field is required.', 'bwg'),
     'bwg_mail_validation' => __('This is not a valid email address.', 'bwg'),

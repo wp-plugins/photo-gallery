@@ -307,7 +307,7 @@ class BWGControllerGalleries_bwg {
     );
   }
 
-  function set_text_watermark ($original_filename, $dest_filename, $watermark_text, $watermark_font, $watermark_font_size, $watermark_color, $watermark_transparency, $watermark_position) {
+  function set_text_watermark($original_filename, $dest_filename, $watermark_text, $watermark_font, $watermark_font_size, $watermark_color, $watermark_transparency, $watermark_position) {
     $original_filename = htmlspecialchars_decode($original_filename, ENT_COMPAT | ENT_QUOTES);
     $dest_filename = htmlspecialchars_decode($dest_filename, ENT_COMPAT | ENT_QUOTES);
 
@@ -370,7 +370,7 @@ class BWGControllerGalleries_bwg {
     ini_restore('memory_limit');
   }
 
-  function set_image_watermark ($original_filename, $dest_filename, $watermark_url, $watermark_height, $watermark_width, $watermark_position) {
+  function set_image_watermark($original_filename, $dest_filename, $watermark_url, $watermark_height, $watermark_width, $watermark_position) {
     $original_filename = htmlspecialchars_decode($original_filename, ENT_COMPAT | ENT_QUOTES);
     $dest_filename = htmlspecialchars_decode($dest_filename, ENT_COMPAT | ENT_QUOTES);
     $watermark_url = htmlspecialchars_decode($watermark_url, ENT_COMPAT | ENT_QUOTES);
@@ -622,7 +622,7 @@ class BWGControllerGalleries_bwg {
     if ($preview_image == '') {
       if ($id != 0) {
         $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT random_preview_image FROM " . $wpdb->prefix . "bwg_gallery WHERE id='%d'", $id));
-        if ($random_preview_image == '') {
+        if ($random_preview_image == '' || !file_exists(ABSPATH . $WD_BWG_UPLOAD_DIR . $random_preview_image)) {
           $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT thumb_url FROM " . $wpdb->prefix . "bwg_image WHERE gallery_id='%d' ORDER BY `order`", $id));
         }
       }

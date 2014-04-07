@@ -36,6 +36,9 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     height: jQuery("#" + id).css('height'),
     display: 'table-cell'
   });
+  // if (!bwg_current_url) {
+    // bwg_current_url = window.location;
+  // }
   jQuery.post(
     window.location,
     post_data,

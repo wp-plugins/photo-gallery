@@ -46,12 +46,18 @@ class BWGViewImage_browser {
     $image_browser_images_conteiner = WDWLibrary::spider_hex2rgb($theme_row->image_browser_full_bg_color);
     $bwg_image_browser_image = WDWLibrary::spider_hex2rgb($theme_row->image_browser_bg_color);
     $image_title = $params['image_browser_title_enable'];
-    $enable_image_description = $params['image_browser_description_enable'];	
+    $enable_image_description = $params['image_browser_description_enable'];
+    $option_row = $this->model->get_option_row_data();
+    $image_right_click = $option_row->image_right_click;
+    if (!isset($params['popup_fullscreen'])) {
+      $params['popup_fullscreen'] = 0;
+    }
     $params_array = array(
       'action' => 'GalleryBox',
       'current_view' => $bwg,
       'gallery_id' => $params['gallery_id'],
       'theme_id' => $params['theme_id'],
+      'open_with_fullscreen' => $params['popup_fullscreen'],
       'image_width' => $params['popup_width'],
       'image_height' => $params['popup_height'],
       'image_effect' => $params['popup_effect'],
@@ -504,11 +510,18 @@ class BWGViewImage_browser {
     </div>
     <script>
       jQuery(window).load(function () {
-        /* Disable right click.*/
-        jQuery('div[id^="bwg_container"]').bind("contextmenu", function (e) {
-          return false;
-        });
+        <?php
+        if ($image_right_click) {
+          ?>
+          /* Disable right click.*/
+          jQuery('div[id^="bwg_container"]').bind("contextmenu", function (e) {
+            return false;
+          });
+          <?php
+        }
+        ?>
       });
+      var bwg_current_url = '<?php echo add_query_arg($current_url, '', home_url($wp->request)); ?>';
     </script>
     <?php
     if ($from_shortcode) {

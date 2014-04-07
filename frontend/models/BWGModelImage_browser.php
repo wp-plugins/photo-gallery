@@ -54,6 +54,12 @@ class BWGModelImage_browser {
     return $row;
   }
 
+  public function get_option_row_data() {
+    global $wpdb;
+    $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_option WHERE id="%d"', 1));
+    return $row;
+  }
+
   public function page_nav($id, $images_per_page, $bwg) {
     global $wpdb;
     $total = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d"', $id));
