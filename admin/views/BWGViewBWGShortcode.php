@@ -65,7 +65,6 @@ class BWGViewBWGShortcode {
         <title>Photo Gallery</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
-        <link rel="stylesheet" href="<?php echo get_option("siteurl"); ?>/wp-includes/js/tinymce/themes/advanced/skins/wp_theme/dialog.css?ver=342-20110630100">
         <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/tinymce/utils/mctabs.js"></script>
         <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/tinymce/utils/form_utils.js"></script>
     <?php
@@ -1191,7 +1190,8 @@ class BWGViewBWGShortcode {
               tinyMCE.activeEditor.setContent(all_content.replace(content, "[Best_Wordpress_Gallery" + tagtext + "]"));
             }
             else {
-              window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, short_code);
+              // window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, short_code);
+              window.tinyMCE.execCommand('mceInsertContent', false, short_code);
               // window.tinyMCE.activeEditor.dom.setAttrib(window.tinyMCE.activeEditor.selection.getNode(), "title", "Best_Wordpress_Gallery" + tagtext);
             }
             tinyMCEPopup.editor.execCommand('mceRepaint');

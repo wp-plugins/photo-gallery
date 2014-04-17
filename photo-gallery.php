@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.10
+ * Version: 1.1.11
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -346,15 +346,6 @@ function bwg_admin_ajax() {
     var bwg_admin_ajax = '<?php echo add_query_arg(array('action' => 'BWGShortcode'), admin_url('admin-ajax.php')); ?>';
     var bwg_plugin_url = '<?php echo WD_BWG_URL; ?>';
   </script>
-  <style type="text/css">
-    .wp_themeSkin span.mce_bwg_mce {
-      background:url('<?php echo WD_BWG_URL . '/images/best-wordpress-gallery.png'; ?>') no-repeat !important;
-    }
-    .wp_themeSkin .mceButtonEnabled:hover span.mce_bwg_mce,
-    .wp_themeSkin .mceButtonActive span.mce_bwg_mce {
-      background:url('<?php echo WD_BWG_URL . '/images/best-wordpress-gallery-hover.png'; ?>') no-repeat !important;
-    }
-  </style>
   <?php
 }
 add_action('admin_head', 'bwg_admin_ajax');
@@ -2390,7 +2381,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.1.10';
+  $new_version = '1.1.11';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);

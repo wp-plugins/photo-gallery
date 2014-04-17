@@ -27,7 +27,7 @@ class BWGViewWidgetTags {
 
   function widget($args, $instance) {
     extract($args);
-    $title = $instance['title'];
+    $title = (isset($instance['title']) ? $instance['title'] : '');
     $type = (isset($instance['type']) ? $instance['type'] : "text");
     $show_name = (isset($instance['show_name']) ? $instance['show_name'] : 0);
     $count = (isset($instance['count']) ? $instance['count'] : 0);

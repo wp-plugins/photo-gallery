@@ -27,7 +27,7 @@ class BWGViewWidgetSlideshow {
 
   function widget($args, $instance) {
     extract($args);
-    $title = $instance['title'];
+    $title = (isset($instance['title']) ? $instance['title'] : '');
     $gallery_id = (isset($instance['gallery_id']) ? $instance['gallery_id'] : 0);
     $width = (isset($instance['width']) ? $instance['width'] : 200);
     $height = (isset($instance['height']) ? $instance['height'] : 200);

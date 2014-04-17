@@ -27,7 +27,7 @@ class BWGViewWidget {
 
   function widget($args, $instance) {
     extract($args);
-    $title = $instance['title'];
+    $title = (isset($instance['title']) ? $instance['title'] : "");
     $type = (isset($instance['type']) ? $instance['type'] : "gallery");
     $gallery_id = (isset($instance['gallery_id']) ? $instance['gallery_id'] : 0);
     $album_id = (isset($instance['album_id']) ? $instance['album_id'] : 0);
