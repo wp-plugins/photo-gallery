@@ -12,7 +12,7 @@
 
 $upload_handler = new UploadHandler(array(
     'upload_dir' => $_GET['dir'],
-    'accept_file_types' => '/\.(gif|jpe?g|png|bmp|mp4|flv|webm|ogg|mp3|wav|pdf)$/i'
+    'accept_file_types' => '/\.(gif|jpe?g|png|bmp|mp4|flv|webm|ogg|mp3|wav|pdf|zip)$/i'
 ));
 
 class UploadHandler {
@@ -582,6 +582,53 @@ class UploadHandler {
       }
     }
 
+    protected function handle_zip_file($file_path, $file) {
+      $zip = new ZipArchive;
+      $res = $zip->open($file_path);      
+      if ($res === TRUE) {
+        $target_dir = substr($file_path, 0, strlen($file_path) - 4);
+        if (!is_dir($target_dir)) {
+          mkdir($target_dir, 0777);
+        }
+        $zip->extractTo($target_dir);
+        $zip->close();
+        $this->handle_directory($target_dir);
+      }
+    }
+
+    protected function handle_directory($target_dir) {
+      $extracted_files = scandir($target_dir);
+      if ($extracted_files) {
+        $temp_upload_dir = $this->options['upload_dir'];
+        $this->options['upload_dir'] = $target_dir . '/';
+        foreach ($extracted_files as $ex_file) {
+          if ($ex_file != '.' && $ex_file != '..') {
+            $ex_file = $target_dir . '/' . $ex_file;
+            if (is_file($ex_file)) {
+              $type = filetype($ex_file);
+              $name = basename($ex_file);
+              $index = null;
+              $content_range = null;
+              $size = $this->get_file_size($ex_file);
+              $file = new stdClass();
+              $file->name = $name;
+              $file->size = $this->fix_integer_overflow(intval($size));
+              $file->type = $type;
+              $file->url = $this->get_download_url($file->name);
+              list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($ex_file, ENT_COMPAT | ENT_QUOTES));
+              if (is_int($img_width)) {
+                $this->handle_image_file($ex_file, $file);
+              }
+            }
+            elseif (is_dir($ex_file)) {
+              $this->handle_directory($ex_file);
+            }
+          }
+        }
+        $this->options['upload_dir'] = $temp_upload_dir;
+      }
+    }
+
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error, $index = null, $content_range = null) {
       $file = new stdClass();
       $file->name = $this->get_file_name($name, $type, $index, $content_range);
@@ -623,6 +670,9 @@ class UploadHandler {
           list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($file_path, ENT_COMPAT | ENT_QUOTES));
           if (is_int($img_width)) {
             $this->handle_image_file($file_path, $file);
+          }
+          else {
+            $this->handle_zip_file($file_path, $file);
           }
         }
         else {

@@ -34,6 +34,9 @@ class BWGViewAlbum_compact_preview {
     if (!isset($params['popup_fullscreen'])) {
       $params['popup_fullscreen'] = 0;
     }
+    if (!isset($params['popup_autoplay'])) {
+      $params['popup_autoplay'] = 0;
+    }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $type = (isset($_POST['type_' . $bwg]) ? esc_html($_POST['type_' . $bwg]) : (isset($params['type']) ? $params['type'] : 'album'));
     $sort_direction = ' ASC ';
@@ -397,6 +400,11 @@ class BWGViewAlbum_compact_preview {
             if ($params['compuct_album_enable_page'] && $items_per_page && ($theme_row->page_nav_position == 'top') && $page_nav['total']) {
               WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id']);
             }
+            if ($bwg_previous_album_id) {
+              ?>
+              <a class="bwg_back_<?php echo $bwg; ?>" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', '<?php echo $album_gallery_div_id; ?>', 'back')"><?php echo __('Back', 'bwg'); ?></a>
+              <?php
+            }
             ?>
             <div id="bwg_album_compact_<?php echo $bwg; ?>" class="<?php echo $album_gallery_div_class; ?>">
               <div id="ajax_loading_<?php echo $bwg; ?>" style="position:absolute;">
@@ -405,13 +413,6 @@ class BWGViewAlbum_compact_preview {
                   <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="float: none; width:50px;">
                 </span>
               </div>
-              <?php
-              if ($bwg_previous_album_id) {
-                ?>
-                <a class="bwg_back_<?php echo $bwg; ?>" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_compact_<?php echo $bwg; ?>', 'back')"><?php echo __('Back', 'bwg'); ?></a>
-                <?php
-              }
-              ?>
               <input type="hidden" id="bwg_previous_album_id_<?php echo $bwg; ?>" name="bwg_previous_album_id_<?php echo $bwg; ?>" value="<?php echo $bwg_previous_album_id; ?>" />
               <input type="hidden" id="bwg_previous_album_page_number_<?php echo $bwg; ?>" name="bwg_previous_album_page_number_<?php echo $bwg; ?>" value="<?php echo $bwg_previous_album_page_number; ?>" />
               <?php
@@ -466,6 +467,17 @@ class BWGViewAlbum_compact_preview {
                     ?>
                     <a style="font-size: 0;" <?php echo ($from !== "widget" ? "onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_compact_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "')\"" : "href='" . $permalink . "'") ?>>
                       <span class="bwg_album_thumb_<?php echo $bwg; ?>">
+                        <?php
+                        if ($params['compuct_album_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top') {
+                          ?>
+                          <span class="bwg_title_spun1_<?php echo $bwg; ?>">
+                            <span class="bwg_title_spun2_<?php echo $bwg; ?>">
+                              <?php echo $title; ?>
+                            </span>
+                          </span>
+                          <?php
+                        }
+                        ?>
                         <span class="bwg_album_thumb_spun1_<?php echo $bwg; ?>">
                           <span class="bwg_album_thumb_spun2_<?php echo $bwg; ?>">
                             <img style="padding: 0 !important; max-height: none !important; max-width: none !important; width: <?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" src="<?php echo $preview_url; ?>" alt="<?php echo $title; ?>" />
@@ -483,7 +495,7 @@ class BWGViewAlbum_compact_preview {
                           </span>
                         </span>
                         <?php
-                        if ($params['compuct_album_title'] == 'show') {
+                        if ($params['compuct_album_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'bottom') {
                           ?>
                           <span class="bwg_title_spun1_<?php echo $bwg; ?>">
                             <span class="bwg_title_spun2_<?php echo $bwg; ?>">
@@ -515,6 +527,7 @@ class BWGViewAlbum_compact_preview {
                     'thumb_width' => $params['compuct_album_image_thumb_width'],
                     'thumb_height' => $params['compuct_album_image_thumb_height'],
                     'open_with_fullscreen' => $params['popup_fullscreen'],
+                    'open_with_autoplay' => $params['popup_autoplay'],
                     'image_width' => $params['popup_width'],
                     'image_height' => $params['popup_height'],
                     'image_effect' => $params['popup_effect'],
@@ -547,7 +560,14 @@ class BWGViewAlbum_compact_preview {
                     $params_array['watermark_width'] = $params['watermark_width'];
                     $params_array['watermark_height'] = $params['watermark_height'];
                   }
-                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
+                  $is_video = $image_row->filetype == "YOUTUBE" || $image_row->filetype == "VIMEO";
+                  if (!$is_video) {
+                    list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
+                  }
+                  else {
+                    $image_thumb_width = $params['compuct_album_image_thumb_width'];
+                    $image_thumb_height = $params['compuct_album_image_thumb_height'];
+                  }
                   $scale = max($params['compuct_album_image_thumb_width'] / $image_thumb_width, $params['compuct_album_image_thumb_height'] / $image_thumb_height);
                   $image_thumb_width *= $scale;
                   $image_thumb_height *= $scale;
@@ -556,9 +576,20 @@ class BWGViewAlbum_compact_preview {
                   ?>
                   <a style="font-size: 0;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
+                      <?php
+                      if ($params['compuct_album_image_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top') {
+                        ?>
+                        <span class="bwg_image_title_spun1_<?php echo $bwg; ?>">
+                          <span class="bwg_image_title_spun2_<?php echo $bwg; ?>">
+                            <?php echo $image_row->alt; ?>
+                          </span>
+                        </span>
+                        <?php
+                      }
+                      ?>
                       <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                         <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
-                          <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
+                          <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ($is_video ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                           <?php
                           if ($params['compuct_album_image_title'] == 'hover') {
                             ?>
@@ -573,7 +604,7 @@ class BWGViewAlbum_compact_preview {
                         </span>
                       </span>
                       <?php
-                      if ($params['compuct_album_image_title'] == 'show') {
+                      if ($params['compuct_album_image_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'bottom') {
                         ?>
                         <span class="bwg_image_title_spun1_<?php echo $bwg; ?>">
                           <span class="bwg_image_title_spun2_<?php echo $bwg; ?>">

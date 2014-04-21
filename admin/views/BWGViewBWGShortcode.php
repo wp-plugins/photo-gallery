@@ -64,20 +64,20 @@ class BWGViewBWGShortcode {
       <head>
         <title>Photo Gallery</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/tinymce/utils/mctabs.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/tinymce/utils/form_utils.js"></script>
-    <?php
+        <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/utils/mctabs.js"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/utils/form_utils.js"></script>
+      <?php
+      wp_print_scripts('jquery');
+      wp_print_scripts('jquery-ui-core');
+      wp_print_scripts('jquery-ui-widget');
+      wp_print_scripts('jquery-ui-position');
+      wp_print_scripts('jquery-ui-tooltip');
     }
     ?>
         <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/bwg_shortcode.css?ver='; ?><?php echo get_option("wd_bwg_version"); ?>">
         <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css'; ?>">
-        <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/jquery.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/ui/jquery.ui.core.min.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/ui/jquery.ui.widget.min.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/ui/jquery.ui.position.min.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/ui/jquery.ui.tooltip.min.js"></script>
-        
+
         <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/bwg_shortcode.js?ver='; ?><?php echo get_option("wd_bwg_version"); ?>"></script>
         <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/jscolor/jscolor.js'; ?>"></script>
         <?php
@@ -198,6 +198,13 @@ class BWGViewBWGShortcode {
                       </select>
                     </td>
                   </tr>
+                  <tr id="tr_order_by">
+                    <td class="spider_label"><label>Order: </label></td>
+                    <td>
+                      <input type="radio" name="order_by" id="order_by_1" value="asc" checked="checked" /><label for="order_by_1">Ascending</label>
+                      <input type="radio" name="order_by" id="order_by_0" value="desc" /><label for="order_by_0">Descending</label>
+                    </td>
+                  </tr>
 
                   <!--Thumbnails, Masonry viewies-->
                   <tr id="tr_masonry_hor_ver">
@@ -263,6 +270,13 @@ class BWGViewBWGShortcode {
                       <input type="radio" name="compuct_album_title" id="compuct_album_title_none" value="none" <?php echo ($option_row->album_title_show_hover == 'none') ? 'checked' : ''; ?> /><label for="compuct_album_title_none">Don't show</label>
                     </td>
                   </tr>
+                  <tr id="tr_compuct_album_view_type">
+                    <td title="The gallery images view type in the album.<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Album view type: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="compuct_album_view_type" id="compuct_album_view_type_1" value="thumbnail" <?php if ($option_row->album_view_type == "thumbnail") echo 'checked="checked"'; ?> onchange="bwg_change_compuct_album_view_type()" /><label for="compuct_album_view_type_1">Thumbnail</label>
+                      <input disabled="disabled" type="radio" name="compuct_album_view_type" id="compuct_album_view_type_0" value="masonry" <?php if ($option_row->album_view_type == "masonry") echo 'checked="checked"'; ?> onchange="bwg_change_compuct_album_view_type()" /><label for="compuct_album_view_type_0">Masonry</label>
+                    </td>
+                  </tr>
                   <tr id="tr_compuct_album_thumb_width_height">
                     <td title="Maximum values for album thumb width and height." class="spider_label"><label for="compuct_album_thumb_width">Album Thumbnail dimensions: </label></td>
                     <td>
@@ -287,9 +301,9 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_compuct_album_image_thumb_width_height">
-                    <td title="Maximum values for thumb width and height." class="spider_label"><label for="compuct_album_image_thumb_width">Image thumbnail dimensions: </label></td>
+                    <td title="Maximum values for thumb width and height." class="spider_label"><label for="compuct_album_image_thumb_width" id="compuct_album_image_thumb_dimensions">Image thumbnail dimensions: </label></td>
                     <td>
-                      <input type="text" name="compuct_album_image_thumb_width" id="compuct_album_image_thumb_width" value="<?php echo $option_row->thumb_width; ?>" class="spider_int_input" /> x 
+                      <input type="text" name="compuct_album_image_thumb_width" id="compuct_album_image_thumb_width" value="<?php echo $option_row->thumb_width; ?>" class="spider_int_input" /><span id="compuct_album_image_thumb_dimensions_x" > x </span>
                       <input type="text" name="compuct_album_image_thumb_height" id="compuct_album_image_thumb_height" value="<?php echo $option_row->thumb_height; ?>" class="spider_int_input" /> px
                     </td>
                   </tr>
@@ -317,6 +331,13 @@ class BWGViewBWGShortcode {
                       <input type="radio" name="extended_album_description_enable" id="extended_album_description_no" value="0" <?php echo ($option_row->extended_album_description_enable) ? '' : 'checked'; ?> /><label for="extended_album_description_no">No</label>
                     </td>
                   </tr>
+                  <tr id="tr_extended_album_view_type">
+                    <td title="The gallery images view type in the album.<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Album view type: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="extended_album_view_type" id="extended_album_view_type_1" value="thumbnail" <?php if ($option_row->album_view_type == "thumbnail") echo 'checked="checked"'; ?> onchange="bwg_change_extended_album_view_type()" /><label for="extended_album_view_type_1">Thumbnail</label>
+                      <input disabled="disabled" type="radio" name="extended_album_view_type" id="extended_album_view_type_0" value="masonry" <?php if ($option_row->album_view_type == "masonry") echo 'checked="checked"'; ?> onchange="bwg_change_extended_album_view_type()" /><label for="extended_album_view_type_0">Masonry</label>
+                    </td>
+                  </tr>				  
                   <tr id="tr_extended_album_thumb_width_height">
                     <td title="Maximum values for album thumb width and height." class="spider_label"><label for="extended_album_thumb_width">Album thumbnail dimensions: </label></td>
                     <td>
@@ -341,9 +362,9 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_extended_album_image_thumb_width_height">
-                    <td title="Maximum values for thumb width and height." class="spider_label"><label for="extended_album_image_thumb_width">Image Thumbnail dimensions: </label></td>
+                    <td title="Maximum values for thumb width and height." class="spider_label"><label for="extended_album_image_thumb_width" id="extended_album_image_thumb_dimensions">Image Thumbnail dimensions: </label></td>
                     <td>
-                      <input type="text" name="extended_album_image_thumb_width" id="extended_album_image_thumb_width" value="<?php echo $option_row->thumb_width; ?>" class="spider_int_input" /> x 
+                      <input type="text" name="extended_album_image_thumb_width" id="extended_album_image_thumb_width" value="<?php echo $option_row->thumb_width; ?>" class="spider_int_input" /><span id="extended_album_image_thumb_dimensions_x" > x </span>
                       <input type="text" name="extended_album_image_thumb_height" id="extended_album_image_thumb_height" value="<?php echo $option_row->thumb_height; ?>" class="spider_int_input" /> px
                     </td>
                   </tr>
@@ -451,7 +472,7 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_enable_slideshow_filmstrip">
-                    <td title="Enable slideshow filmstrip view" class="spider_label spider_free_version_label"><label>Enable slideshow filmstrip: </label></td>
+                    <td title="Enable slideshow filmstrip view<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Enable slideshow filmstrip: </label></td>
                     <td>
                       <input disabled="disabled" type="radio" name="enable_slideshow_filmstrip" id="slideshow_filmstrip_yes" value="1" onClick="bwg_enable_disable('', 'tr_slideshow_filmstrip_height', 'slideshow_filmstrip_yes')" <?php echo ($option_row->slideshow_enable_filmstrip) ? 'checked' : ''; ?> /><label for="slideshow_filmstrip_yes">Yes</label>
                       <input disabled="disabled" type="radio" name="enable_slideshow_filmstrip" id="slideshow_filmstrip_no" value="0" onClick="bwg_enable_disable('none', 'tr_slideshow_filmstrip_height', 'slideshow_filmstrip_no')" <?php echo ($option_row->slideshow_enable_filmstrip) ? '' : 'checked'; ?> /><label for="slideshow_filmstrip_no">No</label>
@@ -577,6 +598,15 @@ class BWGViewBWGShortcode {
                         }
                         ?>
                       </select>
+                    </td>
+                  </tr>
+                  <tr id="tr_popup_autoplay">
+                    <td class="spider_label">
+                      <label>Lightbox autoplay: </label>
+                    </td>
+                    <td>
+                      <input type="radio" name="popup_autoplay" id="popup_autoplay_1" value="1" <?php if ($option_row->popup_autoplay) echo 'checked="checked"'; ?>  /><label for="popup_autoplay_1">Yes</label>
+                      <input type="radio" name="popup_autoplay" id="popup_autoplay_0" value="0" <?php if (!$option_row->popup_autoplay) echo 'checked="checked"'; ?>  /><label for="popup_autoplay_0">No</label>
                     </td>
                   </tr>
                   <tr id="tr_popup_interval">
@@ -772,7 +802,6 @@ class BWGViewBWGShortcode {
           ?>
         <script>
 	  window.onload = bwg_shortcode_load;
-          window.onload = bwg_popup_fullscreen;		  
 	</script>
         <script type="text/javascript">
           bwg_update_shortcode();
@@ -799,6 +828,12 @@ class BWGViewBWGShortcode {
                 case 'thumbnails': {
                   jQuery("select[id=gallery] option[value='" + short_code['gallery_id'] + "']").attr('selected', 'selected');
                   jQuery("select[id=sort_by] option[value='" + short_code['sort_by'] + "']").attr('selected', 'selected');
+                  if (short_code['order_by'] == 'asc') {
+                    jQuery("#order_by_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#order_by_0").attr('checked', 'checked');
+                  }
                   jQuery("#image_column_number").val(short_code['image_column_number']);
                   jQuery("#images_per_page").val(short_code['images_per_page']);
                   jQuery("#image_title_" + short_code['image_title']).attr('checked', 'checked');
@@ -816,6 +851,12 @@ class BWGViewBWGShortcode {
                 case 'slideshow': {
                   jQuery("select[id=gallery] option[value='" + short_code['gallery_id'] + "']").attr('selected', 'selected');
                   jQuery("select[id=sort_by] option[value='" + short_code['sort_by'] + "']").attr('selected', 'selected');
+                  if (short_code['order_by'] == 'asc') {
+                    jQuery("#order_by_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#order_by_0").attr('checked', 'checked');
+                  }
                   jQuery("select[id=slideshow_effect] option[value='" + short_code['slideshow_effect'] + "']").attr('selected', 'selected');
                   jQuery("#slideshow_interval").val(short_code['slideshow_interval']);
                   jQuery("#slideshow_width").val(short_code['slideshow_width']);
@@ -876,6 +917,12 @@ class BWGViewBWGShortcode {
                 case 'image_browser': {
                   jQuery("select[id=gallery] option[value='" + short_code['gallery_id'] + "']").attr('selected', 'selected');
                   jQuery("select[id=sort_by] option[value='" + short_code['sort_by'] + "']").attr('selected', 'selected');
+                  if (short_code['order_by'] == 'asc') {
+                    jQuery("#order_by_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#order_by_0").attr('checked', 'checked');
+                  }
                   jQuery("#image_browser_width").val(short_code['image_browser_width']);
                   if (short_code['image_browser_title_enable'] == 1) {
                     jQuery("#image_browser_title_yes").attr('checked', 'checked');
@@ -911,6 +958,12 @@ class BWGViewBWGShortcode {
                   else {
                     jQuery("#compuct_album_page_no").attr('checked', 'checked');
                   }
+                  if (short_code['compuct_album_view_type'] == 'thumbnail') {				  
+                    jQuery("#compuct_album_view_type_1").attr('checked', 'checked');								  
+                  }
+                  else { 
+                    jQuery("#compuct_album_view_type_2").attr('checked', 'checked');
+                  }
                   break;
 
                 }
@@ -938,6 +991,12 @@ class BWGViewBWGShortcode {
                   else {
                     jQuery("#extended_album_page_no").attr('checked', 'checked');
                   }
+                  if (short_code['extended_album_view_type'] == 'thumbnail') {  
+                    jQuery("#extended_album_view_type_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#extended_album_view_type_0").attr('checked', 'checked');
+                  }
                   break;
 
                 }
@@ -948,14 +1007,20 @@ class BWGViewBWGShortcode {
                 jQuery("#popup_height").val(short_code['popup_height']);
                 jQuery("select[id=popup_effect] option[value='" + short_code['popup_effect'] + "']").attr('selected', 'selected');
                 jQuery("#popup_interval").val(short_code['popup_interval']);
-              if (short_code['popup_fullscreen'] == 1) {
-                jQuery("#popup_fullscreen_1").attr('checked', 'checked'); 
-                jQuery("#tr_popup_width_height").css('display', 'none');
-              }
-              else {
-                jQuery("#popup_fullscreen_0").attr('checked', 'checked');
-                jQuery("#tr_popup_width_height").css('display', '');
-              }
+                if (short_code['popup_fullscreen'] == 1) {
+                  jQuery("#popup_fullscreen_1").attr('checked', 'checked'); 
+                  jQuery("#tr_popup_width_height").css('display', 'none');
+                }
+                else {
+                  jQuery("#popup_fullscreen_0").attr('checked', 'checked');
+                  jQuery("#tr_popup_width_height").css('display', '');
+                }
+                if (short_code['popup_autoplay'] == 1) {
+                  jQuery("#popup_autoplay_1").attr('checked', 'checked'); 
+                }
+                else {
+                  jQuery("#popup_autoplay_0").attr('checked', 'checked');
+                }
                 if (short_code['popup_enable_filmstrip'] == 1) {
                   jQuery("#popup_filmstrip_yes").attr('checked', 'checked');
                   jQuery("#popup_filmstrip_height").val(short_code['popup_filmstrip_height']);
@@ -1026,7 +1091,6 @@ class BWGViewBWGShortcode {
               }
               else {
                 jQuery("#watermark_type_none").attr('checked', 'checked');
-                
               }
               bwg_watermark('watermark_type_' + short_code['watermark_type']);
               bwg_gallery_type(short_code['gallery_type']);
@@ -1068,6 +1132,7 @@ class BWGViewBWGShortcode {
               case 'thumbnails': {
                 tagtext += ' gallery_id="' + jQuery("#gallery").val() + '"';
                 tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
+                tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
                 tagtext += ' image_column_number="' + jQuery("#image_column_number").val() + '"';
                 tagtext += ' images_per_page="' + jQuery("#images_per_page").val() + '"';
                 tagtext += ' image_title="' + jQuery("input[name=image_title]:checked").val() + '"';
@@ -1080,6 +1145,7 @@ class BWGViewBWGShortcode {
               case 'slideshow': {
                 tagtext += ' gallery_id="' + jQuery("#gallery").val() + '"';
                 tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
+                tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
                 tagtext += ' slideshow_effect="' + jQuery("#slideshow_effect").val() + '"';
                 tagtext += ' slideshow_interval="' + jQuery("#slideshow_interval").val() + '"';
                 tagtext += ' slideshow_width="' + jQuery("#slideshow_width").val() + '"';
@@ -1101,6 +1167,7 @@ class BWGViewBWGShortcode {
               case 'image_browser': {
                 tagtext += ' gallery_id="' + jQuery("#gallery").val() + '"';
                 tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
+                tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
                 tagtext += ' image_browser_width="' + jQuery("#image_browser_width").val() + '"';
                 tagtext += ' image_browser_title_enable="' + jQuery("input[name=image_browser_title_enable]:checked").val() + '"';
                 tagtext += ' image_browser_description_enable="' + jQuery("input[name=image_browser_description_enable]:checked").val() + '"';
@@ -1110,9 +1177,11 @@ class BWGViewBWGShortcode {
               case 'album_compact_preview': {
                 tagtext += ' album_id="' + jQuery("#album").val() + '"';
                 tagtext += ' sort_by="order"';
+                tagtext += ' order_by="asc"';
                 tagtext += ' compuct_album_column_number="' + jQuery("#compuct_album_column_number").val() + '"';
                 tagtext += ' compuct_albums_per_page="' + jQuery("#compuct_albums_per_page").val() + '"';
                 tagtext += ' compuct_album_title="' + jQuery("input[name=compuct_album_title]:checked").val() + '"';
+                tagtext += ' compuct_album_view_type="' + jQuery("input[name=compuct_album_view_type]:checked").val() + '"';
                 tagtext += ' compuct_album_thumb_width="' + jQuery("#compuct_album_thumb_width").val() + '"';
                 tagtext += ' compuct_album_thumb_height="' + jQuery("#compuct_album_thumb_height").val() + '"';
                 tagtext += ' compuct_album_image_column_number="' + jQuery("#compuct_album_image_column_number").val() + '"';
@@ -1127,9 +1196,11 @@ class BWGViewBWGShortcode {
               case 'album_extended_preview': {
                 tagtext += ' album_id="' + jQuery("#album").val() + '"';
                 tagtext += ' sort_by="order"';
+                tagtext += ' order_by="asc"';
                 tagtext += ' extended_albums_per_page="' + jQuery("#extended_albums_per_page").val() + '"';
                 tagtext += ' extended_album_height="' + jQuery("#extended_album_height").val() + '"';
                 tagtext += ' extended_album_description_enable="' + jQuery("input[name=extended_album_description_enable]:checked").val() + '"';
+                tagtext += ' extended_album_view_type="' + jQuery("input[name=extended_album_view_type]:checked").val() + '"';
                 tagtext += ' extended_album_thumb_width="' + jQuery("#extended_album_thumb_width").val() + '"';
                 tagtext += ' extended_album_thumb_height="' + jQuery("#extended_album_thumb_height").val() + '"';
                 tagtext += ' extended_album_image_column_number="' + jQuery("#extended_album_image_column_number").val() + '"';
@@ -1144,7 +1215,8 @@ class BWGViewBWGShortcode {
             }
             // Lightbox paramteres.
             if (gallery_type != 'slideshow') {
-              tagtext += ' popup_fullscreen="' + jQuery("input[name=popup_fullscreen]:checked").val() + '"';			
+              tagtext += ' popup_fullscreen="' + jQuery("input[name=popup_fullscreen]:checked").val() + '"';
+              tagtext += ' popup_autoplay="' + jQuery("input[name=popup_autoplay]:checked").val() + '"';			  
               tagtext += ' popup_width="' + jQuery("#popup_width").val() + '"';
               tagtext += ' popup_height="' + jQuery("#popup_height").val() + '"';
               tagtext += ' popup_effect="' + jQuery("#popup_effect").val() + '"';

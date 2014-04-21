@@ -31,9 +31,8 @@ class BWGViewOptions_bwg {
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-5/5-1.html">Read More in User Manual</a>
       </div>
       <div style="float: right; text-align: right;">
-        <a style="color: red; text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
-          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/header.png'; ?>" />
-          <p style="font-size: 16px; margin: 0; padding: 0 20px 0 0;">Get the full version</p>
+        <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>
     </div>
@@ -468,13 +467,13 @@ class BWGViewOptions_bwg {
         <div class="spider_div_options" id="div_content_3">        
           <table>
             <tbody>			
-              <tr id="tr_popup_fullscreen">
+              <tr id="tr_popup_full_width">
                 <td class="spider_label_options">
                   <label>Full width lightbox:</label>
                 </td>
                 <td>
-                  <input type="radio" name="popup_fullscreen" id="popup_fullscreen_1" value="1" <?php if ($row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen()" /><label for="popup_fullscreen_1">Yes</label>
-                  <input type="radio" name="popup_fullscreen" id="popup_fullscreen_0" value="0" <?php if (!$row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen()" /><label for="popup_fullscreen_0">No</label>
+                  <input type="radio" name="popup_fullscreen" id="popup_fullscreen_1" value="1" <?php if ($row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen(1)" /><label for="popup_fullscreen_1">Yes</label>
+                  <input type="radio" name="popup_fullscreen" id="popup_fullscreen_0" value="0" <?php if (!$row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen(0)" /><label for="popup_fullscreen_0">No</label>
                   <div class="spider_description">Enable full width feature for the lightbox.</div>
                 </td>
               </tr>			
@@ -502,6 +501,16 @@ class BWGViewOptions_bwg {
                     }
                     ?>
                   </select>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr id="tr_popup_autoplay">
+                <td class="spider_label_options">
+                  <label>Lightbox autoplay: </label>
+                </td>
+                <td>
+                  <input type="radio" name="popup_autoplay" id="popup_autoplay_1" value="1" <?php if ($row->popup_autoplay) echo 'checked="checked"'; ?> /><label for="popup_autoplay_1">Yes</label>
+                  <input type="radio" name="popup_autoplay" id="popup_autoplay_0" value="0" <?php if (!$row->popup_autoplay) echo 'checked="checked"'; ?> /><label for="popup_autoplay_0">No</label>
                   <div class="spider_description"></div>
                 </td>
               </tr>
@@ -685,6 +694,16 @@ class BWGViewOptions_bwg {
                   <input type="radio" name="album_enable_page" id="album_enable_page_1" value="1" <?php if ($row->album_enable_page) echo 'checked="checked"'; ?> /><label for="album_enable_page_1">Yes</label>
                   <input type="radio" name="album_enable_page" id="album_enable_page_0" value="0" <?php if (!$row->album_enable_page) echo 'checked="checked"'; ?> /><label for="album_enable_page_0">No</label>
                   <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label>Album view type:</label>
+                </td>
+                <td>
+                  <input disabled="disabled" type="radio" name="album_view_type" id="album_view_type_1" value="thumbnail" <?php if ($row->album_view_type == "thumbnail") echo 'checked="checked"'; ?> /><label for="album_view_type_1">Thumbnail</label>
+                  <input disabled="disabled" type="radio" name="album_view_type" id="album_view_type_0" value="masonry" <?php if ($row->album_view_type == "masonry") echo 'checked="checked"'; ?> /><label for="album_view_type_0">Masonry</label>
+                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
                 </td>
               </tr>
               <tr>
@@ -1086,7 +1105,7 @@ class BWGViewOptions_bwg {
         window.onload = bwg_inputs();
         window.onload = bwg_watermark('watermark_type_<?php echo $row->watermark_type ?>');
         window.onload = bwg_built_in_watermark('watermark_type_<?php echo $row->built_in_watermark_type ?>');
-	window.onload = bwg_popup_fullscreen;
+        window.onload = bwg_popup_fullscreen(<?php echo $row->popup_fullscreen; ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_download', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_download', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_0'" ?>);

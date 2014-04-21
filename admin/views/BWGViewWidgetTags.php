@@ -27,9 +27,10 @@ class BWGViewWidgetTags {
 
   function widget($args, $instance) {
     extract($args);
-    $title = (isset($instance['title']) ? $instance['title'] : '');
+    $title = (isset($instance['title']) ? $instance['title'] : "");
     $type = (isset($instance['type']) ? $instance['type'] : "text");
     $show_name = (isset($instance['show_name']) ? $instance['show_name'] : 0);
+    $open_option = (isset($instance['open_option']) ? $instance['open_option'] : 'page');
     $count = (isset($instance['count']) ? $instance['count'] : 0);
     $width = (isset($instance['width']) ? $instance['width'] : 250);
     $height = (isset($instance['height']) ? $instance['height'] : 250);
@@ -44,34 +45,34 @@ class BWGViewWidgetTags {
       echo $before_title . $title . $after_title;
     }
     // Widget output.
-    if ($id) {
-      require_once(WD_BWG_DIR . '/frontend/controllers/BWGControllerWidget.php');
-      $controller_class = 'BWGControllerWidgetFrontEnd';
-      $controller = new $controller_class();
-      global $bwg;
-      $params = array (
-        'type' => $type,
-        'show_name' => $show_name,
-        'count' => $count, 
-        'width' => $width, 
-        'height' => $height, 
-        'background_transparent' => $background_transparent, 
-        'background_color' => $background_color, 
-        'text_color' => $text_color,
-        'theme_id' => $theme_id);
-      $controller->execute($params);
-      $bwg++;
-    }
+    require_once(WD_BWG_DIR . '/frontend/controllers/BWGControllerWidget.php');
+    $controller_class = 'BWGControllerWidgetFrontEnd';
+    $controller = new $controller_class();
+    global $bwg;
+    $params = array (
+      'type' => $type,
+      'show_name' => $show_name,
+        'open_option' => $open_option,
+      'count' => $count, 
+      'width' => $width, 
+      'height' => $height, 
+      'background_transparent' => $background_transparent, 
+      'background_color' => $background_color, 
+      'text_color' => $text_color,
+      'theme_id' => $theme_id);
+    $controller->execute($params);
+    $bwg++;
     // After widget.
     echo $after_widget;
   }
   
   // Widget Control Panel.
-  function form($instance, $id_title, $name_title, $id_type, $name_type, $id_show_name, $name_show_name, $id_count, $name_count, $id_width, $name_width, $id_height, $name_height, $id_background_transparent, $name_background_transparent, $id_background_color, $name_background_color, $id_text_color, $name_text_color, $id_theme_id, $name_theme_id) {
+  function form($instance, $id_title, $name_title, $id_type, $name_type, $id_show_name, $name_show_name, $id_open_option, $name_open_option, $id_count, $name_count, $id_width, $name_width, $id_height, $name_height, $id_background_transparent, $name_background_transparent, $id_background_color, $name_background_color, $id_text_color, $name_text_color, $id_theme_id, $name_theme_id) {
     $defaults = array(
       'title' => 'Photo Gallery Tags Cloud',
       'type' => 'text',      
       'show_name' => 0,      
+      'open_option' => 'page',
       'count' => 0,
       'width' => 250,
       'height' => 250,
@@ -88,9 +89,11 @@ class BWGViewWidgetTags {
         var div = jQuery(obj).closest("div");
         if(jQuery(jQuery(div).find(".sel_image")[0]).prop("checked")) {
           jQuery(jQuery(div).find("#p_show_name")).css("display", "");
+          jQuery(obj).nextAll(".bwg_hidden").first().attr("value", "image");
         }
         else {
           jQuery(jQuery(div).find("#p_show_name")).css("display", "none");
+          jQuery(obj).nextAll(".bwg_hidden").first().attr("value", "text");
         }
       }
       
@@ -98,9 +101,11 @@ class BWGViewWidgetTags {
         var div = jQuery(obj).closest("div");
         if(jQuery(jQuery(div).find(".bg_transparent")[0]).prop("checked")) {
           jQuery(jQuery(div).find("#p_bg_color")).css("display", "none");
+          jQuery(obj).nextAll(".bwg_hidden").first().attr("value", "1");
         }
         else {
           jQuery(jQuery(div).find("#p_bg_color")).css("display", "");
+          jQuery(obj).nextAll(".bwg_hidden").first().attr("value", "0");
         }
       }
     </script>
@@ -111,12 +116,20 @@ class BWGViewWidgetTags {
     </p>    
     <p>
       <input type="radio" name="<?php echo $name_type; ?>" id="<?php echo $id_type . "_1"; ?>" value="text" class="sel_text" <?php if ($instance['type'] == "text") echo 'checked="checked"'; ?> onclick="bwg_change_type_tag(event, this)" /><label for="<?php echo $id_type . "_1"; ?>">Text</label>
-      <input type="radio" name="<?php echo $name_type; ?>" id="<?php echo $id_type . "_2"; ?>" value="image" class="sel_image" <?php if ($instance['type'] == "image") echo 'checked="checked"'; ?> onclick="bwg_change_type_tag(event, this)" /><label for="<?php echo $id_type . "_2"; ?>">Image</label>     
+      <input type="radio" name="<?php echo $name_type; ?>" id="<?php echo $id_type . "_2"; ?>" value="image" class="sel_image" <?php if ($instance['type'] == "image") echo 'checked="checked"'; ?> onclick="bwg_change_type_tag(event, this)" /><label for="<?php echo $id_type . "_2"; ?>">Image</label>
+      <input type="hidden" name="<?php echo $name_type; ?>" id="<?php echo $id_type; ?>" value="<?php echo $instance['type']; ?>" class="bwg_hidden" />
     </p>
     <p id="p_show_name" style="display:<?php echo ($instance['type'] == 'image') ? "" : "none" ?>;">
       <label>Show Tag Names:</label>
-      <input type="radio" name="<?php echo $name_show_name; ?>" id="<?php echo $id_show_name . "_1"; ?>" value="1" <?php if ($instance['show_name']) echo 'checked="checked"'; ?> /><label for="<?php echo $id_show_name . "_1"; ?>">Yes</label>
-      <input type="radio" name="<?php echo $name_show_name; ?>" id="<?php echo $id_show_name . "_0"; ?>" value="0" <?php if (!$instance['show_name']) echo 'checked="checked"'; ?>  /><label for="<?php echo $id_show_name . "_0"; ?>">No</label>     
+      <input type="radio" name="<?php echo $name_show_name; ?>" id="<?php echo $id_show_name . "_1"; ?>" value="1" <?php if ($instance['show_name']) echo 'checked="checked"'; ?> onclick='jQuery(this).nextAll(".bwg_hidden").first().attr("value", "1");' /><label for="<?php echo $id_show_name . "_1"; ?>">Yes</label>
+      <input type="radio" name="<?php echo $name_show_name; ?>" id="<?php echo $id_show_name . "_0"; ?>" value="0" <?php if (!$instance['show_name']) echo 'checked="checked"'; ?> onclick='jQuery(this).nextAll(".bwg_hidden").first().attr("value", "0");' /><label for="<?php echo $id_show_name . "_0"; ?>">No</label>
+      <input type="hidden" name="<?php echo $name_show_name; ?>" id="<?php echo $id_show_name; ?>" value="<?php echo $instance['show_name']; ?>" class="bwg_hidden" />
+    </p>
+    <p>
+      <label>Open in: </label>
+      <input type="radio" name="<?php echo $name_open_option; ?>" id="<?php echo $id_open_option . "_1"; ?>" value="page" <?php if ($instance['open_option'] == 'page') echo 'checked="checked"'; ?> onclick='jQuery(this).nextAll(".bwg_hidden").first().attr("value", "page");' /><label for="<?php echo $id_open_option . "_1"; ?>"> page</label>
+      <input type="radio" name="<?php echo $name_open_option; ?>" id="<?php echo $id_open_option . "_0"; ?>" value="lightbox" <?php if ($instance['open_option'] == 'lightbox') echo 'checked="checked"'; ?> onclick='jQuery(this).nextAll(".bwg_hidden").first().attr("value", "lightbox");' /><label for="<?php echo $id_open_option . "_0"; ?>"> lightbox</label>
+      <input type="hidden" name="<?php echo $name_open_option; ?>" id="<?php echo $id_open_option; ?>" value="<?php echo $instance['open_option']; ?>" class="bwg_hidden" />
     </p>
     <p>
       <label for="<?php echo $id_count; ?>">Number (0 for all):</label>
@@ -130,7 +143,8 @@ class BWGViewWidgetTags {
     <p>
       <label>Transparent Background:</label>
       <input type="radio" name="<?php echo $name_background_transparent; ?>" id="<?php echo $id_background_transparent . "_1"; ?>" value="1" <?php if ($instance['background_transparent']) echo 'checked="checked"'; ?> onclick="bwg_change_bg_transparency(event, this)" class="bg_transparent" /><label for="<?php echo $id_background_transparent . "_1"; ?>">Yes</label>
-      <input type="radio" name="<?php echo $name_background_transparent; ?>" id="<?php echo $id_background_transparent . "_0"; ?>" value="0" <?php if (!$instance['background_transparent']) echo 'checked="checked"'; ?> onclick="bwg_change_bg_transparency(event, this)" /><label for="<?php echo $id_background_transparent . "_0"; ?>">No</label>     
+      <input type="radio" name="<?php echo $name_background_transparent; ?>" id="<?php echo $id_background_transparent . "_0"; ?>" value="0" <?php if (!$instance['background_transparent']) echo 'checked="checked"'; ?> onclick="bwg_change_bg_transparency(event, this)" /><label for="<?php echo $id_background_transparent . "_0"; ?>">No</label>
+      <input type="hidden" name="<?php echo $name_background_transparent; ?>" id="<?php echo $id_background_transparent; ?>" value="<?php echo $instance['background_transparent']; ?>" class="bwg_hidden" />
     </p>
     <p id="p_bg_color" style="display:<?php echo (!$instance['background_transparent']) ? "" : "none" ?>;">
       <label for="<?php echo $id_background_color; ?>">Background Color:</label>

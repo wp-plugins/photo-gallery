@@ -163,6 +163,8 @@ class BWGControllerOptions_bwg {
     $popup_fullscreen = (isset($_POST['popup_fullscreen']) ? esc_html(stripslashes($_POST['popup_fullscreen'])) : 0);
     $album_role = (isset($_POST['album_role']) ? esc_html(stripslashes($_POST['album_role'])) : 0);
     $image_role = (isset($_POST['image_role']) ? esc_html(stripslashes($_POST['image_role'])) : 0);
+    $popup_autoplay = (isset($_POST['popup_autoplay']) ? esc_html(stripslashes($_POST['popup_autoplay'])) : 0);
+    $album_view_type = (isset($_POST['album_view_type']) ? esc_html(stripslashes($_POST['album_view_type'])) : 'thumbnail');
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -245,7 +247,9 @@ class BWGControllerOptions_bwg {
       'image_right_click' => $image_right_click,
       'popup_fullscreen' => $popup_fullscreen,
       'album_role' => $album_role,
-      'image_role' => $image_role
+      'image_role' => $image_role,
+      'popup_autoplay' => $popup_autoplay,
+      'album_view_type' => $album_view_type,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      

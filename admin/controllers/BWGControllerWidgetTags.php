@@ -39,7 +39,7 @@ class BWGControllerWidgetTags extends WP_Widget {
 	}
 
  	public function form( $instance ) {
-    $this->view->form($instance, parent::get_field_id('title'), parent::get_field_name('title'), parent::get_field_id('type'), parent::get_field_name('type'), parent::get_field_id('show_name'), parent::get_field_name('show_name'), parent::get_field_id('count'), parent::get_field_name('count'), parent::get_field_id('width'), parent::get_field_name('width'), parent::get_field_id('height'), parent::get_field_name('height'), parent::get_field_id('background_transparent'), parent::get_field_name('background_transparent'), parent::get_field_id('background_color'), parent::get_field_name('background_color'), parent::get_field_id('text_color'), parent::get_field_name('text_color'), parent::get_field_id('theme_id'), parent::get_field_name('theme_id'));    
+    $this->view->form($instance, parent::get_field_id('title'), parent::get_field_name('title'), parent::get_field_id('type'), parent::get_field_name('type'), parent::get_field_id('show_name'), parent::get_field_name('show_name'), parent::get_field_id('open_option'), parent::get_field_name('open_option'), parent::get_field_id('count'), parent::get_field_name('count'), parent::get_field_id('width'), parent::get_field_name('width'), parent::get_field_id('height'), parent::get_field_name('height'), parent::get_field_id('background_transparent'), parent::get_field_name('background_transparent'), parent::get_field_id('background_color'), parent::get_field_name('background_color'), parent::get_field_id('text_color'), parent::get_field_name('text_color'), parent::get_field_id('theme_id'), parent::get_field_name('theme_id'));    
 	}
 
 	// Update Settings.
@@ -47,6 +47,7 @@ class BWGControllerWidgetTags extends WP_Widget {
     $instance['title'] = strip_tags($new_instance['title']);
     $instance['type'] = $new_instance['type'];
     $instance['show_name'] = $new_instance['show_name'];
+    $instance['open_option'] = $new_instance['open_option'];
     $instance['count'] = $new_instance['count'];
     $instance['width'] = $new_instance['width'];
     $instance['height'] = $new_instance['height'];

@@ -30,11 +30,11 @@ class BWGViewAddAlbumsGalleries {
     $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
     $order_by = (isset($_POST['order_by']) ? esc_html(stripslashes($_POST['order_by'])) : 'name');
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
+    wp_print_scripts('jquery');
     ?>
     <link media="all" type="text/css" href="<?php echo get_admin_url(); ?>load-styles.php?c=1&amp;dir=ltr&amp;load=admin-bar,dashicons,wp-admin,buttons,wp-auth-check" rel="stylesheet">
     <link media="all" type="text/css" href="<?php echo get_admin_url(); ?>css/colors<?php echo ((get_bloginfo('version') < '3.8') ? '-fresh' : ''); ?>.min.css" id="colors-css" rel="stylesheet">
     <link media="all" type="text/css" href="<?php echo WD_BWG_URL . '/css/bwg_tables.css'; ?>" id="spider_audio_player_tables-css" rel="stylesheet">
-    <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/jquery.js"></script>
     <script src="<?php echo WD_BWG_URL . '/js/bwg.js'; ?>" type="text/javascript"></script>
     <form class="wrap wp-core-ui" id="albums_galleries_form" method="post" action="<?php echo add_query_arg(array('action' => 'addAlbumsGalleries', 'width' => '700', 'height' => '550', 'callback' => 'bwg_add_items', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" style="width:95%; margin: 0 auto;">
       <h2 style="width:200px;float:left">Albums/Galleries</h2>

@@ -23,7 +23,7 @@ class WDWLibrary {
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////
-  public static function get($key) {
+  public static function get($key, $default_value = '') {
     if (isset($_GET[$key])) {
       $value = $_GET[$key];
     }
@@ -33,7 +33,120 @@ class WDWLibrary {
     else {
       $value = '';
     }
+    if (!$value) {
+      $value = $default_value;
+    }
     return esc_html($value);
+  }
+
+  public static function message_id($message_id) {
+    if ($message_id) {
+      switch($message_id) {
+        case 1: {
+          $message = 'Item Succesfully Saved.';
+          $type = 'updated';
+          break;
+
+        }
+        case 2: {
+          $message = 'Error. Please install plugin again.';
+          $type = 'error';
+          break;
+
+        }
+        case 3: {
+          $message = 'Item Succesfully Deleted.';
+          $type = 'updated';
+          break;
+
+        }
+        case 4: {
+          $message = "You can't delete default theme";
+          $type = 'error';
+          break;
+
+        }
+        case 5: {
+          $message = 'Items Succesfully Deleted.';
+          $type = 'updated';
+          break;
+
+        }
+        case 6: {
+          $message = 'You must select at least one item.';
+          $type = 'error';
+          break;
+
+        }
+        case 7: {
+          $message = 'The item is successfully set as default.';
+          $type = 'updated';
+          break;
+
+        }
+        case 8: {
+          $message = 'Options Succesfully Saved.';
+          $type = 'updated';
+          break;
+
+        }
+        case 9: {
+          $message = 'Item Succesfully Published.';
+          $type = 'updated';
+          break;
+
+        }
+        case 10: {
+          $message = 'Items Succesfully Published.';
+          $type = 'updated';
+          break;
+
+        }
+        case 11: {
+          $message = 'Item Succesfully Unpublished.';
+          $type = 'updated';
+          break;
+
+        }
+        case 12: {
+          $message = 'Items Succesfully Unpublished.';
+          $type = 'updated';
+          break;
+
+        }
+        case 13: {
+          $message = 'Ordering Succesfully Saved.';
+          $type = 'updated';
+          break;
+
+        }
+        case 14: {
+          $message = 'A term with the name provided already exists.';
+          $type = 'error';
+          break;
+
+        }
+        case 15: {
+          $message = 'Name field is required.';
+          $type = 'error';
+          break;
+
+        }
+        case 16: {
+          $message = 'The slug must be unique.';
+          $type = 'error';
+          break;
+
+        }
+        case 17: {
+          $message = 'Changes must be saved.';
+          $type = 'error';
+          break;
+
+        }
+      }
+      return '<div style="width:99%"><div class="' . $type . '"><p><strong>' . $message . '</strong></p></div></div>';
+    }
   }
 
   public static function message($message, $type) {

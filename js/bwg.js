@@ -74,7 +74,7 @@ function spider_ajax_save(form_id, tr_group) {
   }
   var name = jQuery("#name").val();
   var slug = jQuery("#slug").val();
-  if ((typeof tinyMCE != "undefined") && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden()) {
+  if ((typeof tinyMCE != "undefined") && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden() && tinyMCE.activeEditor.getContent) {
     var description = tinyMCE.activeEditor.getContent();
   }
   else {
@@ -795,12 +795,25 @@ function bwg_enable_disable(display, id, current) {
   jQuery("#" + id).css('display', display);
 }
 
-function bwg_popup_fullscreen() {
-  if (jQuery("#popup_fullscreen_1").is(':checked')) {
+function bwg_popup_fullscreen(num) {
+  if (num) {
     jQuery("#tr_popup_dimensions").css('display', 'none');
   }
   else {
     jQuery("#tr_popup_dimensions").css('display', '');
+  }
+}
+
+function bwg_change_album_view_type(type) {
+  if (type == 'thumbnail') {
+    jQuery("#album_thumb_dimensions").html('Album thumb dimensions: ');
+	jQuery("#album_thumb_dimensions_x").css('display', '');
+	jQuery("#album_thumb_height").css('display', '');
+  }
+  else {
+    jQuery("#album_thumb_dimensions").html('Album thumb width: '); 
+    jQuery("#album_thumb_dimensions_x").css('display', 'none');
+	jQuery("#album_thumb_height").css('display', 'none');
   }
 }
 
@@ -838,4 +851,117 @@ function bwg_change_theme_type(type) {
   jQuery("#type_Lightbox").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Navigation").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_" + type).attr("style", "background-color: #CFCBCB;");
+}
+
+function bwg_get_video_host(url) {  
+  if ((/youtu\.be/i).test(url) || (/youtube\.com\/watch/i).test(url)) {
+    return 'YOUTUBE';
+  }
+  if ((/vimeo\.com/i).test(url)) {
+    return 'VIMEO';
+  }
+  alert('Enter only YouTube or Vimeo url.');
+  return '';
+}
+
+function bwg_get_youtube_video_id(url) {
+  pattern = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+  var matches = url.match(pattern);
+  if (matches && (matches[7]).length == 11) {
+    return matches[7];
+  }   
+  return '';
+}
+
+function bwg_get_vimeo_video_id(url) {
+  pattern = /\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
+  var matches = url.match(pattern);
+  if (matches) {
+    return matches[2];
+  }
+  return '';
+}
+
+function bwg_get_video_info(input_id) {
+  var url = jQuery("#" + input_id).val();  
+  if (!url) {
+    alert('Please enter video url to add.');
+    return '';
+  }
+  var host = bwg_get_video_host(url);
+  var filesValid = [];
+  var fileData = [];
+  switch (host) {
+    case 'YOUTUBE':
+      var video_id = bwg_get_youtube_video_id(url);
+      if (video_id) {
+        jQuery.getJSON('http://gdata.youtube.com/feeds/api/videos/'+video_id+'?v=2&alt=jsonc',function(data,status,xhr){
+            fileData['name'] = data.data.title;
+            fileData['description'] = data.data.description;
+            fileData['filename'] = video_id;
+            fileData['url'] = url;
+            fileData['reliative_url'] = url;
+            fileData['thumb_url'] = data.data.thumbnail.hqDefault;
+            fileData['thumb'] = data.data.thumbnail.hqDefault;
+            fileData['size'] = bwg_convert_seconds(data.data.duration);
+            fileData['filetype'] = 'YOUTUBE';
+            fileData['date_modified'] = bwg_convert_date(data.data.uploaded, 'T');
+            fileData['resolution'] = '';
+            filesValid.push(fileData);
+            bwg_add_image(filesValid);
+            document.getElementById(input_id).value = '';
+        });
+        return 'ok';
+      }
+      else {
+        alert('Please enter a valid YouTube link.');
+        return '';
+      }
+    case 'VIMEO':
+      var video_id = bwg_get_vimeo_video_id(url);
+      if (video_id) {
+        jQuery.getJSON('http://vimeo.com/api/v2/video/'+video_id+'.json',function(data,status,xhr){
+            fileData['name'] = data[0].title;
+            fileData['description'] = data[0].description;
+            fileData['filename'] = video_id;
+            fileData['url'] = url;
+            fileData['reliative_url'] = url;
+            fileData['thumb_url'] = data[0].thumbnail_large;
+            fileData['thumb'] = data[0].thumbnail_large;
+            fileData['size'] = bwg_convert_seconds(data[0].duration);
+            fileData['filetype'] = 'VIMEO';
+            fileData['date_modified'] = bwg_convert_date(data[0].upload_date, ' ');
+            fileData['resolution'] = '';
+            filesValid.push(fileData);
+            bwg_add_image(filesValid);
+            document.getElementById(input_id).value = '';
+        });
+        return 'ok';
+      }
+      else {
+        alert('Please enter a valid Vimeo link.');
+        return '';
+      }
+    default:
+      return '';
+  }  
+}
+
+function bwg_convert_seconds(seconds) {
+  var sec_num = parseInt(seconds, 10);
+  var hours   = Math.floor(sec_num / 3600);
+  var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+  var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+  if (minutes < 10 && hours != 0) {minutes = "0" + minutes;}
+  if (seconds < 10) {seconds = "0" + seconds;}
+  var time    = (hours != 0 ? hours + ':' : '') + minutes + ':' + seconds;
+  return time;
+}
+
+function bwg_convert_date(date, separator) {
+  var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+  date = date.split(separator);
+  var dateArray = date[0].split("-");
+  return dateArray[2] + " " + m_names[dateArray[1] - 1] + " " + dateArray[0] + ", " + date[1].substring(0, 5);
 }

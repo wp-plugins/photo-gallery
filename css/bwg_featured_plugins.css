@@ -32,17 +32,18 @@
 	border-bottom-right-radius:3px;
 }
 
-#main_featured_plugins_page #featured-plugins-list  li.form-maker  .product {background:url(images/form.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.catalog  .product {background:url(images/catalog.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.contact-maker  .product {background:url(images/contact.maker.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.contacts  .product {background:url(images/contacts.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.facebook  .product {background:url(images/facebook.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.faq  .product {background:url(images/faq.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.flash-calendar .product {background:url(images/flash.calendar.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.folder-menu  .product {background:url(images/folder.menu.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.player  .product {background:url(images/player.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.spider-calendar  .product {background:url(images/spider.calendar.jpg) left center no-repeat;}
-#main_featured_plugins_page #featured-plugins-list  li.zoom .product {background:url(images/zoom.jpg) left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.form-maker  .product {background:url("images/form.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.twitter-widget .product {background:url("images/twitter-widget.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.catalog  .product {background:url("images/catalog.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.contact-maker  .product {background:url("images/contact.maker.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.contacts  .product {background:url("images/contacts.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.facebook  .product {background:url("images/facebook.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.faq  .product {background:url("images/faq.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.flash-calendar .product {background:url("images/flash.calendar.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.folder-menu  .product {background:url("images/folder.menu.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.player  .product {background:url("images/player.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.spider-calendar  .product {background:url("images/spider.calendar.jpg") left center no-repeat;}
+#main_featured_plugins_page #featured-plugins-list  li.zoom .product {background:url("images/zoom.jpg") left center no-repeat;}
 
 
 #main_featured_plugins_page #featured-plugins-list li  .title  .heading {

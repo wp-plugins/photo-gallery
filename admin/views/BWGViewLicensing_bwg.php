@@ -173,9 +173,8 @@ class BWGViewLicensing_bwg {
       </table>
     </div>
     <div style="float: right; text-align: right;">
-        <a style="color: red; text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
-          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/header.png'; ?>" />
-          <p style="font-size: 16px; margin: 0; padding: 0 20px 0 0;">Get the full version</p>
+        <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>
     <div style="float: left; clear: both;">

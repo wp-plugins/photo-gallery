@@ -33,11 +33,31 @@ class BWGViewEditThumb {
     <div style="display:table; width:100%; height:<?php echo $popup_height; ?>px;">
       <div style="display:table-cell; text-align:center; vertical-align:middle;">
         <img id="image_display" src="" style="max-width:<?php echo $image_width; ?>px; max-height:<?php echo $image_height; ?>px;"/>
+        <iframe id="youtube_display" width="<?php echo $image_width; ?>" height="<?php echo $image_height; ?>" src="" frameborder="0" allowfullscreen></iframe>
+        <iframe id="vimeo_display" src="" width="<?php echo $image_width; ?>" height="<?php echo $image_height; ?>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
     </div>
     <script>
-      var image_url = "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + window.parent.document.getElementById("image_url_<?php echo $image_id; ?>").value;
-      window.document.getElementById("image_display").src = image_url + "?date=<?php echo date('Y-m-y H:i:s'); ?>";
+      var file_type = window.parent.document.getElementById("input_filetype_<?php echo $image_id; ?>").value;
+      is_video = (file_type == 'YOUTUBE' || file_type == 'VIMEO');
+      if (!is_video) {
+        var image_url = "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + window.parent.document.getElementById("image_url_<?php echo $image_id; ?>").value;
+        window.document.getElementById("youtube_display").setAttribute('style', 'display: none;');
+        window.document.getElementById("vimeo_display").setAttribute('style', 'display: none;');
+        window.document.getElementById("image_display").src = image_url + "?date=<?php echo date('Y-m-y H:i:s'); ?>";
+      }
+      else {
+        var video_id = window.parent.document.getElementById("input_filename_<?php echo $image_id; ?>").value;
+        window.document.getElementById("image_display").setAttribute('style', 'display: none;');
+        if (file_type == 'YOUTUBE') {
+          window.document.getElementById("vimeo_display").setAttribute('style', 'display: none;');
+          window.document.getElementById("youtube_display").src = "//www.youtube.com/embed/" + video_id;
+        }
+        else if (file_type == 'VIMEO') {
+          window.document.getElementById("youtube_display").setAttribute('style', 'display: none;');
+          window.document.getElementById("vimeo_display").src = "//player.vimeo.com/video/" + video_id;          
+        }
+      }
     </script>
     <?php
     die();
@@ -138,8 +158,8 @@ class BWGViewEditThumb {
       }
     }
     ini_restore('memory_limit');
+    wp_print_scripts('jquery');
     ?>
-    <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/jquery.js"></script>
     <script src="<?php echo WD_BWG_URL . '/js/Jcrop-1902/js/jquery.Jcrop.min.js'; ?>" type="text/javascript"></script>
     <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/js/Jcrop-1902/css/jquery.Jcrop.css'; ?>" type="text/css" />
     <style>

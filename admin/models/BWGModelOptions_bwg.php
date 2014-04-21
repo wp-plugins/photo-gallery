@@ -117,6 +117,8 @@ class BWGModelOptions_bwg {
       $row->gallery_role = 0;
       $row->album_role = 0;
       $row->image_role = 0;
+      $row->popup_autoplay = 0;
+      $row->album_view_type = 'thumbnail';
     }
     return $row;
   }

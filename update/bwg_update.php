@@ -22,5 +22,16 @@ function bwg_update($version) {
     // Add popup fullscreen option
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `popup_fullscreen` tinyint(1) NOT NULL DEFAULT 0 AFTER `image_right_click`");
   }
+  if (version_compare($version, '1.1.12') == -1) {
+    // Add image title position.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `thumb_title_pos` varchar(64) NOT NULL DEFAULT 'bottom' AFTER `thumb_title_font_style`");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `album_compact_thumb_title_pos` varchar(64) NOT NULL DEFAULT 'bottom' AFTER `album_compact_title_font_style`");
+	  // Add popup autoplay option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `popup_autoplay` tinyint(1) NOT NULL DEFAULT 0 AFTER `popup_fullscreen`");
+	  // Add album view type option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `album_view_type` varchar(255) NOT NULL DEFAULT 'thumbnail' AFTER `popup_autoplay`");
+  }
   return;
 }
+
+?>

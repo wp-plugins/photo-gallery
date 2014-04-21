@@ -15,6 +15,11 @@
   font-size: 10px;
 }
 
+.bwg_short_div input[type=radio],
+.bwg_short_div label {
+  vertical-align: middle;
+}
+
 .spider_label {
   font-weight: bold;
   font-family: Verdana;
@@ -46,7 +51,7 @@
 
 .bwg_short_div {
   float: left;
-  height: 400px;
+  height: 415px;
   padding: 15px;
   width: 30%;
 }

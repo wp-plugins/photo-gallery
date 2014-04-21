@@ -46,9 +46,8 @@ class  BWGViewThemes_bwg {
         ?>
       </div>
       <div style="float: right; text-align: right;">
-        <a style="color: red; text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
-          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/header.png'; ?>" />
-          <p style="font-size: 16px; margin: 0; padding: 0 20px 0 0;">Get the full version</p>
+        <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>
     </div>
@@ -184,7 +183,7 @@ class  BWGViewThemes_bwg {
   public function edit($id, $reset) {
     $row = $this->model->get_row_data($id, $reset);
     $page_title = (($id != 0) ? 'Edit theme ' . $row->name : 'Create new theme');
-    $current_type = ((isset($_POST['current_type'])) ? esc_html($_POST['current_type']) : 'Thumbnail');
+    $current_type = WDWLibrary::get('current_type', 'Thumbnail');
     $border_styles = array(
       'none' => 'None',
       'solid' => 'Solid',
@@ -236,9 +235,8 @@ class  BWGViewThemes_bwg {
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-6/6-1.html">Read More in User Manual</a>
       </div>
       <div style="float: right; text-align: right;">
-        <a style="color: red; text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
-          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/header.png'; ?>" />
-          <p style="font-size: 16px; margin: 0; padding: 0 20px 0 0;">Get the full version</p>
+        <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>
     </div>
@@ -418,6 +416,15 @@ class  BWGViewThemes_bwg {
           <fieldset class="spider_child_fieldset" id="Thumbnail_3">
             <table style="clear:both;">
               <tbody>
+                <tr>
+                  <td class="spider_label"><label>Title position: </label></td>
+                  <td>
+                    <input type="radio" name="thumb_title_pos" id="thumb_title_pos1" value="top" <?php if ($row->thumb_title_pos == "top") echo 'checked="checked"'; ?> />
+                    <label for="thumb_title_pos1" id="thumb_title_pos1_lbl">Top</label>
+                    <input type="radio" name="thumb_title_pos" id="thumb_title_pos0" value="bottom" <?php if ($row->thumb_title_pos == "bottom") echo 'checked="checked"'; ?> />
+                    <label for="thumb_title_pos0" id="thumb_title_pos0_lbl">Bottom</label>
+                  </td>
+                </tr>
                 <tr>
                   <td class="spider_label"><label for="thumb_title_font_size">Title font size: </label></td>
                   <td>
@@ -1361,6 +1368,15 @@ class  BWGViewThemes_bwg {
           <fieldset class="spider_child_fieldset" id="Compact_album_3">
             <table style="clear:both;">
               <tbody>
+                <tr>
+                  <td class="spider_label"><label>Title position: </label></td>
+                  <td>
+                    <input type="radio" name="album_compact_thumb_title_pos" id="album_compact_thumb_title_pos1" value="top" <?php if ($row->album_compact_thumb_title_pos == "top") echo 'checked="checked"'; ?> />
+                    <label for="album_compact_thumb_title_pos1" id="album_compact_thumb_title_pos1_lbl">Top</label>
+                    <input type="radio" name="album_compact_thumb_title_pos" id="album_compact_thumb_title_pos0" value="bottom" <?php if ($row->album_compact_thumb_title_pos == "bottom") echo 'checked="checked"'; ?> />
+                    <label for="album_compact_thumb_title_pos0" id="album_compact_thumb_title_pos0_lbl">Bottom</label>
+                  </td>
+                </tr>
                 <tr>
                   <td class="spider_label"><label for="album_compact_title_font_size">Title font size: </label></td>
                   <td>

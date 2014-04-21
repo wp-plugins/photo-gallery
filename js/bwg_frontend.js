@@ -43,8 +43,8 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     window.location,
     post_data,
     function (data) {
-      var str = jQuery(data).find('#' + id).parent().html();
-      jQuery('#' + id).parent().html(str);
+      var str = jQuery(data).find('#gal_front_form_' + current_view).html();
+      jQuery('#gal_front_form_' + current_view).html(str);
     }
   ).success(function(jqXHR, textStatus, errorThrown) {
     jQuery("#opacity_div_" + current_view).css({display: 'none'});

@@ -39,9 +39,8 @@ class BWGViewGalleries_bwg {
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-2.html">Read More in User Manual</a>
       </div>
       <div style="float: right; text-align: right;">
-        <a style="color: red; text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
-          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/header.png'; ?>" />
-          <p style="font-size: 16px; margin: 0; padding: 0 20px 0 0;">Get the full version</p>
+        <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>
     </div>
@@ -207,9 +206,8 @@ class BWGViewGalleries_bwg {
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-2.html">Read More in User Manual</a>
       </div>
       <div style="float: right; text-align: right;">
-        <a style="color: red; text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
-          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/header.png'; ?>" />
-          <p style="font-size: 16px; margin: 0; padding: 0 20px 0 0;">Get the full version</p>
+        <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+          <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>
     </div>
@@ -233,6 +231,7 @@ class BWGViewGalleries_bwg {
       function bwg_add_image(files) {
         var tbody = document.getElementById('tbody_arr');
         for (var i in files) {
+          var is_video = files[i]['filetype'] == 'YOUTUBE' || files[i]['filetype'] == 'VIMEO';
           var tr = document.createElement('tr');
           tr.setAttribute('id', "tr_" + bwg_j);
           if (tbody.firstChild) {
@@ -309,43 +308,45 @@ class BWGViewGalleries_bwg {
           td_filename.appendChild(div_fileresolution);
           var div_filesize = document.createElement('div');
           div_filesize.setAttribute('class', "fileDescription");
-          div_filesize.setAttribute('title', "Image size");
+          div_filesize.setAttribute('title', (!is_video) ? "Image size" : "Duration");
           div_filesize.setAttribute('id', "filesize" + bwg_j);
           div_filesize.innerHTML = files[i]['size'];
           td_filename.appendChild(div_filesize);
           var div_filetype = document.createElement('div');
           div_filetype.setAttribute('class', "fileDescription");
-          div_filetype.setAttribute('title', "Image type");
+          div_filetype.setAttribute('title', "Type");
           div_filetype.setAttribute('id', "filetype" + bwg_j);
           div_filetype.innerHTML = files[i]['filetype'];
           td_filename.appendChild(div_filetype);
-          var div_edit = document.createElement('div');
-          td_filename.appendChild(div_edit);
-          var span_edit_crop = document.createElement('span');
-          span_edit_crop.setAttribute('class', "edit_thumb");
-          div_edit.appendChild(span_edit_crop);
-          var a_crop = document.createElement('a');
-          a_crop.setAttribute('class', "thickbox thickbox-preview");
-          a_crop.setAttribute('onclick', "spider_set_href(this, '" + bwg_j + "', 'crop');");
-          a_crop.innerHTML = "Crop";
-          span_edit_crop.appendChild(a_crop);
-          div_edit.innerHTML += " | ";
-          var span_edit_rotate = document.createElement('span');
-          span_edit_rotate.setAttribute('class', "edit_thumb");
-          div_edit.appendChild(span_edit_rotate);
-          var a_rotate = document.createElement('a');
-          a_rotate.setAttribute('class', "thickbox thickbox-preview");
-          a_rotate.setAttribute('onclick', "spider_set_href(this, '" + bwg_j + "', 'rotate');");
-          a_rotate.innerHTML = "Rotate";
-          span_edit_rotate.appendChild(a_rotate);
-          div_edit.innerHTML += " | "
-          var span_edit_recover = document.createElement('span');
-          span_edit_recover.setAttribute('class', "edit_thumb");
-          div_edit.appendChild(span_edit_recover);
-          var a_recover = document.createElement('a');
-          a_recover.setAttribute('onclick', 'if (confirm("Do you want to reset the image?")) { spider_set_input_value("ajax_task", "recover"); spider_set_input_value("image_current_id", "' + bwg_j + '"); spider_ajax_save("galleries_form");} return false;');
-          a_recover.innerHTML = "Reset";
-          span_edit_recover.appendChild(a_recover);
+          if (!is_video) {
+            var div_edit = document.createElement('div');
+            td_filename.appendChild(div_edit);
+            var span_edit_crop = document.createElement('span');
+            span_edit_crop.setAttribute('class', "edit_thumb");
+            div_edit.appendChild(span_edit_crop);
+            var a_crop = document.createElement('a');
+            a_crop.setAttribute('class', "thickbox thickbox-preview");
+            a_crop.setAttribute('onclick', "spider_set_href(this, '" + bwg_j + "', 'crop');");
+            a_crop.innerHTML = "Crop";
+            span_edit_crop.appendChild(a_crop);
+            div_edit.innerHTML += " | ";
+            var span_edit_rotate = document.createElement('span');
+            span_edit_rotate.setAttribute('class', "edit_thumb");
+            div_edit.appendChild(span_edit_rotate);
+            var a_rotate = document.createElement('a');
+            a_rotate.setAttribute('class', "thickbox thickbox-preview");
+            a_rotate.setAttribute('onclick', "spider_set_href(this, '" + bwg_j + "', 'rotate');");
+            a_rotate.innerHTML = "Rotate";
+            span_edit_rotate.appendChild(a_rotate);
+            div_edit.innerHTML += " | "
+            var span_edit_recover = document.createElement('span');
+            span_edit_recover.setAttribute('class', "edit_thumb");
+            div_edit.appendChild(span_edit_recover);
+            var a_recover = document.createElement('a');
+            a_recover.setAttribute('onclick', 'if (confirm("Do you want to reset the image?")) { spider_set_input_value("ajax_task", "recover"); spider_set_input_value("image_current_id", "' + bwg_j + '"); spider_ajax_save("galleries_form");} return false;');
+            a_recover.innerHTML = "Reset";
+            span_edit_recover.appendChild(a_recover);
+          }
           var input_image_url = document.createElement('input');
           input_image_url.setAttribute('id', "image_url_" + bwg_j);
           input_image_url.setAttribute('name', "image_url_" + bwg_j);
@@ -397,7 +398,12 @@ class BWGViewGalleries_bwg {
           input_alt.setAttribute('name', "image_alt_text_" + bwg_j);
           input_alt.setAttribute('type', "text");
           input_alt.setAttribute('size', "24");
-          input_alt.setAttribute('value', files[i]['filename']);
+          if (is_video) {
+            input_alt.setAttribute('value', files[i]['name']);
+          }
+          else {
+            input_alt.setAttribute('value', files[i]['filename']);
+          }
           td_alt.appendChild(input_alt);
           // Description TD.
           var td_desc = document.createElement('td');
@@ -409,6 +415,9 @@ class BWGViewGalleries_bwg {
           textarea_desc.setAttribute('rows', "2");
           textarea_desc.setAttribute('cols', "20");
           textarea_desc.setAttribute('style', "resize:vertical;");
+          if (is_video) {
+            textarea_desc.innerHTML = files[i]['description'];
+          }
           td_desc.appendChild(textarea_desc);
           // Tag TD.
           var td_tag = document.createElement('td');
@@ -583,10 +592,13 @@ class BWGViewGalleries_bwg {
     $ids_string = '';
     ?>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table should be saved.</p></strong></div>
-      <a style="margin: 5px 0;" href="<?php echo add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_image', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" class="button-primary thickbox thickbox-preview" id="content-add_media" title="Add Images" onclick="return false;" style="margin-bottom:5px;">
-        Add Images
-      </a>
-      <div class="buttons_div">
+      <div class="buttons_div_left">
+        <a href="<?php echo add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_image', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" class="button-primary thickbox thickbox-preview" id="content-add_media" title="Add Images" onclick="return false;" style="margin-bottom:5px;">
+          Add Images
+        </a>
+        <input id="show_add_video" class="button-primary" type="button" onclick="jQuery('.opacity_add_video').show(); return false;" value="Add Video" />
+      </div>
+      <div class="buttons_div_right">
         <span class="button-secondary non_selectable" onclick="spider_check_all_items()">
           <input type="checkbox" id="check_all_items" name="check_all_items" onclick="spider_check_all_items_checkbox()" style="margin: 0; vertical-align: middle;" />
           <span style="vertical-align: middle;">Select All</span>
@@ -611,6 +623,13 @@ class BWGViewGalleries_bwg {
                                                      } else {
                                                        return false;
                                                      }" value="Delete" />
+      </div>
+      <div id="opacity_add_video" class="opacity_add_video bwg_opacity_video" onclick="jQuery('.opacity_add_video').hide();"></div>
+      <div id="add_video" class="opacity_add_video bwg_add_video">
+        <input type="text" id="video_url" name="video_url" value="" />
+        <input class="button-primary" type="button" onclick="if (bwg_get_video_info('video_url')) {jQuery('.opacity_add_video').hide();} return false;" value="Add to gallery" />
+        <input class="button-secondary" type="button" onclick="jQuery('.opacity_add_video').hide(); return false;" value="Cancel" />
+        <div class="spider_description">Enter YouTube or Vimeo link here.</div>
       </div>
       <div class="tablenav top">
         <?php
@@ -673,6 +692,7 @@ class BWGViewGalleries_bwg {
           $i = ($page_number - 1) * 20;
           if ($rows_data) {
             foreach ($rows_data as $row_data) {
+              $is_video = $row_data->filetype == 'YOUTUBE' || $row_data->filetype == 'VIMEO';
               $alternate = (!isset($alternate) || $alternate == 'class="alternate"') ? '' : 'class="alternate"';
               $rows_tag_data = $this->model->get_tag_rows_data($row_data->id);
               $published_image = (($row_data->published) ? 'publish' : 'unpublish');
@@ -683,18 +703,19 @@ class BWGViewGalleries_bwg {
                 <td class="table_small_col check-column"><input id="check_<?php echo $row_data->id; ?>" name="check_<?php echo $row_data->id; ?>" onclick="spider_check_all(this)" type="checkbox" /></td>
                 <td class="table_small_col"><?php echo ++$i; ?></td>
                 <td class="table_extra_large_col">
-                  <a class="thickbox thickbox-preview" title="<?php echo $row_data->filename; ?>" href="<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display'/*thumb_display*/, 'image_id' => $row_data->id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>">
-                    <img id="image_thumb_<?php echo $row_data->id; ?>" class="thumb" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $row_data->thumb_url . '?date=' . date('Y-m-y H:i:s'); ?>">
+                  <a class="thickbox thickbox-preview" title="<?php echo $row_data->alt; ?>" href="<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display'/*thumb_display*/, 'image_id' => $row_data->id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>">
+                    <img id="image_thumb_<?php echo $row_data->id; ?>" class="thumb" src="<?php echo (!$is_video ? site_url() . '/' . $WD_BWG_UPLOAD_DIR : "") . $row_data->thumb_url . '?date=' . date('Y-m-y H:i:s'); ?>">
                   </a>
                 </td>
                 <td class="table_extra_large_col">
                   <div class="filename" id="filename_<?php echo $row_data->id; ?>">
-                    <strong><a title="<?php echo $row_data->filename; ?>" class="spider_word_wrap thickbox thickbox-preview" href="<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display', 'image_id' => $row_data->id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>"><?php echo $row_data->filename; ?></a></strong>
+                    <strong><a title="<?php echo $row_data->alt; ?>" class="spider_word_wrap thickbox thickbox-preview" href="<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'display', 'image_id' => $row_data->id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>"><?php echo $row_data->filename; ?></a></strong>
                   </div>
                   <div class="fileDescription" title="Date modified" id="date_modified_<?php echo $row_data->id; ?>"><?php echo date("d F Y, H:i", strtotime($row_data->date)); ?></div>
                   <div class="fileDescription" title="Image Resolution" id="fileresolution_<?php echo $row_data->id; ?>"><?php echo $row_data->resolution; ?></div>
-                  <div class="fileDescription" title="Image size" id="filesize_<?php echo $row_data->id; ?>"><?php echo $row_data->size; ?></div>
-                  <div class="fileDescription" title="Image type" id="filetype_<?php echo $row_data->id; ?>"><?php echo $row_data->filetype; ?></div>
+                  <div class="fileDescription" title="<?php echo (!$is_video ? "Image size" : "Duration")?>" id="filesize_<?php echo $row_data->id; ?>"><?php echo $row_data->size; ?></div>
+                  <div class="fileDescription" title="Type" id="filetype_<?php echo $row_data->id; ?>"><?php echo $row_data->filetype; ?></div>
+                  <?php if(!$is_video) {?>
                   <div>
                     <span class="edit_thumb"><a class="thickbox thickbox-preview" href="<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'crop', 'image_id' => $row_data->id, 'TB_iframe' => '1', 'width' => '800', 'height' => '500'), admin_url('admin-ajax.php')); ?>">Crop</a></span> | 
                     <span class="edit_thumb"><a class="thickbox thickbox-preview" href="<?php echo add_query_arg(array('action' => 'editThumb', 'type' => 'rotate', 'image_id' => $row_data->id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>">Rotate</a></span> | 
@@ -705,6 +726,7 @@ class BWGViewGalleries_bwg {
                                                          }
                                                          return false;">Reset</a></span>
                   </div>
+                  <?php } ?>
                   <input type="hidden" id="image_url_<?php echo $row_data->id; ?>" name="image_url_<?php echo $row_data->id; ?>" value="<?php echo $row_data->image_url; ?>" />
                   <input type="hidden" id="thumb_url_<?php echo $row_data->id; ?>" name="thumb_url_<?php echo $row_data->id; ?>" value="<?php echo $row_data->thumb_url; ?>" />
                   <input type="hidden" id="input_filename_<?php echo $row_data->id; ?>" name="input_filename_<?php echo $row_data->id; ?>" value="<?php echo $row_data->filename; ?>" />

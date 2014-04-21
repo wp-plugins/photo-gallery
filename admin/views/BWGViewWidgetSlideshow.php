@@ -27,7 +27,7 @@ class BWGViewWidgetSlideshow {
 
   function widget($args, $instance) {
     extract($args);
-    $title = (isset($instance['title']) ? $instance['title'] : '');
+    $title = (isset($instance['title']) ? $instance['title'] : "");
     $gallery_id = (isset($instance['gallery_id']) ? $instance['gallery_id'] : 0);
     $width = (isset($instance['width']) ? $instance['width'] : 200);
     $height = (isset($instance['height']) ? $instance['height'] : 200);
@@ -42,24 +42,22 @@ class BWGViewWidgetSlideshow {
       echo $before_title . $title . $after_title;
     }
     // Widget output.
-    if ($id) {
-      require_once(WD_BWG_DIR . '/frontend/controllers/BWGControllerSlideshow.php');
-      $controller_class = 'BWGControllerSlideshow';
-      $controller = new $controller_class();
-      global $bwg;
-      $params = array (
-        'from' => 'widget',
-        'gallery_type' => 'slideshow',
-        'gallery_id' => $gallery_id,
-        'width' => $width, 
-        'height' => $height, 
-        'effect' => $effect, 
-        'interval' => $interval, 
-        'shuffle' => $shuffle,
-        'theme_id' => $theme_id);
-      $controller->execute($params, 1, $bwg);
-      $bwg++;
-    }
+    require_once(WD_BWG_DIR . '/frontend/controllers/BWGControllerSlideshow.php');
+    $controller_class = 'BWGControllerSlideshow';
+    $controller = new $controller_class();
+    global $bwg;
+    $params = array (
+      'from' => 'widget',
+      'gallery_type' => 'slideshow',
+      'gallery_id' => $gallery_id,
+      'width' => $width, 
+      'height' => $height, 
+      'effect' => $effect, 
+      'interval' => $interval, 
+      'shuffle' => $shuffle,
+      'theme_id' => $theme_id);
+    $controller->execute($params, 1, $bwg);
+    $bwg++;
     // After widget.
     echo $after_widget;
   }
@@ -142,8 +140,9 @@ class BWGViewWidgetSlideshow {
     </p>
     <p>
       <label>Enable shuffle:</label>
-      <input type="radio" name="<?php echo $name_shuffle; ?>" id="<?php echo $id_shuffle . "_1"; ?>" value="1" <?php if ($instance['shuffle']) echo 'checked="checked"'; ?> /><label for="<?php echo $id_shuffle . "_1"; ?>">Yes</label>
-      <input type="radio" name="<?php echo $name_shuffle; ?>" id="<?php echo $id_shuffle . "_0"; ?>" value="0" <?php if (!$instance['shuffle']) echo 'checked="checked"'; ?> /><label for="<?php echo $id_shuffle . "_0"; ?>">No</label>     
+      <input type="radio" name="<?php echo $name_shuffle; ?>" id="<?php echo $id_shuffle . "_1"; ?>" value="1" <?php if ($instance['shuffle']) echo 'checked="checked"'; ?> onclick='jQuery(this).nextAll(".bwg_hidden").first().attr("value", "1");' /><label for="<?php echo $id_shuffle . "_1"; ?>">Yes</label>
+      <input type="radio" name="<?php echo $name_shuffle; ?>" id="<?php echo $id_shuffle . "_0"; ?>" value="0" <?php if (!$instance['shuffle']) echo 'checked="checked"'; ?> onclick='jQuery(this).nextAll(".bwg_hidden").first().attr("value", "0");' /><label for="<?php echo $id_shuffle . "_0"; ?>">No</label>
+      <input type="hidden" name="<?php echo $name_shuffle; ?>" id="<?php echo $id_shuffle; ?>" value="<?php echo $instance['shuffle']; ?>" class="bwg_hidden" />
     </p>
     <p>
       <select name="<?php echo $name_theme_id; ?>" id="<?php echo $id_theme_id; ?>" class="widefat" <?php echo (get_option("wd_bwg_theme_version") ? 'title="This option is disabled in free version."  disabled="disabled"' : ''); ?>>

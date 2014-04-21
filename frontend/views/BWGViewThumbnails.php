@@ -34,8 +34,14 @@ class BWGViewThumbnails {
     if (!isset($params['popup_fullscreen'])) {
       $params['popup_fullscreen'] = 0;
     }
+    if (!isset($params['popup_autoplay'])) {
+      $params['popup_autoplay'] = 0;
+    }
+    if (!isset($params['order_by'])) {
+      $params['order_by'] = ' asc ';
+    }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
-    $sort_direction = ' ASC ';
+    $sort_direction = ' ' . $params['order_by'] . ' ';
     if ($from) {
       $options_row = $this->model->get_options_row_data();
       $params['gallery_id'] = $params['id'];
@@ -44,12 +50,16 @@ class BWGViewThumbnails {
       if ($params['show'] == 'last') {
         $sort_direction = ' DESC ';
       }
+      elseif ($params['show'] == 'first') {
+        $sort_direction = ' ASC ';
+      }	  
       $params['image_enable_page'] = 0;
       $params['image_title'] = $options_row->image_title_show_hover;
       $params['thumb_height'] = $params['height'];
       $params['thumb_width'] = $params['width'];
       $params['image_column_number'] = $params['count'];
       $params['popup_fullscreen'] = $options_row->popup_fullscreen;
+      $params['popup_autoplay'] = $options_row->popup_autoplay;
       $params['popup_width'] = $options_row->popup_width;
       $params['popup_height'] = $options_row->popup_height;
       $params['popup_effect'] = $options_row->popup_type;
@@ -298,10 +308,12 @@ class BWGViewThumbnails {
                   'thumb_width' => $params['thumb_width'],
                   'thumb_height' => $params['thumb_height'],
                   'open_with_fullscreen' => $params['popup_fullscreen'],
+                  'open_with_autoplay' => $params['popup_autoplay'],
                   'image_width' => $params['popup_width'],
                   'image_height' => $params['popup_height'],
                   'image_effect' => $params['popup_effect'],
                   'sort_by' => (isset($params['type']) ? 'order' : (($params['sort_by'] == 'RAND()') ? 'order' : $params['sort_by'])),
+                  'order_by' => $sort_direction,
                   'enable_image_filmstrip' => $params['popup_enable_filmstrip'],
                   'image_filmstrip_height' => $params['popup_filmstrip_height'],
                   'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
@@ -330,7 +342,14 @@ class BWGViewThumbnails {
                   $params_array['watermark_width'] = $params['watermark_width'];
                   $params_array['watermark_height'] = $params['watermark_height'];
                 }
-                list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
+                $is_video = $image_row->filetype == "YOUTUBE" || $image_row->filetype == "VIMEO";
+                if (!$is_video) {
+                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
+                }
+                else {
+                  $image_thumb_width = $params['thumb_width'];
+                  $image_thumb_height = $params['thumb_height'];
+                }
                 $scale = max($params['thumb_width'] / $image_thumb_width, $params['thumb_height'] / $image_thumb_height);
                 $image_thumb_width *= $scale;
                 $image_thumb_height *= $scale;
@@ -339,9 +358,20 @@ class BWGViewThumbnails {
                 ?>
                 <a style="font-size: 0;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
                   <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
+		  <?php
+                    if ($params['image_title'] == 'show' and $theme_row->thumb_title_pos == 'top') {
+                      ?>
+                      <span class="bwg_title_spun1_<?php echo $bwg; ?>">
+                        <span class="bwg_title_spun2_<?php echo $bwg; ?>">
+                          <?php echo $image_row->alt; ?>
+                        </span>
+                      </span>
+                      <?php
+                    }
+                    ?>
                     <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
-                        <img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
+                        <img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ($is_video ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                         <?php
                         if ($params['image_title'] == 'hover') {
                           ?>
@@ -356,7 +386,7 @@ class BWGViewThumbnails {
                       </span>
                     </span>
                     <?php
-                    if ($params['image_title'] == 'show') {
+                    if ($params['image_title'] == 'show' and $theme_row->thumb_title_pos == 'bottom') {
                       ?>
                       <span class="bwg_title_spun1_<?php echo $bwg; ?>">
                         <span class="bwg_title_spun2_<?php echo $bwg; ?>">

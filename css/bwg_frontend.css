@@ -86,10 +86,10 @@ div[id^="bwg_container"] p {
 #spider_popup_left,
 #spider_popup_right {
   background: transparent url("../images/blank.gif") repeat scroll 0 0;
-  bottom: 0;
+  bottom: 35%;
   cursor: pointer;
   display: inline;
-  height: 100%;
+  height: 30%;
   outline: medium none;
   position: absolute;
   width: 35%;

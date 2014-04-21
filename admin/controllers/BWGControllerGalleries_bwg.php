@@ -623,11 +623,19 @@ class BWGControllerGalleries_bwg {
       if ($id != 0) {
         $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT random_preview_image FROM " . $wpdb->prefix . "bwg_gallery WHERE id='%d'", $id));
         if ($random_preview_image == '' || !file_exists(ABSPATH . $WD_BWG_UPLOAD_DIR . $random_preview_image)) {
-          $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT thumb_url FROM " . $wpdb->prefix . "bwg_image WHERE gallery_id='%d' ORDER BY `order`", $id));
+          $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT thumb_url FROM " . $wpdb->prefix . "bwg_image WHERE gallery_id='%d' AND STRCMP(filetype,'YOUTUBE') AND STRCMP(filetype,'VIMEO') ORDER BY `order`", $id));
         }
       }
       else {
-        $random_preview_image = (isset($_POST['thumb_url_pr_0']) ? esc_html(stripslashes($_POST['thumb_url_pr_0'])) : '');
+        $i = 0;
+        $random_preview_image = '';
+        while (isset($_POST['thumb_url_pr_' . $i]) && isset($_POST["input_filetype_pr_" . $i])) {
+          if ($_POST["input_filetype_pr_" . $i] != "YOUTUBE" && $_POST["input_filetype_pr_" . $i] != "VIMEO") {
+            $random_preview_image = esc_html(stripslashes($_POST['thumb_url_pr_' . $i]));
+            break;
+          }
+          $i++;
+        }
       }
     }
     $published = (isset($_POST['published']) ? (int) $_POST['published'] : 1);

@@ -328,6 +328,16 @@
   margin: 5px 0;
 }
 
+.buttons_div_left {
+  float: left;
+  margin: 5px 0;
+}
+
+.buttons_div_right {
+  float: right;
+  margin: 5px 0;
+}
+
 .spider_delete_img {
   background-image: url("../images/delete.png");
   border: none;
@@ -470,3 +480,35 @@
   display: none;
 }
 
+.bwg_add_video {
+  display: none;
+  padding: 10px;
+  height: 60px;
+  background-color: #FFFFFF;
+  border: 1px solid #999999;
+  top: 50%;
+  position: fixed;
+  left: 50%;
+  text-align: left;
+  z-index: 100000;
+  border-radius: 3px;
+  margin-left: -340px;
+  margin-top: -45px;
+}
+
+#add_video input[type="text"] {
+  width: 500px;
+}
+
+.bwg_opacity_video {
+  display: none;
+  background-color: #000000;
+  opacity: 0.75;
+  filter: Alpha(opacity=75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99998;
+}

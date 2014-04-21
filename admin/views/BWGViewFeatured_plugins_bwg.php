@@ -45,6 +45,18 @@ class BWGViewFeatured_plugins_bwg {
                 <a target="_blank" href="http://web-dorado.com/products/wordpress-form.html" class="download">Download</a>
             </div>
           </li>
+          <li class="contact-maker">
+            <div class="product">
+              <div class="title">
+                <strong class="heading">Contact Form Maker</strong>
+                <p>WordPress contact form builder plugin</p>
+              </div>
+            </div>
+            <div class="description">
+              <p>WordPress Contact Form Maker is an advanced and easy-to-use tool for creating forms.</p>
+              <a target="_blank" href="http://web-dorado.com/products/wordpress-contact-form-maker-plugin.html" class="download">Download</a>
+            </div>
+          </li>
           <li class="spider-calendar">
             <div class="product">
               <div class="title">
@@ -105,7 +117,19 @@ class BWGViewFeatured_plugins_bwg {
                 <a target="_blank" href="http://web-dorado.com/products/wordpress-facebook.html" class="download">Download</a>
             </div>
           </li>
-                  <li class="faq">
+          <li class="twitter-widget">
+            <div class="product">
+              <div class="title">
+                <strong class="heading">Widget Twitter</strong>
+                <p>WordPress Widget Twitter plugin</p>
+              </div>
+            </div>
+            <div class="description">
+              <p>The Widget Twitter plugin lets you to fully integrate your WordPress site with your Twitter account.</p>
+              <a target="_blank" href="http://web-dorado.com/products/wordpress-twitter-integration-plugin.html" class="download">Download</a>
+            </div>
+          </li>
+          <li class="faq">
             <div class="product">
               <div class="title">
                 <strong class="heading">Spider FAQ</strong>

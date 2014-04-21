@@ -30,11 +30,11 @@ class BWGViewAddTags {
     $order_by = (isset($_POST['order_by']) ? esc_html(stripslashes($_POST['order_by'])) : 'name');
     $image_id = ((isset($_GET['image_id'])) ? esc_html($_GET['image_id']) : '0');
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
+    wp_print_scripts('jquery');
     ?>
     <link media="all" type="text/css" href="<?php echo get_admin_url(); ?>load-styles.php?c=1&amp;dir=ltr&amp;load=admin-bar,wp-admin,dashicons,buttons,wp-auth-check" rel="stylesheet">
     <link media="all" type="text/css" href="<?php echo get_admin_url(); ?>css/colors<?php echo ((get_bloginfo('version') < '3.8') ? '-fresh' : ''); ?>.min.css" id="colors-css" rel="stylesheet">
     <link media="all" type="text/css" href="<?php echo WD_BWG_URL . '/css/bwg_tables.css'; ?>" id="bwg_tables-css" rel="stylesheet">
-    <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/jquery.js"></script>
     <script src="<?php echo WD_BWG_URL . '/js/bwg.js'; ?>" type="text/javascript"></script>
     <form class="wrap wp-core-ui" id="tags_form" method="post" action="<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" style="width:95%; margin: 0 auto;">
       <h2 style="width:200px; float:left;">Tags</h2>

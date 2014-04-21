@@ -32,14 +32,15 @@
   font-weight: normal;
   font-style: normal;
 }
-.fa {
+#spider_popup_wrap .fa,
+div[id^="bwg_container"] .fa {
   display: inline-block;
-  font-family: FontAwesome;
+  font-family: FontAwesome !important;
   font-style: normal;
   font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  line-height: 1 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
 }
 /* makes the font 33% larger relative to the icon container */
 .fa-lg {

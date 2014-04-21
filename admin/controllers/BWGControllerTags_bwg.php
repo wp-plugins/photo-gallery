@@ -19,8 +19,10 @@ class BWGControllerTags_bwg {
   // Public Methods                                                                     //
   ////////////////////////////////////////////////////////////////////////////////////////
   public function execute() {
-    $task = ((isset($_POST['task'])) ? esc_html(stripslashes($_POST['task'])) : '');
-    $id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
+    $task = WDWLibrary::get('task');
+    $id = WDWLibrary::get('current_id', 0);
+    $message = WDWLibrary::get('message');
+    echo WDWLibrary::message_id($message);
     if (method_exists($this, $task)) {
       $this->$task($id);
     }
@@ -39,8 +41,9 @@ class BWGControllerTags_bwg {
   }
 
   public function save() {
-    $this->save_tag();
-    $this->display();
+    $message = $this->save_tag();
+    $page = WDWLibrary::get('page');
+    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   } 
   
   public function bwg_get_unique_slug($slug, $id) {
@@ -98,14 +101,14 @@ class BWGControllerTags_bwg {
         )
       );
       if (isset($save->errors)) {
-        echo WDWLibrary::message('A term with the name provided already exists.', 'error');
+        return 14;
       }
       else {
-        echo WDWLibrary::message('Item Succesfully Saved.', 'updated');
+        return 1;
       }
     }
     else {
-      echo WDWLibrary::message('Name field is required.', 'error');
+      return 15;
     }
   }
   
@@ -152,10 +155,10 @@ class BWGControllerTags_bwg {
         )
       );
       if (isset($save->errors)) {
-        echo WDWLibrary::message('A term with the name provided already exists.', 'error');
+        $message = 15;
       }
       else {
-        echo WDWLibrary::message('Item Succesfully Saved.', 'updated');
+        $message = 1;
       }
     }
     foreach ($rows as $row) {
@@ -170,7 +173,7 @@ class BWGControllerTags_bwg {
           'slug' => $slug
         ));
         if (isset($save->errors)) {
-          echo WDWLibrary::message('The slug must be unique.', 'error');
+          $message = 16;
         }
         else {
           $flag = TRUE;
@@ -178,23 +181,28 @@ class BWGControllerTags_bwg {
       }
     }
     if ($flag) {
-      echo WDWLibrary::message('Item(s) Succesfully Saved.', 'updated');
+      $message = 1;
     }
-    $this->display();
+    else {
+      $message = '';
+    }
+    $page = WDWLibrary::get('page');
+    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
 
   public function delete($id) {
     global $wpdb;
     wp_delete_term($id, 'bwg_tag');
     $query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE tag_id="%d"', $id);
-	$flag = $wpdb->query($query);
+    $flag = $wpdb->query($query);
     if ($flag !== FALSE) {
-      echo WDWLibrary::message('Item Succesfully Deleted.', 'updated');
+      $message = 3;
     }
     else {
-      echo WDWLibrary::message('Error. Please install plugin again.', 'error');
+      $message = 2;
     }
-    $this->display();
+    $page = WDWLibrary::get('page');
+    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
   
   public function delete_all() {
@@ -209,14 +217,15 @@ class BWGControllerTags_bwg {
       }
     }
     if ($flag) {
-      echo WDWLibrary::message('Items Succesfully Deleted.', 'updated');
+      $message = 5;
     }
     else {
-      echo WDWLibrary::message('You must select at least one item.', 'error');
+      $message = 6;
     }  
-    $this->display();
+    $page = WDWLibrary::get('page');
+    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
- 
+
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////

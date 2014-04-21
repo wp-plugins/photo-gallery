@@ -30,7 +30,7 @@ class BWGModelImage_browser {
     return $row;
   }
 
-  public function get_image_rows_data($id, $images_per_page, $sort_by, $bwg) {
+  public function get_image_rows_data($id, $images_per_page, $sort_by, $order_by = 'asc', $bwg) {
     global $wpdb;
     if ($sort_by == 'size' || $sort_by == 'resolution') {
       $sort_by = ' CAST(' . $sort_by . ' AS SIGNED) ';
@@ -50,7 +50,7 @@ class BWGModelImage_browser {
     else {
       $limit_str = '';
     }
-    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY ' . $sort_by . ' ASC ' . $limit_str, $id));
+    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY ' . $sort_by . ' ' . $order_by . ' ' . $limit_str, $id));
     return $row;
   }
 

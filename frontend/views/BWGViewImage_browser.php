@@ -28,6 +28,12 @@ class BWGViewImage_browser {
     global $WD_BWG_UPLOAD_DIR;
     require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
+    if (!isset($params['order_by'])) {
+      $order_by = 'asc';
+    }
+    else {
+      $order_by = $params['order_by'];
+    }
     if (!$theme_row) {
       echo WDWLibrary::message(__('There is no theme selected or the theme was deleted.', 'bwg'), 'error');
       return;
@@ -37,7 +43,7 @@ class BWGViewImage_browser {
       echo WDWLibrary::message(__('There is no gallery selected or the gallery was deleted.', 'bwg'), 'error');
       return;
     }
-    $image_rows = $this->model->get_image_rows_data($params['gallery_id'], 1, $params['sort_by'], $bwg);
+    $image_rows = $this->model->get_image_rows_data($params['gallery_id'], 1, $params['sort_by'], $order_by, $bwg);
     if (!$image_rows) {
       echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
     }
@@ -52,16 +58,21 @@ class BWGViewImage_browser {
     if (!isset($params['popup_fullscreen'])) {
       $params['popup_fullscreen'] = 0;
     }
+    if (!isset($params['popup_autoplay'])) {
+      $params['popup_autoplay'] = 0;
+    }
     $params_array = array(
       'action' => 'GalleryBox',
       'current_view' => $bwg,
       'gallery_id' => $params['gallery_id'],
       'theme_id' => $params['theme_id'],
       'open_with_fullscreen' => $params['popup_fullscreen'],
+      'open_with_autoplay' => $params['popup_autoplay'],
       'image_width' => $params['popup_width'],
       'image_height' => $params['popup_height'],
       'image_effect' => $params['popup_effect'],
       'sort_by' => $params['sort_by'],
+      'order_by' => $order_by,
       'enable_image_filmstrip' => $params['popup_enable_filmstrip'],
       'image_filmstrip_height' => $params['popup_filmstrip_height'],
       'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
@@ -142,7 +153,7 @@ class BWGViewImage_browser {
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_browser_image_<?php echo $bwg; ?> {
         background-color: rgba(<?php echo $bwg_image_browser_image['red']; ?>, <?php echo $bwg_image_browser_image['green']; ?>, <?php echo $bwg_image_browser_image['blue']; ?>, <?php echo $theme_row->image_browser_transparent / 100; ?>);
 				text-align: center;
-				display: inline-block;
+				/*display: inline-block;*/
 				vertical-align: middle;
 				margin: <?php echo $theme_row->image_browser_margin; ?>;
 				padding: <?php echo $theme_row->image_browser_padding; ?>;
@@ -160,7 +171,7 @@ class BWGViewImage_browser {
 				color: #<?php echo $theme_row->image_browser_img_font_color; ?>;
 				text-align:<?php echo $theme_row->image_browser_image_description_align; ?>;
 				padding-left: 8px;
-        word-break: break-all;
+        word-break: break-word;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_browser_img_<?php echo $bwg; ?> {
         padding: 0 !important;
@@ -292,7 +303,7 @@ class BWGViewImage_browser {
 				font-size: <?php echo $theme_row->image_browser_img_font_size; ?>px;
 				font-family: <?php echo $theme_row->image_browser_img_font_family; ?>;
 				padding: <?php echo $theme_row->image_browser_image_description_padding; ?>;
-				word-break: break-all;
+				word-break: break-word;
 				border-style: <?php echo $theme_row->image_browser_image_description_border_style; ?>;
 				background-color: #<?php echo $theme_row->image_browser_image_description_bg_color; ?>;
 				border-radius: <?php echo $theme_row->image_browser_image_description_border_radius; ?>;
@@ -390,6 +401,7 @@ class BWGViewImage_browser {
               foreach ($image_rows as $image_row) {
                 $params_array['image_id'] = (isset($_POST['image_id']) ? esc_html($_POST['image_id']) : $image_row->id);
                 $popup_url = add_query_arg(array($params_array), admin_url('admin-ajax.php'));
+                $is_video = $image_row->filetype == "YOUTUBE" || $image_row->filetype == "VIMEO";
                 ?>  
                 <div class="image_browser_image_buttons_conteiner_<?php echo $bwg; ?>">
                   <div class="image_browser_image_buttons_<?php echo $bwg;?>">
@@ -398,7 +410,7 @@ class BWGViewImage_browser {
                       if ($image_title) {
                         ?>
                         <div class="bwg_image_alt_<?php echo $bwg; ?>" id="alt<?php echo $image_row->id; ?>">
-                          <?php echo $image_row->alt; ?>
+                          <?php echo html_entity_decode($image_row->alt); ?>
                         </div>
                       <?php
                       }
@@ -421,12 +433,21 @@ class BWGViewImage_browser {
                         </div>
                         <?php
                       }
+                      if (!$is_video) {
                       ?>
-                      <a style="position:relative;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
-                        <img class="bwg_image_browser_img_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
-                      </a>
+                        <a style="position:relative;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
+                          <img class="bwg_image_browser_img_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
+                        </a>
+                      <?php 
+                      }
+                      else { ?>
+                        <iframe id="bwg_video_frame_<?php echo $bwg; ?>" src="<?php echo ($image_row->filetype == "YOUTUBE" ? "//www.youtube.com/embed/" . $image_row->filename : "//player.vimeo.com/video/" . $image_row->filename); ?>" width="<?php echo $params['image_browser_width']; ?>" height="<?php echo $params['image_browser_width'] * 0.5625; ?>" frameborder="0" allowfullscreen style="position: relative;"></iframe>
+                      <?php
+                      }
+                      ?>
                     <script>	
                       setTimeout(function(){
+                        jQuery('#bwg_video_frame_<?php echo $bwg; ?>').height(jQuery('#bwg_video_frame_<?php echo $bwg; ?>').width() * 0.5625);
                         if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 108) {
                           jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');
                         }
@@ -454,6 +475,7 @@ class BWGViewImage_browser {
                         }
                       }, 3);
                       jQuery(window).resize(function() {
+                        jQuery('#bwg_video_frame_<?php echo $bwg; ?>').height(jQuery('#bwg_video_frame_<?php echo $bwg; ?>').width() * 0.5625);
                         if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 108) {
                           jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');					  
                         }
@@ -487,7 +509,7 @@ class BWGViewImage_browser {
                         ?>
                       <div class="bwg_image_browser_image_desp_<?php echo $bwg; ?>">                    
                         <div class="bwg_image_browser_image_description_<?php echo $bwg; ?>" id="alt<?php echo $image_row->id; ?>">
-                          <?php echo $image_row->description; ?>
+                          <?php echo html_entity_decode($image_row->description); ?>
                         </div>                  
                       </div>
                       <?php

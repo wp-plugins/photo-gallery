@@ -51,10 +51,9 @@ class FilemanagerView {
       $clipboard_dest = $file_manager_data['session_data']['clipboard_dest'];
       $icons_dir_url = WD_BWG_URL . '/filemanager/images/file_icons';
       $sort_icon = $icons_dir_url . '/' . $sort_order;
+      wp_print_scripts('jquery');
+      wp_print_scripts('jquery-ui-widget');
       ?>
-
-      <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/jquery.js"></script>
-      <script language="javascript" type="text/javascript" src="<?php echo get_option("siteurl"); ?>/wp-includes/js/jquery/ui/jquery.ui.widget.min.js"></script>
       <script src="<?php echo WD_BWG_URL; ?>/filemanager/js/jq_uploader/jquery.iframe-transport.js"></script>
       <script src="<?php echo WD_BWG_URL; ?>/filemanager/js/jq_uploader/jquery.fileupload.js"></script>
       <script>
