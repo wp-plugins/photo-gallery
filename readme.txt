@@ -61,6 +61,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   WordPress Tag cloud hosted widget  
 *   Photo Gallery Slideshow widget  
 *   Photo Gallery Widget for displaying albums and galleries as widgets
+*   Separate shortcode generator page for the websites using custom pages/custom editors.   
 
 Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
 
