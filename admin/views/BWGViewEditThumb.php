@@ -194,7 +194,9 @@ class BWGViewEditThumb {
       .thumb_preview_td {
         background-color: #F5F5F5;
         border-radius: 3px;
-        border: 1px solid #CCCCCC; 
+        border: 1px solid #CCCCCC;
+        font-family: sans-serif;
+        font-size: 12px;
       }
       .thumb_message {
         -moz-box-sizing: border-box;
@@ -233,6 +235,12 @@ class BWGViewEditThumb {
         </div>
         <table style="height: inherit; top: 45px; position: absolute ;width: inherit; margin: 0 auto;">
           <tr>
+            <td class="thumb_preview_td" colspan="2">
+              <input type="checkbox" id="chb" onclick="spider_crop_ratio()" checked="checked">
+              <label for="chb">Keep aspect ratio</label>
+            </td>
+          </tr>
+          <tr>
             <td class="thumb_preview_td" style="vertical-align: middle; width: <?php echo ($popup_width - $thumb_width) - 40; ?>px;">
               <img id="image_view" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_data->image_url; ?>?date=<?php echo date('Y-m-y H:i:s'); ?>" style="max-width:<?php echo $image_width; ?>px; max-height:<?php echo $image_height; ?>px;" />
             </td>
@@ -251,6 +259,18 @@ class BWGViewEditThumb {
       <input id="h" type="hidden" name="h" value="" />
     </form>
     <script language="javascript">
+      function spider_crop_ratio() {
+        if (document.getElementById("chb").checked == false) {
+          spider_crop_fix("", "");
+        }
+        else {
+          spider_crop_fix("<?php echo $options->upload_thumb_width; ?>", "<?php echo $options->upload_thumb_height; ?>");
+        }
+        jQuery('#crop_button').show();
+        jQuery('#thumb_message').hide();
+        jQuery('#croped_message').hide();
+        jQuery('#thumb_image_preview').show();
+      }
       function spider_crop(type, form_id) {
         document.getElementById("edit_type").value = type;
         document.getElementById(form_id).submit();
@@ -259,9 +279,12 @@ class BWGViewEditThumb {
       window.parent.document.getElementById("image_thumb_<?php echo $image_id; ?>").src = image_src + "?date=<?php echo date('Y-m-y H:i:s'); ?>";
       // jQuery('#image_view').Jcrop();
       jQuery(window).load(function() {
+        spider_crop_fix("<?php echo $options->upload_thumb_width; ?>", "<?php echo $options->upload_thumb_height; ?>");
+      });
+      function spider_crop_fix(wi, he) {
         var ratio = parseInt('<?php echo $width_orig; ?>') / jQuery('#image_view').width();
-        var thumb_width = parseInt('<?php echo $options->upload_thumb_width; ?>');
-        var thumb_height = parseInt('<?php echo $options->upload_thumb_height; ?>');
+        var thumb_width = parseInt(wi);
+        var thumb_height = parseInt(he);
         if (<?php echo $w; ?> == 0) {
           jQuery('#image_view').Jcrop({
             onChange: spider_update_thumb,
@@ -281,7 +304,7 @@ class BWGViewEditThumb {
             aspectRatio: thumb_width / thumb_height
           });
         }
-      })
+      }
       function spider_update_coords(c) {
         var ratio = parseInt('<?php echo $width_orig; ?>') / jQuery('#image_view').width();
         jQuery('#x').val(c.x * ratio);

@@ -28,7 +28,7 @@ class BWGViewAddTags {
     $search_value = ((isset($_POST['search_value'])) ? esc_html(stripslashes($_POST['search_value'])) : '');
     $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
     $order_by = (isset($_POST['order_by']) ? esc_html(stripslashes($_POST['order_by'])) : 'name');
-    $image_id = ((isset($_GET['image_id'])) ? esc_html($_GET['image_id']) : '0');
+    $image_id = ((isset($_GET['image_id'])) ? esc_html($_GET['image_id']) : ((isset($_POST['image_id'])) ? esc_html($_POST['image_id']) : '0'));
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     wp_print_scripts('jquery');
     ?>
@@ -50,9 +50,9 @@ class BWGViewAddTags {
       <table class="wp-list-table widefat fixed pages">
         <thead>
           <th class="manage-column column-cb check-column table_small_col"><input id="check_all" type="checkbox" style="margin:0;" /></th>
-          <th class="table_small_col <?php if ($order_by == 'id') {echo $order_class;} ?>">
-            <a onclick="spider_set_input_value('order_by', 'id');
-                        spider_set_input_value('asc_or_desc', '<?php echo ((isset($_POST['asc_or_desc']) && isset($_POST['order_by']) && (esc_html(stripslashes($_POST['order_by'])) == 'id') && esc_html(stripslashes($_POST['asc_or_desc'])) == 'asc') ? 'desc' : 'asc'); ?>');
+          <th class="table_small_col <?php if ($order_by == 'term_id') {echo $order_class;} ?>">
+            <a onclick="spider_set_input_value('order_by', 'term_id');
+                        spider_set_input_value('asc_or_desc', '<?php echo ((isset($_POST['asc_or_desc']) && isset($_POST['order_by']) && (esc_html(stripslashes($_POST['order_by'])) == 'term_id') && esc_html(stripslashes($_POST['asc_or_desc'])) == 'asc') ? 'desc' : 'asc'); ?>');
                         spider_form_submit(event, 'tags_form')" href="">
               <span>ID</span><span class="sorting-indicator"></span></th>
             </a>
@@ -91,6 +91,7 @@ class BWGViewAddTags {
       </table>
       <input id="asc_or_desc" name="asc_or_desc" type="hidden" value="asc" />
       <input id="order_by" name="order_by" type="hidden" value="<?php echo $order_by; ?>" />
+      <input id="image_id" name="image_id" type="hidden" value="<?php echo $image_id; ?>" />
     </form>
     <script src="<?php echo get_admin_url(); ?>load-scripts.php?c=1&load%5B%5D=common,admin-bar" type="text/javascript"></script>
     <?php

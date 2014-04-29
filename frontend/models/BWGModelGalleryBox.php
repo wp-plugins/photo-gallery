@@ -53,9 +53,15 @@ class BWGModelGalleryBox {
     return $row;
   }
 
-  public function get_image_rows_data_tag($tag_id, $sort_by) {
+  public function get_image_rows_data_tag($tag_id, $sort_by, $order_by = 'asc') {
     global $wpdb;
-    $row = $wpdb->get_results($wpdb->prepare('SELECT image.* FROM ' . $wpdb->prefix . 'bwg_image as image INNER JOIN ' . $wpdb->prefix . 'bwg_image_tag as tag ON image.id=tag.image_id WHERE image.published=1 AND tag.tag_id="%d" ORDER BY `' . $sort_by . '` ASC', $tag_id));
+    if ($sort_by == 'size' || $sort_by == 'resolution') {
+      $sort_by = ' CAST(' . $sort_by . ' AS SIGNED) ';
+    }
+    elseif (($sort_by != 'alt') && ($sort_by != 'date') && ($sort_by != 'filetype')) {
+      $sort_by = '`order`';
+    }
+    $row = $wpdb->get_results($wpdb->prepare('SELECT image.* FROM ' . $wpdb->prefix . 'bwg_image as image INNER JOIN ' . $wpdb->prefix . 'bwg_image_tag as tag ON image.id=tag.image_id WHERE image.published=1 AND tag.tag_id="%d" ORDER BY ' . $sort_by . ' ' . $order_by, $tag_id));
     return $row;
   }
 

@@ -29,7 +29,7 @@ class BWGModelTags_bwg {
     else {
       $limit = 0;
     }
-    $query ="SELECT * FROM ".$wpdb->prefix."terms as A LEFT JOIN ".$wpdb->prefix ."term_taxonomy as B ON A.term_id = B.term_id WHERE B.taxonomy ='bwg_tag' " . $where . $order_by   ; 
+    $query ="SELECT * FROM ".$wpdb->prefix."terms as A LEFT JOIN ".$wpdb->prefix ."term_taxonomy as B ON A.term_id = B.term_id WHERE B.taxonomy ='bwg_tag' " . $where . $order_by . " LIMIT " . $limit . ",20"; 
     $rows = $wpdb->get_results($query);
     return $rows;
   }

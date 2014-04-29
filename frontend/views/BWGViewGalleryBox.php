@@ -77,7 +77,7 @@ class BWGViewGalleryBox {
     $image_right_click = $option_row->image_right_click;
 
     if ($tag_id != 0) {
-      $image_rows = $this->model->get_image_rows_data_tag($tag_id, $sort_by);
+      $image_rows = $this->model->get_image_rows_data_tag($tag_id, $sort_by, $order_by);
     }
     else {
       $image_rows = $this->model->get_image_rows_data($gallery_id, $sort_by, $order_by);
@@ -1194,11 +1194,13 @@ class BWGViewGalleryBox {
             }
           }
           /* Update custom scroll.*/
-          jQuery(".bwg_comments").mCustomScrollbar({
-            advanced:{
-              updateOnContentResize: true
-            }
-          });
+          if (typeof jQuery().mCustomScrollbar !== 'undefined' && jQuery.isFunction(jQuery().mCustomScrollbar)) {
+            jQuery(".bwg_comments").mCustomScrollbar({
+              advanced:{
+                updateOnContentResize: true
+              }
+            });
+          }
           jQuery(".mCSB_scrollTools").hide();
           <?php
           if ($enable_image_filmstrip) {
@@ -1471,7 +1473,9 @@ class BWGViewGalleryBox {
           });
         }
         /* Change default scrollbar in comments.*/
-        jQuery(".bwg_comments").mCustomScrollbar({scrollInertia: 150});
+        if (typeof jQuery().mCustomScrollbar !== 'undefined' && jQuery.isFunction(jQuery().mCustomScrollbar)) {
+          jQuery(".bwg_comments").mCustomScrollbar({scrollInertia: 150});
+        }
         var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" /*FF doesn't recognize mousewheel as of FF3.x*/
         jQuery('.bwg_filmstrip').on(mousewheelevt, function(e) {
           var evt = window.event || e; /* Equalize event object.*/

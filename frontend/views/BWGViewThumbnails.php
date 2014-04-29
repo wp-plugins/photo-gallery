@@ -312,7 +312,7 @@ class BWGViewThumbnails {
                   'image_width' => $params['popup_width'],
                   'image_height' => $params['popup_height'],
                   'image_effect' => $params['popup_effect'],
-                  'sort_by' => (isset($params['type']) ? 'order' : (($params['sort_by'] == 'RAND()') ? 'order' : $params['sort_by'])),
+                  'sort_by' => (isset($params['type']) ? 'date' : (($params['sort_by'] == 'RAND()') ? 'order' : $params['sort_by'])),
                   'order_by' => $sort_direction,
                   'enable_image_filmstrip' => $params['popup_enable_filmstrip'],
                   'image_filmstrip_height' => $params['popup_filmstrip_height'],

@@ -72,7 +72,6 @@ class BWGViewAlbum_compact_preview {
       $image_rows = $this->model->get_image_rows_data($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
       if (!$image_rows) {
         echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
-        return;
       }
       $page_nav = $this->model->gallery_page_nav($album_gallery_id, $items_per_page, $bwg);
       $album_gallery_div_id = 'bwg_album_compact_' . $bwg;
