@@ -64,7 +64,6 @@ function spider_destroypopup(duration) {
   if (isMobile && viewportmeta) {
     viewportmeta.content = 'width=device-width, initial-scale=1';
   }
-  window.location.hash = "";
 }
 
 // Submit popup.

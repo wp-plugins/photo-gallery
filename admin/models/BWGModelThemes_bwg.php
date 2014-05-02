@@ -373,6 +373,24 @@ class BWGModelThemes_bwg {
           $row->image_browser_full_border_color = 'F7F7F7';
           $row->image_browser_full_bg_color = 'F5F5F5';
           $row->image_browser_full_transparent = 90;
+          $row->lightbox_info_pos = 'top';
+          $row->lightbox_info_align = 'right';
+          $row->lightbox_info_bg_color = '000000';
+          $row->lightbox_info_bg_transparent = 70;
+          $row->lightbox_info_border_width = 1;
+          $row->lightbox_info_border_style = 'none';
+          $row->lightbox_info_border_color = '000000';
+          $row->lightbox_info_border_radius = '5px';
+          $row->lightbox_info_padding = '5px';
+          $row->lightbox_info_margin = '15px';
+          $row->lightbox_title_color = 'FFFFFF';
+          $row->lightbox_title_font_style = 'segoe ui';
+          $row->lightbox_title_font_weight = 'bold';
+          $row->lightbox_title_font_size = 18;
+          $row->lightbox_description_color = 'FFFFFF';
+          $row->lightbox_description_font_style = 'segoe ui';
+          $row->lightbox_description_font_weight = 'normal';
+          $row->lightbox_description_font_size = 14;
         }
       }
     }

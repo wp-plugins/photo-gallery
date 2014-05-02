@@ -59,6 +59,8 @@ class BWGViewGalleryBox {
     $enable_image_facebook = FALSE;
     $enable_image_twitter = FALSE;
     $enable_image_google = FALSE;
+    $enable_image_pinterest = FALSE;
+    $enable_image_tumblr = FALSE;
 
     $watermark_type = (isset($_GET['watermark_type']) ? esc_html($_GET['watermark_type']) : 'none');
     $watermark_text = (isset($_GET['watermark_text']) ? esc_html($_GET['watermark_text']) : '');
@@ -107,6 +109,8 @@ class BWGViewGalleryBox {
       'enable_image_facebook' => $enable_image_facebook,
       'enable_image_twitter' => $enable_image_twitter,
       'enable_image_google' => $enable_image_google,
+      'enable_image_pinterest' => $enable_image_pinterest,
+      'enable_image_tumblr' => $enable_image_tumblr,
       'watermark_type' => $watermark_type,
       'current_url' => $current_url
     );
@@ -145,17 +149,13 @@ class BWGViewGalleryBox {
       $filmstrip_thumb_margin_left = $filmstrip_thumb_margin_right;
     }
     $filmstrip_thumb_margin_hor = $filmstrip_thumb_margin_right + $filmstrip_thumb_margin_left;
+    $rgb_bwg_image_info_bg_color = WDWLibrary::spider_hex2rgb($theme_row->lightbox_info_bg_color);
     ?>
     <style>
       .spider_popup_wrap * {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-      }
-      .ui-tooltip {
-        z-index: 2147483650;
-        word-wrap: break-word;
-        word-break: break-word;
       }
       .spider_popup_wrap {
         background-color: #<?php echo $theme_row->lightbox_bg_color; ?>;
@@ -437,9 +437,17 @@ class BWGViewGalleryBox {
       .bwg_google:hover {
         color: #DD4B39;
       }
+      .bwg_pinterest:hover {
+        color: #cb2027;
+      }
+      .bwg_tumblr:hover {
+        color: #2F5070;
+      }
       .bwg_facebook,
       .bwg_twitter,
-      .bwg_google {
+      .bwg_google,
+      .bwg_pinterest,
+      .bwg_tumblr {
         color: #<?php echo $theme_row->lightbox_comment_share_button_color; ?>;
       }
       .bwg_image_container {
@@ -613,16 +621,45 @@ class BWGViewGalleryBox {
         filter: Alpha(opacity=100);
         position: absolute;
       }
+      .bwg_image_info_spun {
+        text-align: <?php echo $theme_row->lightbox_info_align; ?>;
+        vertical-align: <?php echo $theme_row->lightbox_info_pos; ?>;
+      }
+      .bwg_image_info {
+        background: rgba(<?php echo $rgb_bwg_image_info_bg_color['red']; ?>, <?php echo $rgb_bwg_image_info_bg_color['green']; ?>, <?php echo $rgb_bwg_image_info_bg_color['blue']; ?>, <?php echo $theme_row->lightbox_info_bg_transparent / 100; ?>);
+        border: <?php echo $theme_row->lightbox_info_border_width; ?>px <?php echo $theme_row->lightbox_info_border_style; ?> #<?php echo $theme_row->lightbox_info_border_color; ?>;
+        border-radius: <?php echo $theme_row->lightbox_info_border_radius; ?>;
+        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'top') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') ? 'bottom: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
+        margin: <?php echo $theme_row->lightbox_info_margin; ?>;
+        padding: <?php echo $theme_row->lightbox_info_padding; ?>;
+        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') ? 'top: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
+      }
+      .bwg_image_title,
+      .bwg_image_title * {
+        color: #<?php echo $theme_row->lightbox_title_color; ?> !important;
+        font-family: <?php echo $theme_row->lightbox_title_font_style; ?>;
+        font-size: <?php echo $theme_row->lightbox_title_font_size; ?>px;
+        font-weight: <?php echo $theme_row->lightbox_title_font_weight; ?>;
+      }
+      .bwg_image_description,
+      .bwg_image_description * {
+        color: #<?php echo $theme_row->lightbox_description_color; ?> !important;
+        font-family: <?php echo $theme_row->lightbox_description_font_style; ?>;
+        font-size: <?php echo $theme_row->lightbox_description_font_size; ?>px;
+        font-weight: <?php echo $theme_row->lightbox_description_font_weight; ?>;
+      }
     </style>
     <script>
       var data = [];
       var event_stack = [];
       <?php
+      $image_id_exist = FALSE;
       foreach ($image_rows as $key => $image_row) {
         if ($image_row->id == $current_image_id) {
           $current_image_alt = $image_row->alt;
           $current_image_description = str_replace(array("\r\n", "\n", "\r"), esc_html('<br />'), $image_row->description);
           $current_image_url = $image_row->image_url;
+          $image_id_exist = TRUE;
         }
         ?>
         data["<?php echo $key; ?>"] = [];
@@ -635,8 +672,14 @@ class BWGViewGalleryBox {
         data["<?php echo $key; ?>"]["comment_count"] = "<?php echo $image_row->comment_count; ?>";
         <?php
       }
-      ?>    
+      ?>
     </script>
+    <?php
+    if (!$image_id_exist) {
+      echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
+      die();
+    }
+    ?>
     <div class="bwg_image_wrap">
       <?php
       if ($enable_image_ctrl_btn) {
@@ -653,7 +696,7 @@ class BWGViewGalleryBox {
           ?>
           <i title="<?php echo __('Fullscreen', 'bwg'); ?>" class="bwg_ctrl_btn bwg_fullscreen fa fa-fullscreen"></i>
           <?php } ?>
-          <i title="<?php echo $current_image_alt . "<br />" . $current_image_description; ?>" class="bwg_ctrl_btn bwg_info fa fa-info"></i>
+          <i title="<?php echo __('Show info', 'bwg'); ?>" class="bwg_ctrl_btn bwg_info fa fa-info"></i>
           <?php
           if ($option_row->popup_enable_fullsize_image) {
             ?>
@@ -708,6 +751,16 @@ class BWGViewGalleryBox {
       }
       ?>
       <div id="bwg_image_container" class="bwg_image_container">
+        <div class="bwg_image_info_container1" >
+          <div class="bwg_image_info_container2">
+            <span class="bwg_image_info_spun">
+              <div class="bwg_image_info">
+                <div class="bwg_image_title"><?php echo html_entity_decode($current_image_alt); ?></div>
+                <div class="bwg_image_description"><?php echo html_entity_decode($current_image_description); ?></div>
+              </div>
+            </span>
+          </div>
+        </div>
         <div class="bwg_slide_container">
           <div class="bwg_slide_bg">
             <div class="bwg_slider">
@@ -1172,15 +1225,20 @@ class BWGViewGalleryBox {
           bwg_current_key = key;
           /* Change image id, title, description.*/
           jQuery("#bwg_popup_image").attr('image_id', data[key]["id"]);
-          jQuery(".bwg_info").attr('title', data[key]["alt"] + "<br />" + jQuery('<div />').html(data[key]["description"]).text());
+          if (jQuery(".bwg_image_info_container1").css("display") != 'none' && (data[key]["alt"] || data[key]["description"])) {
+            jQuery(".bwg_image_title").html(jQuery('<div />').html(data[key]["alt"]).text());
+            jQuery(".bwg_image_description").html(jQuery('<div />').html(data[key]["description"]).text());
+            jQuery(".bwg_image_info_container1").css("display", "table-cell");
+          }
+          else {
+            jQuery(".bwg_image_info_container1").css("display", "none");
+          }
           var current_image_class = "#image_id_" + data[current_key]["id"];
           var next_image_class = "#image_id_" + data[key]["id"];
           bwg_<?php echo $image_effect; ?>(current_image_class, next_image_class, direction);
           jQuery("#bwg_fullsize_image").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
           jQuery("#bwg_download").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
           jQuery("#bwg_download").attr("download", data[key]['image_url']);
-          /* Add image url to meta.*/
-          jQuery("#bwg_facebook_a").attr("href", "https://www.facebook.com/sharer/sharer.php?s=100&p[url]=<?php echo urlencode($current_url); ?>&p[title]=" + data[key]['alt'] + "&p[summary]=" + data[key]['description'] + "&p[images][0]=<?php echo urlencode(site_url() . '/' . $WD_BWG_UPLOAD_DIR); ?>" + data[key]['thumb_url']);
           /* Load comments.*/
           if (jQuery(".bwg_comment_container").hasClass("bwg_open")) {
             if (data[key]["comment_count"] == 0) {
@@ -1463,15 +1521,6 @@ class BWGViewGalleryBox {
         }
         /* Set image container height.*/
         jQuery(".bwg_image_container").height(jQuery(".bwg_image_wrap").height() - <?php echo $image_filmstrip_height; ?>);
-        /* Show image info in cloud.*/
-        if (typeof jQuery().tooltip !== 'undefined' && jQuery.isFunction(jQuery().tooltip)) {
-          jQuery(".bwg_info").tooltip({
-            track: true,
-            content: function () {
-                return jQuery(this).prop('title');
-            }
-          });
-        }
         /* Change default scrollbar in comments.*/
         if (typeof jQuery().mCustomScrollbar !== 'undefined' && jQuery.isFunction(jQuery().mCustomScrollbar)) {
           jQuery(".bwg_comments").mCustomScrollbar({scrollInertia: 150});
@@ -1529,6 +1578,17 @@ class BWGViewGalleryBox {
         });
         /* Set filmstrip initial position.*/
         bwg_set_filmstrip_pos(jQuery(".bwg_filmstrip").width());
+        /* Show/hide image title/description.*/
+        jQuery(".bwg_info").on(bwg_click, function() {
+          if (jQuery(".bwg_image_info_container1").css("display") == 'none') {
+            jQuery(".bwg_image_info_container1").css("display", "table-cell");
+            jQuery(".bwg_info").attr("title", "<?php echo __('Hide info', 'bwg'); ?>");
+          }
+          else {
+            jQuery(".bwg_image_info_container1").css("display", "none");
+            jQuery(".bwg_info").attr("title", "<?php echo __('Show info', 'bwg'); ?>");
+          }
+        });
         /* Open/close comments.*/
         jQuery(".bwg_comment, .bwg_comments_close_btn").on(bwg_click, function() { bwg_comment()});
         /* Open/close control buttons.*/
@@ -1537,6 +1597,18 @@ class BWGViewGalleryBox {
           var bwg_close_toggle_btn_class = "<?php echo ($theme_row->lightbox_ctrl_btn_pos == 'top') ? 'fa-angle-down' : 'fa-angle-up'; ?>";
           if (jQuery(".bwg_toggle_container i").hasClass(bwg_open_toggle_btn_class)) {
             /* Close controll buttons.*/
+            <?php
+              if ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'top') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') {
+                ?>
+                jQuery(".bwg_image_info").animate({bottom: 0}, 500);
+                <?php
+              }
+              elseif ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') {
+                ?>
+                jQuery(".bwg_image_info").animate({top: 0}, 500);
+                <?php
+              }
+            ?>
             jQuery(".bwg_ctrl_btn_container").animate({<?php echo $theme_row->lightbox_ctrl_btn_pos; ?>: '-' + jQuery(".bwg_ctrl_btn_container").height()}, 500);
             jQuery(".bwg_toggle_container").animate({
                 <?php echo $theme_row->lightbox_ctrl_btn_pos; ?>: 0
@@ -1547,6 +1619,18 @@ class BWGViewGalleryBox {
           }
           else {
             /* Open controll buttons.*/
+            <?php
+              if ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'top') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') {
+                ?>
+                jQuery(".bwg_image_info").animate({bottom: jQuery(".bwg_ctrl_btn_container").height()}, 500);
+                <?php
+              }
+              elseif ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') {
+                ?>
+                jQuery(".bwg_image_info").animate({top: jQuery(".bwg_ctrl_btn_container").height()}, 500);
+                <?php
+              }
+            ?>
             jQuery(".bwg_ctrl_btn_container").animate({<?php echo $theme_row->lightbox_ctrl_btn_pos; ?>: 0}, 500);
             jQuery(".bwg_toggle_container").animate({
                 <?php echo $theme_row->lightbox_ctrl_btn_pos; ?>: jQuery(".bwg_ctrl_btn_container").height()

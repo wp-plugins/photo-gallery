@@ -414,6 +414,25 @@ class BWGControllerThemes_bwg {
     $masonry_thumb_hover_effect_value = (isset($_POST['masonry_thumb_hover_effect_value']) ?  esc_html(stripslashes( $_POST['masonry_thumb_hover_effect_value'])) : '1.3');
     $masonry_thumb_transition = (isset($_POST['masonry_thumb_transition']) ?  esc_html(stripslashes( $_POST['masonry_thumb_transition'])) : 0);
 
+    $lightbox_info_pos = (isset($_POST['lightbox_info_pos']) ?  esc_html(stripslashes( $_POST['lightbox_info_pos'])) : 'top');
+    $lightbox_info_align = (isset($_POST['lightbox_info_align']) ?  esc_html(stripslashes( $_POST['lightbox_info_align'])) : 'right');
+    $lightbox_info_bg_color = (isset($_POST['lightbox_info_bg_color']) ?  esc_html(stripslashes( $_POST['lightbox_info_bg_color'])) : '000000');
+    $lightbox_info_bg_transparent = (isset($_POST['lightbox_info_bg_transparent']) ?  esc_html(stripslashes( $_POST['lightbox_info_bg_transparent'])) : 70);
+    $lightbox_info_border_width = (isset($_POST['lightbox_info_border_width']) ?  esc_html(stripslashes( $_POST['lightbox_info_border_width'])) : 1);
+    $lightbox_info_border_style = (isset($_POST['lightbox_info_border_style']) ?  esc_html(stripslashes( $_POST['lightbox_info_border_style'])) : 'none');
+    $lightbox_info_border_color = (isset($_POST['lightbox_info_border_color']) ?  esc_html(stripslashes( $_POST['lightbox_info_border_color'])) : '000000');
+    $lightbox_info_border_radius = (isset($_POST['lightbox_info_border_radius']) ?  esc_html(stripslashes( $_POST['lightbox_info_border_radius'])) : 5);
+    $lightbox_info_padding = (isset($_POST['lightbox_info_padding']) ?  esc_html(stripslashes( $_POST['lightbox_info_padding'])) : '5px');
+    $lightbox_info_margin = (isset($_POST['lightbox_info_margin']) ?  esc_html(stripslashes( $_POST['lightbox_info_margin'])) : '15px');
+    $lightbox_title_color = (isset($_POST['lightbox_title_color']) ?  esc_html(stripslashes( $_POST['lightbox_title_color'])) : 'FFFFFF');
+    $lightbox_title_font_style = (isset($_POST['lightbox_title_font_style']) ?  esc_html(stripslashes( $_POST['lightbox_title_font_style'])) : 'segoe ui');
+    $lightbox_title_font_weight = (isset($_POST['lightbox_title_font_weight']) ?  esc_html(stripslashes( $_POST['lightbox_title_font_weight'])) : 'bold');
+    $lightbox_title_font_size = (isset($_POST['lightbox_title_font_size']) ?  esc_html(stripslashes( $_POST['lightbox_title_font_size'])) : 18);
+    $lightbox_description_color = (isset($_POST['lightbox_description_color']) ?  esc_html(stripslashes( $_POST['lightbox_description_color'])) : 'FFFFFF');
+    $lightbox_description_font_style = (isset($_POST['lightbox_description_font_style']) ?  esc_html(stripslashes( $_POST['lightbox_description_font_style'])) : 'segoe ui');
+    $lightbox_description_font_weight = (isset($_POST['lightbox_description_font_weight']) ?  esc_html(stripslashes( $_POST['lightbox_description_font_weight'])) : 'normal');
+    $lightbox_description_font_size = (isset($_POST['lightbox_description_font_size']) ?  esc_html(stripslashes( $_POST['lightbox_description_font_size'])) : 14);
+
     $default_theme = (isset($_POST['default_theme']) ? esc_html(stripslashes( $_POST['default_theme'])) : 0);
     if ($id != 0) {
       $save = $wpdb->update($wpdb->prefix . 'bwg_theme', array(
@@ -741,6 +760,25 @@ class BWGControllerThemes_bwg {
         'masonry_thumb_hover_effect' => $masonry_thumb_hover_effect,
         'masonry_thumb_hover_effect_value' => $masonry_thumb_hover_effect_value,
         'masonry_thumb_transition' => $masonry_thumb_transition,
+
+        'lightbox_info_pos' => $lightbox_info_pos,
+        'lightbox_info_align' => $lightbox_info_align,
+        'lightbox_info_bg_color' => $lightbox_info_bg_color,
+        'lightbox_info_bg_transparent' => $lightbox_info_bg_transparent,
+        'lightbox_info_border_width' => $lightbox_info_border_width,
+        'lightbox_info_border_style' => $lightbox_info_border_style,
+        'lightbox_info_border_color' => $lightbox_info_border_color,
+        'lightbox_info_border_radius' => $lightbox_info_border_radius,
+        'lightbox_info_padding' => $lightbox_info_padding,
+        'lightbox_info_margin' => $lightbox_info_margin,
+        'lightbox_title_color' => $lightbox_title_color,
+        'lightbox_title_font_style' => $lightbox_title_font_style,
+        'lightbox_title_font_weight' => $lightbox_title_font_weight,
+        'lightbox_title_font_size' => $lightbox_title_font_size,
+        'lightbox_description_color' => $lightbox_description_color,
+        'lightbox_description_font_style' => $lightbox_description_font_style,
+        'lightbox_description_font_weight' => $lightbox_description_font_weight,
+        'lightbox_description_font_size' => $lightbox_description_font_size,
 
         'default_theme' => $default_theme,
       ), array('id' => $id));
@@ -1071,6 +1109,25 @@ class BWGControllerThemes_bwg {
         'masonry_thumb_transition' => $masonry_thumb_transition,
         'lightbox_rl_btn_transparent' => $lightbox_rl_btn_transparent,
 
+        'lightbox_info_pos' => $lightbox_info_pos,
+        'lightbox_info_align' => $lightbox_info_align,
+        'lightbox_info_bg_color' => $lightbox_info_bg_color,
+        'lightbox_info_bg_transparent' => $lightbox_info_bg_transparent,
+        'lightbox_info_border_width' => $lightbox_info_border_width,
+        'lightbox_info_border_style' => $lightbox_info_border_style,
+        'lightbox_info_border_color' => $lightbox_info_border_color,
+        'lightbox_info_border_radius' => $lightbox_info_border_radius,
+        'lightbox_info_padding' => $lightbox_info_padding,
+        'lightbox_info_margin' => $lightbox_info_margin,
+        'lightbox_title_color' => $lightbox_title_color,
+        'lightbox_title_font_style' => $lightbox_title_font_style,
+        'lightbox_title_font_weight' => $lightbox_title_font_weight,
+        'lightbox_title_font_size' => $lightbox_title_font_size,
+        'lightbox_description_color' => $lightbox_description_color,
+        'lightbox_description_font_style' => $lightbox_description_font_style,
+        'lightbox_description_font_weight' => $lightbox_description_font_weight,
+        'lightbox_description_font_size' => $lightbox_description_font_size,
+
         'default_theme' => $default_theme,
       ), array(
 				'%s',
@@ -1400,6 +1457,25 @@ class BWGControllerThemes_bwg {
         '%s',
         '%s',
         '%d',
+        '%d',
+
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
         '%d',
 
         '%d',

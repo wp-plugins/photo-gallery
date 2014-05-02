@@ -2600,7 +2600,172 @@ class  BWGViewThemes_bwg {
           <fieldset class="spider_child_fieldset" id="Lightbox_3">
             <table style="clear:both;">
               <tbody>
-                <tr id="lightbox_comment1">
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_pos1">Info position: </label></td>
+                  <td>
+                    <input type="radio" name="lightbox_info_pos" id="lightbox_info_pos1" value="top" <?php if ($row->lightbox_info_pos == "top") echo 'checked="checked"'; ?> />
+                    <label for="lightbox_info_pos1" id="lightbox_info_pos1_lbl">Top</label>
+                    <input type="radio" name="lightbox_info_pos" id="lightbox_info_pos0" value="bottom" <?php if ($row->lightbox_info_pos == "bottom") echo 'checked="checked"'; ?> />
+                    <label for="lightbox_info_pos0" id="lightbox_info_pos0_lbl">Bottom</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_align">Info alignment: </label></td>
+                  <td>
+                    <select name="lightbox_info_align" id="lightbox_info_align">
+                      <?php
+                      foreach ($aligns as $key => $align) {
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->lightbox_info_align == $key) ? 'selected="selected"' : ''); ?>><?php echo $align; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_bg_color">Info background color: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_info_bg_color" id="lightbox_info_bg_color" value="<?php echo $row->lightbox_info_bg_color; ?>" class="color"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_bg_transparent">Info background transparency: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_info_bg_transparent" id="lightbox_info_bg_transparent" value="<?php echo $row->lightbox_info_bg_transparent; ?>" class="spider_int_input" onkeypress="return spider_check_isnum(event)"/> %
+                    <div class="spider_description">Value must be between 0 to 100.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_border_width">Info border width: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_info_border_width" id="lightbox_info_border_width" value="<?php echo $row->lightbox_info_border_width; ?>" class="spider_int_input" onkeypress="return spider_check_isnum(event)"/> px
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_border_style">Info border style: </label></td>
+                  <td>
+                    <select name="lightbox_info_border_style" id="lightbox_info_border_style">
+                      <?php
+                      foreach ($border_styles as $key => $border_style) {
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->lightbox_info_border_style == $key) ? 'selected="selected"' : ''); ?>><?php echo $border_style; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_border_color">Info border color: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_info_border_color" id="lightbox_info_border_color" value="<?php echo $row->lightbox_info_border_color; ?>" class="color"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_border_radius">Info border radius: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_info_border_radius" id="lightbox_info_border_radius" value="<?php echo $row->lightbox_info_border_radius; ?>" class="spider_char_input"/>
+                    <div class="spider_description">Use CSS type values.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_padding">Info padding: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_info_padding" id="lightbox_info_padding" value="<?php echo $row->lightbox_info_padding; ?>" class="spider_char_input"/>
+                    <div class="spider_description">Use CSS type values.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_info_margin">Info margin: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_info_margin" id="lightbox_info_margin" value="<?php echo $row->lightbox_info_margin; ?>" class="spider_char_input"/>
+                    <div class="spider_description">Use CSS type values.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_title_color">Title font color: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_title_color" id="lightbox_title_color" value="<?php echo $row->lightbox_title_color; ?>" class="color"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_title_font_style">Title font family: </label></td>
+                  <td>
+                    <select name="lightbox_title_font_style" id="lightbox_title_font_style">
+                      <?php
+                      foreach ($font_families as $key => $font_family) {
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->lightbox_title_font_style == $key) ? 'selected="selected"' : ''); ?>><?php echo $font_family; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_title_font_weight">Title font weight: </label></td>
+                  <td>
+                    <select name="lightbox_title_font_weight" id="lightbox_title_font_weight">
+                      <?php
+                      foreach ($font_weights as $key => $font_weight) {
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->lightbox_title_font_weight == $key) ? 'selected="selected"' : ''); ?>><?php echo $font_weight; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_title_font_size">Title font size: </label>
+                  </td>
+                  <td>
+                    <input type="text" name="lightbox_title_font_size" id="lightbox_title_font_size" value="<?php echo $row->lightbox_title_font_size; ?>" class="spider_int_input" onkeypress="return spider_check_isnum(event)"/> px
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_description_color">Description font color: </label></td>
+                  <td>
+                    <input type="text" name="lightbox_description_color" id="lightbox_description_color" value="<?php echo $row->lightbox_description_color; ?>" class="color"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_description_font_style">Description font family: </label></td>
+                  <td>
+                    <select name="lightbox_description_font_style" id="lightbox_description_font_style">
+                      <?php
+                      foreach ($font_families as $key => $font_family) {
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->lightbox_description_font_style == $key) ? 'selected="selected"' : ''); ?>><?php echo $font_family; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_description_font_weight">Description font weight: </label></td>
+                  <td>
+                    <select name="lightbox_description_font_weight" id="lightbox_description_font_weight">
+                      <?php
+                      foreach ($font_weights as $key => $font_weight) {
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php echo (($row->lightbox_description_font_weight == $key) ? 'selected="selected"' : ''); ?>><?php echo $font_weight; ?></option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="spider_label"><label for="lightbox_description_font_size">Description font size: </label>
+                  </td>
+                  <td>
+                    <input type="text" name="lightbox_description_font_size" id="lightbox_description_font_size" value="<?php echo $row->lightbox_description_font_size; ?>" class="spider_int_input" onkeypress="return spider_check_isnum(event)"/> px
+                  </td>
+                </tr>
+                <tr>
                   <td class="spider_label"><label for="lightbox_comment_width">Comments Width: </label></td>
                   <td>
                     <input type="text" name="lightbox_comment_width" id="lightbox_comment_width" value="<?php echo $row->lightbox_comment_width; ?>" class="spider_int_input" onkeypress="return spider_check_isnum(event)"/> px

@@ -140,3 +140,37 @@ div[id^="bwg_container"] p {
   color: #FF0000;
   display: block;
 }
+
+.bwg_image_info_container1 {
+  display: none;
+  height: 100%;
+  margin: 0 auto;
+  position: absolute;
+  width: 100%;
+}
+
+.bwg_image_info_container2 {
+  display: table;
+  height: 100%;
+  margin: 0 auto;
+  position: absolute;
+  width: 100%;
+}
+
+.bwg_image_info_spun {
+  display: table-cell;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.bwg_image_info {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  word-wrap: break-word;
+  z-index: 11;
+}

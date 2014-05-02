@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.13
+ * Version: 1.1.14
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -276,6 +276,8 @@ function bwg_shortcode($params) {
         'popup_enable_facebook' => 1,
         'popup_enable_twitter' => 1,
         'popup_enable_google' => 1,
+        'popup_enable_pinterest' => 0,
+        'popup_enable_tumblr' => 0,
         'watermark_type' => 'none'
       ), $params);
   }
@@ -530,6 +532,8 @@ function bwg_activate() {
     `image_role` tinyint(1) NOT NULL,
     `popup_autoplay` tinyint(1) NOT NULL,
     `album_view_type` varchar(64) NOT NULL,
+    `popup_enable_pinterest` tinyint(1) NOT NULL,
+    `popup_enable_tumblr` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -862,7 +866,26 @@ function bwg_activate() {
     `image_browser_full_border_color` varchar(128) NOT NULL,
     `image_browser_full_bg_color` varchar(128) NOT NULL,
     `image_browser_full_transparent`  int(4) NOT NULL,
-    
+
+    `lightbox_info_pos` varchar(128) NOT NULL,
+    `lightbox_info_align` varchar(128) NOT NULL,
+    `lightbox_info_bg_color` varchar(128) NOT NULL,
+    `lightbox_info_bg_transparent` int(4) NOT NULL,
+    `lightbox_info_border_width` int(4) NOT NULL,
+    `lightbox_info_border_style` varchar(128) NOT NULL,
+    `lightbox_info_border_color` varchar(128) NOT NULL,
+    `lightbox_info_border_radius` varchar(128) NOT NULL,
+    `lightbox_info_padding` varchar(128) NOT NULL,
+    `lightbox_info_margin` varchar(128) NOT NULL,
+    `lightbox_title_color` varchar(128) NOT NULL,
+    `lightbox_title_font_style` varchar(128) NOT NULL,
+    `lightbox_title_font_weight` varchar(128) NOT NULL,
+    `lightbox_title_font_size` int(4) NOT NULL,
+    `lightbox_description_color` varchar(128) NOT NULL,
+    `lightbox_description_font_style` varchar(128) NOT NULL,
+    `lightbox_description_font_weight` varchar(128) NOT NULL,
+    `lightbox_description_font_size` int(4) NOT NULL,
+
     `default_theme` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
@@ -980,6 +1003,8 @@ function bwg_activate() {
       'image_role' => 0,
       'popup_autoplay' => 0,
       'album_view_type' => 'thumbnail',
+      'popup_enable_pinterest' => 0,
+      'popup_enable_tumblr' => 0,
     ), array(
       '%d',
       '%s',
@@ -1074,6 +1099,8 @@ function bwg_activate() {
       '%d',
       '%d',
       '%s',
+      '%d',
+      '%d',
     ));
   }
   $exists_default = $wpdb->get_var('SELECT count(id) FROM ' . $wpdb->prefix . 'bwg_theme');
@@ -1407,6 +1434,25 @@ function bwg_activate() {
       'image_browser_full_bg_color' => 'F5F5F5',
       'image_browser_full_transparent' => 90,
 
+      'lightbox_info_pos' => 'top',
+      'lightbox_info_align' => 'right',
+      'lightbox_info_bg_color' => '000000',
+      'lightbox_info_bg_transparent' => 70,
+      'lightbox_info_border_width' => 1,
+      'lightbox_info_border_style' => 'none',
+      'lightbox_info_border_color' => '000000',
+      'lightbox_info_border_radius' => '5px',
+      'lightbox_info_padding' => '5px',
+      'lightbox_info_margin' => '15px',
+      'lightbox_title_color' => 'FFFFFF',
+      'lightbox_title_font_style' => 'segoe ui',
+      'lightbox_title_font_weight' => 'bold',
+      'lightbox_title_font_size' => 18,
+      'lightbox_description_color' => 'FFFFFF',
+      'lightbox_description_font_style' => 'segoe ui',
+      'lightbox_description_font_weight' => 'normal',
+      'lightbox_description_font_size' => 14,
+
       'default_theme' => 1
     ), array(
       '%d',
@@ -1727,6 +1773,25 @@ function bwg_activate() {
       '%s',
       '%s',
       '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
       '%s',
       '%s',
       '%s',
@@ -2069,6 +2134,25 @@ function bwg_activate() {
       'image_browser_full_bg_color' => 'FFFFFF',
       'image_browser_full_transparent' => 90,
 
+      'lightbox_info_pos' => 'top',
+      'lightbox_info_align' => 'right',
+      'lightbox_info_bg_color' => '000000',
+      'lightbox_info_bg_transparent' => 70,
+      'lightbox_info_border_width' => 1,
+      'lightbox_info_border_style' => 'none',
+      'lightbox_info_border_color' => '000000',
+      'lightbox_info_border_radius' => '5px',
+      'lightbox_info_padding' => '5px',
+      'lightbox_info_margin' => '15px',
+      'lightbox_title_color' => 'FFFFFF',
+      'lightbox_title_font_style' => 'segoe ui',
+      'lightbox_title_font_weight' => 'bold',
+      'lightbox_title_font_size' => 18,
+      'lightbox_description_color' => 'FFFFFF',
+      'lightbox_description_font_style' => 'segoe ui',
+      'lightbox_description_font_weight' => 'normal',
+      'lightbox_description_font_size' => 14,
+
       'default_theme' => 0
     ), array(
       '%d',
@@ -2399,11 +2483,30 @@ function bwg_activate() {
       '%s',
       '%d',
 
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+
       '%d'
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.1.13';
+  $new_version = '1.1.14';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2472,7 +2575,6 @@ function bwg_front_end_scripts() {
     }
   }
   wp_enqueue_script('jquery');
-  wp_enqueue_script('jquery-ui-tooltip');
   wp_enqueue_style('jquery-ui', WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css', array(), $version);
 
   wp_enqueue_script('bwg_frontend', WD_BWG_URL . '/js/bwg_frontend.js', array(), $version);
