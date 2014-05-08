@@ -115,6 +115,8 @@ function spider_ajax_save(form_id, tr_group) {
   post_data["task"] = "ajax_search";
   post_data["ajax_task"] = ajax_task;
   post_data["image_current_id"] = image_current_id;
+  post_data["image_width"] = jQuery("#image_width").val();
+  post_data["image_height"] = jQuery("#image_height").val();
   var flag = false;
   if (jQuery("#check_all_items").attr('checked') == 'checked') {
     post_data["check_all_items"] = jQuery("#check_all_items").val();
@@ -187,7 +189,7 @@ function spider_ajax_save(form_id, tr_group) {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Deleted.</p></strong>");
         jQuery('#draganddrop').show();
       }
-      else if (!flag && ((ajax_task == 'image_publish_all') || (ajax_task == 'image_unpublish_all') || (ajax_task == 'image_delete_all') || (ajax_task == 'image_set_watermark') || (ajax_task == 'image_recover_all'))) {
+      else if (!flag && ((ajax_task == 'image_publish_all') || (ajax_task == 'image_unpublish_all') || (ajax_task == 'image_delete_all') || (ajax_task == 'image_set_watermark') || (ajax_task == 'image_recover_all') || (ajax_task == 'image_resize'))) {
         jQuery('#draganddrop').html("<strong><p>You must select at least one item.</p></strong>");
         jQuery('#draganddrop').show();
       }
@@ -205,6 +207,10 @@ function spider_ajax_save(form_id, tr_group) {
       }
       else if (ajax_task == 'image_set_watermark') {
         jQuery('#draganddrop').html("<strong><p>Watermarks Succesfully Set.</p></strong>");
+        jQuery('#draganddrop').show();
+      }
+      else if (ajax_task == 'image_resize') {
+        jQuery('#draganddrop').html("<strong><p>Images Succesfully Resized.</p></strong>");
         jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_recover_all') {
@@ -801,6 +807,15 @@ function bwg_popup_fullscreen(num) {
   }
   else {
     jQuery("#tr_popup_dimensions").css('display', '');
+  }
+}
+
+function bwg_show_search_box(num) {
+  if (num) {
+    jQuery("#tr_search_box_width").css('display', '');
+  }
+  else {
+    jQuery("#tr_search_box_width").css('display', 'none');
   }
 }
 

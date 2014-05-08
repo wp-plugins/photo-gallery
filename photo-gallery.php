@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.14
+ * Version: 1.1.15
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -154,6 +154,8 @@ function bwg_shortcode($params) {
         'gallery_id' => 1,
         'sort_by' => 'order',
         'order_by' => 'asc',
+        'show_search_box' => 0,
+        'search_box_width' => 180,
         'image_column_number' => 3,
         'images_per_page' => 15,
         'image_title' => 'none',
@@ -205,6 +207,8 @@ function bwg_shortcode($params) {
         'gallery_id' => 1,
         'sort_by' => 'order',
         'order_by' => 'asc',
+        'show_search_box' => 0,
+        'search_box_width' => 180,
         'image_browser_width' => 800,
         'image_browser_title_enable' => 1,
         'image_browser_description_enable' => 1,
@@ -238,6 +242,8 @@ function bwg_shortcode($params) {
       shortcode_atts(array(
         'album_id' => 1,
         'sort_by' => 'order',
+        'show_search_box' => 0,
+        'search_box_width' => 180,
         'extended_albums_per_page' => 15,
         'extended_album_height' => 150,
         'extended_album_description_enable' => 1,
@@ -272,6 +278,7 @@ function bwg_shortcode($params) {
         'popup_filmstrip_height' => 70,
         'popup_enable_ctrl_btn' => 1,
         'popup_enable_fullscreen' => 1,
+        'popup_enable_info' => 1,
         'popup_enable_comment' => 1,
         'popup_enable_facebook' => 1,
         'popup_enable_twitter' => 1,
@@ -494,6 +501,7 @@ function bwg_activate() {
     `popup_filmstrip_height` int(4) NOT NULL,
     `popup_enable_ctrl_btn` tinyint(1) NOT NULL,
     `popup_enable_fullscreen` tinyint(1) NOT NULL,
+    `popup_enable_info` tinyint(1) NOT NULL,
     `popup_enable_comment` tinyint(1) NOT NULL,
     `popup_enable_email` tinyint(1) NOT NULL,
     `popup_enable_captcha` tinyint(1) NOT NULL,
@@ -534,6 +542,8 @@ function bwg_activate() {
     `album_view_type` varchar(64) NOT NULL,
     `popup_enable_pinterest` tinyint(1) NOT NULL,
     `popup_enable_tumblr` tinyint(1) NOT NULL,
+    `show_search_box` tinyint(1) NOT NULL,
+	`search_box_width` int(4) NOT NULL, 
     PRIMARY KEY (`id`)
   ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -1005,6 +1015,9 @@ function bwg_activate() {
       'album_view_type' => 'thumbnail',
       'popup_enable_pinterest' => 0,
       'popup_enable_tumblr' => 0,
+      'show_search_box' => 0,
+      'search_box_width' => 180,
+      'popup_enable_info' => 1,
     ), array(
       '%d',
       '%s',
@@ -1101,6 +1114,9 @@ function bwg_activate() {
       '%s',
       '%d',
       '%d',
+      '%d',
+	  '%d',
+	  '%d',
     ));
   }
   $exists_default = $wpdb->get_var('SELECT count(id) FROM ' . $wpdb->prefix . 'bwg_theme');
@@ -2506,7 +2522,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.1.14';
+  $new_version = '1.1.15';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2590,6 +2606,7 @@ function bwg_front_end_scripts() {
   wp_localize_script('bwg_gallery_box', 'bwg_objectL10n', array(
     'bwg_field_required'  => __('field is required.', 'bwg'),
     'bwg_mail_validation' => __('This is not a valid email address.', 'bwg'),
+    'bwg_search_result' => __('There are no images matching your search.', 'bwg'),
   ));
 }
 add_action('wp_enqueue_scripts', 'bwg_front_end_scripts');

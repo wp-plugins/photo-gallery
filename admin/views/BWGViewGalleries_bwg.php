@@ -607,6 +607,7 @@ class BWGViewGalleries_bwg {
         <input class="button-primary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_set_watermark');
                                                              spider_ajax_save('galleries_form');
                                                              return false;" value="Set Watermark" />
+        <input class="button-secondary" type="submit" onclick="jQuery('.opacity_resize_image').show(); return false;" value="Resize" />
         <input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_recover_all');
                                                              spider_ajax_save('galleries_form');
                                                              return false;" value="Reset" />
@@ -624,12 +625,23 @@ class BWGViewGalleries_bwg {
                                                        return false;
                                                      }" value="Delete" />
       </div>
-      <div id="opacity_add_video" class="opacity_add_video bwg_opacity_video" onclick="jQuery('.opacity_add_video').hide();"></div>
+      <div id="opacity_add_video" class="opacity_resize_image opacity_add_video bwg_opacity_video" onclick="jQuery('.opacity_add_video').hide();jQuery('.opacity_resize_image').hide();"></div>
       <div id="add_video" class="opacity_add_video bwg_add_video">
         <input type="text" id="video_url" name="video_url" value="" />
         <input class="button-primary" type="button" onclick="if (bwg_get_video_info('video_url')) {jQuery('.opacity_add_video').hide();} return false;" value="Add to gallery" />
         <input class="button-secondary" type="button" onclick="jQuery('.opacity_add_video').hide(); return false;" value="Cancel" />
         <div class="spider_description">Enter YouTube or Vimeo link here.</div>
+      </div>
+      <div id="" class="opacity_resize_image bwg_resize_image">
+        Resize images to: 
+        <input type="text" name="image_width" id="image_width" value="1600" /> x 
+        <input type="text" name="image_height" id="image_height" value="1200" /> px
+        <input class="button-primary" type="button" onclick="spider_set_input_value('ajax_task', 'image_resize');
+                                                             spider_ajax_save('galleries_form');
+                                                             jQuery('.opacity_resize_image').hide();
+                                                             return false;" value="Resize" />
+        <input class="button-secondary" type="button" onclick="jQuery('.opacity_resize_image').hide(); return false;" value="Cancel" />
+        <div class="spider_description">The maximum size of resized image.</div>
       </div>
       <div class="tablenav top">
         <?php

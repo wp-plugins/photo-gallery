@@ -165,6 +165,25 @@ class BWGViewOptions_bwg {
                   <div class="spider_description">Only author can change an image.</div>
                 </td>
               </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label>Show search box:</label>
+                </td>
+                <td>
+                  <input type="radio" name="show_search_box" id="show_search_box_1" value="1" <?php if ($row->show_search_box) echo 'checked="checked"'; ?> onchange="bwg_show_search_box(1)" /><label for="show_search_box_1">Yes</label>
+                  <input type="radio" name="show_search_box" id="show_search_box_0" value="0" <?php if (!$row->show_search_box) echo 'checked="checked"'; ?> onchange="bwg_show_search_box(0)" /><label for="show_search_box_0">No</label>
+                 <div class="spider_description"></div>
+                </td>
+              </tr>	
+              <tr id="tr_search_box_width">
+                <td class="spider_label_options">
+                  <label for="search_box_width">Search box width: </label>
+                </td>
+                <td>
+                  <input type="text" name="search_box_width" id="search_box_width" value="<?php echo $row->search_box_width; ?>" class="spider_int_input" /> px
+                  <div class="spider_description"></div>
+                </td>
+              </tr>	  
             </tbody>
           </table>
         </div>
@@ -548,19 +567,25 @@ class BWGViewOptions_bwg {
                 </td>
                 <td>
                   <input type="radio" name="popup_enable_ctrl_btn" id="popup_enable_ctrl_btn_1" value="1" <?php if ($row->popup_enable_ctrl_btn) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_info', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_comment', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_facebook', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_twitter', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_google', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_tumblr', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_email', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_captcha', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_download', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_1');" /><label for="popup_enable_ctrl_btn_1">Yes</label>
                   <input type="radio" name="popup_enable_ctrl_btn" id="popup_enable_ctrl_btn_0" value="0" <?php if (!$row->popup_enable_ctrl_btn) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_info', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_comment', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_facebook', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_twitter', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_google', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_tumblr', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_email', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_captcha', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_download', 'popup_enable_ctrl_btn_0');
@@ -575,6 +600,16 @@ class BWGViewOptions_bwg {
                 <td>
                   <input type="radio" name="popup_enable_fullscreen" id="popup_enable_fullscreen_1" value="1" <?php if ($row->popup_enable_fullscreen) echo 'checked="checked"'; ?> /><label for="popup_enable_fullscreen_1">Yes</label>
                   <input type="radio" name="popup_enable_fullscreen" id="popup_enable_fullscreen_0" value="0" <?php if (!$row->popup_enable_fullscreen) echo 'checked="checked"'; ?> /><label for="popup_enable_fullscreen_0">No</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr id="tr_popup_info">
+                <td class="spider_label_options">
+                  <label>Enable info:</label>
+                </td>
+                <td>
+                  <input type="radio" name="popup_enable_info" id="popup_enable_info_1" value="1" <?php if ($row->popup_enable_info) echo 'checked="checked"'; ?> /><label for="popup_enable_info_1">Yes</label>
+                  <input type="radio" name="popup_enable_info" id="popup_enable_info_0" value="0" <?php if (!$row->popup_enable_info) echo 'checked="checked"'; ?> /><label for="popup_enable_info_0">No</label>
                   <div class="spider_description"></div>
                 </td>
               </tr>
@@ -657,6 +692,26 @@ class BWGViewOptions_bwg {
                 <td>
                   <input disabled="disabled" type="radio" name="popup_enable_google" id="popup_enable_google_1" value="1" <?php if ($row->popup_enable_google) echo 'checked="checked"'; ?> /><label for="popup_enable_google_1">Yes</label>
                   <input disabled="disabled" type="radio" name="popup_enable_google" id="popup_enable_google_0" value="0" <?php if (!$row->popup_enable_google) echo 'checked="checked"'; ?> /><label for="popup_enable_google_0">No</label>
+                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                </td>
+              </tr>
+              <tr id="tr_popup_pinterest">
+                <td class="spider_label_options spider_free_version_label">
+                  <label>Enable Pinterest button:</label>
+                </td>
+                <td>
+                  <input disabled="disabled" type="radio" name="popup_enable_pinterest" id="popup_enable_pinterest_1" value="1" <?php if ($row->popup_enable_pinterest) echo 'checked="checked"'; ?> /><label for="popup_enable_pinterest_1">Yes</label>
+                  <input disabled="disabled" type="radio" name="popup_enable_pinterest" id="popup_enable_pinterest_0" value="0" <?php if (!$row->popup_enable_pinterest) echo 'checked="checked"'; ?> /><label for="popup_enable_pinterest_0">No</label>
+                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                </td>
+              </tr>
+              <tr id="tr_popup_tumblr">
+                <td class="spider_label_options spider_free_version_label">
+                  <label>Enable Tumblr button:</label>
+                </td>
+                <td>
+                  <input disabled="disabled" type="radio" name="popup_enable_tumblr" id="popup_enable_tumblr_1" value="1" <?php if ($row->popup_enable_tumblr) echo 'checked="checked"'; ?> /><label for="popup_enable_tumblr_1">Yes</label>
+                  <input disabled="disabled" type="radio" name="popup_enable_tumblr" id="popup_enable_tumblr_0" value="0" <?php if (!$row->popup_enable_tumblr) echo 'checked="checked"'; ?> /><label for="popup_enable_tumblr_0">No</label>
                   <div class="spider_description spider_free_version">This option is disabled in free version.</div>
                 </td>
               </tr>
@@ -1106,7 +1161,9 @@ class BWGViewOptions_bwg {
         window.onload = bwg_watermark('watermark_type_<?php echo $row->watermark_type ?>');
         window.onload = bwg_built_in_watermark('watermark_type_<?php echo $row->built_in_watermark_type ?>');
         window.onload = bwg_popup_fullscreen(<?php echo $row->popup_fullscreen; ?>);
+        window.onload = bwg_show_search_box(<?php echo $row->show_search_box; ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_0'" ?>);
+        window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_info', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_info', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_download', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_download', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_comment', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_comment', 'popup_enable_ctrl_btn_0'" ?>);
@@ -1115,6 +1172,8 @@ class BWGViewOptions_bwg {
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_facebook', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_facebook', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_twitter', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_twitter', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_google', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_google', 'popup_enable_ctrl_btn_0'" ?>);
+        window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_0'" ?>);
+        window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_thumblr', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_thumblr', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_filmstrip ? "'', 'tr_popup_filmstrip_height', 'popup_enable_filmstrip_1'" : "'none', 'tr_popup_filmstrip_height', 'popup_enable_filmstrip_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->slideshow_enable_filmstrip ? "'', 'tr_slideshow_filmstrip_height', 'slideshow_enable_filmstrip_yes'" : "'none', 'tr_slideshow_filmstrip_height', 'slideshow_enable_filmstrip_no'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->slideshow_enable_title ? "'', 'tr_slideshow_title_position', 'slideshow_enable_title_yes'" : "'none', 'tr_slideshow_title_position', 'slideshow_enable_title_no'" ?>);

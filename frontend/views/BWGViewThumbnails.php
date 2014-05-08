@@ -40,6 +40,15 @@ class BWGViewThumbnails {
     if (!isset($params['order_by'])) {
       $params['order_by'] = ' asc ';
     }
+    if (!isset($params['show_search_box'])) {
+      $params['show_search_box'] = 0;
+    }
+    if (!isset($params['search_box_width'])) {
+      $params['search_box_width'] = 180;
+    }
+    if (!isset($params['popup_enable_info'])) {
+      $params['popup_enable_info'] = 1;
+    }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $sort_direction = ' ' . $params['order_by'] . ' ';
     if ($from) {
@@ -67,6 +76,7 @@ class BWGViewThumbnails {
       $params['popup_filmstrip_height'] = $options_row->popup_filmstrip_height;
       $params['popup_enable_ctrl_btn'] = $options_row->popup_enable_ctrl_btn;
       $params['popup_enable_fullscreen'] = $options_row->popup_enable_fullscreen;
+      $params['popup_enable_info'] = $options_row->popup_enable_info;
       $params['popup_interval'] = $options_row->popup_interval;
       $params['popup_enable_comment'] = $options_row->popup_enable_comment;
       $params['popup_enable_facebook'] = $options_row->popup_enable_facebook;
@@ -101,6 +111,7 @@ class BWGViewThumbnails {
       return;
     }
     $image_rows = $this->model->get_image_rows_data($params['gallery_id'], $params['images_per_page'], $params['sort_by'], $bwg, $type, $sort_direction);
+	$images_count = count($image_rows); 
     if (!$image_rows) {
       echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
     }
@@ -277,25 +288,32 @@ class BWGViewThumbnails {
         background-color: #<?php echo $theme_row->lightbox_overlay_bg_color; ?>;
         opacity: <?php echo $theme_row->lightbox_overlay_bg_transparent / 100; ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_overlay_bg_transparent; ?>);
-      }
+      }      
     </style>
-
     <div id="bwg_container1_<?php echo $bwg; ?>">
       <div id="bwg_container2_<?php echo $bwg; ?>">
         <form id="gal_front_form_<?php echo $bwg; ?>" method="post" action="#">
-          <div style="background-color:rgba(0, 0, 0, 0); text-align: <?php echo $theme_row->thumb_align; ?>; width:100%;">
+          <?php
+          if ($params['show_search_box']) {
+            WDWLibrary::ajax_html_frontend_search_box('gal_front_form_' . $bwg, $bwg, 'bwg_standart_thumbnails_' . $bwg, $images_count, $params['search_box_width']);
+          }
+          ?>
+          <div style="background-color:rgba(0, 0, 0, 0); text-align: <?php echo $theme_row->thumb_align; ?>; width:100%; position: relative;">
+            <div id="ajax_loading_<?php echo $bwg; ?>" style="position:absolute;width: 100%; z-index: 115; text-align: center; height: 100%; vertical-align: middle; display:none;">
+              <div style="display: table; vertical-align: middle; width: 100%; height: 100%; background-color: #FFFFFF; opacity: 0.7; filter: Alpha(opacity=70);">
+                <div style="display: table-cell; text-align: center; position: relative; vertical-align: middle;" >
+                  <div id="loading_div_<?php echo $bwg; ?>" style="display: inline-block; text-align:center; position:relative; vertical-align: middle;">
+                    <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="float: none; width:50px;">
+                  </div>
+                </div>
+              </div>
+            </div>
             <?php
             if ($params['image_enable_page']  && $params['images_per_page'] && ($theme_row->page_nav_position == 'top')) {
               WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $params['images_per_page'], $bwg, 'bwg_standart_thumbnails_' . $bwg);
             }
             ?>
             <div id="bwg_standart_thumbnails_<?php echo $bwg; ?>" class="bwg_standart_thumbnails_<?php echo $bwg; ?>">
-              <div id="ajax_loading_<?php echo $bwg; ?>" style="position:absolute;">
-                <div id="opacity_div_<?php echo $bwg; ?>" style="display:none; background-color:#FFFFFF; opacity:0.7; filter:Alpha(opacity=70); position:absolute; z-index:105;"></div>
-                <span id="loading_div_<?php echo $bwg; ?>" style="display:none; text-align:center; position:relative; vertical-align:middle; z-index:107">
-                  <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="float: none; width:50px;">
-                </span>
-              </div>
               <?php
               foreach ($image_rows as $image_row) {
                 $params_array = array(
@@ -318,6 +336,7 @@ class BWGViewThumbnails {
                   'image_filmstrip_height' => $params['popup_filmstrip_height'],
                   'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
                   'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
+                  'popup_enable_info' => $params['popup_enable_info'],
                   'slideshow_interval' => $params['popup_interval'],
                   'enable_comment_social' => $params['popup_enable_comment'],
                   'enable_image_facebook' => $params['popup_enable_facebook'],

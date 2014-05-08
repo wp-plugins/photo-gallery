@@ -63,6 +63,15 @@ function bwg_popup_fullscreen() {
   }
 }
 
+function bwg_show_search_box() { 
+  if (jQuery("#show_search_box_1").is(':checked')) {
+    jQuery("#tr_search_box_width").css('display', '');
+  }
+  else {
+    jQuery("#tr_search_box_width").css('display', 'none');
+  }
+}
+
 function bwg_change_compuct_album_view_type() {
   if (jQuery("input[name=compuct_album_view_type]:checked").val() == 'thumbnail') {
     jQuery("#compuct_album_image_thumb_dimensions").html('Image thumbnail dimensions: ');
@@ -102,6 +111,8 @@ function bwg_gallery_type(gallery_type) {
   jQuery("#tr_gallery").css('display', 'none');
   jQuery("#tr_sort_by").css('display', 'none');
   jQuery("#tr_order_by").css('display', 'none');
+  jQuery("#tr_show_search_box").css('display', 'none');
+  jQuery("#tr_search_box_width").css('display', 'none');
   jQuery("#tr_album").css('display', 'none');
 
   // Thumbnails, Masonry.
@@ -175,10 +186,13 @@ function bwg_gallery_type(gallery_type) {
   jQuery("#tr_popup_filmstrip_height").css('display', 'none');
   jQuery("#tr_popup_enable_ctrl_btn").css('display', 'none');
   jQuery("#tr_popup_enable_fullscreen").css('display', 'none');
+  jQuery("#tr_popup_enable_info").css('display', 'none');
   jQuery("#tr_popup_enable_comment").css('display', 'none');
   jQuery("#tr_popup_enable_facebook").css('display', 'none');
   jQuery("#tr_popup_enable_twitter").css('display', 'none');
   jQuery("#tr_popup_enable_google").css('display', 'none');
+  jQuery("#tr_popup_enable_pinterest").css('display', 'none');
+  jQuery("#tr_popup_enable_tumblr").css('display', 'none');
 
   // Watermark.
   jQuery("#tr_watermark_type").css('display', '');
@@ -196,6 +210,7 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_gallery").css('display', '');
       jQuery("#tr_sort_by").css('display', '');
       jQuery("#tr_order_by").css('display', '');
+      jQuery("#tr_show_search_box").css('display', '');
       bwg_change_label('image_column_number_label', 'Max. number of image columns: ');
       bwg_change_label('thumb_width_height_label', 'Image thumbnail dimensions: ');
       jQuery('#thumb_width').show();
@@ -206,6 +221,7 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_image_title_hover").css('display', '');
       jQuery("#tr_image_enable_page").css('display', '');
       jQuery("#tr_thumb_width_height").css('display', '');
+      bwg_show_search_box();
       jQuery("#bwg_pro_version").html('Thumbnails');
       jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/thumbnails-view-2/");
       break;
@@ -215,6 +231,7 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_gallery").css('display', '');
       jQuery("#tr_sort_by").css('display', '');
       jQuery("#tr_order_by").css('display', '');
+      jQuery("#tr_show_search_box").css('display', '');
       if (jQuery("input[name=masonry_hor_ver]:checked").val() == 'horizontal') {
         bwg_change_label('image_column_number_label', 'Number of image rows: ');
         bwg_change_label('thumb_width_height_label', 'Image thumbnail height: ');
@@ -227,11 +244,13 @@ function bwg_gallery_type(gallery_type) {
         jQuery('#thumb_width').show();
         jQuery('#thumb_height').hide();
       }
+      jQuery("#tr_masonry_hor_ver").css('display', '');
       jQuery('#thumb_width_height_separator').hide();
       jQuery("#tr_image_column_number").css('display', '');
       jQuery("#tr_images_per_page").css('display', '');
       jQuery("#tr_image_enable_page").css('display', '');
       jQuery("#tr_thumb_width_height").css('display', '');
+      bwg_show_search_box();
       break;
 
     }
@@ -283,9 +302,11 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_gallery").css('display', '');
       jQuery("#tr_sort_by").css('display', '');
       jQuery("#tr_order_by").css('display', '');
+      jQuery("#tr_show_search_box").css('display', '');
       jQuery("#tr_image_browser_width_height").css('display', '');
       jQuery("#tr_image_browser_title_enable").css('display', '');
       jQuery("#tr_image_browser_description_enable").css('display', '');
+      bwg_show_search_box();
       jQuery("#bwg_pro_version").html('Image Browser');
       jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/image-browser-view/");
       break;
@@ -293,6 +314,7 @@ function bwg_gallery_type(gallery_type) {
     }
     case 'album_compact_preview': {
       jQuery("#tr_album").css('display', '');
+      jQuery("#tr_show_search_box").css('display', '');
       jQuery("#tr_compuct_album_column_number").css('display', '');
       jQuery("#tr_compuct_albums_per_page").css('display', '');
       jQuery("#tr_compuct_album_title_hover").css('display', '');
@@ -305,6 +327,7 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_compuct_album_image_thumb_width_height").css('display', '');
       jQuery("#tr_compuct_album_enable_page").css('display', '');
       bwg_change_compuct_album_view_type();
+      bwg_show_search_box();
       jQuery("#bwg_pro_version").html('Compact Album');
       jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/compact-album-view/");
       break;
@@ -312,6 +335,7 @@ function bwg_gallery_type(gallery_type) {
     }
     case 'album_extended_preview': {
       jQuery("#tr_album").css('display', '');
+      jQuery("#tr_show_search_box").css('display', '');
       jQuery("#tr_extended_albums_per_page").css('display', '');
       jQuery("#tr_extended_album_height").css('display', '');
       jQuery("#tr_extended_album_description_enable").css('display', '');
@@ -323,6 +347,7 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_extended_album_image_thumb_width_height").css('display', '');
       jQuery("#tr_extended_album_enable_page").css('display', '');
       bwg_change_extended_album_view_type();
+      bwg_show_search_box();
       jQuery("#bwg_pro_version").html('Extended Album');
       jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/extended-album-view/");
       break;
@@ -332,10 +357,12 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#tr_gallery").css('display', '');
       jQuery("#tr_sort_by").css('display', '');
       jQuery("#tr_order_by").css('display', '');
+      jQuery("#tr_show_search_box").css('display', '');
       jQuery("#tr_blog_style_width_height").css('display', '');
       jQuery("#tr_blog_style_title_enable").css('display', '');
       jQuery("#tr_blog_style_images_per_page").css('display', '');
       jQuery("#tr_blog_style_enable_page").css('display', '');
+      bwg_show_search_box();
       break;
     }
   }
@@ -359,10 +386,13 @@ function bwg_gallery_type(gallery_type) {
       bwg_enable_disable('none', 'tbody_popup_ctrl_btn', 'popup_ctrl_btn_no');
     }
     jQuery("#tr_popup_enable_fullscreen").css('display', '');
+    jQuery("#tr_popup_enable_info").css('display', '');
     jQuery("#tr_popup_enable_comment").css('display', '');
     jQuery("#tr_popup_enable_facebook").css('display', '');
     jQuery("#tr_popup_enable_twitter").css('display', '');
     jQuery("#tr_popup_enable_google").css('display', '');
+    jQuery("#tr_popup_enable_pinterest").css('display', '');
+    jQuery("#tr_popup_enable_tumblr").css('display', '');
     bwg_popup_fullscreen();
   }
 }

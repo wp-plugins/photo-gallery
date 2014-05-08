@@ -55,6 +55,14 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `lightbox_description_font_weight` varchar(128) NOT NULL DEFAULT 'normal' AFTER `image_browser_full_transparent`");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `lightbox_description_font_size` int(4) NOT NULL DEFAULT 14 AFTER `image_browser_full_transparent`");
   }
+  if (version_compare($version, '1.1.15') == -1) {
+    // Add search box option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_search_box` tinyint(1) NOT NULL DEFAULT 0 AFTER `album_view_type`");
+    // Add search box width option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `search_box_width` int(4) NOT NULL DEFAULT 180 AFTER `show_search_box`");
+    // Add info enable/disable option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `popup_enable_info` tinyint(1) NOT NULL DEFAULT 1 AFTER `search_box_width`");
+  }
   return;
 }
 

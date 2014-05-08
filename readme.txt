@@ -4,7 +4,7 @@ Donate link: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: photo, photo gallery, image gallery, video gallery, gallery, galleries,  wordpress gallery plugin, images gallery, album, photo albums, Simple gallery, best gallery plugin, free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, photogallery, widget gallery, image, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, Fotogalerie, Galleria, galerie, galeri 
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag: 1.1.14
+Stable tag: 1.1.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,8 +160,65 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 == Changelog ==
 
-1.0.1
-Initial version.
+= 1.1.15 =
+*  added search images in gallery (optional), optional info, resize.
+
+= 1.1.14 =
+*  added option for show image title/description on lightbox.
+
+= 1.1.13 =
+*  added tag cloud ordering option, keep aspect ratio.
+
+= 1.1.12 =
+*  youtube, vimeo.
+
+= 1.1.11 =
+*  added tag cloud options and zip upload.
+
+= 1.1.10 =
+*  bug fixed on WP 3.9 editor.
+
+= 1.1.9 =
+*  gallery alignment bug fixed.
+
+= 1.1.8 =
+*  corrected album ordering and added slideshow widget filmstrip height option.
+
+= 1.1.7 =
+*  added swipe effect on lightbox.
+
+= 1.1.6 =
+*  added option disable/enable right click.
+
+= 1.1.5 =
+*  bug fixed in slideshow .
+
+= 1.1.4 =
+*  removed enters from code (conflicts fixed).
+
+= 1.1.2 =
+*  critical bug with uninstall fixed.
+
+= 1.0.8 =
+*  improved file upload and save on gallery.
+
+= 1.0.6 =
+*  improved filemanager functionality, fix bug on widget.
+
+= 1.0.5 =
+*  bug fixed in file manager. 
+
+= 1.0.4 =
+*  added shortcode generator, thumbnail title, thumb size in filemanager, bug  fixed in slideshow. 
+
+= 1.0.3 =
+*  bug fixed in album view .
+
+= 1.0.2 =
+*  php 5.2 capability.
+
+= 1.0.1 =
+*  Initial version.
 
   
 ==Wordpress Photo Gallery Step by step guide==    

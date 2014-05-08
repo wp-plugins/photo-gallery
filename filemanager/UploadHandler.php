@@ -9,7 +9,14 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
-
+if (function_exists('current_user_can')) {
+    if (!current_user_can('manage_options')) {
+      die('Access Denied');
+    }
+  }
+  else {
+    die('Access Denied');
+  }
 $upload_handler = new UploadHandler(array(
     'upload_dir' => $_GET['dir'],
     'accept_file_types' => '/\.(gif|jpe?g|png|bmp|mp4|flv|webm|ogg|mp3|wav|pdf|zip)$/i'

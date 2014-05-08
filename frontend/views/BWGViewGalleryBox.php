@@ -42,6 +42,7 @@ class BWGViewGalleryBox {
     $order_by = (isset($_GET['order_by']) ? esc_html($_GET['order_by']) : 'asc');
     $enable_image_filmstrip = FALSE;
     $enable_image_fullscreen = (isset($_GET['enable_image_fullscreen']) ? esc_html($_GET['enable_image_fullscreen']) : 0);
+    $popup_enable_info = (isset($_GET['popup_enable_info']) ? esc_html($_GET['popup_enable_info']) : 0);
 
     if ($enable_image_filmstrip) {
       $image_filmstrip_height = (isset($_GET['image_filmstrip_height']) ? esc_html($_GET['image_filmstrip_height']) : '20');
@@ -104,6 +105,7 @@ class BWGViewGalleryBox {
       'image_filmstrip_height' => $image_filmstrip_height,
       'enable_image_ctrl_btn' => $enable_image_ctrl_btn,
       'enable_image_fullscreen' => $enable_image_fullscreen,
+      'popup_enable_info' => $popup_enable_info,
       'slideshow_interval' => $slideshow_interval,
       'enable_comment_social' => $enable_comment_social,
       'enable_image_facebook' => $enable_image_facebook,
@@ -695,9 +697,9 @@ class BWGViewGalleryBox {
           }
           ?>
           <i title="<?php echo __('Fullscreen', 'bwg'); ?>" class="bwg_ctrl_btn bwg_fullscreen fa fa-fullscreen"></i>
-          <?php } ?>
+          <?php } if ($popup_enable_info) { ?>
           <i title="<?php echo __('Show info', 'bwg'); ?>" class="bwg_ctrl_btn bwg_info fa fa-info"></i>
-          <?php
+          <?php }
           if ($option_row->popup_enable_fullsize_image) {
             ?>
             <a id="bwg_fullsize_image" href="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url; ?>" target="_blank">
@@ -1175,11 +1177,6 @@ class BWGViewGalleryBox {
       function bwg_blindH(current_image_class, next_image_class, direction) {
         bwg_grid(10, 1, 0, 0, 0, .7, 0, current_image_class, next_image_class);
       }
-      /*jQuery(document).ready(function () {
-        jQuery('meta[name="bwg_image"]').attr("content", "");
-        jQuery('meta[name="bwg_description"]').attr("content", "");
-        jQuery('meta[name="bwg_title"]').attr("content", "");
-      });*/
       function bwg_change_image(current_key, key, data, from_effect) {
         /* Pause videos.*/
         jQuery("#bwg_image_container").find("iframe").each(function () {
@@ -1225,9 +1222,9 @@ class BWGViewGalleryBox {
           bwg_current_key = key;
           /* Change image id, title, description.*/
           jQuery("#bwg_popup_image").attr('image_id', data[key]["id"]);
-          if (jQuery(".bwg_image_info_container1").css("display") != 'none' && (data[key]["alt"] || data[key]["description"])) {
-            jQuery(".bwg_image_title").html(jQuery('<div />').html(data[key]["alt"]).text());
-            jQuery(".bwg_image_description").html(jQuery('<div />').html(data[key]["description"]).text());
+          jQuery(".bwg_image_title").html(jQuery('<div />').html(data[key]["alt"]).text());
+          jQuery(".bwg_image_description").html(jQuery('<div />').html(data[key]["description"]).text());
+          if (jQuery(".bwg_image_info_container1").css("display") != 'none') {
             jQuery(".bwg_image_info_container1").css("display", "table-cell");
           }
           else {

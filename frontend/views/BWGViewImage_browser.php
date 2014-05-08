@@ -34,6 +34,15 @@ class BWGViewImage_browser {
     else {
       $order_by = $params['order_by'];
     }
+    if (!isset($params['show_search_box'])) {
+      $params['show_search_box'] = 0;
+    }
+    if (!isset($params['search_box_width'])) {
+      $params['search_box_width'] = 180;
+    }
+    if (!isset($params['popup_enable_info'])) {
+      $params['popup_enable_info'] = 1;
+    }
     if (!$theme_row) {
       echo WDWLibrary::message(__('There is no theme selected or the theme was deleted.', 'bwg'), 'error');
       return;
@@ -44,6 +53,7 @@ class BWGViewImage_browser {
       return;
     }
     $image_rows = $this->model->get_image_rows_data($params['gallery_id'], 1, $params['sort_by'], $order_by, $bwg);
+    $images_count = count($image_rows); 
     if (!$image_rows) {
       echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
     }
@@ -77,6 +87,7 @@ class BWGViewImage_browser {
       'image_filmstrip_height' => $params['popup_filmstrip_height'],
       'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
       'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
+      'popup_enable_info' => $params['popup_enable_info'],
       'slideshow_interval' => $params['popup_interval'],
       'enable_comment_social' => $params['popup_enable_comment'],
       'enable_image_facebook' => $params['popup_enable_facebook'],
@@ -133,6 +144,7 @@ class BWGViewImage_browser {
 				border-color: #<?php echo $theme_row->image_browser_full_border_color;?>;
 				padding: <?php echo $theme_row->image_browser_full_padding; ?>;
 				border-radius: <?php echo $theme_row->image_browser_full_border_radius; ?>;
+				position:relative;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .image_browser_images_<?php echo $bwg; ?> {
 				display: inline-block;
@@ -386,14 +398,22 @@ class BWGViewImage_browser {
     <div id="bwg_container1_<?php echo $bwg; ?>">
       <div id="bwg_container2_<?php echo $bwg; ?>">
         <form id="gal_front_form_<?php echo $bwg; ?>" method="post" action="#">
+          <?php
+          if ($params['show_search_box']) {
+            WDWLibrary::ajax_html_frontend_search_box('gal_front_form_' . $bwg, $bwg, 'bwg_standart_thumbnails_' . $bwg, $images_count, $params['search_box_width']);
+          }
+          ?>
           <div class="image_browser_images_conteiner_<?php echo $bwg; ?>">
-            <div class="image_browser_images_<?php echo $bwg; ?>" id="bwg_standart_thumbnails_<?php echo $bwg; ?>" >
-              <div id="ajax_loading_<?php echo $bwg; ?>" style="position:absolute;">
-                <div id="opacity_div_<?php echo $bwg; ?>" style="display:none; background-color: rgba(255, 255, 255, 0.7); position:absolute; z-index:105;"></div>
-                <span id="loading_div_<?php echo $bwg; ?>" style="display:none; text-align:center; position:relative; vertical-align:middle; z-index:107">
-                  <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="float: none; width:50px;">
-                </span>
+            <div id="ajax_loading_<?php echo $bwg; ?>" style="position:absolute;width: 100%; z-index: 115; text-align: center; height: 100%; vertical-align: middle; display:none;">
+              <div style="display: table; vertical-align: middle; width: 100%; height: 100%; background-color: #FFFFFF; opacity: 0.7; filter: Alpha(opacity=70);">
+                <div style="display: table-cell; text-align: center; position: relative; vertical-align: middle;" >
+                  <div id="loading_div_<?php echo $bwg; ?>" style="display: inline-block; text-align:center; position: relative; vertical-align: middle;">
+                    <img src="<?php echo WD_BWG_URL . '/images/ajax_loader.png'; ?>" class="spider_ajax_loading" style="float: none; width:50px;">
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="image_browser_images_<?php echo $bwg; ?>" id="bwg_standart_thumbnails_<?php echo $bwg; ?>" >
               <?php
               if ( $theme_row->page_nav_position == 'top') {
                 WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg,1, $bwg, 'bwg_standart_thumbnails_' . $bwg);

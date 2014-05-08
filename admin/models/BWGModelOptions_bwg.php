@@ -89,6 +89,8 @@ class BWGModelOptions_bwg {
       $row->popup_enable_facebook = 1;
       $row->popup_enable_twitter = 1;
       $row->popup_enable_google = 1;
+      $row->popup_enable_pinterest = 0;
+      $row->popup_enable_tumblr = 0;
 
       $row->watermark_type = 'none';
       $row->watermark_position = 'bottom-left';
@@ -119,6 +121,9 @@ class BWGModelOptions_bwg {
       $row->image_role = 0;
       $row->popup_autoplay = 0;
       $row->album_view_type = 'thumbnail';
+      $row->show_search_box = 0;
+      $row->search_box_width = 180;
+      $row->popup_enable_info = 1;
     }
     return $row;
   }

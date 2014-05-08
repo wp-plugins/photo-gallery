@@ -205,7 +205,18 @@ class BWGViewBWGShortcode {
                       <input type="radio" name="order_by" id="order_by_0" value="desc" /><label for="order_by_0">Descending</label>
                     </td>
                   </tr>
-
+                  <tr id="tr_show_search_box">
+                    <td class="spider_label"><label>Show search box: </label></td>
+                    <td>
+                      <input type="radio" name="show_search_box" id="show_search_box_1" value="1" <?php if ($option_row->show_search_box) echo 'checked="checked"'; ?> onchange="bwg_show_search_box()" /><label for="show_search_box_1">Yes</label>
+                      <input type="radio" name="show_search_box" id="show_search_box_0" value="0" <?php if (!$option_row->show_search_box) echo 'checked="checked"'; ?> onchange="bwg_show_search_box()" /><label for="show_search_box_0">No</label>
+                    </td>
+                  </tr>
+                  <tr id="tr_search_box_width">
+                    <td class="spider_label"><label for="search_box_width">Search box width: </label></td>
+                    <td><input type="text" name="search_box_width" id="search_box_width" value="<?php echo $option_row->search_box_width; ?>" class="spider_int_input" /> px</td>
+                  </tr>
+				  
                   <!--Thumbnails, Masonry viewies-->
                   <tr id="tr_masonry_hor_ver">
                     <td class="spider_label"><label>Masonry: </label></td>
@@ -640,6 +651,13 @@ class BWGViewBWGShortcode {
                       <input type="radio" name="popup_enable_fullscreen" id="popup_fullscreen_no" value="0" <?php echo ($option_row->popup_enable_fullscreen) ? '' : 'checked'; ?> /><label for="popup_fullscreen_no">No</label>
                     </td>
                   </tr>
+                  <tr id="tr_popup_enable_info">
+                    <td title="Enable title, description for images" class="spider_label"><label>Enable info: </label></td>
+                    <td>
+                      <input type="radio" name="popup_enable_info" id="popup_info_yes" value="1" <?php echo ($option_row->popup_enable_info) ? 'checked="checked"' : ''; ?> /><label for="popup_info_yes">Yes</label>
+                      <input type="radio" name="popup_enable_info" id="popup_info_no" value="0" <?php echo ($option_row->popup_enable_info) ? '' : 'checked="checked"'; ?> /><label for="popup_info_no">No</label>
+                    </td>
+                  </tr>
                   <tr id="tr_popup_enable_comment">
                     <td title="Enable comments for images<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Enable comments: </label></td>
                     <td>
@@ -666,6 +684,20 @@ class BWGViewBWGShortcode {
                     <td>
                       <input disabled="disabled" type="radio" name="popup_enable_google" id="popup_google_yes" value="1" <?php echo ($option_row->popup_enable_google) ? 'checked' : ''; ?> /><label for="popup_google_yes">Yes</label>
                       <input disabled="disabled" type="radio" name="popup_enable_google" id="popup_google_no" value="0" <?php echo ($option_row->popup_enable_google) ? '' : 'checked'; ?> /><label for="popup_google_no">No</label>
+                    </td>
+                  </tr>
+                  <tr id="tr_popup_enable_pinterest">
+                    <td title="Enable Pinterest share button for images<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Enable Pinterest button: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="popup_enable_pinterest" id="popup_pinterest_yes" value="1" <?php echo ($option_row->popup_enable_pinterest) ? 'checked' : ''; ?> /><label for="popup_pinterest_yes">Yes</label>
+                      <input disabled="disabled" type="radio" name="popup_enable_pinterest" id="popup_pinterest_no" value="0" <?php echo ($option_row->popup_enable_pinterest) ? '' : 'checked'; ?> /><label for="popup_pinterest_no">No</label>
+                    </td>
+                  </tr>
+                  <tr id="tr_popup_enable_tumblr">
+                    <td title="Enable Tumblr share button for images<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Enable Tumblr button: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="popup_enable_tumblr" id="popup_tumblr_yes" value="1" <?php echo ($option_row->popup_enable_tumblr) ? 'checked' : ''; ?> /><label for="popup_tumblr_yes">Yes</label>
+                      <input disabled="disabled" type="radio" name="popup_enable_tumblr" id="popup_tumblr_no" value="0" <?php echo ($option_row->popup_enable_tumblr) ? '' : 'checked'; ?> /><label for="popup_tumblr_no">No</label>
                     </td>
                   </tr>
                 </tbody>
@@ -834,6 +866,17 @@ class BWGViewBWGShortcode {
                   else {
                     jQuery("#order_by_0").attr('checked', 'checked');
                   }
+                  if (short_code['show_search_box'] == 1) {
+                    jQuery("#show_search_box_1").attr('checked', 'checked');
+                    jQuery("#tr_search_box_width").css('display', '');
+                  }
+                  else {
+                    jQuery("#show_search_box_0").attr('checked', 'checked');
+                    jQuery("#tr_search_box_width").css('display', 'none');
+                  }
+                  if (short_code['search_box_width']) {
+                    jQuery("#search_box_width").val(short_code['search_box_width']);
+                  }
                   jQuery("#image_column_number").val(short_code['image_column_number']);
                   jQuery("#images_per_page").val(short_code['images_per_page']);
                   jQuery("#image_title_" + short_code['image_title']).attr('checked', 'checked');
@@ -923,6 +966,17 @@ class BWGViewBWGShortcode {
                   else {
                     jQuery("#order_by_0").attr('checked', 'checked');
                   }
+                  if (short_code['show_search_box'] == 1) {
+                    jQuery("#show_search_box_1").attr('checked', 'checked');
+                    jQuery("#tr_search_box_width").css('display', '');
+                  }
+                  else {
+                    jQuery("#show_search_box_0").attr('checked', 'checked');
+                    jQuery("#tr_search_box_width").css('display', 'none');
+                  }
+                  if (short_code['search_box_width']) {
+                    jQuery("#search_box_width").val(short_code['search_box_width']);
+                  }
                   jQuery("#image_browser_width").val(short_code['image_browser_width']);
                   if (short_code['image_browser_title_enable'] == 1) {
                     jQuery("#image_browser_title_yes").attr('checked', 'checked');
@@ -942,6 +996,17 @@ class BWGViewBWGShortcode {
                 case 'album_compact_preview': {
                   jQuery("select[id=album] option[value='" + short_code['album_id'] + "']").attr('selected', 'selected');
                   jQuery("select[id=sort_by] option[value='" + short_code['sort_by'] + "']").attr('selected', 'selected');
+                  if (short_code['show_search_box'] == 1) {
+                    jQuery("#show_search_box_1").attr('checked', 'checked');
+                    jQuery("#tr_search_box_width").css('display', '');
+                  }
+                  else {
+                    jQuery("#show_search_box_0").attr('checked', 'checked');
+                    jQuery("#tr_search_box_width").css('display', 'none');
+                  }
+                  if (short_code['search_box_width']) {
+                    jQuery("#search_box_width").val(short_code['search_box_width']);
+                  }
                   jQuery("#compuct_album_column_number").val(short_code['compuct_album_column_number']);
                   jQuery("#compuct_albums_per_page").val(short_code['compuct_albums_per_page']);
                   jQuery("#compuct_album_title_" + short_code['compuct_album_title']).attr('checked', 'checked');
@@ -970,6 +1035,17 @@ class BWGViewBWGShortcode {
                 case 'album_extended_preview': {
                   jQuery("select[id=album] option[value='" + short_code['album_id'] + "']").attr('selected', 'selected');
                   jQuery("select[id=sort_by] option[value='" + short_code['sort_by'] + "']").attr('selected', 'selected');
+                  if (short_code['show_search_box'] == 1) {
+                    jQuery("#show_search_box_1").attr('checked', 'checked');
+                    jQuery("#tr_search_box_width").css('display', '');
+                  }
+                  else {
+                    jQuery("#show_search_box_0").attr('checked', 'checked');
+                    jQuery("#tr_search_box_width").css('display', 'none');
+                  }
+                  if (short_code['search_box_width']) {
+                    jQuery("#search_box_width").val(short_code['search_box_width']);
+                  }
                   jQuery("#extended_albums_per_page").val(short_code['extended_albums_per_page']);
                   jQuery("#extended_album_height").val(short_code['extended_album_height']);
                   if (short_code['extended_album_description_enable'] == 1) {
@@ -1038,6 +1114,12 @@ class BWGViewBWGShortcode {
                   else {
                     jQuery("#popup_fullscreen_no").attr('checked', 'checked');
                   }
+                  if (short_code['popup_enable_info'] == 1 || !short_code['popup_enable_info']) {
+                    jQuery("#popup_info_yes").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#popup_info_no").attr('checked', 'checked');
+                  }
                   if (short_code['popup_enable_comment'] == 1) {
                     jQuery("#popup_comment_yes").attr('checked', 'checked');
                   }
@@ -1061,6 +1143,18 @@ class BWGViewBWGShortcode {
                   }
                   else {
                     jQuery("#popup_google_no").attr('checked', 'checked');
+                  }
+                  if (short_code['popup_enable_pinterest'] == 1) {
+                    jQuery("#popup_pinterest_yes").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#popup_pinterest_no").attr('checked', 'checked');
+                  }
+                  if (short_code['popup_enable_tumblr'] == 1) {
+                    jQuery("#popup_tumblr_yes").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#popup_tumblr_no").attr('checked', 'checked');
                   }
                 }
                 else {
@@ -1133,6 +1227,8 @@ class BWGViewBWGShortcode {
                 tagtext += ' gallery_id="' + jQuery("#gallery").val() + '"';
                 tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
                 tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
+                tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
+                tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' image_column_number="' + jQuery("#image_column_number").val() + '"';
                 tagtext += ' images_per_page="' + jQuery("#images_per_page").val() + '"';
                 tagtext += ' image_title="' + jQuery("input[name=image_title]:checked").val() + '"';
@@ -1168,6 +1264,8 @@ class BWGViewBWGShortcode {
                 tagtext += ' gallery_id="' + jQuery("#gallery").val() + '"';
                 tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
                 tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
+                tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
+                tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' image_browser_width="' + jQuery("#image_browser_width").val() + '"';
                 tagtext += ' image_browser_title_enable="' + jQuery("input[name=image_browser_title_enable]:checked").val() + '"';
                 tagtext += ' image_browser_description_enable="' + jQuery("input[name=image_browser_description_enable]:checked").val() + '"';
@@ -1178,6 +1276,8 @@ class BWGViewBWGShortcode {
                 tagtext += ' album_id="' + jQuery("#album").val() + '"';
                 tagtext += ' sort_by="order"';
                 tagtext += ' order_by="asc"';
+                tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
+                tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' compuct_album_column_number="' + jQuery("#compuct_album_column_number").val() + '"';
                 tagtext += ' compuct_albums_per_page="' + jQuery("#compuct_albums_per_page").val() + '"';
                 tagtext += ' compuct_album_title="' + jQuery("input[name=compuct_album_title]:checked").val() + '"';
@@ -1197,6 +1297,8 @@ class BWGViewBWGShortcode {
                 tagtext += ' album_id="' + jQuery("#album").val() + '"';
                 tagtext += ' sort_by="order"';
                 tagtext += ' order_by="asc"';
+                tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
+                tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' extended_albums_per_page="' + jQuery("#extended_albums_per_page").val() + '"';
                 tagtext += ' extended_album_height="' + jQuery("#extended_album_height").val() + '"';
                 tagtext += ' extended_album_description_enable="' + jQuery("input[name=extended_album_description_enable]:checked").val() + '"';
@@ -1225,10 +1327,13 @@ class BWGViewBWGShortcode {
               tagtext += ' popup_filmstrip_height="' + jQuery("#popup_filmstrip_height").val() + '"';
               tagtext += ' popup_enable_ctrl_btn="' + jQuery("input[name=popup_enable_ctrl_btn]:checked").val() + '"';
               tagtext += ' popup_enable_fullscreen="' + jQuery("input[name=popup_enable_fullscreen]:checked").val() + '"';
+              tagtext += ' popup_enable_info="' + jQuery("input[name=popup_enable_info]:checked").val() + '"';
               tagtext += ' popup_enable_comment="' + jQuery("input[name=popup_enable_comment]:checked").val() + '"';
               tagtext += ' popup_enable_facebook="' + jQuery("input[name=popup_enable_facebook]:checked").val() + '"';
               tagtext += ' popup_enable_twitter="' + jQuery("input[name=popup_enable_twitter]:checked").val() + '"';
               tagtext += ' popup_enable_google="' + jQuery("input[name=popup_enable_google]:checked").val() + '"';
+              tagtext += ' popup_enable_pinterest="' + jQuery("input[name=popup_enable_pinterest]:checked").val() + '"';
+              tagtext += ' popup_enable_tumblr="' + jQuery("input[name=popup_enable_tumblr]:checked").val() + '"';
             }
             // Watermark parameters.
             tagtext += ' watermark_type="' + jQuery("input[name=watermark_type]:checked").val() + '"';

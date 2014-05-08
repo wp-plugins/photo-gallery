@@ -471,7 +471,7 @@ class WDWLibrary {
           default:
             document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
         }
-        spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $id; ?>', '<?php echo $album_gallery_id; ?>', '', '<?php echo $type; ?>');
+        spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $id; ?>', '<?php echo $album_gallery_id; ?>', '', '<?php echo $type; ?>', 0);
       }
     </script>
     <div class="tablenav-pages_<?php echo $current_view; ?>">
@@ -526,6 +526,94 @@ class WDWLibrary {
       }
       ?>
       <input type="hidden" id="page_number_<?php echo $current_view; ?>" name="page_number_<?php echo $current_view; ?>" value="<?php echo ((isset($_POST['page_number_' . $current_view])) ? (int) $_POST['page_number_' . $current_view] : 1); ?>" />
+    </div>
+    <?php
+  }
+
+  public static function ajax_html_frontend_search_box($form_id, $current_view, $cur_gal_id, $images_count, $search_box_width) {
+    $bwg_search = ((isset($_POST['bwg_search_' . $current_view]) && esc_html($_POST['bwg_search_' . $current_view]) != '') ? esc_html($_POST['bwg_search_' . $current_view]) : '');	
+    $type = (isset($_POST['type_' . $current_view]) ? esc_html($_POST['type_' . $current_view]) : 'album');
+    $album_gallery_id = (isset($_POST['album_gallery_id_' . $current_view]) ? esc_html($_POST['album_gallery_id_' . $current_view]) : 0);
+    ?>
+    <style>
+      .bwg_search_container_1 {
+        display: inline-block;
+        width: 100%;
+        text-align: right;
+        margin: 0 5px 20px 5px;
+        background-color: rgba(0,0,0,0);
+      }
+      .bwg_search_container_2 {
+        display: inline-block;
+        position: relative;
+        border-radius: 4px;
+        box-shadow: 0 0 3px 1px #CCCCCC;
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        width: <?php echo $search_box_width; ?>px;
+        max-width: 100%;
+      }
+      #bwg_search_container_1_<?php echo $current_view; ?> #bwg_search_container_2_<?php echo $current_view; ?> .bwg_search_input_container {
+        display: block;
+        margin-right: 45px;
+      }
+      #bwg_search_container_1_<?php echo $current_view; ?> #bwg_search_container_2_<?php echo $current_view; ?> .bwg_search_loupe_container {
+        display: inline-block; 
+        margin-right: 1px;
+        vertical-align: middle;
+        float: right;
+        padding-top: 3px;
+      }
+      #bwg_search_container_1_<?php echo $current_view; ?> #bwg_search_container_2_<?php echo $current_view; ?> .bwg_search_reset_container {
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle;
+        float: right;
+        padding-top: 3px;
+      }
+      #bwg_search_container_1_<?php echo $current_view; ?> #bwg_search_container_2_<?php echo $current_view; ?> .bwg_search,
+      #bwg_search_container_1_<?php echo $current_view; ?> #bwg_search_container_2_<?php echo $current_view; ?> .bwg_reset {
+        font-size: 18px;
+        color: #CCCCCC;
+        cursor: pointer;
+      }
+      #bwg_search_container_1_<?php echo $current_view; ?> #bwg_search_container_2_<?php echo $current_view; ?> .bwg_search_input_<?php echo $current_view; ?>,
+      #bwg_search_container_1_<?php echo $current_view; ?> #bwg_search_container_2_<?php echo $current_view; ?> .bwg_search_input_<?php echo $current_view; ?>:focus {
+        color: hsl(0, 1%, 3%);
+        outline: none;
+        border: none;
+        box-shadow: none;
+        background: none;
+        padding: 0 5px;
+        font-family: inherit;
+        width: 100%;
+      }
+    </style>
+    <script type="text/javascript">
+      function clear_input_<?php echo $current_view; ?> (current_view) {
+        jQuery("#bwg_search_input_" + current_view).val('');
+      }
+      function check_enter_key(e) {
+        var key_code = e.which || e.keyCode;
+        if (key_code == 13) {
+          return false;
+        }
+        return true;
+      } 
+    </script>
+    <div class="bwg_search_container_1" id="bwg_search_container_1_<?php echo $current_view; ?>">
+      <div class="bwg_search_container_2" id="bwg_search_container_2_<?php echo $current_view; ?>">
+        <span class="bwg_search_reset_container" >
+          <i title="<?php echo __('Reset', 'bwg'); ?>" class="bwg_reset fa fa-times" onclick="clear_input_<?php echo $current_view; ?>('<?php echo $current_view; ?>'),spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $cur_gal_id; ?>', <?php echo $album_gallery_id; ?>, '', '<?php echo $type; ?>', 1)"></i>
+        </span>
+        <span class="bwg_search_loupe_container" >
+          <i title="<?php echo __('Search', 'bwg'); ?>" class="bwg_search fa fa-search" onclick="spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $cur_gal_id; ?>', <?php echo $album_gallery_id; ?>, '', '<?php echo $type; ?>', 1)"></i>
+        </span>
+        <span class="bwg_search_input_container">
+          <input id="bwg_search_input_<?php echo $current_view; ?>" class="bwg_search_input_<?php echo $current_view; ?>" type="text" onkeypress="return check_enter_key(event)" name="bwg_search_<?php echo $current_view; ?>" value="<?php echo $bwg_search; ?>" >
+          <input id="bwg_images_count_<?php echo $current_view; ?>" class="bwg_search_input" type="hidden" name="bwg_images_count_<?php echo $current_view; ?>" value="<?php echo $images_count; ?>" >
+        </span>
+      </div>
     </div>
     <?php
   }

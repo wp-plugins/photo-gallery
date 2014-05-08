@@ -467,7 +467,6 @@
   border-radius: 2px;
   border: 1px solid #FFFFFF;
   height: 30px;
-  
 }
 
 .spider_search_value {
@@ -480,7 +479,8 @@
   display: none;
 }
 
-.bwg_add_video {
+.bwg_add_video,
+.bwg_resize_image {
   display: none;
   padding: 10px;
   height: 60px;
@@ -492,12 +492,23 @@
   text-align: left;
   z-index: 100000;
   border-radius: 3px;
-  margin-left: -340px;
   margin-top: -45px;
+}
+
+.bwg_add_video {
+  margin-left: -340px;
+}
+
+.bwg_resize_image {
+  margin-left: -200px;
 }
 
 #add_video input[type="text"] {
   width: 500px;
+}
+
+.bwg_resize_image input[type="text"] {
+  width: 60px;
 }
 
 .bwg_opacity_video {

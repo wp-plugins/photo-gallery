@@ -56,6 +56,13 @@ class BWGModelAlbum_extended_preview {
 
   public function get_image_rows_data($id, $images_per_page, $sort_by, $bwg) {
     global $wpdb;
+    $bwg_search = ((isset($_POST['bwg_search_' . $bwg]) && esc_html($_POST['bwg_search_' . $bwg]) != '') ? esc_html($_POST['bwg_search_' . $bwg]) : '');
+    if ($bwg_search != '') {
+      $where = 'AND alt LIKE "%%' . $bwg_search . '%%"';
+    }
+    else {
+      $where = '';
+    }
     if (isset($_POST['page_number_' . $bwg]) && $_POST['page_number_' . $bwg]) {
       $limit = ((int) $_POST['page_number_' . $bwg] - 1) * $images_per_page;
     }
@@ -68,13 +75,20 @@ class BWGModelAlbum_extended_preview {
     else {
       $limit_str = '';
     }
-    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY `' . $sort_by . '` ASC ' . $limit_str, $id));
+    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 ' . $where . ' AND gallery_id="%d" ORDER BY `' . $sort_by . '` ASC ' . $limit_str, $id));
     return $row;
   }
 
   public function gallery_page_nav($id, $images_per_page, $bwg) {
     global $wpdb;
-    $total = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d"', $id));
+    $bwg_search = ((isset($_POST['bwg_search_' . $bwg]) && esc_html($_POST['bwg_search_' . $bwg]) != '') ? esc_html($_POST['bwg_search_' . $bwg]) : '');
+    if ($bwg_search != '') {
+      $where = 'AND alt LIKE "%%' . $bwg_search . '%%"';
+    }
+    else {
+      $where = '';
+    }
+    $total = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 ' . $where . ' AND gallery_id="%d"', $id));
     $page_nav['total'] = $total;
     if (isset($_POST['page_number_' . $bwg]) && $_POST['page_number_' . $bwg]) {
       $limit = ((int) $_POST['page_number_' . $bwg] - 1) * $images_per_page;

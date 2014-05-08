@@ -138,6 +138,8 @@ class BWGControllerOptions_bwg {
     $popup_enable_facebook = (isset($_POST['popup_enable_facebook']) ? esc_html(stripslashes($_POST['popup_enable_facebook'])) : 1);
     $popup_enable_twitter = (isset($_POST['popup_enable_twitter']) ? esc_html(stripslashes($_POST['popup_enable_twitter'])) : 1);
     $popup_enable_google = (isset($_POST['popup_enable_google']) ? esc_html(stripslashes($_POST['popup_enable_google'])) : 1);
+    $popup_enable_pinterest = (isset($_POST['popup_enable_pinterest']) ? esc_html(stripslashes($_POST['popup_enable_pinterest'])) : 0);
+    $popup_enable_tumblr = (isset($_POST['popup_enable_tumblr']) ? esc_html(stripslashes($_POST['popup_enable_tumblr'])) : 0);
     $watermark_type = (isset($_POST['watermark_type']) ? esc_html(stripslashes($_POST['watermark_type'])) : 'none');
     $watermark_position = (isset($_POST['watermark_position']) ? esc_html(stripslashes($_POST['watermark_position'])) : 'bottom-right');
     $watermark_width = (isset($_POST['watermark_width']) ? esc_html(stripslashes($_POST['watermark_width'])) : 600);
@@ -165,6 +167,9 @@ class BWGControllerOptions_bwg {
     $image_role = (isset($_POST['image_role']) ? esc_html(stripslashes($_POST['image_role'])) : 0);
     $popup_autoplay = (isset($_POST['popup_autoplay']) ? esc_html(stripslashes($_POST['popup_autoplay'])) : 0);
     $album_view_type = (isset($_POST['album_view_type']) ? esc_html(stripslashes($_POST['album_view_type'])) : 'thumbnail');
+    $show_search_box = (isset($_POST['show_search_box']) ? esc_html(stripslashes($_POST['show_search_box'])) : 0);
+    $search_box_width = (isset($_POST['search_box_width']) ? esc_html(stripslashes($_POST['search_box_width'])) : 180);
+    $popup_enable_info = (isset($_POST['popup_enable_info']) ? esc_html(stripslashes($_POST['popup_enable_info'])) : 1);
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -223,6 +228,8 @@ class BWGControllerOptions_bwg {
       'popup_enable_facebook' => $popup_enable_facebook,
       'popup_enable_twitter' => $popup_enable_twitter,
       'popup_enable_google' => $popup_enable_google,
+      'popup_enable_pinterest' => $popup_enable_pinterest,
+      'popup_enable_tumblr' => $popup_enable_tumblr,
       'watermark_type' => $watermark_type,
       'watermark_position' => $watermark_position,
       'watermark_width' => $watermark_width,
@@ -250,6 +257,9 @@ class BWGControllerOptions_bwg {
       'image_role' => $image_role,
       'popup_autoplay' => $popup_autoplay,
       'album_view_type' => $album_view_type,
+      'show_search_box' => $show_search_box,
+      'search_box_width' => $search_box_width,
+      'popup_enable_info' => $popup_enable_info,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      
