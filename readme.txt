@@ -61,7 +61,8 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   WordPress Tag cloud hosted widget  
 *   Photo Gallery Slideshow widget  
 *   Photo Gallery Widget for displaying albums and galleries as widgets
-*   Separate shortcode generator page for the websites using custom pages/custom editors.   
+*   Separate shortcode generator page for the websites using custom pages/custom editors.     
+*   Support for YouTube and Vimeo videos within Galleries.    
 
 Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
 
@@ -71,8 +72,10 @@ Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpres
 *   Editable themes.   
 *   Commenting possibility with Captcha protection possibility.   
 *   Comment-managing possibility to avoid spamming (Unpublish/Delete).    
-*   Social sharing possibility (Facebook, Google+, Twitter).    
+*   Social sharing possibility (Facebook, Google+, Twitter, Pinterest and Tumblr)    
 *   Dynamic Photo Gallery Tag Cloud widget  with image tag cloud and text tag cloud options.   
+
+
 
 
 ### Supported languages 
