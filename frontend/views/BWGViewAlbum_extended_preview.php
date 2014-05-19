@@ -604,6 +604,7 @@ class BWGViewAlbum_extended_preview {
                     'image_filmstrip_height' => $params['popup_filmstrip_height'],
                     'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
                     'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
+                    'popup_enable_info' => $params['popup_enable_info'],
                     'slideshow_interval' => $params['popup_interval'],
                     'enable_comment_social' => $params['popup_enable_comment'],
                     'enable_image_facebook' => $params['popup_enable_facebook'],

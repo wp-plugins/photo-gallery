@@ -73,7 +73,7 @@ class BWGControllerThemes_bwg {
   public function save() {
     $message = $this->save_db();
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
 
   public function apply() {
@@ -83,7 +83,7 @@ class BWGControllerThemes_bwg {
     $current_id = WDWLibrary::get('current_id', $id);
     $page = WDWLibrary::get('page');
     $current_type = WDWLibrary::get('current_type', 'Thumbnail');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'edit', 'current_id' => $current_id, 'message' => $message, 'current_type' => $current_type), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'edit', 'current_id' => $current_id, 'message' => $message, 'current_type' => $current_type), admin_url('admin.php')));
   }  
   
   public function save_db() {
@@ -1506,7 +1506,7 @@ class BWGControllerThemes_bwg {
       }
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
   
   public function delete_all() {
@@ -1534,7 +1534,7 @@ class BWGControllerThemes_bwg {
       $message = 6;
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
 
   public function setdefault($id) {
@@ -1548,7 +1548,7 @@ class BWGControllerThemes_bwg {
       $message = 2;
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////

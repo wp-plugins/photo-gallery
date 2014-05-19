@@ -62,7 +62,7 @@ class BWGControllerAlbums_bwg {
   public function save() {
     $message = $this->save_db();
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
 
   public function apply() {
@@ -71,7 +71,7 @@ class BWGControllerAlbums_bwg {
     $id = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_album');
     $current_id = WDWLibrary::get('current_id', $id);
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'edit', 'current_id' => $current_id, 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'edit', 'current_id' => $current_id, 'message' => $message), admin_url('admin.php')));
   }
 
   // Return random image from gallery or album for album preview.
@@ -222,7 +222,7 @@ class BWGControllerAlbums_bwg {
       $message = 2;
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
   
   public function delete_all() {
@@ -245,7 +245,7 @@ class BWGControllerAlbums_bwg {
       $message = 2;
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
 
   public function publish($id) {
@@ -258,7 +258,7 @@ class BWGControllerAlbums_bwg {
       $message = 2;
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
   
   public function publish_all() {
@@ -284,7 +284,7 @@ class BWGControllerAlbums_bwg {
       $message = 6;
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
 
   public function unpublish($id) {
@@ -297,7 +297,7 @@ class BWGControllerAlbums_bwg {
       $message = 2;
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
   
   public function unpublish_all() {
@@ -323,7 +323,7 @@ class BWGControllerAlbums_bwg {
       $message = 6;
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
   
   public function save_order($flag = TRUE) {
@@ -349,7 +349,7 @@ class BWGControllerAlbums_bwg {
       }
     }
     $page = WDWLibrary::get('page');
-    wp_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
