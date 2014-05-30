@@ -63,6 +63,45 @@ function bwg_popup_fullscreen() {
   }
 }
 
+function bwg_thumb_click_action() {
+  if (!jQuery("#thumb_click_action_2").is(':checked')) {
+    jQuery("#tr_thumb_link_target").css('display', 'none');
+    jQuery("#tbody_popup").css('display', '');
+    jQuery("#tr_popup_width_height").css('display', '');
+    jQuery("#tr_popup_effect").css('display', '');
+    jQuery("#tr_popup_interval").css('display', '');
+    jQuery("#tr_popup_enable_filmstrip").css('display', '');
+    if (jQuery("input[name=popup_enable_filmstrip]:checked").val() == 1) {
+      bwg_enable_disable('', 'tr_popup_filmstrip_height', 'popup_filmstrip_yes');
+    }
+    else {
+      bwg_enable_disable('none', 'tr_popup_filmstrip_height', 'popup_filmstrip_no');
+    }
+    jQuery("#tr_popup_enable_ctrl_btn").css('display', '');
+    if (jQuery("input[name=popup_enable_ctrl_btn]:checked").val() == 1) {
+      bwg_enable_disable('', 'tbody_popup_ctrl_btn', 'popup_ctrl_btn_yes');
+    }
+    else {
+      bwg_enable_disable('none', 'tbody_popup_ctrl_btn', 'popup_ctrl_btn_no');
+    }
+    jQuery("#tr_popup_enable_fullscreen").css('display', '');
+    jQuery("#tr_popup_enable_info").css('display', '');
+    jQuery("#tr_popup_enable_rate").css('display', '');
+    jQuery("#tr_popup_enable_comment").css('display', '');
+    jQuery("#tr_popup_enable_facebook").css('display', '');
+    jQuery("#tr_popup_enable_twitter").css('display', '');
+    jQuery("#tr_popup_enable_google").css('display', '');
+    jQuery("#tr_popup_enable_pinterest").css('display', '');
+    jQuery("#tr_popup_enable_tumblr").css('display', '');
+    bwg_popup_fullscreen();
+  }
+  else {
+    jQuery("#tr_thumb_link_target").css('display', '');
+    jQuery("#tbody_popup").css('display', 'none');
+    jQuery("#tbody_popup_ctrl_btn").css('display', 'none');
+  }
+}
+
 function bwg_show_search_box() { 
   if (jQuery("#show_search_box_1").is(':checked')) {
     jQuery("#tr_search_box_width").css('display', '');
@@ -178,6 +217,7 @@ function bwg_gallery_type(gallery_type) {
   jQuery("#tr_slideshow_music_url").css('display', 'none');
 
   // Popup.
+  jQuery("#tbody_popup_other").css('display', 'none');
   jQuery("#tbody_popup").css('display', 'none');
   jQuery("#tr_popup_width_height").css('display', 'none');
   jQuery("#tr_popup_effect").css('display', 'none');
@@ -187,6 +227,7 @@ function bwg_gallery_type(gallery_type) {
   jQuery("#tr_popup_enable_ctrl_btn").css('display', 'none');
   jQuery("#tr_popup_enable_fullscreen").css('display', 'none');
   jQuery("#tr_popup_enable_info").css('display', 'none');
+  jQuery("#tr_popup_enable_rate").css('display', 'none');
   jQuery("#tr_popup_enable_comment").css('display', 'none');
   jQuery("#tr_popup_enable_facebook").css('display', 'none');
   jQuery("#tr_popup_enable_twitter").css('display', 'none');
@@ -367,6 +408,7 @@ function bwg_gallery_type(gallery_type) {
     }
   }
   if (gallery_type != 'slideshow') {
+    jQuery("#tbody_popup_other").css('display', '');
     jQuery("#tbody_popup").css('display', '');
     jQuery("#tr_popup_width_height").css('display', '');
     jQuery("#tr_popup_effect").css('display', '');
@@ -387,6 +429,7 @@ function bwg_gallery_type(gallery_type) {
     }
     jQuery("#tr_popup_enable_fullscreen").css('display', '');
     jQuery("#tr_popup_enable_info").css('display', '');
+    jQuery("#tr_popup_enable_rate").css('display', '');
     jQuery("#tr_popup_enable_comment").css('display', '');
     jQuery("#tr_popup_enable_facebook").css('display', '');
     jQuery("#tr_popup_enable_twitter").css('display', '');
@@ -394,6 +437,7 @@ function bwg_gallery_type(gallery_type) {
     jQuery("#tr_popup_enable_pinterest").css('display', '');
     jQuery("#tr_popup_enable_tumblr").css('display', '');
     bwg_popup_fullscreen();
+    bwg_thumb_click_action();
   }
 }
 

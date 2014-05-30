@@ -44,12 +44,12 @@ class BWGModelGalleryBox {
   public function get_image_rows_data($gallery_id, $sort_by, $order_by = 'asc') {
     global $wpdb;
     if ($sort_by == 'size' || $sort_by == 'resolution') {
-      $sort_by = ' CAST(' . $sort_by . ' AS SIGNED) ';
+      $sort_by = ' CAST(t1.' . $sort_by . ' AS SIGNED) ';
     }
     elseif (($sort_by != 'alt') && ($sort_by != 'date') && ($sort_by != 'filetype')) {
-      $sort_by = '`order`';
+      $sort_by = 't1.`order`';
     }
-    $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY ' . $sort_by . ' ' . $order_by, $gallery_id));
+    $row = $wpdb->get_results($wpdb->prepare('SELECT t1.*,t2.rate FROM ' . $wpdb->prefix . 'bwg_image as t1 LEFT JOIN (SELECT rate, image_id FROM ' . $wpdb->prefix . 'bwg_image_rate WHERE ip="%s") as t2 ON t1.id=t2.image_id WHERE t1.published=1 AND t1.gallery_id="%d" ORDER BY ' . $sort_by . ' ' . $order_by, $_SERVER['REMOTE_ADDR'], $gallery_id));
     return $row;
   }
 
@@ -61,7 +61,7 @@ class BWGModelGalleryBox {
     elseif (($sort_by != 'alt') && ($sort_by != 'date') && ($sort_by != 'filetype')) {
       $sort_by = '`order`';
     }
-    $row = $wpdb->get_results($wpdb->prepare('SELECT image.* FROM ' . $wpdb->prefix . 'bwg_image as image INNER JOIN ' . $wpdb->prefix . 'bwg_image_tag as tag ON image.id=tag.image_id WHERE image.published=1 AND tag.tag_id="%d" ORDER BY ' . $sort_by . ' ' . $order_by, $tag_id));
+    $row = $wpdb->get_results($wpdb->prepare('SELECT t1.*,t2.rate FROM (SELECT image.* FROM ' . $wpdb->prefix . 'bwg_image as image INNER JOIN ' . $wpdb->prefix . 'bwg_image_tag as tag ON image.id=tag.image_id WHERE image.published=1 AND tag.tag_id="%d" ORDER BY ' . $sort_by . ' ' . $order_by . ') as t1 LEFT JOIN (SELECT rate, image_id FROM ' . $wpdb->prefix . 'bwg_image_rate WHERE ip="%s") as t2 ON t1.id=t2.image_id ', $tag_id, $_SERVER['REMOTE_ADDR']));
     return $row;
   }
 

@@ -781,7 +781,7 @@ class BWGViewSlideshow {
       var bwg_transition_duration_<?php echo $bwg; ?> = <?php echo (($slideshow_interval < 4) && ($slideshow_interval != 0)) ? ($slideshow_interval * 1000) / 4 : 800; ?>;
       var bwg_playInterval_<?php echo $bwg; ?>;
       /* Stop autoplay.*/
-      clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
+      window.clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
       /* Set watermark container size.*/
       function bwg_change_watermark_container_<?php echo $bwg; ?>() {
         jQuery(".bwg_slider_<?php echo $bwg; ?>").children().each(function() {
@@ -1171,7 +1171,6 @@ class BWGViewSlideshow {
         });
         if (data_<?php echo $bwg; ?>[key]) {
           if (jQuery('.bwg_ctrl_btn_<?php echo $bwg; ?>').hasClass('fa-pause')) {
-            clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
             play_<?php echo $bwg; ?>();
           }
           if (!from_effect) {
@@ -1383,7 +1382,7 @@ class BWGViewSlideshow {
           }
           else {
             /* Pause.*/
-            clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
+            window.clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
             jQuery(".bwg_slideshow_play_pause_<?php echo $bwg; ?>").attr("title", "<?php echo __('Play', 'bwg'); ?>");
             jQuery(".bwg_slideshow_play_pause_<?php echo $bwg; ?>").attr("class", "bwg_ctrl_btn_<?php echo $bwg; ?> bwg_slideshow_play_pause_<?php echo $bwg; ?> fa fa-play");
             if (<?php echo $enable_slideshow_music ?>) {
@@ -1401,6 +1400,7 @@ class BWGViewSlideshow {
         }
       });
       function play_<?php echo $bwg; ?>() {
+        window.clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
         /* Play.*/
         bwg_playInterval_<?php echo $bwg; ?> = setInterval(function () {
           var iterator = 1;
@@ -1413,7 +1413,6 @@ class BWGViewSlideshow {
       jQuery(window).focus(function() {
         /* event_stack_<?php echo $bwg; ?> = [];*/
         if (!jQuery(".bwg_ctrl_btn_<?php echo $bwg; ?>").hasClass("fa-play")) {
-          clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
           play_<?php echo $bwg; ?>();
         }
         var i_<?php echo $bwg; ?> = 0;
@@ -1426,7 +1425,7 @@ class BWGViewSlideshow {
       });
       jQuery(window).blur(function() {
         event_stack_<?php echo $bwg; ?> = [];
-        clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
+        window.clearInterval(bwg_playInterval_<?php echo $bwg; ?>);
       });
     </script>
     <?php

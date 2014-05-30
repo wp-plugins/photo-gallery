@@ -55,6 +55,7 @@ class BWGViewUninstall_bwg {
                   <li><?php echo $prefix; ?>bwg_gallery</li>
                   <li><?php echo $prefix; ?>bwg_image</li>
                   <li><?php echo $prefix; ?>bwg_image_comment</li>
+                  <li><?php echo $prefix; ?>bwg_image_rate</li>
                   <li><?php echo $prefix; ?>bwg_image_tag</li>
                   <li><?php echo $prefix; ?>bwg_option</li>
                   <li><?php echo $prefix; ?>bwg_theme</li>
@@ -134,6 +135,7 @@ class BWGViewUninstall_bwg {
       <p><?php echo $prefix; ?>bwg_gallery,</p>
       <p><?php echo $prefix; ?>bwg_image,</p>
       <p><?php echo $prefix; ?>bwg_image_comment,</p>
+      <p><?php echo $prefix; ?>bwg_image_rate,</p>
       <p><?php echo $prefix; ?>bwg_image_tag,</p>
       <p><?php echo $prefix; ?>bwg_option,</p>
       <p><?php echo $prefix; ?>bwg_theme.</p>

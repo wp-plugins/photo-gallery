@@ -70,6 +70,7 @@ class BWGControllerGalleryBox {
       $name = (isset($_POST['bwg_name']) ? esc_html(stripslashes($_POST['bwg_name'])) : '');
       $bwg_comment = (isset($_POST['bwg_comment']) ? esc_html(stripslashes($_POST['bwg_comment'])) : '');
       $bwg_email = (isset($_POST['bwg_email']) ? esc_html(stripslashes($_POST['bwg_email'])) : '');
+      $published = (current_user_can('manage_options') || !$option_row->comment_moderation) ? 1 : 0;
       $save = $wpdb->insert($wpdb->prefix . 'bwg_image_comment', array(
         'image_id' => $image_id,
         'name' => $name,
@@ -77,7 +78,7 @@ class BWGControllerGalleryBox {
         'comment' => $bwg_comment,
         'url' => '',
         'mail' => $bwg_email,
-        'published' => 1,
+        'published' => $published,
       ), array(
         '%d',
         '%s',
@@ -90,6 +91,34 @@ class BWGControllerGalleryBox {
       $wpdb->query($wpdb->prepare('UPDATE ' . $wpdb->prefix . 'bwg_image SET comment_count=comment_count+1 WHERE id="%d"', $image_id));
     }
     $this->display();
+  }
+
+  public function save_rate() {
+    global $wpdb;
+    $image_id = (isset($_POST['image_id']) ? esc_html(stripslashes($_POST['image_id'])) : 0);
+    $rate = (isset($_POST['rate']) ? esc_html(stripslashes($_POST['rate'])) : '');
+    if (!$wpdb->get_var($wpdb->prepare('SELECT image_id FROM ' . $wpdb->prefix . 'bwg_image_rate WHERE ip="%s" AND image_id="%d"', $_SERVER['REMOTE_ADDR'], $image_id))) {
+      $wpdb->insert($wpdb->prefix . 'bwg_image_rate', array(
+        'image_id' => $image_id,
+        'rate' => $rate,
+        'ip' => $_SERVER['REMOTE_ADDR'],
+        'date' => date('Y-m-d H:i:s'),
+      ), array(
+        '%d',
+        '%f',
+        '%s',
+        '%s',
+      ));
+      $rates = $wpdb->get_row($wpdb->prepare('SELECT AVG(`rate`) as `average`, COUNT(`rate`) as `rate_count` FROM ' . $wpdb->prefix . 'bwg_image_rate WHERE image_id="%d"', $image_id));
+      $wpdb->update($wpdb->prefix . 'bwg_image', array('avg_rating' => $rates->average, 'rate_count' => $rates->rate_count), array('id' => $image_id));
+    }
+    $this->display();
+  }
+
+  public function save_hit_count() {
+    global $wpdb;
+    $image_id = (isset($_POST['image_id']) ? esc_html(stripslashes($_POST['image_id'])) : 0);
+    $wpdb->query($wpdb->prepare('UPDATE ' . $wpdb->prefix . 'bwg_image SET hit_count = hit_count + 1 WHERE id="%d"', $image_id));
   }
 
   public function delete() {

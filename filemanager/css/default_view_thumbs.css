@@ -8,11 +8,22 @@
   width: 100%;
 }
 
+#importer_body_wrapper {
+  position: absolute;
+  top: 40px;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  width: 100%;
+}
+
 #explorer_header_container {
   display: none;
 }
 
-#explorer_body_container {
+#explorer_body_container,
+#importer_body_container {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -23,7 +34,8 @@
 }
 
 
-.explorer_item {
+.explorer_item,
+.importer_item {
   display: table-row;
   float: left;
   width: 120px;
@@ -31,14 +43,16 @@
   text-align: center;
 }
 
-.explorer_item_hover {
+.explorer_item_hover,
+.importer_item_hover {
   outline-style: solid;
   outline-width: 1px;
   outline-color: #70c0e7;
   background-color: #e5f3fb;
 }
 
-.explorer_item_select {
+.explorer_item_select,
+.importer_item_select {
   outline-style: solid;
   outline-width: 1px;
   outline-color: #66a7e8;

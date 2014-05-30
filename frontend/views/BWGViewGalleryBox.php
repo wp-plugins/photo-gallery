@@ -42,7 +42,10 @@ class BWGViewGalleryBox {
     $order_by = (isset($_GET['order_by']) ? esc_html($_GET['order_by']) : 'asc');
     $enable_image_filmstrip = FALSE;
     $enable_image_fullscreen = (isset($_GET['enable_image_fullscreen']) ? esc_html($_GET['enable_image_fullscreen']) : 0);
-    $popup_enable_info = (isset($_GET['popup_enable_info']) ? esc_html($_GET['popup_enable_info']) : 0);
+    $popup_enable_info = (isset($_GET['popup_enable_info']) ? esc_html($_GET['popup_enable_info']) : 1);
+    $popup_info_always_show = (isset($_GET['popup_info_always_show']) ? esc_html($_GET['popup_info_always_show']) : 0);
+    $popup_enable_rate = (isset($_GET['popup_enable_rate']) ? esc_html($_GET['popup_enable_rate']) : 0);
+    $popup_hit_counter = (isset($_GET['popup_hit_counter']) ? esc_html($_GET['popup_hit_counter']) : 0);
 
     if ($enable_image_filmstrip) {
       $image_filmstrip_height = (isset($_GET['image_filmstrip_height']) ? esc_html($_GET['image_filmstrip_height']) : '20');
@@ -106,6 +109,9 @@ class BWGViewGalleryBox {
       'enable_image_ctrl_btn' => $enable_image_ctrl_btn,
       'enable_image_fullscreen' => $enable_image_fullscreen,
       'popup_enable_info' => $popup_enable_info,
+      'popup_info_always_show' => $popup_info_always_show,
+      'popup_hit_counter' => $popup_hit_counter,
+      'popup_enable_rate' => $popup_enable_rate,
       'slideshow_interval' => $slideshow_interval,
       'enable_comment_social' => $enable_comment_social,
       'enable_image_facebook' => $enable_image_facebook,
@@ -152,6 +158,8 @@ class BWGViewGalleryBox {
     }
     $filmstrip_thumb_margin_hor = $filmstrip_thumb_margin_right + $filmstrip_thumb_margin_left;
     $rgb_bwg_image_info_bg_color = WDWLibrary::spider_hex2rgb($theme_row->lightbox_info_bg_color);
+    $rgb_bwg_image_hit_bg_color = WDWLibrary::spider_hex2rgb($theme_row->lightbox_hit_bg_color);
+    $rgb_lightbox_ctrl_cont_bg_color = WDWLibrary::spider_hex2rgb($theme_row->lightbox_ctrl_cont_bg_color);
     ?>
     <style>
       .spider_popup_wrap * {
@@ -204,7 +212,8 @@ class BWGViewGalleryBox {
         top: 0;
       }
       .bwg_ctrl_btn_container {
-        background: none repeat scroll 0 0 #<?php echo $theme_row->lightbox_ctrl_cont_bg_color; ?>;
+        background-color: rgba(<?php echo $rgb_lightbox_ctrl_cont_bg_color['red']; ?>, <?php echo $rgb_lightbox_ctrl_cont_bg_color['green']; ?>, <?php echo $rgb_lightbox_ctrl_cont_bg_color['blue']; ?>, <?php echo $theme_row->lightbox_ctrl_cont_transparent / 100; ?>);
+        /*background: none repeat scroll 0 0 #<?php echo $theme_row->lightbox_ctrl_cont_bg_color; ?>;*/
         <?php
         if ($theme_row->lightbox_ctrl_btn_pos == 'top') {
           ?>
@@ -220,8 +229,8 @@ class BWGViewGalleryBox {
           <?php
         }?>
         height: <?php echo $theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top; ?>px;
-        opacity: <?php echo $theme_row->lightbox_ctrl_cont_transparent / 100; ?>;
-        filter: Alpha(opacity=<?php echo $theme_row->lightbox_ctrl_cont_transparent; ?>);
+        /*opacity: <?php echo $theme_row->lightbox_ctrl_cont_transparent / 100; ?>;
+        filter: Alpha(opacity=<?php echo $theme_row->lightbox_ctrl_cont_transparent; ?>);*/
         position: absolute;
         text-align: <?php echo $theme_row->lightbox_ctrl_btn_align; ?>;
         width: 100%;
@@ -273,7 +282,7 @@ class BWGViewGalleryBox {
       }
       .spider_popup_close_fullscreen {
         color: #<?php echo $theme_row->lightbox_close_btn_full_color; ?>;
-        font-size: 20px;
+        font-size: <?php echo $theme_row->lightbox_close_btn_size; ?>px;
         right: 15px;
       }
       .spider_popup_close span,
@@ -429,6 +438,9 @@ class BWGViewGalleryBox {
       .bwg_ctrl_btn_container a,
       .bwg_ctrl_btn_container a:hover {
         text-decoration: none;
+      }
+      .bwg_rate:hover {
+        color: #<?php echo $theme_row->lightbox_rate_color; ?>;
       }
       .bwg_facebook:hover {
         color: #3B5998;
@@ -623,18 +635,44 @@ class BWGViewGalleryBox {
         filter: Alpha(opacity=100);
         position: absolute;
       }
+      .bwg_image_info_container1 {
+        display: <?php echo $popup_info_always_show ? 'table-cell' : 'none'; ?>;
+      }
+      .bwg_image_hit_container1 {
+        display: <?php echo $popup_hit_counter ? 'table-cell' : 'none'; ?>;;
+      }
       .bwg_image_info_spun {
         text-align: <?php echo $theme_row->lightbox_info_align; ?>;
         vertical-align: <?php echo $theme_row->lightbox_info_pos; ?>;
+      }
+      .bwg_image_hit_spun {
+        text-align: <?php echo $theme_row->lightbox_hit_align; ?>;
+        vertical-align: <?php echo $theme_row->lightbox_hit_pos; ?>;
+      }
+      .bwg_image_hit {
+        background: rgba(<?php echo $rgb_bwg_image_hit_bg_color['red']; ?>, <?php echo $rgb_bwg_image_hit_bg_color['green']; ?>, <?php echo $rgb_bwg_image_hit_bg_color['blue']; ?>, <?php echo $theme_row->lightbox_hit_bg_transparent / 100; ?>);
+        border: <?php echo $theme_row->lightbox_hit_border_width; ?>px <?php echo $theme_row->lightbox_hit_border_style; ?> #<?php echo $theme_row->lightbox_hit_border_color; ?>;
+        border-radius: <?php echo $theme_row->lightbox_info_border_radius; ?>;
+        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_hit_pos == 'bottom') ? 'bottom: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
+        margin: <?php echo $theme_row->lightbox_hit_margin; ?>;
+        padding: <?php echo $theme_row->lightbox_hit_padding; ?>;
+        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'top') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_hit_pos == 'top') ? 'top: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
+      }
+      .bwg_image_hits,
+      .bwg_image_hits * {
+        color: #<?php echo $theme_row->lightbox_hit_color; ?> !important;
+        font-family: <?php echo $theme_row->lightbox_hit_font_style; ?>;
+        font-size: <?php echo $theme_row->lightbox_hit_font_size; ?>px;
+        font-weight: <?php echo $theme_row->lightbox_hit_font_weight; ?>;
       }
       .bwg_image_info {
         background: rgba(<?php echo $rgb_bwg_image_info_bg_color['red']; ?>, <?php echo $rgb_bwg_image_info_bg_color['green']; ?>, <?php echo $rgb_bwg_image_info_bg_color['blue']; ?>, <?php echo $theme_row->lightbox_info_bg_transparent / 100; ?>);
         border: <?php echo $theme_row->lightbox_info_border_width; ?>px <?php echo $theme_row->lightbox_info_border_style; ?> #<?php echo $theme_row->lightbox_info_border_color; ?>;
         border-radius: <?php echo $theme_row->lightbox_info_border_radius; ?>;
-        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'top') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') ? 'bottom: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
+        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') ? 'bottom: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
         margin: <?php echo $theme_row->lightbox_info_margin; ?>;
         padding: <?php echo $theme_row->lightbox_info_padding; ?>;
-        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') ? 'top: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
+        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'top') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') ? 'top: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
       }
       .bwg_image_title,
       .bwg_image_title * {
@@ -650,6 +688,38 @@ class BWGViewGalleryBox {
         font-size: <?php echo $theme_row->lightbox_description_font_size; ?>px;
         font-weight: <?php echo $theme_row->lightbox_description_font_weight; ?>;
       }
+      .bwg_image_rate_spun {
+        text-align: <?php echo $theme_row->lightbox_rate_align; ?>;
+        vertical-align: <?php echo $theme_row->lightbox_rate_pos; ?>;
+      }
+      .bwg_image_rate {
+        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_rate_pos == 'bottom') ? 'bottom: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
+        padding: <?php echo $theme_row->lightbox_rate_padding; ?>;
+        <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'top') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_rate_pos == 'top') ? 'top: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
+      }
+      #bwg_rate_form .bwg_hint,
+      #bwg_rate_form .fa-<?php echo $theme_row->lightbox_rate_icon; ?>,
+      #bwg_rate_form .fa-<?php echo $theme_row->lightbox_rate_icon; ?>-half-o,
+      #bwg_rate_form .fa-<?php echo $theme_row->lightbox_rate_icon; ?>-o,
+      #bwg_rate_form .fa-minus-square-o {
+        color: #<?php echo $theme_row->lightbox_rate_color; ?>;
+        font-size: <?php echo $theme_row->lightbox_rate_size; ?>px;
+      }
+      #bwg_rate_form .bwg_hint {
+        margin: 0 5px;
+        display: none;
+      }
+      .bwg_rate_hover {
+        color: #<?php echo $theme_row->lightbox_rate_hover_color; ?> !important;
+      }
+      .bwg_star {
+        display: inline-block;
+      }
+      .bwg_rated {
+        color: #<?php echo $theme_row->lightbox_rate_color; ?>;
+        display: none;
+        font-size: <?php echo $theme_row->lightbox_rate_size - 2; ?>px;
+      }
     </style>
     <script>
       var data = [];
@@ -657,10 +727,19 @@ class BWGViewGalleryBox {
       <?php
       $image_id_exist = FALSE;
       foreach ($image_rows as $key => $image_row) {
+        if ($image_row->id == $image_id) {
+          $current_avg_rating = $image_row->avg_rating;
+          $current_rate = $image_row->rate;
+          $current_rate_count = $image_row->rate_count;
+          $current_image_key = $key;
+        }
         if ($image_row->id == $current_image_id) {
           $current_image_alt = $image_row->alt;
+          $current_image_hit_count = $image_row->hit_count;
           $current_image_description = str_replace(array("\r\n", "\n", "\r"), esc_html('<br />'), $image_row->description);
           $current_image_url = $image_row->image_url;
+          $current_thumb_url = $image_row->thumb_url;
+          $current_filetype = $image_row->filetype;
           $image_id_exist = TRUE;
         }
         ?>
@@ -672,13 +751,18 @@ class BWGViewGalleryBox {
         data["<?php echo $key; ?>"]["thumb_url"] = "<?php echo $image_row->thumb_url; ?>";
         data["<?php echo $key; ?>"]["date"] = "<?php echo $image_row->date; ?>";
         data["<?php echo $key; ?>"]["comment_count"] = "<?php echo $image_row->comment_count; ?>";
+        data["<?php echo $key; ?>"]["filetype"] = "<?php echo $image_row->filetype; ?>";
+        data["<?php echo $key; ?>"]["avg_rating"] = "<?php echo $image_row->avg_rating; ?>";
+        data["<?php echo $key; ?>"]["rate"] = "<?php echo $image_row->rate; ?>";
+        data["<?php echo $key; ?>"]["rate_count"] = "<?php echo $image_row->rate_count; ?>";
+        data["<?php echo $key; ?>"]["hit_count"] = "<?php echo $image_row->hit_count; ?>";
         <?php
       }
       ?>
     </script>
     <?php
     if (!$image_id_exist) {
-      echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
+      echo WDWLibrary::message(__('The image has been deleted.', 'bwg'), 'error');
       die();
     }
     ?>
@@ -703,14 +787,14 @@ class BWGViewGalleryBox {
           if ($option_row->popup_enable_fullsize_image) {
             ?>
             <a id="bwg_fullsize_image" href="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url; ?>" target="_blank">
-              <i class="bwg_ctrl_btn fa fa-external-link"></i>
+              <i title="<?php echo __('Open image in original size.', 'bwg'); ?>" class="bwg_ctrl_btn fa fa-external-link"></i>
             </a>
             <?php
           }
           if ($option_row->popup_enable_download) {
             ?>
             <a id="bwg_download" href="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url; ?>" target="_blank" download="<?php echo $current_image_url; ?>">
-              <i class="bwg_ctrl_btn fa fa-download"></i>
+              <i title="<?php echo __('Download original image', 'bwg'); ?>" class="bwg_ctrl_btn fa fa-download"></i>
             </a>
             <?php
           }
@@ -753,7 +837,7 @@ class BWGViewGalleryBox {
       }
       ?>
       <div id="bwg_image_container" class="bwg_image_container">
-        <div class="bwg_image_info_container1" >
+        <div class="bwg_image_info_container1">
           <div class="bwg_image_info_container2">
             <span class="bwg_image_info_spun">
               <div class="bwg_image_info">
@@ -809,7 +893,7 @@ class BWGViewGalleryBox {
                       if (!$is_video) {
                       ?>
                       <img id="bwg_popup_image_second" class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
-                    <?php 
+                      <?php 
                       }
                       else { ?>
                         <span id="bwg_popup_image_second" class="bwg_popup_video">
@@ -828,11 +912,11 @@ class BWGViewGalleryBox {
             </div>
           </div>
         </div>
-        <a id="spider_popup_left" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data); return false;"><span id="spider_popup_left-ico"><span><i class="bwg_prev_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-left"></i></span></span></a>
-        <a id="spider_popup_right" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data); return false;"><span id="spider_popup_right-ico"><span><i class="bwg_next_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-right"></i></span></span></a>
+        <a id="spider_popup_left" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data); return false;" ontouchend="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data); return false;"><span id="spider_popup_left-ico"><span><i class="bwg_prev_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-left"></i></span></span></a>
+        <a id="spider_popup_right" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data); return false;" ontouchend="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data); return false;"><span id="spider_popup_right-ico"><span><i class="bwg_next_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-right"></i></span></span></a>
       </div>
     </div>
-    <a class="spider_popup_close" onclick="spider_destroypopup(1000); return false;"><span><i class="bwg_close_btn fa fa-times"></i></span></a>
+    <a class="spider_popup_close" onclick="spider_destroypopup(1000); return false;" ontouchend="spider_destroypopup(1000); return false;"><span><i class="bwg_close_btn fa fa-times"></i></span></a>
 
     <script>
       var bwg_trans_in_progress = false;
@@ -842,7 +926,7 @@ class BWGViewGalleryBox {
         jQuery(".spider_popup_close").attr("class", "bwg_ctrl_btn spider_popup_close_fullscreen");
       }
       /* Stop autoplay.*/
-      clearInterval(bwg_playInterval);
+      window.clearInterval(bwg_playInterval);
       /* Set watermark container size.*/
       function bwg_change_watermark_container() {
         jQuery(".bwg_slider").children().each(function() {
@@ -1183,9 +1267,8 @@ class BWGViewGalleryBox {
           jQuery(this)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
           jQuery(this)[0].contentWindow.postMessage('{ "method": "pause" }', "*");
         });
-        if (data[key]) {
+        if (typeof data[key] != 'undefined' && typeof data[current_key] != 'undefined') {
           if (jQuery('.bwg_ctrl_btn').hasClass('fa-pause')) {
-            clearInterval(bwg_playInterval);
             bwg_play();
           }
           if (!from_effect) {
@@ -1220,8 +1303,9 @@ class BWGViewGalleryBox {
           /* Set active thumbnail position.*/
           bwg_current_filmstrip_pos = key * (jQuery(".bwg_filmstrip_thumbnail").width() + 2 + 2 * <?php echo $theme_row->lightbox_filmstrip_thumb_border_width; ?>);
           bwg_current_key = key;
-          /* Change image id, title, description.*/
+          /* Change image id.*/
           jQuery("#bwg_popup_image").attr('image_id', data[key]["id"]);
+          /* Change image title, description.*/
           jQuery(".bwg_image_title").html(jQuery('<div />').html(data[key]["alt"]).text());
           jQuery(".bwg_image_description").html(jQuery('<div />').html(data[key]["description"]).text());
           if (jQuery(".bwg_image_info_container1").css("display") != 'none') {
@@ -1267,6 +1351,9 @@ class BWGViewGalleryBox {
         }
       }
       jQuery(document).on('keydown', function (e) {
+        if (jQuery("#bwg_name").is(":focus") || jQuery("#bwg_email").is(":focus") || jQuery("#bwg_comment").is(":focus") || jQuery("#bwg_captcha_input").is(":focus")) {
+          return;
+        }
         if (e.keyCode === 39) { /* Right arrow.*/
           bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data)
         }
@@ -1277,8 +1364,13 @@ class BWGViewGalleryBox {
           spider_destroypopup(1000);
         }
         else if (e.keyCode === 32) { /* Space.*/
-          var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
-          jQuery(".bwg_play_pause").trigger(isMobile ? 'touchend' : 'click');
+          jQuery(".bwg_play_pause").trigger('click');
+        }
+        if (e.preventDefault) {
+          e.preventDefault();
+        }
+        else {
+          e.returnValue = false;
         }
       });
       function bwg_popup_resize() {
@@ -1595,12 +1687,12 @@ class BWGViewGalleryBox {
           if (jQuery(".bwg_toggle_container i").hasClass(bwg_open_toggle_btn_class)) {
             /* Close controll buttons.*/
             <?php
-              if ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'top') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') {
+              if ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') {
                 ?>
                 jQuery(".bwg_image_info").animate({bottom: 0}, 500);
                 <?php
               }
-              elseif ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') {
+              elseif ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'top') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') {
                 ?>
                 jQuery(".bwg_image_info").animate({top: 0}, 500);
                 <?php
@@ -1617,12 +1709,12 @@ class BWGViewGalleryBox {
           else {
             /* Open controll buttons.*/
             <?php
-              if ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'top') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') {
+              if ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') {
                 ?>
                 jQuery(".bwg_image_info").animate({bottom: jQuery(".bwg_ctrl_btn_container").height()}, 500);
                 <?php
               }
-              elseif ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos == 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') {
+              elseif ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'top') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') {
                 ?>
                 jQuery(".bwg_image_info").animate({top: jQuery(".bwg_ctrl_btn_container").height()}, 500);
                 <?php
@@ -1855,7 +1947,7 @@ class BWGViewGalleryBox {
           }
           else {
             /* Pause.*/
-            clearInterval(bwg_playInterval);
+            window.clearInterval(bwg_playInterval);
             jQuery(".bwg_play_pause").attr("title", "<?php echo __('Play', 'bwg'); ?>");
             jQuery(".bwg_play_pause").attr("class", "bwg_ctrl_btn bwg_play_pause fa fa-play");
           }
@@ -1921,6 +2013,7 @@ class BWGViewGalleryBox {
       }
 
       function bwg_play() {
+        window.clearInterval(bwg_playInterval);
         bwg_playInterval = setInterval(function () {
           if (!data[parseInt(jQuery('#bwg_current_image_key').val()) + 1]) {
             /* Wrap around.*/
@@ -1933,7 +2026,6 @@ class BWGViewGalleryBox {
       jQuery(window).focus(function() {
         /* event_stack = [];*/
         if (!jQuery(".bwg_ctrl_btn").hasClass("fa-play")) {
-          clearInterval(bwg_playInterval);
           bwg_play();
         }
         var i = 0;
@@ -1946,7 +2038,7 @@ class BWGViewGalleryBox {
       });
       jQuery(window).blur(function() {
         event_stack = [];
-        clearInterval(bwg_playInterval);
+        window.clearInterval(bwg_playInterval);
       });
     </script>
     <?php

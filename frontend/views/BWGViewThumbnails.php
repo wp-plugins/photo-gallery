@@ -40,6 +40,12 @@ class BWGViewThumbnails {
     if (!isset($params['order_by'])) {
       $params['order_by'] = ' asc ';
     }
+    if (!isset($params['popup_enable_pinterest'])) {
+      $params['popup_enable_pinterest'] = 0;
+    }
+    if (!isset($params['popup_enable_tumblr'])) {
+      $params['popup_enable_tumblr'] = 0;
+    }
     if (!isset($params['show_search_box'])) {
       $params['show_search_box'] = 0;
     }
@@ -48,6 +54,21 @@ class BWGViewThumbnails {
     }
     if (!isset($params['popup_enable_info'])) {
       $params['popup_enable_info'] = 1;
+    }
+    if (!isset($params['popup_info_always_show'])) {
+      $params['popup_info_always_show'] = 0;
+    }
+    if (!isset($params['popup_enable_rate'])) {
+      $params['popup_enable_rate'] = 0;
+    }
+    if (!isset($params['thumb_click_action']) || $params['thumb_click_action'] == 'undefined') {
+      $params['thumb_click_action'] = 'open_lightbox';
+    }
+    if (!isset($params['thumb_link_target'])) {
+      $params['thumb_link_target'] = 1;
+    }
+    if (!isset($params['popup_hit_counter'])) {
+      $params['popup_hit_counter'] = 0;
     }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $sort_direction = ' ' . $params['order_by'] . ' ';
@@ -77,11 +98,16 @@ class BWGViewThumbnails {
       $params['popup_enable_ctrl_btn'] = $options_row->popup_enable_ctrl_btn;
       $params['popup_enable_fullscreen'] = $options_row->popup_enable_fullscreen;
       $params['popup_enable_info'] = $options_row->popup_enable_info;
+      $params['popup_info_always_show'] = $options_row->popup_info_always_show;
+      $params['popup_hit_counter'] = $options_row->popup_hit_counter;
+      $params['popup_enable_rate'] = $options_row->popup_enable_rate;
       $params['popup_interval'] = $options_row->popup_interval;
       $params['popup_enable_comment'] = $options_row->popup_enable_comment;
       $params['popup_enable_facebook'] = $options_row->popup_enable_facebook;
       $params['popup_enable_twitter'] = $options_row->popup_enable_twitter;
       $params['popup_enable_google'] = $options_row->popup_enable_google;
+      $params['popup_enable_pinterest'] = $options_row->popup_enable_pinterest;
+      $params['popup_enable_tumblr'] = $options_row->popup_enable_tumblr;
       $params['watermark_type'] = $options_row->watermark_type;
       $params['watermark_link'] = $options_row->watermark_link;
       $params['watermark_opacity'] = $options_row->watermark_opacity;
@@ -337,11 +363,16 @@ class BWGViewThumbnails {
                   'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
                   'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
                   'popup_enable_info' => $params['popup_enable_info'],
+                  'popup_info_always_show' => $params['popup_info_always_show'],
+                  'popup_hit_counter' => $params['popup_hit_counter'],
+                  'popup_enable_rate' => $params['popup_enable_rate'],
                   'slideshow_interval' => $params['popup_interval'],
                   'enable_comment_social' => $params['popup_enable_comment'],
                   'enable_image_facebook' => $params['popup_enable_facebook'],
                   'enable_image_twitter' => $params['popup_enable_twitter'],
                   'enable_image_google' => $params['popup_enable_google'],
+                  'enable_image_pinterest' => $params['popup_enable_pinterest'],
+                  'enable_image_tumblr' => $params['popup_enable_tumblr'],
                   'watermark_type' => $params['watermark_type'],
                   'current_url' => $current_url
                 );
@@ -375,9 +406,9 @@ class BWGViewThumbnails {
                 $thumb_left = ($params['thumb_width'] - $image_thumb_width) / 2;
                 $thumb_top = ($params['thumb_height'] - $image_thumb_height) / 2;
                 ?>
-                <a style="font-size: 0;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
+                <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ('href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"')) ?>>
                   <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
-		  <?php
+                    <?php
                     if ($params['image_title'] == 'show' and $theme_row->thumb_title_pos == 'top') {
                       ?>
                       <span class="bwg_title_spun1_<?php echo $bwg; ?>">

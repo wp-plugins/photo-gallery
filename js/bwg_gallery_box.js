@@ -110,6 +110,31 @@ function spider_ajax_save(form_id) {
   return false;
 }
 
+// Submit rating.
+function spider_rate_ajax_save(form_id) {
+  var post_data = {};
+  post_data["image_id"] = jQuery("#" + form_id + " input[name='image_id']").val();
+  post_data["rate"] = jQuery("#" + form_id + " input[name='score']").val();
+  post_data["ajax_task"] = jQuery("#rate_ajax_task").val();
+  jQuery.post(
+    jQuery('#' + form_id).attr('action'),
+    post_data,
+
+    function (data) {
+      var str = jQuery(data).find('#' + form_id).html();
+      jQuery('#' + form_id).html(str);
+    }
+  ).success(function(jqXHR, textStatus, errorThrown) {
+  });
+  // if (event.preventDefault) {
+    // event.preventDefault();
+  // }
+  // else {
+    // event.returnValue = false;
+  // }
+  return false;
+}
+
 // Set value by ID.
 function spider_set_input_value(input_id, input_value) {
   if (document.getElementById(input_id)) {

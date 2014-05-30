@@ -15,7 +15,9 @@
 // Variables                                                                          //
 ////////////////////////////////////////////////////////////////////////////////////////
 var keyFileSelected;
+var keyFileSelectedML;
 var filesSelected;
+var filesSelectedML;
 var dragFiles;
 var isUploading;
 
@@ -28,6 +30,7 @@ var isUploading;
 ////////////////////////////////////////////////////////////////////////////////////////
 jQuery(document).ready(function () {
   filesSelected = [];
+  filesSelectedML = [];
   dragFiles = [];
 
   //file manager under system messages
@@ -39,6 +42,7 @@ jQuery(document).ready(function () {
   isUploading = false;
   jQuery("#uploader").css("display", "none");
   jQuery("#uploader_progress_bar").css("display", "none");
+  jQuery("#importer").css("display", "none");
 
   //decrease explorer header width by scroller width
   jQuery(".scrollbar_filler").css("width", getScrollBarWidth() + "px");
@@ -60,6 +64,7 @@ function getClipboardFiles() {
 
 function submit(task, sortBy, sortOrder, itemsView, destDir, fileNewName, newDirName, clipboardTask, clipboardFiles, clipboardSrc, clipboardDest) {
   fileNames = filesSelected.join("**#**");
+  fileNamesML = filesSelectedML.join("**@**");
   switch (task) {
     case "rename_item":
       destDir = dir;
@@ -81,6 +86,11 @@ function submit(task, sortBy, sortOrder, itemsView, destDir, fileNewName, newDir
       clipboardDest = "";
       break;
     case "paste_items":
+      destDir = dir;
+      fileNewName = "";
+      newDirName = "";
+      break;
+    case "import_items":
       destDir = dir;
       fileNewName = "";
       newDirName = "";
@@ -108,6 +118,9 @@ function submit(task, sortBy, sortOrder, itemsView, destDir, fileNewName, newDir
   }
   if (fileNames != null) {
     jQuery("form[name=adminForm]").find("input[name=file_names]").val(fileNames);
+  }
+  if (fileNamesML != null) {
+    jQuery("form[name=adminForm]").find("input[name=file_namesML]").val(fileNamesML);
   }
   if (fileNewName != null) {
     jQuery("form[name=adminForm]").find("input[name=file_new_name]").val(fileNewName);
@@ -169,6 +182,16 @@ function submitFiles() {
   }
   window.parent[callback](filesValid);
   window.parent.tb_remove();
+}
+
+function importFiles() {
+  if (filesSelectedML.length == 0) {
+    alert("Select at least one file to import.");
+    return;
+  }
+  else {
+    submit("import_items", null, null, null, null, null, null, null, null, null, dir);
+  }
 }
 
 function getScrollBarWidth() {
@@ -282,6 +305,10 @@ function onPathComponentClick(event, obj, path) {
   submit("", null, null, null, path, null, null, null, null, null, null);
 }
 
+function onBtnShowImportClick(event, obj, path) {
+  jQuery("#importer").fadeIn();
+}
+
 function onNameHeaderClick(event, obj) {
   var newSortOrder = ((sortBy == "name") && (sortOrder == "asc")) ? "desc" : "asc";
   submit("", "name", newSortOrder, null, null, null, null, null, null, null, null);
@@ -304,12 +331,21 @@ function onKeyDown(e) {
   var chCode1 = e.which || e.paramlist_keyCode;
   if ((e.ctrlKey || e.metaKey) && chCode1 == 65) {
     jQuery(".explorer_item").addClass("explorer_item_select");
+    jQuery(".importer_item").addClass("importer_item_select");
     filesSelected = [];
+    filesSelectedML = [];
     jQuery(".explorer_item").each(function() {
       var objName = jQuery(this).attr("name");
       if (filesSelected.indexOf(objName) == -1) {
         filesSelected.push(objName);
         keyFileSelected = this;
+      }
+    });
+    jQuery(".importer_item").each(function() {
+      var objName = jQuery(this).attr("path");
+      if (filesSelectedML.indexOf(objName) == -1) {
+        filesSelectedML.push(objName);
+        keyFileSelectedML = this;
       }
     });
     e.preventDefault();
@@ -320,8 +356,16 @@ function onFileMOver(event, obj) {
   jQuery(obj).addClass("explorer_item_hover");
 }
 
+function onFileMOverML(event, obj) {
+  jQuery(obj).addClass("importer_item_hover");
+}
+
 function onFileMOut(event, obj) {
   jQuery(obj).removeClass("explorer_item_hover");
+}
+
+function onFileMOutML(event, obj) {
+  jQuery(obj).removeClass("importer_item_hover");
 }
 
 function onFileClick(event, obj) {
@@ -359,6 +403,41 @@ function onFileClick(event, obj) {
   updateFileNames();
 }
 
+function onFileClickML(event, obj) {
+  jQuery(".importer_item").removeClass("importer_item_select");
+  var objName = jQuery(obj).attr("path");
+  if (event.ctrlKey == true || event.metaKey == true) {
+    if (filesSelectedML.indexOf(objName) == -1) {
+      filesSelectedML.push(objName);
+      keyFileSelectedML = obj;
+    }
+    else {
+      filesSelectedML.splice(filesSelectedML.indexOf(objName), 1);
+      jQuery(obj).removeClass("importer_item_select");
+    }
+  }
+  else if (event.shiftKey == true) {
+    filesSelectedML = [];
+    var explorerItems = jQuery(".importer_item");
+    var curFileIndex = explorerItems.index(jQuery(obj));
+    var keyFileIndex = explorerItems.index(keyFileSelectedML);
+    var startIndex = Math.min(keyFileIndex, curFileIndex);
+    var endIndex = startIndex + Math.abs(curFileIndex - keyFileIndex);
+    for (var i = startIndex; i < endIndex + 1; i++) {
+      filesSelectedML.push(jQuery(explorerItems[i]).attr("path"));
+    }
+  }
+  else {
+    filesSelectedML = [jQuery(obj).attr("path")];
+    keyFileSelectedML = obj;
+  }
+
+  for (var i = 0; i < filesSelectedML.length; i++) {
+    jQuery(".importer_item[path='" + filesSelectedML[i] + "']").addClass("importer_item_select");
+  }
+  updateFileNames();
+}
+
 function onFileDblClick(event, obj) {
   if (jQuery(obj).attr("isDir") == "true") {
     submit("", null, null, null, dir + DS + jQuery(obj).attr("name"), null, null, null, null, null, null);
@@ -368,6 +447,12 @@ function onFileDblClick(event, obj) {
     filesSelected.push(jQuery(obj).attr("name"));
     submitFiles();
   }
+}
+
+function onFileDblClickML(event, obj) {
+  filesSelectedML = [];
+  filesSelectedML.push(jQuery(obj).attr("path"));
+  importFiles();
 }
 
 function onFileDragStart(event, obj) {
@@ -430,6 +515,10 @@ function onBtnOpenClick(event, obj) {
   }
 }
 
+function onBtnImportClick(event, obj) {
+  importFiles();
+}
+
 function onBtnCancelClick(event, obj) {
   window.parent.tb_remove();
 }
@@ -442,6 +531,18 @@ function onBtnSelectAllClick() {
     if (filesSelected.indexOf(objName) == -1) {
       filesSelected.push(objName);
       keyFileSelected = this;
+    }
+  });
+}
+
+function onBtnSelectAllMediLibraryClick() {
+  jQuery(".importer_item").addClass("importer_item_select");
+  filesSelectedML = [];
+  jQuery(".importer_item").each(function() {
+    var objName = jQuery(this).attr("path");
+    if (filesSelectedML.indexOf(objName) == -1) {
+      filesSelectedML.push(objName);
+      keyFileSelectedML = this;
     }
   });
 }

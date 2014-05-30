@@ -391,6 +391,28 @@ class BWGModelThemes_bwg {
           $row->lightbox_description_font_style = 'segoe ui';
           $row->lightbox_description_font_weight = 'normal';
           $row->lightbox_description_font_size = 14;
+          $row->lightbox_rate_pos = 'bottom';
+          $row->lightbox_rate_align = 'right';
+          $row->lightbox_rate_icon = 'star';
+          $row->lightbox_rate_color = 'F9D062';
+          $row->lightbox_rate_size = 20;
+          $row->lightbox_rate_stars_count = 5;
+          $row->lightbox_rate_padding = '15px';
+          $row->lightbox_rate_hover_color = 'F7B50E';
+          $row->lightbox_hit_pos = 'bottom';
+          $row->lightbox_hit_align = 'left';
+          $row->lightbox_hit_bg_color = '000000';
+          $row->lightbox_hit_bg_transparent = 70;
+          $row->lightbox_hit_border_width = 1;
+          $row->lightbox_hit_border_style = 'none';
+          $row->lightbox_hit_border_color = '000000';
+          $row->lightbox_hit_border_radius = '5px';
+          $row->lightbox_hit_padding = '5px';
+          $row->lightbox_hit_margin = '0 5px';
+          $row->lightbox_hit_color = 'FFFFFF';
+          $row->lightbox_hit_font_style = 'segoe ui';
+          $row->lightbox_hit_font_weight = 'normal';
+          $row->lightbox_hit_font_size = 14;
         }
       }
     }

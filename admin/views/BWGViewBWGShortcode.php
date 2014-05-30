@@ -490,7 +490,7 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_slideshow_filmstrip_height">
-                    <td class="spider_label spider_free_version_label"><label for="slideshow_filmstrip_height">Slideshow Filmstrip height: </label></td>
+                    <td class="spider_label spider_free_version_label"><label for="slideshow_filmstrip_height">Slideshow Filmstrip size: </label></td>
                     <td class="spider_free_version_label"><input disabled="disabled" type="text" name="slideshow_filmstrip_height" id="slideshow_filmstrip_height" value="<?php echo $option_row->slideshow_filmstrip_height; ?>" class="spider_int_input spider_free_version_label" /> px</td>
                   </tr>
                 </tbody>
@@ -580,6 +580,24 @@ class BWGViewBWGShortcode {
                 </tbody>
 
                 <!--Lightbox view-->
+                <?php if ($option_row->thumb_click_action != 'open_lightbox') { ?>
+                <tbody id="tbody_popup_other">
+                  <tr id="tr_thumb_click_action">
+                    <td class="spider_label"><label>Thumb click action: </label></td>
+                    <td>
+                      <input type="radio" name="thumb_click_action" id="thumb_click_action_1" value="open_lightbox" <?php if ($option_row->thumb_click_action == 'open_lightbox') echo 'checked="checked"'; ?> onchange="bwg_thumb_click_action()" /><label for="thumb_click_action_1">Open lightbox</label><br />
+                      <input type="radio" name="thumb_click_action" id="thumb_click_action_2" value="redirect_to_url" <?php if ($option_row->thumb_click_action == 'redirect_to_url') echo 'checked="checked"'; ?> onchange="bwg_thumb_click_action()" /><label for="thumb_click_action_2">Redirect to url</label>
+                    </td>
+                  </tr>
+                  <tr id="tr_thumb_link_target">
+                    <td title="Open new window when redirecting." class="spider_label"><label>Open in new window: </label></td>
+                    <td>
+                      <input type="radio" name="thumb_link_target" id="thumb_link_target_yes" value="1" <?php if ($option_row->thumb_link_target) echo 'checked="checked"'; ?> /><label for="thumb_link_target_yes">Yes</label>
+                      <input type="radio" name="thumb_link_target" id="thumb_link_target_no" value="0" <?php if (!$option_row->thumb_link_target) echo 'checked="checked"'; ?> /><label for="thumb_link_target_no">No</label>
+                    </td>
+                  </tr>
+                </tbody>
+                <?php } ?>
                 <tbody id="tbody_popup">
                   <tr id="tr_popup_fullscreen">
                     <td title="Enable full width feature for the lightbox." class="spider_label">
@@ -632,8 +650,15 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_popup_filmstrip_height">
-                    <td title="This option is disabled in free version." class="spider_label spider_free_version_label"><label for="popup_filmstrip_height">Filmstrip height: </label></td>
+                    <td title="This option is disabled in free version." class="spider_label spider_free_version_label"><label for="popup_filmstrip_height">Filmstrip size: </label></td>
                     <td class="spider_free_version_label"><input disabled="disabled" type="text" name="popup_filmstrip_height" id="popup_filmstrip_height" value="<?php echo $option_row->popup_filmstrip_height; ?>" class="spider_int_input spider_free_version_label" /> px</td>
+                  </tr>
+                  <tr id="tr_popup_hit_counter">
+                    <td title="This option is disabled in free version." class="spider_label spider_free_version_label"><label>Display hit counter: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="popup_hit_counter" id="popup_hit_counter_yes" value="1" <?php echo ($option_row->popup_hit_counter) ? 'checked' : ''; ?> /><label for="popup_hit_counter_yes">Yes</label>
+                      <input disabled="disabled" type="radio" name="popup_hit_counter" id="popup_hit_counter_no" value="0" <?php echo ($option_row->popup_hit_counter) ? '' : 'checked'; ?> /><label for="popup_hit_counter_no">No</label>
+                    </td>
                   </tr>
                   <tr id="tr_popup_enable_ctrl_btn">
                     <td title="Enable control buttons in lightbox" class="spider_label"><label>Enable control buttons: </label></td>
@@ -656,6 +681,20 @@ class BWGViewBWGShortcode {
                     <td>
                       <input type="radio" name="popup_enable_info" id="popup_info_yes" value="1" <?php echo ($option_row->popup_enable_info) ? 'checked="checked"' : ''; ?> /><label for="popup_info_yes">Yes</label>
                       <input type="radio" name="popup_enable_info" id="popup_info_no" value="0" <?php echo ($option_row->popup_enable_info) ? '' : 'checked="checked"'; ?> /><label for="popup_info_no">No</label>
+                    </td>
+                  </tr>
+                  <tr id="tr_popup_info_always_show">
+                    <td class="spider_label"><label>Display info by default: </label></td>
+                    <td>
+                      <input type="radio" name="popup_info_always_show" id="popup_info_always_show_yes" value="1" <?php echo ($option_row->popup_info_always_show) ? 'checked="checked"' : ''; ?> /><label for="popup_info_always_show_yes">Yes</label>
+                      <input type="radio" name="popup_info_always_show" id="popup_info_always_show_no" value="0" <?php echo ($option_row->popup_info_always_show) ? '' : 'checked="checked"'; ?> /><label for="popup_info_always_show_no">No</label>
+                    </td>
+                  </tr>
+                  <tr id="tr_popup_enable_rate">
+                    <td title="Enable rating for images<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Enable rating: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="popup_enable_rate" id="popup_rate_yes" value="1" <?php echo ($option_row->popup_enable_rate) ? 'checked="checked"' : ''; ?> /><label for="popup_rate_yes">Yes</label>
+                      <input disabled="disabled" type="radio" name="popup_enable_rate" id="popup_rate_no" value="0" <?php echo ($option_row->popup_enable_rate) ? '' : 'checked="checked"'; ?> /><label for="popup_rate_no">No</label>
                     </td>
                   </tr>
                   <tr id="tr_popup_enable_comment">
@@ -1120,11 +1159,29 @@ class BWGViewBWGShortcode {
                   else {
                     jQuery("#popup_info_no").attr('checked', 'checked');
                   }
+                  if (short_code['popup_info_always_show'] == 1 && short_code['popup_info_always_show']) {
+                    jQuery("#popup_info_always_show_yes").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#popup_info_always_show_no").attr('checked', 'checked');
+                  }
+                  if (short_code['popup_enable_rate'] == 1 && short_code['popup_enable_rate']) {
+                    jQuery("#popup_rate_yes").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#popup_rate_no").attr('checked', 'checked');
+                  }
                   if (short_code['popup_enable_comment'] == 1) {
                     jQuery("#popup_comment_yes").attr('checked', 'checked');
                   }
                   else {
                     jQuery("#popup_comment_no").attr('checked', 'checked');
+                  }
+                  if (short_code['popup_hit_counter'] == 1 && short_code['popup_hit_counter']) {
+                    jQuery("#popup_hit_counter_yes").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#popup_hit_counter_no").attr('checked', 'checked');
                   }
                   if (short_code['popup_enable_facebook'] == 1) {
                     jQuery("#popup_facebook_yes").attr('checked', 'checked');
@@ -1160,6 +1217,19 @@ class BWGViewBWGShortcode {
                 else {
                   jQuery("#popup_ctrl_btn_no").attr('checked', 'checked');
                 }
+                if (short_code['thumb_click_action'] != 'redirect_to_url' || !short_code['thumb_click_action']) {
+                  jQuery("#thumb_click_action_1").attr('checked', 'checked'); 
+                }
+                else {
+                  jQuery("#thumb_click_action_2").attr('checked', 'checked');
+                }
+                if (short_code['thumb_link_target'] == 1 || !short_code['thumb_link_target']) {
+                  jQuery("#thumb_link_target_yes").attr('checked', 'checked'); 
+                }
+                else {
+                  jQuery("#thumb_link_target_no").attr('checked', 'checked');
+                }
+                bwg_thumb_click_action();
               }
               // Watermark.
               if (short_code['watermark_type'] == 'text') {
@@ -1317,6 +1387,8 @@ class BWGViewBWGShortcode {
             }
             // Lightbox paramteres.
             if (gallery_type != 'slideshow') {
+              tagtext += ' thumb_click_action="' + jQuery("input[name=thumb_click_action]:checked").val() + '"';
+              tagtext += ' thumb_link_target="' + jQuery("input[name=thumb_link_target]:checked").val() + '"';
               tagtext += ' popup_fullscreen="' + jQuery("input[name=popup_fullscreen]:checked").val() + '"';
               tagtext += ' popup_autoplay="' + jQuery("input[name=popup_autoplay]:checked").val() + '"';			  
               tagtext += ' popup_width="' + jQuery("#popup_width").val() + '"';
@@ -1328,7 +1400,10 @@ class BWGViewBWGShortcode {
               tagtext += ' popup_enable_ctrl_btn="' + jQuery("input[name=popup_enable_ctrl_btn]:checked").val() + '"';
               tagtext += ' popup_enable_fullscreen="' + jQuery("input[name=popup_enable_fullscreen]:checked").val() + '"';
               tagtext += ' popup_enable_info="' + jQuery("input[name=popup_enable_info]:checked").val() + '"';
+              tagtext += ' popup_info_always_show="' + jQuery("input[name=popup_info_always_show]:checked").val() + '"';
+              tagtext += ' popup_enable_rate="' + jQuery("input[name=popup_enable_rate]:checked").val() + '"';
               tagtext += ' popup_enable_comment="' + jQuery("input[name=popup_enable_comment]:checked").val() + '"';
+              tagtext += ' popup_hit_counter="' + jQuery("input[name=popup_hit_counter]:checked").val() + '"';
               tagtext += ' popup_enable_facebook="' + jQuery("input[name=popup_enable_facebook]:checked").val() + '"';
               tagtext += ' popup_enable_twitter="' + jQuery("input[name=popup_enable_twitter]:checked").val() + '"';
               tagtext += ' popup_enable_google="' + jQuery("input[name=popup_enable_google]:checked").val() + '"';

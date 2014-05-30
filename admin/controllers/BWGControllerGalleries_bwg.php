@@ -58,9 +58,9 @@ class BWGControllerGalleries_bwg {
     $view->edit($id);
   }
 
-  public function save_order_images() {
+  public function save_order_images($gallery_id) {
     global $wpdb;
-    $imageids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_image');
+    $imageids_col = $wpdb->get_col($wpdb->prepare('SELECT id FROM ' . $wpdb->prefix . 'bwg_image WHERE `gallery_id`="%d"', $gallery_id));
     if ($imageids_col) {
       foreach ($imageids_col as $imageid) {
         if (isset($_POST['order_input_' . $imageid])) {
@@ -90,7 +90,7 @@ class BWGControllerGalleries_bwg {
       }
     }
     $this->save_image_db();
-    $this->save_order_images();
+    $this->save_order_images($_POST['current_id']);
     if (isset($_POST['ajax_task']) && esc_html($_POST['ajax_task']) != '') {
       $ajax_task = esc_html($_POST['ajax_task']);
       if (method_exists($this, $ajax_task)) {
@@ -226,6 +226,7 @@ class BWGControllerGalleries_bwg {
     global $wpdb;
     $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image WHERE id="%d"', $id));
     $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_comment WHERE image_id="%d"', $id));
+    $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_rate WHERE image_id="%d"', $id));
     $tag_ids = $wpdb->get_col($wpdb->prepare('SELECT tag_id FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE image_id="%d"', $id));
     $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE image_id="%d"', $id));
     // Increase tag count in term_taxonomy table.
@@ -244,6 +245,7 @@ class BWGControllerGalleries_bwg {
       if (isset($_POST['check_' . $image_id]) || isset($_POST['check_all_items'])) {
         $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image WHERE id="%d"', $image_id));
         $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_comment WHERE image_id="%d"', $image_id));
+        $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_rate WHERE image_id="%d"', $image_id));
         $tag_ids = $wpdb->get_col($wpdb->prepare('SELECT tag_id FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE image_id="%d"', $image_id));
         $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE image_id="%d"', $image_id));
         // Increase tag count in term_taxonomy table.
@@ -272,7 +274,7 @@ class BWGControllerGalleries_bwg {
         break;
       case 'image':
         foreach ($images as $image) {
-          if (isset($_POST['check_' . $image->id])) {
+          if (isset($_POST['check_' . $image->id]) || isset($_POST['check_all_items'])) {
             $this->set_image_watermark(ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, $options->built_in_watermark_url, $options->built_in_watermark_size, $options->built_in_watermark_size, $options->built_in_watermark_position);
           }
         }
@@ -572,6 +574,7 @@ class BWGControllerGalleries_bwg {
         $filetype = ((isset($_POST['input_filetype_' . $image_id])) ? esc_html(stripslashes($_POST['input_filetype_' . $image_id])) : '');
         $resolution = ((isset($_POST['input_resolution_' . $image_id])) ? esc_html(stripslashes($_POST['input_resolution_' . $image_id])) : '');
         $order = ((isset($_POST['order_input_' . $image_id])) ? esc_html(stripslashes($_POST['order_input_' . $image_id])) : '');
+        $redirect_url = ((isset($_POST['redirect_url_' . $image_id])) ? esc_html(stripslashes($_POST['redirect_url_' . $image_id])) : '');
         $author = get_current_user_id();
         $tags_ids = ((isset($_POST['tags_' . $image_id])) ? esc_html(stripslashes($_POST['tags_' . $image_id])) : '');
         if (strpos($image_id, 'pr_') !== FALSE) {
@@ -589,6 +592,7 @@ class BWGControllerGalleries_bwg {
             'resolution' => $resolution,
             'author' => $author,
             'order' => $order,
+            'redirect_url' => $redirect_url,
             'published' => 1,
             'comment_count' => 0,
           ), array(
@@ -608,6 +612,7 @@ class BWGControllerGalleries_bwg {
             '%s',
             '%d',
             '%d',
+            '%s',
             '%d',
             '%d',
           ));
@@ -634,7 +639,8 @@ class BWGControllerGalleries_bwg {
             'filetype' => $filetype,
             'resolution' => $resolution,
             'author' => $author,
-            'order' => $order), array('id' => $image_id));
+            'order' => $order,
+            'redirect_url' => $redirect_url), array('id' => $image_id));
         }
         $wpdb->query($wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE image_id="%d" AND gallery_id="%d"', $image_id, $gal_id));
         if ($save !== FALSE) {

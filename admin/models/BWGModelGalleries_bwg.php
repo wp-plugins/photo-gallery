@@ -136,6 +136,13 @@ class BWGModelGalleries_bwg {
     $page_nav['limit'] = (int) ($limit / 20 + 1);
     return $page_nav;
   }
+
+  public function get_option_row_data() {
+    global $wpdb;
+    $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_option WHERE id="%d"', 1));
+    return $row;
+  }
+
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////

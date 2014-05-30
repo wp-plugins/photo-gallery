@@ -34,6 +34,12 @@ class BWGViewImage_browser {
     else {
       $order_by = $params['order_by'];
     }
+    if (!isset($params['popup_enable_pinterest'])) {
+      $params['popup_enable_pinterest'] = 0;
+    }
+    if (!isset($params['popup_enable_tumblr'])) {
+      $params['popup_enable_tumblr'] = 0;
+    }
     if (!isset($params['show_search_box'])) {
       $params['show_search_box'] = 0;
     }
@@ -42,6 +48,21 @@ class BWGViewImage_browser {
     }
     if (!isset($params['popup_enable_info'])) {
       $params['popup_enable_info'] = 1;
+    }
+    if (!isset($params['popup_info_always_show'])) {
+      $params['popup_info_always_show'] = 0;
+    }
+    if (!isset($params['popup_enable_rate'])) {
+      $params['popup_enable_rate'] = 0;
+    }
+    if (!isset($params['thumb_click_action']) || $params['thumb_click_action'] == 'undefined') {
+      $params['thumb_click_action'] = 'open_lightbox';
+    }
+    if (!isset($params['thumb_link_target'])) {
+      $params['thumb_link_target'] = 1;
+    }
+    if (!isset($params['popup_hit_counter'])) {
+      $params['popup_hit_counter'] = 0;
     }
     if (!$theme_row) {
       echo WDWLibrary::message(__('There is no theme selected or the theme was deleted.', 'bwg'), 'error');
@@ -88,11 +109,16 @@ class BWGViewImage_browser {
       'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
       'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
       'popup_enable_info' => $params['popup_enable_info'],
+      'popup_info_always_show' => $params['popup_info_always_show'],
+      'popup_hit_counter' => $params['popup_hit_counter'],
+      'popup_enable_rate' => $params['popup_enable_rate'],
       'slideshow_interval' => $params['popup_interval'],
       'enable_comment_social' => $params['popup_enable_comment'],
       'enable_image_facebook' => $params['popup_enable_facebook'],
       'enable_image_twitter' => $params['popup_enable_twitter'],
       'enable_image_google' => $params['popup_enable_google'],
+      'enable_image_pinterest' => $params['popup_enable_pinterest'],
+      'enable_image_tumblr' => $params['popup_enable_tumblr'],
       'watermark_type' => $params['watermark_type'],
       'current_url' => $current_url
     );	
@@ -455,7 +481,7 @@ class BWGViewImage_browser {
                       }
                       if (!$is_video) {
                       ?>
-                        <a style="position:relative;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
+                        <a style="position:relative;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ('href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"')) ?>>
                           <img class="bwg_image_browser_img_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                         </a>
                       <?php 

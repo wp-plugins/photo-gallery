@@ -47,6 +47,7 @@ class FilemanagerModel {
       $data['path_components'] = $this->get_path_components();
       $data['dir'] = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
       $data['files'] = $this->get_files($session_data['sort_by'], $session_data['sort_order']);
+      $data['media_library_files'] = $this->get_media_library_files($session_data['sort_by'], $session_data['sort_order']);
       $data['extensions'] = (isset($_REQUEST['extensions']) ? $_REQUEST['extensions'] : '');
       $data['callback'] = (isset($_REQUEST['callback']) ? $_REQUEST['callback'] : '');
 
@@ -158,6 +159,48 @@ class FilemanagerModel {
 
       $result = $sort_order == 'asc' ? array_merge($dirs, $files) : array_merge($files, $dirs);
       return $result;
+    }
+    
+    function get_media_library_files($sort_by, $sort_order) {
+      $icons_dir_path = WD_BWG_DIR . '/filemanager/images/file_icons';
+      $icons_dir_url = WD_BWG_URL . '/filemanager/images/file_icons';
+      $valid_types = explode(',', isset($_REQUEST['extensions']) ? strtolower($_REQUEST['extensions']) : '*');
+      $upload_dir = wp_upload_dir();
+      $parent_dir = $upload_dir['basedir'];
+      $parent_dir_url = $upload_dir['baseurl'];
+
+      $query_images_args = array(
+          'post_type' => 'attachment', 'post_mime_type' =>'image', 'post_status' => 'inherit', 'posts_per_page' => -1,
+      );
+
+      $query_images = new WP_Query( $query_images_args );
+
+      $files = array();
+      foreach ($query_images->posts as $image) {
+        $file_meta = wp_get_attachment_metadata($image->ID);
+        if (isset($file_meta['file'])) {
+          $file = array();
+          $file['is_dir'] = FALSE;
+          $file_name = end(explode('/', $file_meta['file']));
+          $file['name'] = $file_name;
+          $file['path'] = $file_meta['file'];
+          $file['filename'] = substr($file_name, 0, strrpos($file_name, '.'));
+          $file['type'] = strtolower(end(explode('.', $file_name)));
+          $file['thumb'] = wp_get_attachment_thumb_url($image->ID);
+          $file['icon'] = wp_get_attachment_thumb_url($image->ID);
+          if (($valid_types[0] != '*') && (in_array($file['type'], $valid_types) == FALSE)) {
+            continue;
+          }
+          $file_size_kb = (int)(@filesize($parent_dir . '/' . $file_meta['file']) / 1024);
+          if (!$file_size_kb) continue;
+          $file['size'] = $file_size_kb . ' KB';
+          $file['date_modified'] = date('d F Y, H:i', filemtime($parent_dir . '/' . $file_meta['file']));
+          $image_info = getimagesize(htmlspecialchars_decode($parent_dir . '/' . $file_meta['file'], ENT_COMPAT | ENT_QUOTES));
+          $file['resolution'] = $this->is_img($file['type']) ? $image_info[0]  . ' x ' . $image_info[1] . ' px' : '';
+          $files[] = $file;
+        }
+      }
+      return $files;
     }
 
     private function get_sorted_file_names($parent_dir, $sort_by, $sort_order) {

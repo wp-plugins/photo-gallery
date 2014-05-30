@@ -43,6 +43,12 @@ class BWGViewAlbum_compact_preview {
     if (!isset($params['popup_autoplay'])) {
       $params['popup_autoplay'] = 0;
     }
+    if (!isset($params['popup_enable_pinterest'])) {
+      $params['popup_enable_pinterest'] = 0;
+    }
+    if (!isset($params['popup_enable_tumblr'])) {
+      $params['popup_enable_tumblr'] = 0;
+    }
     if (!isset($params['show_search_box'])) {
       $params['show_search_box'] = 0;
     }
@@ -51,6 +57,21 @@ class BWGViewAlbum_compact_preview {
     }
     if (!isset($params['popup_enable_info'])) {
       $params['popup_enable_info'] = 1;
+    }
+    if (!isset($params['popup_info_always_show'])) {
+      $params['popup_info_always_show'] = 0;
+    }
+    if (!isset($params['popup_enable_rate'])) {
+      $params['popup_enable_rate'] = 0;
+    }
+    if (!isset($params['thumb_click_action']) || $params['thumb_click_action'] == 'undefined') {
+      $params['thumb_click_action'] = 'open_lightbox';
+    }
+    if (!isset($params['thumb_link_target'])) {
+      $params['thumb_link_target'] = 1;
+    }
+    if (!isset($params['popup_hit_counter'])) {
+      $params['popup_hit_counter'] = 0;
     }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $type = (isset($_POST['type_' . $bwg]) ? esc_html($_POST['type_' . $bwg]) : (isset($params['type']) ? $params['type'] : 'album'));
@@ -65,11 +86,42 @@ class BWGViewAlbum_compact_preview {
       }
       $params['compuct_albums_per_page'] = $params['count'];
       $params['compuct_album_column_number'] = $options_row->album_column_number;
-      $params['compuct_album_thumb_height'] = $params['height'];
       $params['compuct_album_thumb_width'] = $params['width'];
+      $params['compuct_album_thumb_height'] = $params['height'];
+      $params['compuct_album_image_thumb_width'] = $params['width'];
+      $params['compuct_album_image_thumb_height'] = $params['height'];
       $params['compuct_album_title'] = $options_row->album_title_show_hover;
       $params['compuct_album_enable_page'] = 0;  
       $params['compuct_album_image_title'] = $options_row->image_title_show_hover;
+      $params['popup_width'] = $options_row->popup_width;
+      $params['popup_height'] = $options_row->popup_height;
+      $params['popup_effect'] = $options_row->popup_type;
+      $params['popup_enable_filmstrip'] = $options_row->popup_enable_filmstrip;
+      $params['popup_filmstrip_height'] = $options_row->popup_filmstrip_height;
+      $params['popup_enable_ctrl_btn'] = $options_row->popup_enable_ctrl_btn;
+      $params['popup_enable_fullscreen'] = $options_row->popup_enable_fullscreen;
+      $params['popup_enable_info'] = $options_row->popup_enable_info;
+      $params['popup_info_always_show'] = $options_row->popup_info_always_show;
+      $params['popup_hit_counter'] = $options_row->popup_hit_counter;
+      $params['popup_enable_rate'] = $options_row->popup_enable_rate;
+      $params['popup_interval'] = $options_row->popup_interval;
+      $params['popup_enable_comment'] = $options_row->popup_enable_comment;
+      $params['popup_enable_facebook'] = $options_row->popup_enable_facebook;
+      $params['popup_enable_twitter'] = $options_row->popup_enable_twitter;
+      $params['popup_enable_google'] = $options_row->popup_enable_google;
+      $params['popup_enable_pinterest'] = $options_row->popup_enable_pinterest;
+      $params['popup_enable_tumblr'] = $options_row->popup_enable_tumblr;
+      $params['watermark_type'] = $options_row->watermark_type;
+      $params['watermark_link'] = $options_row->watermark_link;
+      $params['watermark_opacity'] = $options_row->watermark_opacity;
+      $params['watermark_position'] = $options_row->watermark_position;
+      $params['watermark_text'] = $options_row->watermark_text;
+      $params['watermark_font_size'] = $options_row->watermark_font_size;
+      $params['watermark_font'] = $options_row->watermark_font;
+      $params['watermark_color'] = $options_row->watermark_color;
+      $params['watermark_url'] = $options_row->watermark_url;
+      $params['watermark_width'] = $options_row->watermark_width;
+      $params['watermark_height'] = $options_row->watermark_height;
     }
 
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
@@ -86,7 +138,7 @@ class BWGViewAlbum_compact_preview {
       $items_per_page = $params['compuct_album_images_per_page'];
       $items_col_num = $params['compuct_album_image_column_number'];
       $image_rows = $this->model->get_image_rows_data($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
-	  $images_count = count($image_rows);
+      $images_count = count($image_rows);
       if (!$image_rows) {
         echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
       }
@@ -107,17 +159,17 @@ class BWGViewAlbum_compact_preview {
       $album_gallery_div_class = 'bwg_album_thumbnails_' . $bwg;
     }
 	
-    if ($type == 'gallery' ) { 
-	  if($album_view_type == 'masonry') {
-        $form_child_div_style = 'background-color:rgba(0, 0, 0, 0); position:relative; text-align:' . $theme_row->masonry_thumb_align . '; width:100%;';
-        $form_child_div_id = 'bwg_masonry_thumbnails_div_' . $bwg;
-	    $album_gallery_div_id = 'bwg_masonry_thumbnails_' . $bwg;
-        $album_gallery_div_class = 'bwg_masonry_thumbnails_' . $bwg;		
-	  }
-	  else { 
-	    $form_child_div_style = 'background-color:rgba(0, 0, 0, 0); position:relative; text-align:' . $theme_row->thumb_align . '; width:100%;';
-		$form_child_div_id = '';
-	  }
+    if ($type == 'gallery' ) {
+      if($album_view_type == 'masonry') {
+          $form_child_div_style = 'background-color:rgba(0, 0, 0, 0); position:relative; text-align:' . $theme_row->masonry_thumb_align . '; width:100%;';
+          $form_child_div_id = 'bwg_masonry_thumbnails_div_' . $bwg;
+        $album_gallery_div_id = 'bwg_masonry_thumbnails_' . $bwg;
+          $album_gallery_div_class = 'bwg_masonry_thumbnails_' . $bwg;		
+      }
+      else { 
+        $form_child_div_style = 'background-color:rgba(0, 0, 0, 0); position:relative; text-align:' . $theme_row->thumb_align . '; width:100%;';
+      $form_child_div_id = '';
+      }
     }
     else {
       $form_child_div_id = '';
@@ -130,7 +182,8 @@ class BWGViewAlbum_compact_preview {
     $rgb_page_nav_font_color = WDWLibrary::spider_hex2rgb($theme_row->page_nav_font_color);
     $rgb_album_compact_thumbs_bg_color = WDWLibrary::spider_hex2rgb($theme_row->album_compact_thumbs_bg_color);
     $rgb_thumbs_bg_color = WDWLibrary::spider_hex2rgb($theme_row->thumbs_bg_color);
-    ?>
+
+    ?>	
     <style>
       /*Album thumbs styles.*/
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_<?php echo $bwg; ?> {
@@ -446,7 +499,7 @@ class BWGViewAlbum_compact_preview {
             </div>
             <?php
             if ($params['compuct_album_enable_page'] && $items_per_page && ($theme_row->page_nav_position == 'top') && $page_nav['total']) {
-              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id']);
+              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type);
             }
             if ($bwg_previous_album_id) {
               ?>
@@ -584,13 +637,18 @@ class BWGViewAlbum_compact_preview {
                     'enable_image_filmstrip' => $params['popup_enable_filmstrip'],
                     'image_filmstrip_height' => $params['popup_filmstrip_height'],
                     'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
-                    'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
+                  'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
                     'popup_enable_info' => $params['popup_enable_info'],
+                  'popup_info_always_show' => $params['popup_info_always_show'],
+		  'popup_hit_counter' => $params['popup_hit_counter'],
+		    'popup_enable_rate' => $params['popup_enable_rate'],
                     'slideshow_interval' => $params['popup_interval'],
                     'enable_comment_social' => $params['popup_enable_comment'],
                     'enable_image_facebook' => $params['popup_enable_facebook'],
                     'enable_image_twitter' => $params['popup_enable_twitter'],
                     'enable_image_google' => $params['popup_enable_google'],
+		    'enable_image_pinterest' => $params['popup_enable_pinterest'],
+                    'enable_image_tumblr' => $params['popup_enable_tumblr'],
                     'watermark_type' => $params['watermark_type'],
                     'current_url' => $current_url
                   );
@@ -624,7 +682,7 @@ class BWGViewAlbum_compact_preview {
                   $thumb_left = ($params['compuct_album_image_thumb_width'] - $image_thumb_width) / 2;
                   $thumb_top = ($params['compuct_album_image_thumb_height'] - $image_thumb_height) / 2;
                   ?>
-                  <a style="font-size: 0;" onclick="spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>', '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5); return false;">
+                  <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ('href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"')) ?>>
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                       <?php
                       if ($params['compuct_album_image_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top') {
@@ -673,7 +731,7 @@ class BWGViewAlbum_compact_preview {
             </div>
             <?php
             if ($params['compuct_album_enable_page'] && $items_per_page && ($theme_row->page_nav_position == 'bottom') && $page_nav['total']) {
-              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id']);
+              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type);
             }
             ?>
           </div>

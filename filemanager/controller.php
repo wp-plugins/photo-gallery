@@ -247,6 +247,11 @@ class FilemanagerController {
       exit;
     }
 
+    public function import_items() {
+      header('Location: ' . add_query_arg(array('action' => 'bwg_UploadHandler', 'importer_thumb_width' => $_REQUEST['importer_thumb_width'], 'importer_thumb_height' => $_REQUEST['importer_thumb_height'], 'callback' => $_REQUEST['callback'], 'file_namesML' => $_REQUEST['file_namesML'], 'import' => 'true', 'redir' => $_REQUEST['dir'], 'dir' => $this->get_uploads_dir() . '/' . $_REQUEST['dir'] . '/'), admin_url('admin-ajax.php')));
+      exit;
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Getters & Setters                                                                  //

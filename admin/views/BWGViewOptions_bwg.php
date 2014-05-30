@@ -554,10 +554,20 @@ class BWGViewOptions_bwg {
               </tr>
               <tr id="tr_popup_filmstrip_height">
                 <td class="spider_label_options spider_free_version_label">
-                  <label for="popup_filmstrip_height">Filmstrip height:</label>
+                  <label for="popup_filmstrip_height">Filmstrip size:</label>
                 </td>
                 <td class="spider_free_version_label">
                   <input disabled="disabled" type="text" name="popup_filmstrip_height" id="popup_filmstrip_height" value="<?php echo $row->popup_filmstrip_height; ?>" class="spider_int_input spider_free_version_label" /> px
+                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                </td>
+              </tr>
+	      <tr id="tr_popup_hit_counter">
+                <td class="spider_label_options spider_free_version_label">
+                  <label>Display hit counter:</label>
+                </td>
+                <td>
+                  <input disabled="disabled" type="radio" name="popup_hit_counter" id="popup_hit_counter_1" value="1" <?php if ($row->popup_hit_counter) echo 'checked="checked"'; ?> /><label for="popup_hit_counter_1">Yes</label>
+                  <input disabled="disabled" type="radio" name="popup_hit_counter" id="popup_hit_counter_0" value="0" <?php if (!$row->popup_hit_counter) echo 'checked="checked"'; ?> /><label for="popup_hit_counter_0">No</label>
                   <div class="spider_description spider_free_version">This option is disabled in free version.</div>
                 </td>
               </tr>
@@ -574,6 +584,7 @@ class BWGViewOptions_bwg {
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_google', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_tumblr', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                       bwg_enable_disable('', 'tr_comment_moderation', 'comment_moderation_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_email', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_captcha', 'popup_enable_ctrl_btn_1');
                                                                                                                                                                                        bwg_enable_disable('', 'tr_popup_download', 'popup_enable_ctrl_btn_1');
@@ -586,6 +597,7 @@ class BWGViewOptions_bwg {
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_google', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_tumblr', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                       bwg_enable_disable('none', 'tr_comment_moderation', 'comment_moderation_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_email', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_captcha', 'popup_enable_ctrl_btn_0');
                                                                                                                                                                                        bwg_enable_disable('none', 'tr_popup_download', 'popup_enable_ctrl_btn_0');
@@ -613,15 +625,47 @@ class BWGViewOptions_bwg {
                   <div class="spider_description"></div>
                 </td>
               </tr>
+              <tr id="tr_popup_info_always_show">
+                <td class="spider_label_options">
+                  <label>Display info by default:</label>
+                </td>
+                <td>
+                  <input type="radio" name="popup_info_always_show" id="popup_info_always_show_1" value="1" <?php if ($row->popup_info_always_show) echo 'checked="checked"'; ?> /><label for="popup_info_always_show_1">Yes</label>
+                  <input type="radio" name="popup_info_always_show" id="popup_info_always_show_0" value="0" <?php if (!$row->popup_info_always_show) echo 'checked="checked"'; ?> /><label for="popup_info_always_show_0">No</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr id="tr_popup_rate">
+                <td class="spider_label_options spider_free_version_label">
+                  <label>Enable rating:</label>
+                </td>
+                <td>
+                  <input disabled="disabled" type="radio" name="popup_enable_rate" id="popup_enable_rate_1" value="1" <?php if ($row->popup_enable_rate) echo 'checked="checked"'; ?> /><label for="popup_enable_rate_1">Yes</label>
+                  <input disabled="disabled" type="radio" name="popup_enable_rate" id="popup_enable_rate_0" value="0" <?php if (!$row->popup_enable_rate) echo 'checked="checked"'; ?> /><label for="popup_enable_rate_0">No</label>
+                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                </td>
+              </tr>
               <tr id="tr_popup_comment">
                 <td class="spider_label_options spider_free_version_label">
                   <label>Enable comments:</label>
                 </td>
                 <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_comment" id="popup_enable_comment_1" value="1" <?php if ($row->popup_enable_comment) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_popup_email', 'popup_enable_comment_1');
-                                                                                                                                                                                     bwg_enable_disable('', 'tr_popup_captcha', 'popup_enable_comment_1');" /><label for="popup_enable_comment_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_comment" id="popup_enable_comment_0" value="0" <?php if (!$row->popup_enable_comment) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_popup_email', 'popup_enable_comment_0');
+                  <input disabled="disabled" type="radio" name="popup_enable_comment" id="popup_enable_comment_1" value="1" <?php if ($row->popup_enable_comment) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_comment_moderation', 'popup_enable_comment_1');
+                                                                                                                                                                                    bwg_enable_disable('', 'tr_popup_email', 'popup_enable_comment_1');
+                                                                                                                                                                                    bwg_enable_disable('', 'tr_popup_captcha', 'popup_enable_comment_1');" /><label for="popup_enable_comment_1">Yes</label>
+                  <input disabled="disabled" type="radio" name="popup_enable_comment" id="popup_enable_comment_0" value="0" <?php if (!$row->popup_enable_comment) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_comment_moderation', 'popup_enable_comment_0');
+                                                                                                                                                                                     bwg_enable_disable('none', 'tr_popup_email', 'popup_enable_comment_0');
                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_captcha', 'popup_enable_comment_0');" /><label for="popup_enable_comment_0">No</label>
+                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                </td>
+              </tr>
+              <tr id="tr_comment_moderation">
+                <td class="spider_label_options spider_free_version_label">
+                  <label>Enable comments moderation:</label>
+                </td>
+                <td>
+                  <input disabled="disabled" type="radio" name="comment_moderation" id="comment_moderation_1" value="1" <?php if ($row->comment_moderation) echo 'checked="checked"'; ?> /><label for="comment_moderation_1">Yes</label>
+                  <input disabled="disabled" type="radio" name="comment_moderation" id="comment_moderation_0" value="0" <?php if (!$row->comment_moderation) echo 'checked="checked"'; ?> /><label for="comment_moderation_0">No</label>
                   <div class="spider_description spider_free_version">This option is disabled in free version.</div>
                 </td>
               </tr>
@@ -887,7 +931,7 @@ class BWGViewOptions_bwg {
                       </td>
                     </tr>
                     <tr id="tr_slideshow_filmstrip_height">
-                      <td class="spider_label_options spider_free_version_label"><label for="slideshow_filmstrip_height">Slideshow filmstrip height: </label></td>
+                      <td class="spider_label_options spider_free_version_label"><label for="slideshow_filmstrip_height">Slideshow filmstrip size: </label></td>
                       <td class="spider_free_version_label">
                         <input disabled="disabled" type="text" name="slideshow_filmstrip_height" id="slideshow_filmstrip_height" value="<?php echo $row->slideshow_filmstrip_height; ?>" class="spider_int_input spider_free_version_label" /> px
                         <div class="spider_description spider_free_version">This option is disabled in free version.</div>
@@ -1068,6 +1112,22 @@ class BWGViewOptions_bwg {
                   <div class="spider_description"></div>
                 </td>
               </tr>
+              <tr>
+                <td class="spider_label_options"><label>Thumb click action: </label></td>
+                <td>
+                  <input type="radio" name="thumb_click_action" id="thumb_click_action_1" value="open_lightbox" <?php if ($row->thumb_click_action == 'open_lightbox') echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_thumb_link_target', 'thumb_click_action_1')" /><label for="thumb_click_action_1">Open lightbox</label>
+                  <input type="radio" name="thumb_click_action" id="thumb_click_action_2" value="redirect_to_url" <?php if ($row->thumb_click_action == 'redirect_to_url') echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_thumb_link_target', 'thumb_click_action_2')" /><label for="thumb_click_action_2">Redirect to url</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr id="tr_thumb_link_target">
+                <td class="spider_label_options"><label>Open in a new window: </label></td>
+                <td>
+                  <input type="radio" name="thumb_link_target" id="thumb_link_target_yes" value="1" <?php if ($row->thumb_link_target) echo 'checked="checked"'; ?> /><label for="thumb_link_target_yes">Yes</label>
+                  <input type="radio" name="thumb_link_target" id="thumb_link_target_no" value="0" <?php if (!$row->thumb_link_target) echo 'checked="checked"'; ?> /><label for="thumb_link_target_no">No</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -1145,7 +1205,7 @@ class BWGViewOptions_bwg {
                 <td class="spider_free_version_label">
                   <input disabled="disabled" type="radio" name="blog_style_enable_page" id="blog_style_enable_page_1" value="1" <?php if ($row->blog_style_enable_page) echo 'checked="checked"'; ?> /><label for="blog_style_enable_page_1">Yes</label>
                   <input disabled="disabled" type="radio" name="blog_style_enable_page" id="blog_style_enable_page_0" value="0" <?php if (!$row->blog_style_enable_page) echo 'checked="checked"'; ?> /><label for="blog_style_enable_page_0">No</label>
-                  
+                  <div class="spider_description"></div>
                 </td>
               </tr>
             </tbody>
@@ -1167,6 +1227,7 @@ class BWGViewOptions_bwg {
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_download', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_download', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_comment', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_comment', 'popup_enable_ctrl_btn_0'" ?>);
+        window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? ($row->popup_enable_comment ? "'', 'tr_comment_moderation', 'popup_enable_comment_1'" : "'none', 'tr_comment_moderation', 'popup_enable_comment_0'") : "'none', 'tr_comment_moderation', 'popup_enable_comment_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? ($row->popup_enable_comment ? "'', 'tr_popup_email', 'popup_enable_comment_1'" : "'none', 'tr_popup_email', 'popup_enable_comment_0'") : "'none', 'tr_popup_email', 'popup_enable_comment_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? ($row->popup_enable_comment ? "'', 'tr_popup_captcha', 'popup_enable_comment_1'" : "'none', 'tr_popup_captcha', 'popup_enable_comment_0'") : "'none', 'tr_popup_captcha', 'popup_enable_comment_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_facebook', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_facebook', 'popup_enable_ctrl_btn_0'" ?>);
@@ -1179,6 +1240,7 @@ class BWGViewOptions_bwg {
         window.onload = bwg_enable_disable(<?php echo $row->slideshow_enable_title ? "'', 'tr_slideshow_title_position', 'slideshow_enable_title_yes'" : "'none', 'tr_slideshow_title_position', 'slideshow_enable_title_no'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->slideshow_enable_description ? "'', 'tr_slideshow_description_position', 'slideshow_enable_description_yes'" : "'none', 'tr_slideshow_description_position', 'slideshow_enable_description_no'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->slideshow_enable_music ? "'', 'tr_slideshow_music_url', 'slideshow_enable_music_yes'" : "'none', 'tr_slideshow_music_url', 'slideshow_enable_music_no'" ?>);
+        window.onload = bwg_enable_disable(<?php echo $row->thumb_click_action == 'open_lightbox' ? "'none', 'tr_thumb_link_target', 'thumb_click_action_1'" : "'', 'tr_thumb_link_target', 'thumb_click_action_2'" ?>);
         window.onload = preview_watermark();
         window.onload = preview_built_in_watermark();
       </script>

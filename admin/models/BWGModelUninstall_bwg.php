@@ -20,14 +20,15 @@ class BWGModelUninstall_bwg {
   ////////////////////////////////////////////////////////////////////////////////////////
   public function delete_db_tables() {
     global $wpdb;
-    $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_album");
-    $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_album_gallery");
-    $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_gallery");
-    $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_image");
-    $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_image_comment");
-    $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_image_tag");
-    $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_option");
-    $wpdb->query("DROP TABLE ".$wpdb->prefix."bwg_theme");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_album");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_album_gallery");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_gallery");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_image");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_image_comment");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_image_rate");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_image_tag");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_option");
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "bwg_theme");
     delete_option("wd_bwg_version");
     delete_option("wd_bwg_theme_version");
     // Delete terms.

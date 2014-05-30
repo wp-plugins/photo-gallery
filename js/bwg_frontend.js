@@ -31,13 +31,12 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
   }
   // Loading.
   jQuery("#ajax_loading_" + current_view).css('display', '');
-
   jQuery.post(
     window.location,
     post_data,
     function (data) {
-      var str = jQuery(data).find('#gal_front_form_' + current_view).html();
-      jQuery('#gal_front_form_' + current_view).html(str);
+      var str = jQuery(data).find('#' + form_id).html();
+      jQuery('#' + form_id).html(str);
       // There are no images.
       if (jQuery("#bwg_search_input_" + current_view).length > 0 && album_gallery_id == 0) { // Search box exists and not album view.
         var bwg_images_count = jQuery('#bwg_images_count_' + current_view).val();

@@ -170,6 +170,12 @@ class BWGControllerOptions_bwg {
     $show_search_box = (isset($_POST['show_search_box']) ? esc_html(stripslashes($_POST['show_search_box'])) : 0);
     $search_box_width = (isset($_POST['search_box_width']) ? esc_html(stripslashes($_POST['search_box_width'])) : 180);
     $popup_enable_info = (isset($_POST['popup_enable_info']) ? esc_html(stripslashes($_POST['popup_enable_info'])) : 1);
+    $popup_info_always_show = (isset($_POST['popup_info_always_show']) ? esc_html(stripslashes($_POST['popup_info_always_show'])) : 0);
+    $popup_enable_rate = (isset($_POST['popup_enable_rate']) ? esc_html(stripslashes($_POST['popup_enable_rate'])) : 0);
+    $thumb_click_action = (isset($_POST['thumb_click_action']) ? esc_html(stripslashes($_POST['thumb_click_action'])) : 'open_lightbox');
+    $thumb_link_target = (isset($_POST['thumb_link_target']) ? esc_html(stripslashes($_POST['thumb_link_target'])) : 1);
+    $comment_moderation = (isset($_POST['comment_moderation']) ? esc_html(stripslashes($_POST['comment_moderation'])) : 0);
+    $popup_hit_counter = (isset($_POST['popup_hit_counter']) ? esc_html(stripslashes($_POST['popup_hit_counter'])) : 0);
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -260,6 +266,12 @@ class BWGControllerOptions_bwg {
       'show_search_box' => $show_search_box,
       'search_box_width' => $search_box_width,
       'popup_enable_info' => $popup_enable_info,
+      'popup_info_always_show' => $popup_info_always_show,
+      'popup_enable_rate' => $popup_enable_rate,
+      'thumb_click_action' => $thumb_click_action,
+      'thumb_link_target' => $thumb_link_target,
+      'comment_moderation' => $comment_moderation,
+      'popup_hit_counter' => $popup_hit_counter,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      

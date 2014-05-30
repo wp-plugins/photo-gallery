@@ -134,6 +134,7 @@ function spider_ajax_save(form_id, tr_group) {
       post_data["thumb_url_" + ids_array[i]] = jQuery("#thumb_url_" + ids_array[i]).val();
       post_data["image_description_" + ids_array[i]] = jQuery("#image_description_" + ids_array[i]).val();
       post_data["image_alt_text_" + ids_array[i]] = jQuery("#image_alt_text_" + ids_array[i]).val();
+      post_data["redirect_url_" + ids_array[i]] = jQuery("#redirect_url_" + ids_array[i]).val();
       post_data["input_date_modified_" + ids_array[i]] = jQuery("#input_date_modified_" + ids_array[i]).val();
       post_data["input_size_" + ids_array[i]] = jQuery("#input_size_" + ids_array[i]).val();
       post_data["input_filetype_" + ids_array[i]] = jQuery("#input_filetype_" + ids_array[i]).val();
@@ -565,7 +566,37 @@ function spider_get_items(e) {
   window.parent.bwg_add_items(trackIds, titles, types);
 }
 
-function bwg_get_tags(image_id, e) {
+function bwg_check_checkboxes() { 
+  var flag = false;
+  var ids_string = jQuery("#ids_string").val();
+  ids_array = ids_string.split(",");
+  for (var i in ids_array) {
+    if (ids_array.hasOwnProperty(i) && ids_array[i]) {
+      if (jQuery("#check_" + ids_array[i]).attr('checked') == 'checked') {
+        flag = true;
+      }
+	}
+  }
+  if(flag) {
+    if(jQuery(".buttons_div_right").find("a").hasClass( "thickbox" )) {       
+      return true; 
+	}
+	else { 
+	  jQuery(".buttons_div_right").find("a").addClass( "thickbox thickbox-preview" );
+	  jQuery('#draganddrop').hide();
+	  return true;
+	}
+  } 
+  else { 
+	jQuery(".buttons_div_right").find("a").removeClass( "thickbox thickbox-preview" );
+    jQuery('#draganddrop').html("<strong><p>You must select at least one item.</p></strong>");
+    jQuery('#draganddrop').show();
+	return false;
+  }  
+}
+
+
+function bwg_get_tags(image_id, e) { 
   if (e.preventDefault) {
     e.preventDefault();
   }
@@ -587,35 +618,49 @@ function bwg_get_tags(image_id, e) {
 }
 
 function bwg_add_tag(image_id, tagIds, titles) {
-  var tag_ids = document.getElementById('tags_' + image_id).value;
-  tags_array = tag_ids.split(',');
-  var div = document.getElementById('tags_div_' + image_id);
-  var counter = 0;
-  for (i = 0; i < tagIds.length; i++) {
-    if (tags_array.indexOf(tagIds[i]) == -1) {
-      tag_ids = tag_ids + tagIds[i] + ',';
-      var tag_div = document.createElement('div');
-      tag_div.setAttribute('id', image_id + "_tag_" + tagIds[i]);
-      tag_div.setAttribute('class', "tag_div");
-      div.appendChild(tag_div);
-
-      var tag_name_span = document.createElement('span');
-      tag_name_span.setAttribute('class', "tag_name");
-      tag_name_span.innerHTML = titles[i];
-      tag_div.appendChild(tag_name_span);
-
-      var tag_delete_span = document.createElement('span');
-      tag_delete_span.setAttribute('class', "spider_delete_img_small");
-      tag_delete_span.setAttribute('onclick', "bwg_remove_tag('" + tagIds[i] + "', '" + image_id + "')");
-      tag_delete_span.setAttribute('style', "float:right;");
-      tag_div.appendChild(tag_delete_span);
-
-      counter++;
-    }
+  if (image_id == '0') {
+    var ids_string = jQuery("#ids_string").val();
+    ids_array = ids_string.split(",");
+    var flag = false;
   }
-  document.getElementById('tags_' + image_id).value = tag_ids;
-  if (counter) {
-    div.style.display = "block";
+  else {
+    image_id = image_id + ','; 
+    ids_array = image_id.split(",");
+    var flag = true;
+  }
+  for (var i in ids_array) {
+    if (ids_array.hasOwnProperty(i) && ids_array[i]) {
+      if (jQuery("#check_" + ids_array[i]).attr('checked') == 'checked' || flag) {
+        image_id = ids_array[i];
+        var tag_ids = document.getElementById('tags_' + image_id).value;
+        tags_array = tag_ids.split(',');
+        var div = document.getElementById('tags_div_' + image_id);
+        var counter = 0;
+        for (i = 0; i < tagIds.length; i++) {
+          if (tags_array.indexOf(tagIds[i]) == -1) {
+            tag_ids = tag_ids + tagIds[i] + ',';
+            var tag_div = document.createElement('div');
+            tag_div.setAttribute('id', image_id + "_tag_" + tagIds[i]);
+            tag_div.setAttribute('class', "tag_div");
+            div.appendChild(tag_div);
+            var tag_name_span = document.createElement('span');
+            tag_name_span.setAttribute('class', "tag_name");
+            tag_name_span.innerHTML = titles[i];
+            tag_div.appendChild(tag_name_span);
+            var tag_delete_span = document.createElement('span');
+            tag_delete_span.setAttribute('class', "spider_delete_img_small");
+            tag_delete_span.setAttribute('onclick', "bwg_remove_tag('" + tagIds[i] + "', '" + image_id + "')");
+            tag_delete_span.setAttribute('style', "float:right;");
+            tag_div.appendChild(tag_delete_span);
+            counter++;
+          }
+        }
+        document.getElementById('tags_' + image_id).value = tag_ids;
+        if (counter) {
+          div.style.display = "block";
+        }
+      }
+	  }
   }
   tb_remove();
 }
@@ -922,6 +967,7 @@ function bwg_get_video_info(input_id) {
             fileData['filetype'] = 'YOUTUBE';
             fileData['date_modified'] = bwg_convert_date(data.data.uploaded, 'T');
             fileData['resolution'] = '';
+            fileData['redirect_url'] = '';
             filesValid.push(fileData);
             bwg_add_image(filesValid);
             document.getElementById(input_id).value = '';
@@ -947,6 +993,7 @@ function bwg_get_video_info(input_id) {
             fileData['filetype'] = 'VIMEO';
             fileData['date_modified'] = bwg_convert_date(data[0].upload_date, ' ');
             fileData['resolution'] = '';
+            fileData['redirect_url'] = '';
             filesValid.push(fileData);
             bwg_add_image(filesValid);
             document.getElementById(input_id).value = '';

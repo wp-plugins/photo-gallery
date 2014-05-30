@@ -196,6 +196,7 @@ class BWGViewGalleries_bwg {
   public function edit($id) {
     global $WD_BWG_UPLOAD_DIR;
     $row = $this->model->get_row_data($id);
+    $option_row = $this->model->get_option_row_data();
     $pages = get_pages();
     $page_title = (($id != 0) ? 'Edit gallery ' . $row->name : 'Create new gallery');
     ?>
@@ -405,6 +406,16 @@ class BWGViewGalleries_bwg {
             input_alt.setAttribute('value', files[i]['filename']);
           }
           td_alt.appendChild(input_alt);
+
+          <?php if ($option_row->thumb_click_action != 'open_lightbox') { ?>
+          //Redirect url
+          input_alt = document.createElement('input');
+          input_alt.setAttribute('id', "redirect_url_" + bwg_j);
+          input_alt.setAttribute('name', "redirect_url_" + bwg_j);
+          input_alt.setAttribute('type', "text");
+          input_alt.setAttribute('size', "24");
+          td_alt.appendChild(input_alt);
+          <?php } ?>
           // Description TD.
           var td_desc = document.createElement('td');
           td_desc.setAttribute('class', "table_extra_large_col");
@@ -584,6 +595,7 @@ class BWGViewGalleries_bwg {
     global $WD_BWG_UPLOAD_DIR;
     $rows_data = $this->model->get_image_rows_data($id);
     $page_nav = $this->model->image_page_nav($id);
+    $option_row = $this->model->get_option_row_data();
     $search_value = ((isset($_POST['search_value'])) ? esc_html(stripslashes($_POST['search_value'])) : '');
     $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
     $image_order_by = (isset($_POST['image_order_by']) ? esc_html(stripslashes($_POST['image_order_by'])) : 'order');
@@ -669,7 +681,7 @@ class BWGViewGalleries_bwg {
                         spider_set_input_value('image_order_by', 'alt');
                         spider_set_input_value('asc_or_desc', '<?php echo ((isset($_POST['asc_or_desc']) && isset($_POST['image_order_by']) && (esc_html(stripslashes($_POST['image_order_by'])) == 'alt') && esc_html(stripslashes($_POST['asc_or_desc'])) == 'asc') ? 'desc' : 'asc'); ?>');
                         spider_ajax_save('galleries_form');">
-              <span>Alt/Title</span><span class="sorting-indicator"></span>
+              <span>Alt/Title<?php if ($option_row->thumb_click_action != 'open_lightbox') { ?><br />Redirect URL<?php } ?></span><span class="sorting-indicator"></span>
             </a>
           </th>
           <th class="table_extra_large_col <?php if ($image_order_by == 'description') {echo $order_class;} ?>">
@@ -749,6 +761,9 @@ class BWGViewGalleries_bwg {
                 </td>
                 <td class="table_extra_large_col">
                   <input size="24" type="text" id="image_alt_text_<?php echo $row_data->id; ?>" name="image_alt_text_<?php echo $row_data->id; ?>" value="<?php echo $row_data->alt; ?>" />
+                  <?php if ($option_row->thumb_click_action != 'open_lightbox') { ?>
+                  <input size="24" type="text" id="redirect_url_<?php echo $row_data->id; ?>" name="redirect_url_<?php echo $row_data->id; ?>" value="<?php echo $row_data->redirect_url; ?>" />
+                  <?php } ?>
                 </td>
                 <td class="table_extra_large_col">
                   <textarea cols="20" rows="2" id="image_description_<?php echo $row_data->id; ?>" name="image_description_<?php echo $row_data->id; ?>" style="resize:vertical;"><?php echo $row_data->description; ?></textarea>

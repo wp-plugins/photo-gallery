@@ -124,6 +124,12 @@ class BWGModelOptions_bwg {
       $row->show_search_box = 0;
       $row->search_box_width = 180;
       $row->popup_enable_info = 1;
+      $row->popup_info_always_show = 0;
+      $row->popup_enable_rate = 0;
+      $row->thumb_click_action = 'open_lightbox';
+      $row->thumb_link_target = 1;
+      $row->comment_moderation = 0;
+      $row->popup_hit_counter = 0;
     }
     return $row;
   }

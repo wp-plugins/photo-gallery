@@ -29,7 +29,8 @@
   vertical-align: middle;
 }
 
-#explorer_body_container {
+#explorer_body_container,
+#importer_body_container {
   position: absolute;
   top: 30px;
   bottom: 0;
@@ -48,7 +49,8 @@
   user-select: none;
 }
 
-#explorer_body {
+#explorer_body,
+#importer_body {
   display: table;
   margin: 0;
   padding: 0;
@@ -56,19 +58,22 @@
 }
 
 
-.explorer_item {
+.explorer_item,
+.importer_item {
   display: table-row;
   height: 40px;
 }
 
-.explorer_item_hover {
+.explorer_item_hover,
+.importer_item_hover {
   outline-style: solid;
   outline-width: 1px;
   outline-color: #70c0e7;
   background-color: #e5f3fb;
 }
 
-.explorer_item_select {
+.explorer_item_select,
+.importer_item_select {
   outline-style: solid;
   outline-width: 1px;
   outline-color: #66a7e8;

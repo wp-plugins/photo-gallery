@@ -16,6 +16,7 @@ class WDWLibrary {
   public function __construct() {
   }
 
+
   ////////////////////////////////////////////////////////////////////////////////////////
   // Public Methods                                                                     //
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -173,7 +174,7 @@ class WDWLibrary {
       </script>
       <div class="alignleft actions" style="">
         <label for="search_value" style="font-size:14px; width:50px; display:inline-block;"><?php echo $search_by; ?>:</label>
-        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" style="width:150px;" />
+        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" style="width: 150px;<?php echo (get_bloginfo('version') > '3.7') ? ' height: 28px;' : ''; ?>" />
       </div>
       <div class="alignleft actions">
         <input type="button" value="Search" onclick="spider_search()" class="button-secondary action">
@@ -183,7 +184,7 @@ class WDWLibrary {
     <?php
   }
 
-  public static function search_select($search_by, $search_select_value, $playlists, $form_id) {
+  public static function search_select($search_by, $search_select_id = 'search_select_value', $search_select_value, $playlists, $form_id) {
     ?>
     <div class="alignleft actions" style="clear:both;">
       <script>
@@ -194,8 +195,8 @@ class WDWLibrary {
         }
       </script>
       <div class="alignleft actions" >
-        <label for="search_select_value" style="font-size:14px; width:50px; display:inline-block;"><?php echo $search_by; ?>:</label>
-        <select id="search_select_value" name="search_select_value" onchange="spider_search_select();" style="float:none; width:150px;">
+        <label for="<?php echo $search_select_id; ?>" style="font-size:14px; width:50px; display:inline-block;"><?php echo $search_by; ?>:</label>
+        <select id="<?php echo $search_select_id; ?>" name="<?php echo $search_select_id; ?>" onchange="spider_search_select();" style="float: none; width: 150px;">
         <?php
           foreach ($playlists as $id => $playlist) {
             ?>
@@ -320,7 +321,7 @@ class WDWLibrary {
       </script>
       <div class="alignleft actions" style="">
         <label for="search_value" style="font-size:14px; width:60px; display:inline-block;"><?php echo $search_by; ?>:</label>
-        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" style="width:150px;" />
+        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" style="width: 150px;<?php echo (get_bloginfo('version') > '3.7') ? ' height: 28px;' : ''; ?>" />
       </div>
       <div class="alignleft actions">
         <input type="button" value="Search" onclick="spider_search()" class="button-secondary action">
@@ -422,9 +423,9 @@ class WDWLibrary {
     <input type="hidden" id="search_or_not" name="search_or_not" value="<?php echo ((isset($_POST['search_or_not'])) ? esc_html($_POST['search_or_not']) : ''); ?>"/>
     <?php
   }
-  
-  public static function ajax_html_frontend_page_nav($theme_row, $count_items, $page_number, $form_id, $limit = 20, $current_view, $id, $cur_alb_gal_id = 0) {
-    $type = (isset($_POST['type_' . $current_view]) ? esc_html($_POST['type_' . $current_view]) : 'album');
+
+  public static function ajax_html_frontend_page_nav($theme_row, $count_items, $page_number, $form_id, $limit = 20, $current_view, $id, $cur_alb_gal_id = 0, $type = 'album') {
+    $type = (isset($_POST['type_' . $current_view]) ? esc_html($_POST['type_' . $current_view]) : $type);
     $album_gallery_id = (isset($_POST['album_gallery_id_' . $current_view]) ? esc_html($_POST['album_gallery_id_' . $current_view]) : $cur_alb_gal_id);
     if ($count_items) {
       if ($count_items % $limit) {
