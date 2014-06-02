@@ -44,6 +44,8 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Photo Gallery Slideshow 
 *   Photo Gallery (similar to the main plugin option)
 
+###IMPORTANT: If you think you found a bug in Photo Gallery or have any problem/question concerning the plugin, please check out [Support Forum](http://web-dorado.com/forum/photo-gallery.html) in our website. If you do not find a solution here, do not hesitate to contact us at [info@web-dorado.com](mailto:info@web-dorado.com).
+
 
 ### The list of the features:
 
