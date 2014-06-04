@@ -1,0 +1,316 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: bwg\n"
+"POT-Creation-Date: 2014-05-29 15:54+0300\n"
+"PO-Revision-Date: 2014-05-29 15:55+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ka_GE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: C:\\wamp\\www\\wordpressraf\\wp-content\\plugins"
+"\\photo-gallery\n"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/photo-gallery.php:2812
+msgid "field is required."
+msgstr "ველი არ არის საჭირო. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/photo-gallery.php:2813
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1123
+msgid "This is not a valid email address."
+msgstr "ეს არ არის მართებული ელფოსტა. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/photo-gallery.php:2814
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:723
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:711
+#, fuzzy
+msgid "There are no images matching your search."
+msgstr "არ არსებობს სურათები ამ გალერეა."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:478
+msgid " item(s)"
+msgstr "ერთეულზე"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:483
+msgid "First"
+msgstr "პირველი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:484
+msgid "Previous"
+msgstr "წინა"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:485
+msgid "Next"
+msgstr "შემდეგი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:486
+msgid "Last"
+msgstr "გაგრძელდება"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:512
+msgid "Go to the first page"
+msgstr "გადადით პირველ გვერდზე"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:513
+msgid "Go to the previous page"
+msgstr "გადადით წინა გვერდზე"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:515
+msgid "of"
+msgstr "შესახებ"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:519
+msgid "Go to the next page"
+msgstr "წასვლა მომდევნო გვერდზე"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:520
+msgid "Go to the last page"
+msgstr "გადასვლა ბოლო გვერდი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:604
+msgid "Reset"
+msgstr "ხელახლა"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:607
+msgid "Search"
+msgstr "ძებნა"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:129
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:78
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:32
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:68
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:42
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:101
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:125
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:77
+msgid "There is no theme selected or the theme was deleted."
+msgstr "არ არსებობს თემა ავტორმა ან თემა წაშლილი იყო"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:134
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:154
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:85
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:105
+msgid "There is no album selected or the album was deleted."
+msgstr "არ არსებობს ფოტოალბომის ავტორმა ან ფოტოალბომის წაშლილი იყო."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:143
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:94
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:79
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:79
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:163
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:142
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:88
+msgid "There are no images in this gallery."
+msgstr "არ არსებობს სურათები ამ გალერეა."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:616
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:595
+msgid "Back"
+msgstr "უკან"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:627
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:606
+msgid "Album is empty."
+msgstr "ალბომი ცარიელია"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:728
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:716
+msgid "Gallery is empty."
+msgstr "გალერეა ცარიელია"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:686
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:794
+msgid "More"
+msgstr "უფრო"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:789
+msgid "Hide"
+msgstr "დასამალი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:73
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:73
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:158
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:136
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:82
+msgid "There is no gallery selected or the gallery was deleted."
+msgstr "არ არსებობს შერჩეულ გალერეაში ან გალერეაში წაშლილი იყო"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:493
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:822
+msgid "Show comments"
+msgstr "აჩვენეთ კომენტარი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:499
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:500
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:830
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:831
+msgid "Share on Facebook"
+msgstr "Share on Facebook"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:506
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:507
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:837
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:838
+msgid "Share on Twitter"
+msgstr "Share on Twitter."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:513
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:514
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:844
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:845
+msgid "Share on Google+"
+msgstr "Share on Google+"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:520
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:521
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:851
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:852
+#, fuzzy
+msgid "Share on Pinterest"
+msgstr "Share on Twitter."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:527
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:528
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:858
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:859
+#, fuzzy
+msgid "Share on Tumblr"
+msgstr "Share on Twitter."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:800
+msgid "The image has been deleted."
+msgstr "გამოსახულება წაშლილია"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:810
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2443
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1557
+msgid "Play"
+msgstr "ითამაშოს"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:814
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2279
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2376
+msgid "Maximize"
+msgstr "მაქსიმალურად"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:818
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2378
+msgid "Fullscreen"
+msgstr "ეკრანის"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:820
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2119
+msgid "Show info"
+msgstr "აჩვენეთ ინფორმაცია"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:824
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2130
+msgid "Show rating"
+msgstr "აჩვენეთ ნიშანი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:866
+msgid "Open image in original size."
+msgstr "გახსენით იმიჯი ორიგინალური ზომა. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:873
+msgid "Download original image"
+msgstr "ჩამოტვირთვა ორიგინალური იმიჯი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:966
+msgid "Hits: "
+msgstr "Hits: "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:980
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:993
+msgid "Not rated yet."
+msgstr "არ არის შეფასებული. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:982
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1013
+msgid "Votes: "
+msgstr "რაოდენობა: "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1011
+msgid "Cancel your rating."
+msgstr "გააუქმოს თქვენი ნიშანი. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1013
+msgid "You have already rated."
+msgstr "თქვენ უკვე შეაფასა. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1116
+msgid "Error. Incorrect Verification Code."
+msgstr "შეცდომა. მცდარი Verification Code. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1131
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1974
+msgid "Hide Comments"
+msgstr "ღონისძიებები კომენტარები"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1135
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1163
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1170
+msgid "Name"
+msgstr "ასახელებს"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1141
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1163
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1170
+msgid "Email"
+msgstr "ელ "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1148
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1163
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1170
+msgid "Comment"
+msgstr "კომენტარები"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1153
+msgid "Verification Code"
+msgstr "Verification Code"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1176
+msgid "Submit"
+msgstr "წარმოადგინოს"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1177
+msgid "Your comment is awaiting moderation"
+msgstr "თქვენი კომენტარი ელოდება მოდერაცია "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1206
+msgid "Delete Comment"
+msgstr "წაშალე კომენტარები"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1931
+msgid "Show Comments"
+msgstr "კომენტარების ხილვა"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2115
+#, fuzzy
+msgid "Hide info"
+msgstr "დასამალი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2126
+msgid "Hide rating"
+msgstr "დამალე ნიშანი"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2314
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2503
+msgid "Restore"
+msgstr "აღდგენა"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2424
+msgid "Exit Fullscreen"
+msgstr "Exit Fullscreen."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2437
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2452
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1548
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1566
+msgid "Pause"
+msgstr "პაუზა"
