@@ -855,15 +855,6 @@ function bwg_popup_fullscreen(num) {
   }
 }
 
-function bwg_show_search_box(num) {
-  if (num) {
-    jQuery("#tr_search_box_width").css('display', '');
-  }
-  else {
-    jQuery("#tr_search_box_width").css('display', 'none');
-  }
-}
-
 function bwg_change_album_view_type(type) {
   if (type == 'thumbnail') {
     jQuery("#album_thumb_dimensions").html('Album thumb dimensions: ');

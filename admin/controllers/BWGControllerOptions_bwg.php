@@ -169,6 +169,8 @@ class BWGControllerOptions_bwg {
     $album_view_type = (isset($_POST['album_view_type']) ? esc_html(stripslashes($_POST['album_view_type'])) : 'thumbnail');
     $show_search_box = (isset($_POST['show_search_box']) ? esc_html(stripslashes($_POST['show_search_box'])) : 0);
     $search_box_width = (isset($_POST['search_box_width']) ? esc_html(stripslashes($_POST['search_box_width'])) : 180);
+    $preload_images = (isset($_POST['preload_images']) ? esc_html(stripslashes($_POST['preload_images'])) : 1);
+    $preload_images_count = (isset($_POST['preload_images_count']) ? esc_html(stripslashes($_POST['preload_images_count'])) : 10);
     $popup_enable_info = (isset($_POST['popup_enable_info']) ? esc_html(stripslashes($_POST['popup_enable_info'])) : 1);
     $popup_info_always_show = (isset($_POST['popup_info_always_show']) ? esc_html(stripslashes($_POST['popup_info_always_show'])) : 0);
     $popup_enable_rate = (isset($_POST['popup_enable_rate']) ? esc_html(stripslashes($_POST['popup_enable_rate'])) : 0);
@@ -265,6 +267,8 @@ class BWGControllerOptions_bwg {
       'album_view_type' => $album_view_type,
       'show_search_box' => $show_search_box,
       'search_box_width' => $search_box_width,
+      'preload_images' => $preload_images,
+      'preload_images_count' => $preload_images_count,
       'popup_enable_info' => $popup_enable_info,
       'popup_info_always_show' => $popup_info_always_show,
       'popup_enable_rate' => $popup_enable_rate,

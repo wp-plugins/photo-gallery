@@ -123,6 +123,8 @@ class BWGModelOptions_bwg {
       $row->album_view_type = 'thumbnail';
       $row->show_search_box = 0;
       $row->search_box_width = 180;
+      $row->preload_images = 1;
+      $row->preload_images_count = 10;
       $row->popup_enable_info = 1;
       $row->popup_info_always_show = 0;
       $row->popup_enable_rate = 0;

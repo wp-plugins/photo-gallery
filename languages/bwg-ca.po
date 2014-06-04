@@ -111,7 +111,7 @@ msgstr "No hi ha imatges en aquesta galeria."
 #: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:616
 #: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:595
 msgid "Back"
-msgstr "Esquena"
+msgstr "Tornar"
 
 #: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:627
 #: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:606

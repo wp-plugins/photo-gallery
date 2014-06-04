@@ -752,6 +752,7 @@ class BWGViewGalleryBox {
         data["<?php echo $key; ?>"]["date"] = "<?php echo $image_row->date; ?>";
         data["<?php echo $key; ?>"]["comment_count"] = "<?php echo $image_row->comment_count; ?>";
         data["<?php echo $key; ?>"]["filetype"] = "<?php echo $image_row->filetype; ?>";
+        data["<?php echo $key; ?>"]["filename"] = "<?php echo $image_row->filename; ?>";
         data["<?php echo $key; ?>"]["avg_rating"] = "<?php echo $image_row->avg_rating; ?>";
         data["<?php echo $key; ?>"]["rate"] = "<?php echo $image_row->rate; ?>";
         data["<?php echo $key; ?>"]["rate_count"] = "<?php echo $image_row->rate_count; ?>";
@@ -851,22 +852,23 @@ class BWGViewGalleryBox {
           <div class="bwg_slide_bg">
             <div class="bwg_slider">
           <?php
+          $current_key = -6;
           foreach ($image_rows as $key => $image_row) {
             $is_video = $image_row->filetype == "YOUTUBE" || $image_row->filetype == "VIMEO";
             if ($image_row->id == $current_image_id) {
               $current_key = $key;
               ?>
-              <span class="bwg_popup_image_spun" id="image_id_<?php echo $image_row->id; ?>">
+              <span class="bwg_popup_image_spun" id="bwg_popup_image" image_id="<?php echo $image_row->id; ?>">
                 <span class="bwg_popup_image_spun1" style="display: table; width: inherit; height: inherit;">
                   <span class="bwg_popup_image_spun2" style="display: table-cell; vertical-align: middle; text-align: center;">
                     <?php 
                       if (!$is_video) {
                       ?>
-                      <img id="bwg_popup_image" class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" alt="<?php echo $image_row->alt; ?>" />
+                      <img class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                       <?php 
                       }
                       else { ?>
-                        <span id="bwg_popup_image" class="bwg_popup_video" image_id="<?php echo $image_row->id; ?>">
+                        <span class="bwg_popup_video">
                           <iframe class="bwg_video_frame" src="<?php echo ($image_row->filetype == "YOUTUBE" ? "//www.youtube.com/embed/" . $image_row->filename . "?enablejsapi=1" : "//player.vimeo.com/video/" . $image_row->filename . "?api=1"); ?>" frameborder="0" allowfullscreen style="width:100%; height:100%;"></iframe>
                         </span>
                       <?php
@@ -874,6 +876,8 @@ class BWGViewGalleryBox {
                     ?>                    
                   </span>
                 </span>
+              </span>
+              <span class="bwg_popup_image_second_spun">                
               </span>
               <input type="hidden" id="bwg_current_image_key" value="<?php echo $key; ?>" />
               <?php
@@ -883,37 +887,15 @@ class BWGViewGalleryBox {
               if ($key == (count($image_rows) - 1)) {?>
                 <script>jQuery("#spider_popup_right").hover().css({"display": "none"});</script><?php
               }
+              break;
             }
-            else {
-              ?>
-              <span class="bwg_popup_image_second_spun" id="image_id_<?php echo $image_row->id; ?>">
-                <span class="bwg_popup_image_spun1" style="display: table; width: inherit; height: inherit;">
-                  <span class="bwg_popup_image_spun2" style="display: table-cell; vertical-align: middle; text-align: center;">
-                    <?php 
-                      if (!$is_video) {
-                      ?>
-                      <img id="bwg_popup_image_second" class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
-                      <?php 
-                      }
-                      else { ?>
-                        <span id="bwg_popup_image_second" class="bwg_popup_video">
-                          <iframe class="bwg_video_frame" src="<?php echo ($image_row->filetype == "YOUTUBE" ? "//www.youtube.com/embed/" . $image_row->filename . "?enablejsapi=1" : "//player.vimeo.com/video/" . $image_row->filename . "?api=1"); ?>" frameborder="0" allowfullscreen style="width:100%; height:100%;"></iframe>
-                        </span>
-                      <?php
-                      }
-                    ?>                    
-                  </span>
-                </span>
-              </span>
-              <?php
-            }
-          }
+	  }
           ?>
             </div>
           </div>
         </div>
-        <a id="spider_popup_left" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data); return false;" ontouchend="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data); return false;"><span id="spider_popup_left-ico"><span><i class="bwg_prev_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-left"></i></span></span></a>
-        <a id="spider_popup_right" onclick="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data); return false;" ontouchend="bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data); return false;"><span id="spider_popup_right-ico"><span><i class="bwg_next_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-right"></i></span></span></a>
+        <a id="spider_popup_left"><span id="spider_popup_left-ico"><span><i class="bwg_prev_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-left"></i></span></span></a>
+        <a id="spider_popup_right"><span id="spider_popup_right-ico"><span><i class="bwg_next_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-right"></i></span></span></a>
       </div>
     </div>
     <a class="spider_popup_close" onclick="spider_destroypopup(1000); return false;" ontouchend="spider_destroypopup(1000); return false;"><span><i class="bwg_close_btn fa fa-times"></i></span></a>
@@ -1314,40 +1296,71 @@ class BWGViewGalleryBox {
           else {
             jQuery(".bwg_image_info_container1").css("display", "none");
           }
-          var current_image_class = "#image_id_" + data[current_key]["id"];
-          var next_image_class = "#image_id_" + data[key]["id"];
-          bwg_<?php echo $image_effect; ?>(current_image_class, next_image_class, direction);
-          jQuery("#bwg_fullsize_image").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
-          jQuery("#bwg_download").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
-          jQuery("#bwg_download").attr("download", data[key]['image_url']);
-          /* Load comments.*/
-          if (jQuery(".bwg_comment_container").hasClass("bwg_open")) {
-            if (data[key]["comment_count"] == 0) {
-              jQuery("#bwg_added_comments").hide();
-            }
-            else {
-              jQuery("#bwg_added_comments").show();
-              spider_set_input_value('ajax_task', 'display');
-              spider_set_input_value('image_id', jQuery('#bwg_popup_image').attr('image_id'));
-              spider_ajax_save('bwg_comment_form');
-            }
+          var current_image_class = jQuery(".bwg_popup_image_spun").css("zIndex") == 2 ? ".bwg_popup_image_spun" : ".bwg_popup_image_second_spun";
+          var next_image_class = current_image_class == ".bwg_popup_image_second_spun" ? ".bwg_popup_image_spun" : ".bwg_popup_image_second_spun";
+          
+          var is_video = data[key]['filetype'] == "YOUTUBE" || data[key]['filetype'] == "VIMEO";
+          var innhtml = '<span class="bwg_popup_image_spun1" style="display: table; width: inherit; height: inherit;"><span class="bwg_popup_image_spun2" style="display: table-cell; vertical-align: middle; text-align: center;">';
+          if (!is_video) {
+            innhtml += '<img class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[key]["image_url"]).text() + '" alt="' + jQuery('<div />').html(data[key]["alt"]).text() + '" />';
           }
-          /* Update custom scroll.*/
-          if (typeof jQuery().mCustomScrollbar !== 'undefined' && jQuery.isFunction(jQuery().mCustomScrollbar)) {
-            jQuery(".bwg_comments").mCustomScrollbar({
-              advanced:{
-                updateOnContentResize: true
+          else {
+            innhtml += '<span class="bwg_popup_video"><iframe class="bwg_video_frame" src="'  + (data[key]['filetype'] == "YOUTUBE" ? "//www.youtube.com/embed/" + data[key]['filename'] + "?enablejsapi=1" : "//player.vimeo.com/video/" + data[key]['filename'] + "?api=1") + '" frameborder="0" allowfullscreen style="width:100%; height:100%;"></iframe></span>';
+          }
+          innhtml += '</span></span>';
+          jQuery(next_image_class).html(innhtml);
+          
+          function bwg_afterload() {
+            <?php
+            if ($option_row->preload_images) {
+              echo 'bwg_preload_images(key);';
+            }
+            ?>
+            bwg_<?php echo $image_effect; ?>(current_image_class, next_image_class, direction);
+            jQuery("#bwg_fullsize_image").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
+            jQuery("#bwg_download").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
+            jQuery("#bwg_download").attr("download", data[key]['image_url']);
+            /* Load comments.*/
+            if (jQuery(".bwg_comment_container").hasClass("bwg_open")) {
+              if (data[key]["comment_count"] == 0) {
+                jQuery("#bwg_added_comments").hide();
               }
+              else {
+                jQuery("#bwg_added_comments").show();
+                spider_set_input_value('ajax_task', 'display');
+                spider_set_input_value('image_id', jQuery('#bwg_popup_image').attr('image_id'));
+                spider_ajax_save('bwg_comment_form');
+              }
+            }
+            /* Update custom scroll.*/
+            if (typeof jQuery().mCustomScrollbar !== 'undefined' && jQuery.isFunction(jQuery().mCustomScrollbar)) {
+              jQuery(".bwg_comments").mCustomScrollbar({
+                advanced:{
+                  updateOnContentResize: true
+                }
+              });
+            }
+            jQuery(".mCSB_scrollTools").hide();
+            <?php
+            if ($enable_image_filmstrip) {
+              ?>
+              bwg_move_filmstrip();
+              <?php
+            }
+            ?>
+          }
+          if (!is_video) {
+            var cur_img = jQuery(next_image_class).find('img');
+            cur_img.one('load', function() {
+              bwg_afterload();
+            }).each(function() {
+              if(this.complete) jQuery(this).load();
             });
           }
-          jQuery(".mCSB_scrollTools").hide();
-          <?php
-          if ($enable_image_filmstrip) {
-            ?>
-            bwg_move_filmstrip();
-            <?php
+          else {
+            bwg_afterload();
           }
-          ?>
+          bwg_popup_resize();
         }
       }
       jQuery(document).on('keydown', function (e) {
@@ -1373,6 +1386,19 @@ class BWGViewGalleryBox {
           e.returnValue = false;
         }
       });
+      function bwg_preload_images(key) {
+        count = <?php echo (int) $option_row->preload_images_count / 2; ?>;
+        if (count != 0) {
+          for (var i = key - count; i < key + count; i++) {
+            jQuery("<img/>").attr("src", (typeof data[i] != "undefined" && !(data[i]['filetype'] == "YOUTUBE" || data[i]['filetype'] == "VIMEO")) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[i]["image_url"]).text() : "");
+          }
+        }
+        else {
+          for (var i = 0; i < data.length; i++) {
+            jQuery("<img/>").attr("src", (typeof data[i] != "undefined" && !(data[i]['filetype'] == "YOUTUBE" || data[i]['filetype'] == "VIMEO")) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[i]["image_url"]).text() : "");
+          }
+        }
+      }
       function bwg_popup_resize() {
         var comment_container_width = 0;
         if (jQuery(".bwg_comment_container").hasClass("bwg_open")) {
@@ -1592,6 +1618,14 @@ class BWGViewGalleryBox {
         bwg_reset_zoom();
         var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
         var bwg_click = isMobile ? 'touchend' : 'click';
+        jQuery("#spider_popup_left").on(bwg_click, function () {
+          bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data);
+          return false;
+        });
+        jQuery("#spider_popup_right").on(bwg_click, function () {
+          bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data);
+          return false;
+        });
         if (navigator.appVersion.indexOf("MSIE 10") != -1 || navigator.appVersion.indexOf("MSIE 9") != -1) {
           setTimeout(function () {
             bwg_popup_resize();
@@ -1970,6 +2004,11 @@ class BWGViewGalleryBox {
           <?php
         }
         ?>
+        <?php
+        if ($option_row->preload_images) {
+          echo "bwg_preload_images(parseInt(jQuery('#bwg_current_image_key').val()));";
+        }
+        ?>        
       });
       /* Open with fullscreen.*/
       function bwg_open_with_fullscreen() {
@@ -2028,13 +2067,13 @@ class BWGViewGalleryBox {
         if (!jQuery(".bwg_ctrl_btn").hasClass("fa-play")) {
           bwg_play();
         }
-        var i = 0;
+        /*var i = 0;
         jQuery(".bwg_slider").children("span").each(function () {
           if (jQuery(this).css('opacity') == 1) {
             jQuery("#bwg_current_image_key").val(i);
           }
           i++;
-        });
+        });*/
       });
       jQuery(window).blur(function() {
         event_stack = [];

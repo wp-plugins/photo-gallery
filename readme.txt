@@ -4,7 +4,7 @@ Donate link: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: photo, photo gallery, image gallery, video gallery, gallery, galleries,  wordpress gallery plugin, images gallery, album, photo albums, Simple gallery, best gallery plugin, free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, photogallery, widget gallery, image, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, Fotogalerie, Galleria, galerie, galeri 
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag: 1.1.18
+Stable tag: 1.1.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,11 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 6.  Photo Gallery - Edit Watermark   
 
 == Changelog ==
+= 1.1.19 =
+*  preload images count options
+
+= 1.1.18 =
+*  redirect url optional 
 
 = 1.1.15 =
 *  added search images in gallery (optional), optional info, resize.

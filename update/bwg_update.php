@@ -117,6 +117,12 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `lightbox_hit_font_weight` varchar(8) NOT NULL DEFAULT 'normal'");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `lightbox_hit_font_size` int(4) NOT NULL DEFAULT 14");
   }
+  if (version_compare($version, '1.1.19') == -1) {
+    // Add preload option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `preload_images` tinyint(1) NOT NULL DEFAULT 1");
+    // Add search box width option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `preload_images_count` int(4) NOT NULL DEFAULT 10");
+  }
   return;
 }
 

@@ -170,8 +170,8 @@ class BWGViewOptions_bwg {
                   <label>Show search box:</label>
                 </td>
                 <td>
-                  <input type="radio" name="show_search_box" id="show_search_box_1" value="1" <?php if ($row->show_search_box) echo 'checked="checked"'; ?> onchange="bwg_show_search_box(1)" /><label for="show_search_box_1">Yes</label>
-                  <input type="radio" name="show_search_box" id="show_search_box_0" value="0" <?php if (!$row->show_search_box) echo 'checked="checked"'; ?> onchange="bwg_show_search_box(0)" /><label for="show_search_box_0">No</label>
+                  <input type="radio" name="show_search_box" id="show_search_box_1" value="1" <?php if ($row->show_search_box) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_search_box_width', 'show_search_box_1')" /><label for="show_search_box_1">Yes</label>
+                  <input type="radio" name="show_search_box" id="show_search_box_0" value="0" <?php if (!$row->show_search_box) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_search_box_width', 'show_search_box_0')" /><label for="show_search_box_0">No</label>
                  <div class="spider_description"></div>
                 </td>
               </tr>	
@@ -182,6 +182,25 @@ class BWGViewOptions_bwg {
                 <td>
                   <input type="text" name="search_box_width" id="search_box_width" value="<?php echo $row->search_box_width; ?>" class="spider_int_input" /> px
                   <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label>Preload images:</label>
+                </td>
+                <td>
+                  <input type="radio" name="preload_images" id="preload_images_1" value="1" <?php if ($row->preload_images) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_preload_images_count', 'preload_images_1')" /><label for="preload_images_1">Yes</label>
+                  <input type="radio" name="preload_images" id="preload_images_0" value="0" <?php if (!$row->preload_images) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_preload_images_count', 'preload_images_0')" /><label for="preload_images_0">No</label>
+                 <div class="spider_description"></div>
+                </td>
+              </tr>	
+              <tr id="tr_preload_images_count">
+                <td class="spider_label_options">
+                  <label for="preload_images_count">Count of images: </label>
+                </td>
+                <td>
+                  <input type="text" name="preload_images_count" id="preload_images_count" value="<?php echo $row->preload_images_count; ?>" class="spider_int_input" />
+                  <div class="spider_description">Count of images to preload (0 for all).</div>
                 </td>
               </tr>	  
             </tbody>
@@ -1221,7 +1240,8 @@ class BWGViewOptions_bwg {
         window.onload = bwg_watermark('watermark_type_<?php echo $row->watermark_type ?>');
         window.onload = bwg_built_in_watermark('watermark_type_<?php echo $row->built_in_watermark_type ?>');
         window.onload = bwg_popup_fullscreen(<?php echo $row->popup_fullscreen; ?>);
-        window.onload = bwg_show_search_box(<?php echo $row->show_search_box; ?>);
+        window.onload = bwg_enable_disable(<?php echo $row->show_search_box ? "'', 'tr_search_box_width', 'show_search_box_1'" : "'none', 'tr_search_box_width', 'show_search_box_0'" ?>);
+        window.onload = bwg_enable_disable(<?php echo $row->preload_images ? "'', 'tr_preload_images_count', 'preload_images_1'" : "'none', 'tr_preload_images_count', 'preload_images_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_info', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_info', 'popup_enable_ctrl_btn_0'" ?>);
         window.onload = bwg_enable_disable(<?php echo $row->popup_enable_ctrl_btn ? "'', 'tr_popup_download', 'popup_enable_ctrl_btn_1'" : "'none', 'tr_popup_download', 'popup_enable_ctrl_btn_0'" ?>);
