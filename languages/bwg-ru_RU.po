@@ -1,0 +1,318 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: bwg\n"
+"POT-Creation-Date: 2014-05-29 16:19+0300\n"
+"PO-Revision-Date: 2014-05-29 16:20+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: C:\\wamp\\www\\wordpressraf\\wp-content\\plugins"
+"\\photo-gallery\n"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/photo-gallery.php:2812
+#, fuzzy
+msgid "field is required."
+msgstr "поле обязательное для заполнения."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/photo-gallery.php:2813
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1123
+msgid "This is not a valid email address."
+msgstr "Это не правильный адрес электронной почты."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/photo-gallery.php:2814
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:723
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:711
+#, fuzzy
+msgid "There are no images matching your search."
+msgstr "В этой галерее нет изображений "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:478
+msgid " item(s)"
+msgstr "элемент(ы)"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:483
+msgid "First"
+msgstr "Первый"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:484
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:485
+msgid "Next"
+msgstr "Следующий"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:486
+msgid "Last"
+msgstr "Последний"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:512
+msgid "Go to the first page"
+msgstr "К первой странице"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:513
+msgid "Go to the previous page"
+msgstr "Перейти на предыдущую страницу"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:515
+msgid "of"
+msgstr "из"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:519
+msgid "Go to the next page"
+msgstr "Перейти на следующую страницу"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:520
+msgid "Go to the last page"
+msgstr "Перейти к последней странице"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:604
+msgid "Reset"
+msgstr "Сброс"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/framework/WDWLibrary.php:607
+msgid "Search"
+msgstr "Поиск"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:129
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:78
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:32
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:68
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:42
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:101
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:125
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:77
+msgid "There is no theme selected or the theme was deleted."
+msgstr "Тема не выбрана или была удалена."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:134
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:154
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:85
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:105
+msgid "There is no album selected or the album was deleted."
+msgstr "Альбом не выбран или был удален."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:143
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:94
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:79
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:79
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:163
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:142
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:88
+msgid "There are no images in this gallery."
+msgstr "В этой галерее нет изображений "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:616
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:595
+msgid "Back"
+msgstr "Назад"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:627
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:606
+msgid "Album is empty."
+msgstr "Альбом пуст."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_compact_preview.php:728
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:716
+msgid "Gallery is empty."
+msgstr "Галерея пуста."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:686
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:794
+msgid "More"
+msgstr "Более"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewAlbum_extended_preview.php:789
+msgid "Hide"
+msgstr "Скрыть"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:73
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewImage_browser.php:73
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:158
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails.php:136
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewThumbnails_masonry.php:82
+msgid "There is no gallery selected or the gallery was deleted."
+msgstr "Галерея не выбрана или была удалена."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:493
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:822
+msgid "Show comments"
+msgstr "Показать комментарии"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:499
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:500
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:830
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:831
+msgid "Share on Facebook"
+msgstr "Поделиться на Facebook"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:506
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:507
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:837
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:838
+msgid "Share on Twitter"
+msgstr "Поделиться на Twitter"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:513
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:514
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:844
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:845
+msgid "Share on Google+"
+msgstr "Поделиться в Google+"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:520
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:521
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:851
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:852
+#, fuzzy
+msgid "Share on Pinterest"
+msgstr "Поделиться на Twitter"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:527
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewBlog_style.php:528
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:858
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:859
+#, fuzzy
+msgid "Share on Tumblr"
+msgstr "Поделиться на Twitter"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:800
+msgid "The image has been deleted."
+msgstr "Образ был удален."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:810
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2443
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1557
+msgid "Play"
+msgstr "Играть"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:814
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2279
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2376
+msgid "Maximize"
+msgstr "Увеличить "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:818
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2378
+msgid "Fullscreen"
+msgstr "Полноэкранный"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:820
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2119
+msgid "Show info"
+msgstr "Показать информацию"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:824
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2130
+msgid "Show rating"
+msgstr "Показать рейтинг"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:866
+msgid "Open image in original size."
+msgstr "Открыть изображение в оригинальном размере"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:873
+msgid "Download original image"
+msgstr "Скачать оригинальное изображение"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:966
+msgid "Hits: "
+msgstr "Просмотров: "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:980
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:993
+msgid "Not rated yet."
+msgstr "Пока не оценено."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:982
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1013
+msgid "Votes: "
+msgstr "Голосов: "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1011
+msgid "Cancel your rating."
+msgstr "Отменить свой ​​рейтинг. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1013
+msgid "You have already rated."
+msgstr "Вы уже оценили. "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1116
+msgid "Error. Incorrect Verification Code."
+msgstr "Ошибка. Неправильный код верификации."
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1131
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1974
+msgid "Hide Comments"
+msgstr "Скрыть Комментарии"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1135
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1163
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1170
+msgid "Name"
+msgstr "Имя"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1141
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1163
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1170
+msgid "Email"
+msgstr "Email"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1148
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1163
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1170
+msgid "Comment"
+msgstr "Комментарий"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1153
+msgid "Verification Code"
+msgstr "Код подтверждения"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1176
+msgid "Submit"
+msgstr "Оставить"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1177
+msgid "Your comment is awaiting moderation"
+msgstr "Ваш комментарий ожидает модерации "
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1206
+msgid "Delete Comment"
+msgstr "Удалить комментарий"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:1931
+msgid "Show Comments"
+msgstr "Показать комментарии"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2115
+#, fuzzy
+msgid "Hide info"
+msgstr "Скрыть"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2126
+msgid "Hide rating"
+msgstr "Скрыть рейтинг"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2314
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2503
+msgid "Restore"
+msgstr "Восстановить"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2424
+msgid "Exit Fullscreen"
+msgstr "Отключить полный экран"
+
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2437
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewGalleryBox.php:2452
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1548
+#: C:\wamp\www\wordpressraf\wp-content\plugins\photo-gallery/frontend/views/BWGViewSlideshow.php:1566
+msgid "Pause"
+msgstr "Пауза"
