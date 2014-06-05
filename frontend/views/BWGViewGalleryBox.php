@@ -1300,12 +1300,14 @@ class BWGViewGalleryBox {
           var next_image_class = current_image_class == ".bwg_popup_image_second_spun" ? ".bwg_popup_image_spun" : ".bwg_popup_image_second_spun";
           
           var is_video = data[key]['filetype'] == "YOUTUBE" || data[key]['filetype'] == "VIMEO";
+          var cur_height = jQuery(current_image_class).height();
+          var cur_width = jQuery(current_image_class).width();
           var innhtml = '<span class="bwg_popup_image_spun1" style="display: table; width: inherit; height: inherit;"><span class="bwg_popup_image_spun2" style="display: table-cell; vertical-align: middle; text-align: center;">';
           if (!is_video) {
-            innhtml += '<img class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[key]["image_url"]).text() + '" alt="' + jQuery('<div />').html(data[key]["alt"]).text() + '" />';
+            innhtml += '<img style="max-height: ' + cur_height + 'px; max-width: ' + cur_width + 'px;" class="bwg_popup_image" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[key]["image_url"]).text() + '" alt="' + jQuery('<div />').html(data[key]["alt"]).text() + '" />';
           }
           else {
-            innhtml += '<span class="bwg_popup_video"><iframe class="bwg_video_frame" src="'  + (data[key]['filetype'] == "YOUTUBE" ? "//www.youtube.com/embed/" + data[key]['filename'] + "?enablejsapi=1" : "//player.vimeo.com/video/" + data[key]['filename'] + "?api=1") + '" frameborder="0" allowfullscreen style="width:100%; height:100%;"></iframe></span>';
+            innhtml += '<span style="height: ' + cur_height + 'px; width: ' + cur_width + 'px;" class="bwg_popup_video"><iframe class="bwg_video_frame" src="'  + (data[key]['filetype'] == "YOUTUBE" ? "//www.youtube.com/embed/" + data[key]['filename'] + "?enablejsapi=1" : "//player.vimeo.com/video/" + data[key]['filename'] + "?api=1") + '" frameborder="0" allowfullscreen style="width:100%; height:100%;"></iframe></span>';
           }
           innhtml += '</span></span>';
           jQuery(next_image_class).html(innhtml);
@@ -1360,7 +1362,6 @@ class BWGViewGalleryBox {
           else {
             bwg_afterload();
           }
-          bwg_popup_resize();
         }
       }
       jQuery(document).on('keydown', function (e) {

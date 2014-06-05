@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.19
+ * Version: 1.1.20
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -2767,7 +2767,7 @@ function bwg_front_end_scripts() {
     }
   }
   wp_enqueue_script('jquery');
-  wp_enqueue_style('jquery-ui', WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css', array(), $version);
+  /*wp_enqueue_style('jquery-ui', WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css', array(), $version);*/
 
   wp_enqueue_script('bwg_frontend', WD_BWG_URL . '/js/bwg_frontend.js', array(), $version);
   wp_enqueue_style('bwg_frontend', WD_BWG_URL . '/css/bwg_frontend.css', array(), $version);
