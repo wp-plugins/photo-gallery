@@ -69,6 +69,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Photo Gallery Widget for displaying albums and galleries as widgets
 *   Separate shortcode generator page for the websites using custom pages/custom editors.     
 *   Support for YouTube and Vimeo videos within Galleries.    
+*   Possibility of uploading images from the Media Library of the website.
 
 Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
 
