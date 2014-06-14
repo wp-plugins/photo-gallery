@@ -73,10 +73,13 @@ class BWGViewAlbum_compact_preview {
     if (!isset($params['popup_hit_counter'])) {
       $params['popup_hit_counter'] = 0;
     }
+    if (!isset($params['order_by'])) {
+      $params['order_by'] = ' ASC ';
+    }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $type = (isset($_POST['type_' . $bwg]) ? esc_html($_POST['type_' . $bwg]) : (isset($params['type']) ? $params['type'] : 'album'));
     $bwg_search = ((isset($_POST['bwg_search_' . $bwg]) && esc_html($_POST['bwg_search_' . $bwg]) != '') ? esc_html($_POST['bwg_search_' . $bwg]) : '');
-    $sort_direction = ' ASC ';
+    $sort_direction = ' ' . $params['order_by'] . ' ';
     if ($from === "widget") {
       $options_row = $this->model->get_options_row_data();
       $params['album_id'] = $params['id'];
@@ -149,7 +152,7 @@ class BWGViewAlbum_compact_preview {
     else {
       $items_per_page = $params['compuct_albums_per_page'];
       $items_col_num = $params['compuct_album_column_number'];
-      $album_galleries_row = $this->model->get_alb_gals_row($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
+      $album_galleries_row = $this->model->get_alb_gals_row($album_gallery_id, $items_per_page, 'order', $bwg, ' ASC ');
       if (!$album_galleries_row) {
         echo WDWLibrary::message(__('There is no album selected or the album was deleted.', 'bwg'), 'error');
         return;

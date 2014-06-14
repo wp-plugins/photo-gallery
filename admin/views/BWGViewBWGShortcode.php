@@ -186,7 +186,7 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_sort_by">
-                    <td class="spider_label"><label for="sort_by">Sort by: </label></td>
+                    <td class="spider_label"><label for="sort_by">Sort images by: </label></td>
                     <td>
                       <select name="sort_by" id="sort_by" style="width:150px;">
                         <option value="order" selected="selected">Order</option>
@@ -199,7 +199,7 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_order_by">
-                    <td class="spider_label"><label>Order: </label></td>
+                    <td class="spider_label"><label>Order images: </label></td>
                     <td>
                       <input type="radio" name="order_by" id="order_by_1" value="asc" checked="checked" /><label for="order_by_1">Ascending</label>
                       <input type="radio" name="order_by" id="order_by_0" value="desc" /><label for="order_by_0">Descending</label>
@@ -1035,6 +1035,12 @@ class BWGViewBWGShortcode {
                 case 'album_compact_preview': {
                   jQuery("select[id=album] option[value='" + short_code['album_id'] + "']").attr('selected', 'selected');
                   jQuery("select[id=sort_by] option[value='" + short_code['sort_by'] + "']").attr('selected', 'selected');
+                  if (short_code['order_by'] == 'asc') {
+                    jQuery("#order_by_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#order_by_0").attr('checked', 'checked');
+                  }
                   if (short_code['show_search_box'] == 1) {
                     jQuery("#show_search_box_1").attr('checked', 'checked');
                     jQuery("#tr_search_box_width").css('display', '');
@@ -1074,6 +1080,12 @@ class BWGViewBWGShortcode {
                 case 'album_extended_preview': {
                   jQuery("select[id=album] option[value='" + short_code['album_id'] + "']").attr('selected', 'selected');
                   jQuery("select[id=sort_by] option[value='" + short_code['sort_by'] + "']").attr('selected', 'selected');
+                  if (short_code['order_by'] == 'asc') {
+                    jQuery("#order_by_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#order_by_0").attr('checked', 'checked');
+                  }
                   if (short_code['show_search_box'] == 1) {
                     jQuery("#show_search_box_1").attr('checked', 'checked');
                     jQuery("#tr_search_box_width").css('display', '');
@@ -1344,8 +1356,8 @@ class BWGViewBWGShortcode {
               }
               case 'album_compact_preview': {
                 tagtext += ' album_id="' + jQuery("#album").val() + '"';
-                tagtext += ' sort_by="order"';
-                tagtext += ' order_by="asc"';
+                tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
+                tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
                 tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
                 tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' compuct_album_column_number="' + jQuery("#compuct_album_column_number").val() + '"';
@@ -1365,8 +1377,8 @@ class BWGViewBWGShortcode {
               }
               case 'album_extended_preview': {
                 tagtext += ' album_id="' + jQuery("#album").val() + '"';
-                tagtext += ' sort_by="order"';
-                tagtext += ' order_by="asc"';
+                tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
+                tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
                 tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
                 tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' extended_albums_per_page="' + jQuery("#extended_albums_per_page").val() + '"';

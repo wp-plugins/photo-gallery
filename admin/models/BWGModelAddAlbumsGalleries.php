@@ -30,7 +30,7 @@ class BWGModelAddAlbumsGalleries {
     else {
       $limit = 0;
     }
-    $query = "SELECT id, name, 1 as is_album FROM " . $wpdb->prefix . "bwg_album WHERE published=1 AND id<>" . $album_id . " " . $where . " UNION SELECT id, name, 0 as is_album FROM " . $wpdb->prefix . "bwg_gallery WHERE published=1 " . $where . $order_by . " LIMIT " . $limit . ",20";
+    $query = "SELECT id, name, 1 as is_album FROM " . $wpdb->prefix . "bwg_album WHERE published=1 AND id<>" . $album_id . " " . $where . " UNION ALL SELECT id, name, 0 as is_album FROM " . $wpdb->prefix . "bwg_gallery WHERE published=1 " . $where . $order_by . " LIMIT " . $limit . ",20";
     $rows = $wpdb->get_results($query);
     return $rows;
   }
@@ -38,7 +38,7 @@ class BWGModelAddAlbumsGalleries {
   public function page_nav($album_id) {
     global $wpdb;
     $where = ((isset($_POST['search_value']) && (esc_html(stripslashes($_POST['search_value'])) != '')) ? ' AND name LIKE "%' . esc_html(stripslashes($_POST['search_value'])) . '%"' : '');
-    $query = "SELECT id FROM " . $wpdb->prefix . "bwg_album WHERE published=1 AND id<>" . $album_id . " " . $where . " UNION SELECT id FROM " . $wpdb->prefix . "bwg_gallery WHERE published=1 " . $where;
+    $query = "SELECT id FROM " . $wpdb->prefix . "bwg_album WHERE published=1 AND id<>" . $album_id . " " . $where . " UNION ALL SELECT id FROM " . $wpdb->prefix . "bwg_gallery WHERE published=1 " . $where;
     $total = count($wpdb->get_col($query));
     $page_nav['total'] = $total;
     if (isset($_POST['page_number']) && $_POST['page_number']) {

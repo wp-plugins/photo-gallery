@@ -355,6 +355,8 @@ function bwg_gallery_type(gallery_type) {
     }
     case 'album_compact_preview': {
       jQuery("#tr_album").css('display', '');
+      jQuery("#tr_sort_by").css('display', '');
+      jQuery("#tr_order_by").css('display', '');
       jQuery("#tr_show_search_box").css('display', '');
       jQuery("#tr_compuct_album_column_number").css('display', '');
       jQuery("#tr_compuct_albums_per_page").css('display', '');
@@ -376,6 +378,8 @@ function bwg_gallery_type(gallery_type) {
     }
     case 'album_extended_preview': {
       jQuery("#tr_album").css('display', '');
+      jQuery("#tr_sort_by").css('display', '');
+      jQuery("#tr_order_by").css('display', '');
       jQuery("#tr_show_search_box").css('display', '');
       jQuery("#tr_extended_albums_per_page").css('display', '');
       jQuery("#tr_extended_album_height").css('display', '');

@@ -73,6 +73,10 @@ class BWGViewAlbum_extended_preview {
     if (!isset($params['popup_hit_counter'])) {
       $params['popup_hit_counter'] = 0;
     }
+    if (!isset($params['order_by'])) {
+      $params['order_by'] = ' ASC ';
+    }
+    $sort_direction = ' ' . $params['order_by'] . ' ';
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
     if (!$theme_row) {
       echo WDWLibrary::message(__('There is no theme selected or the theme was deleted.', 'bwg'), 'error');
@@ -88,7 +92,7 @@ class BWGViewAlbum_extended_preview {
     if ($type == 'gallery') {
       $items_per_page = $params['extended_album_images_per_page'];
       $items_col_num = $params['extended_album_image_column_number'];
-      $image_rows = $this->model->get_image_rows_data($album_gallery_id, $items_per_page, $params['sort_by'], $bwg);
+      $image_rows = $this->model->get_image_rows_data($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
       $images_count = count($image_rows);
       if (!$image_rows) {
         echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
@@ -100,7 +104,7 @@ class BWGViewAlbum_extended_preview {
     else {
       $items_per_page = $params['extended_albums_per_page'];
       $items_col_num = 1;
-      $album_galleries_row = $this->model->get_alb_gals_row($album_gallery_id, $items_per_page, $params['sort_by'], $bwg);
+      $album_galleries_row = $this->model->get_alb_gals_row($album_gallery_id, $items_per_page, 'order', $bwg, ' asc ');
       if (!$album_galleries_row) {
         echo WDWLibrary::message(__('There is no album selected or the album was deleted.', 'bwg'), 'error');
         return;
