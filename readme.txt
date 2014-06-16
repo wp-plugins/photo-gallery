@@ -169,6 +169,10 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 6.  Photo Gallery - Edit Watermark   
 
 == Changelog ==
+
+= 1.1.21 =
+*  added option for sorting gallery images within album
+
 = 1.1.20 =
 *  bug fixed on lightbox
 
