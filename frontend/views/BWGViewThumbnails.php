@@ -119,6 +119,8 @@ class BWGViewThumbnails {
       $params['watermark_url'] = $options_row->watermark_url;
       $params['watermark_width'] = $options_row->watermark_width;
       $params['watermark_height'] = $options_row->watermark_height;
+      $params['thumb_click_action'] = $options_row->thumb_click_action;
+      $params['thumb_link_target'] = $options_row->thumb_link_target;
     }
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
     if (!$theme_row) {

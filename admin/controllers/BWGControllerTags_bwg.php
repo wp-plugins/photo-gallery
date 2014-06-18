@@ -68,7 +68,7 @@ class BWGControllerTags_bwg {
   }
   
   public function bwg_get_unique_name($name, $id) {
-    global $wpdb;
+    /*global $wpdb;
     if ($id != 0) {
       $query = $wpdb->prepare("SELECT name FROM " . $wpdb->prefix . "terms WHERE name = %s AND term_id != %d", $name, $id);
     }
@@ -83,7 +83,7 @@ class BWGControllerTags_bwg {
         $slug_check = $wpdb->get_var($wpdb->prepare("SELECT name FROM " . $wpdb->prefix . "terms WHERE name = %s", $alt_name));
       } while ($slug_check);
       $name = $alt_name;
-    }
+    }*/
     return $name;
   }
   
