@@ -158,9 +158,6 @@ class BWGViewThumbnails {
         -moz-box-sizing: content-box;
         box-sizing: content-box;
         background-color: #<?php echo $theme_row->thumb_bg_color; ?>;
-        border: <?php echo $theme_row->thumb_border_width; ?>px <?php echo $theme_row->thumb_border_style; ?> #<?php echo $theme_row->thumb_border_color; ?>;
-        border-radius: <?php echo $theme_row->thumb_border_radius; ?>;
-        box-shadow: <?php echo $theme_row->thumb_box_shadow; ?>;
         display: inline-block;
         height: <?php echo $params['thumb_height']; ?>px;
         margin: <?php echo $theme_row->thumb_margin; ?>px;
@@ -187,6 +184,9 @@ class BWGViewThumbnails {
         position: relative;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun2_<?php echo $bwg; ?> {
+        border: <?php echo $theme_row->thumb_border_width; ?>px <?php echo $theme_row->thumb_border_style; ?> #<?php echo $theme_row->thumb_border_color; ?>;
+        border-radius: <?php echo $theme_row->thumb_border_radius; ?>;
+        box-shadow: <?php echo $theme_row->thumb_box_shadow; ?>;
         display: inline-block;
         height: <?php echo $params['thumb_height']; ?>px;
         overflow: hidden;

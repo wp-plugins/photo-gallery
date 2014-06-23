@@ -64,6 +64,7 @@ function spider_destroypopup(duration) {
   if (isMobile && viewportmeta) {
     viewportmeta.content = 'width=device-width, initial-scale=1';
   }
+  clearInterval(bwg_playInterval);
 }
 
 // Submit popup.

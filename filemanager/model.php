@@ -187,7 +187,7 @@ class FilemanagerModel {
           $file['filename'] = substr($file_name, 0, strrpos($file_name, '.'));
           $file['type'] = strtolower(end(explode('.', $file_name)));
           $file['thumb'] = wp_get_attachment_thumb_url($image->ID);
-          $file['icon'] = wp_get_attachment_thumb_url($image->ID);
+          $file['icon'] = $file['thumb'];
           if (($valid_types[0] != '*') && (in_array($file['type'], $valid_types) == FALSE)) {
             continue;
           }

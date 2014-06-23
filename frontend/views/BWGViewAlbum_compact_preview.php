@@ -199,9 +199,6 @@ class BWGViewAlbum_compact_preview {
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_spun1_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->album_compact_thumb_bg_color; ?>;
-        border-radius: <?php echo $theme_row->album_compact_thumb_border_radius; ?>;
-        border: <?php echo $theme_row->album_compact_thumb_border_width; ?>px <?php echo $theme_row->album_compact_thumb_border_style; ?> #<?php echo $theme_row->album_compact_thumb_border_color; ?>;
-        box-shadow: <?php echo $theme_row->album_compact_thumb_box_shadow; ?>;
         display: inline-block;
         height: <?php echo $params['compuct_album_thumb_height']; ?>px;
         margin: <?php echo $theme_row->album_compact_thumb_margin; ?>px;
@@ -229,6 +226,9 @@ class BWGViewAlbum_compact_preview {
         z-index: 102;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_spun2_<?php echo $bwg; ?> {
+        border-radius: <?php echo $theme_row->album_compact_thumb_border_radius; ?>;
+        border: <?php echo $theme_row->album_compact_thumb_border_width; ?>px <?php echo $theme_row->album_compact_thumb_border_style; ?> #<?php echo $theme_row->album_compact_thumb_border_color; ?>;
+        box-shadow: <?php echo $theme_row->album_compact_thumb_box_shadow; ?>;
         display: inline-block;
         height: <?php echo $params['compuct_album_thumb_height']; ?>px;
         overflow: hidden;
@@ -308,9 +308,6 @@ class BWGViewAlbum_compact_preview {
       /*Image thumbs styles.*/
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun1_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->thumb_bg_color; ?>;
-        border-radius: <?php echo $theme_row->thumb_border_radius; ?>;
-        border: <?php echo $theme_row->thumb_border_width; ?>px <?php echo $theme_row->thumb_border_style; ?> #<?php echo $theme_row->thumb_border_color; ?>;
-        box-shadow: <?php echo $theme_row->thumb_box_shadow; ?>;
         display: inline-block;
         height: <?php echo $params['compuct_album_image_thumb_height']; ?>px;
         margin: <?php echo $theme_row->thumb_margin; ?>px;
@@ -337,6 +334,9 @@ class BWGViewAlbum_compact_preview {
         position: relative;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_spun2_<?php echo $bwg; ?> {
+        border-radius: <?php echo $theme_row->thumb_border_radius; ?>;
+        border: <?php echo $theme_row->thumb_border_width; ?>px <?php echo $theme_row->thumb_border_style; ?> #<?php echo $theme_row->thumb_border_color; ?>;
+        box-shadow: <?php echo $theme_row->thumb_box_shadow; ?>;
         display: inline-block;
         height: <?php echo $params['compuct_album_image_thumb_height']; ?>px;
         overflow: hidden;
