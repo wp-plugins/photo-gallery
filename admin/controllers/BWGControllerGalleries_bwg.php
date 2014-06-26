@@ -90,6 +90,12 @@ class BWGControllerGalleries_bwg {
       }
     }
     $this->save_image_db();
+    if (isset($_POST['check_all_items'])) {
+      $tag_ids = (isset($_POST['added_tags_select_all']) ? esc_html(stripslashes($_POST['added_tags_select_all'])) : '');
+      if ($tag_ids != '') {
+          $this->save_tags_if_select_all($tag_ids);
+      }
+    }
     $this->save_order_images($_POST['current_id']);
     if (isset($_POST['ajax_task']) && esc_html($_POST['ajax_task']) != '') {
       $ajax_task = esc_html($_POST['ajax_task']);
@@ -99,7 +105,46 @@ class BWGControllerGalleries_bwg {
     }
     $this->edit();
   }
-
+  
+  public function save_tags_if_select_all($tag_ids) {
+    global $wpdb;
+    $gal_id = (isset($_POST['current_id']) ? (int) $_POST['current_id'] : 0);
+    $image_ids = (isset($_POST['ids_string']) ? esc_html(stripslashes($_POST['ids_string'])) : '');
+    $current_page_image_ids = explode(',', $image_ids);
+    $tag_ids_array = explode(',', $tag_ids);
+    $query_image = $wpdb->prepare('SELECT id FROM ' . $wpdb->prefix . 'bwg_image WHERE gallery_id="%d"', $gal_id);
+    $image_id_array = $wpdb->get_results($query_image);
+    foreach ($image_id_array as $image_id) {
+      $flag = FALSE;
+      foreach ($current_page_image_ids as $current_page_image_id) { 
+        if ($current_page_image_id == $image_id->id) {
+          $flag = TRUE;
+        }
+      }
+      if ($flag) {
+        continue;
+      }
+      foreach ($tag_ids_array as $tag_id) {
+        if ($tag_id) {		
+          $exist_tag = $wpdb->get_var($wpdb->prepare('SELECT id FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE tag_id="%d" AND image_id="%d" AND gallery_id="%d"', $tag_id,$image_id->id, $gal_id));
+          if ($exist_tag == NULL) {
+            $save = $wpdb->insert($wpdb->prefix . 'bwg_image_tag', array(
+              'tag_id' => $tag_id,
+              'image_id' => $image_id->id,
+              'gallery_id' => $gal_id,
+              ), array(
+              '%d',
+              '%d',
+              '%d',
+            ));	  	
+            // Increase tag count in term_taxonomy table.
+            $wpdb->query($wpdb->prepare('UPDATE ' . $wpdb->prefix . 'term_taxonomy SET count="%d" WHERE term_id="%d"', $wpdb->get_var($wpdb->prepare('SELECT COUNT(image_id) FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE tag_id="%d"', $tag_id)), $tag_id));
+          }
+        }
+      }
+    }
+  }
+  
   public function recover() {
     global $wpdb;
     $id = ((isset($_POST['image_current_id'])) ? esc_html(stripslashes($_POST['image_current_id'])) : 0);

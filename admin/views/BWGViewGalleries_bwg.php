@@ -623,6 +623,7 @@ class BWGViewGalleries_bwg {
         <input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_recover_all');
                                                              spider_ajax_save('galleries_form');
                                                              return false;" value="Reset" />
+        <a onclick="return bwg_check_checkboxes();" href="<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500'), admin_url('admin-ajax.php')); ?>&TB_iframe=1" class="button-primary thickbox thickbox-preview">Add tag</a>
         <input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_publish_all');
                                                      spider_ajax_save('galleries_form');
                                                      return false;" value="Publish" />
@@ -806,6 +807,7 @@ class BWGViewGalleries_bwg {
           <input id="image_order_by" name="image_order_by" type="hidden" value="<?php echo $image_order_by; ?>" />
           <input id="ajax_task" name="ajax_task" type="hidden" value="" />
           <input id="image_current_id" name="image_current_id" type="hidden" value="" />
+          <input id="added_tags_select_all" name="added_tags_select_all" type="hidden" value="" />
         </tbody>
       </table>
       <script>

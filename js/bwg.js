@@ -120,6 +120,7 @@ function spider_ajax_save(form_id, tr_group) {
   var flag = false;
   if (jQuery("#check_all_items").attr('checked') == 'checked') {
     post_data["check_all_items"] = jQuery("#check_all_items").val();
+    post_data["added_tags_select_all"] = jQuery("#added_tags_select_all").val();
     flag = true;
     jQuery('#check_all_items').attr('checked', false);
   }
@@ -619,9 +620,16 @@ function bwg_get_tags(image_id, e) {
 
 function bwg_add_tag(image_id, tagIds, titles) {
   if (image_id == '0') {
+    var flag = false;
     var ids_string = jQuery("#ids_string").val();
     ids_array = ids_string.split(",");
-    var flag = false;
+    if (jQuery("#check_all_items").attr("checked")) {
+      var added_tags = '';
+      for (i = 0; i < tagIds.length; i++) {
+        added_tags = added_tags + tagIds[i] + ',';
+      }
+      jQuery("#added_tags_select_all").val(added_tags);
+    }
   }
   else {
     image_id = image_id + ','; 
