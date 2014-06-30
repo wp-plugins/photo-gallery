@@ -170,6 +170,15 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 == Changelog ==
 
+= 1.1.24 =
+Improve translation, Add tags to all images. 
+
+= 1.1.23 =
+redirect from widget, unique tags name
+
+= 1.1.22 =
+order option for album images
+
 = 1.1.21 =
 *  added option for sorting gallery images within album
 
