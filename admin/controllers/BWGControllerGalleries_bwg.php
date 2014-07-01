@@ -637,9 +637,12 @@ class BWGControllerGalleries_bwg {
             'resolution' => $resolution,
             'author' => $author,
             'order' => $order,
-            'redirect_url' => $redirect_url,
             'published' => 1,
             'comment_count' => 0,
+            'avg_rating' => 0,
+            'rate_count' => 0,
+            'hit_count' => 0,
+            'redirect_url' => $redirect_url,
           ), array(
             '%d',
             '%s',
@@ -652,14 +655,14 @@ class BWGControllerGalleries_bwg {
             '%s',
             '%s',
             '%s',
-            '%s',
-            '%s',
-            '%s',
             '%d',
             '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
             '%s',
-            '%d',
-            '%d',
           ));
           $new_image_id = (int) $wpdb->get_var('SELECT MAX(`id`) FROM ' . $wpdb->prefix . 'bwg_image');
           if (isset($_POST['check_' . $image_id])) {

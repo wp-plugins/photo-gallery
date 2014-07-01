@@ -181,6 +181,7 @@ class BWGViewGalleryBox {
         max-width: <?php echo $image_width; ?>px;
         max-height: <?php echo $image_height - $image_filmstrip_height; ?>px;
         vertical-align: middle;
+        display: inline-block;
       }
       .bwg_popup_video {
         width: <?php echo $image_width; ?>px;
