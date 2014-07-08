@@ -404,7 +404,6 @@ class BWGViewAlbum_compact_preview {
         text-shadow: <?php echo $theme_row->thumb_title_shadow; ?>;
         vertical-align: middle;
         width: inherit;
-        word-break: break-all;
         word-wrap: break-word;
       }
       /*Pagination styles.*/

@@ -305,7 +305,7 @@ function onPathComponentClick(event, obj, path) {
   submit("", null, null, null, path, null, null, null, null, null, null);
 }
 
-function onBtnShowImportClick(event, obj, path) {
+function onBtnShowImportClick(event, obj) {
   jQuery("#importer").fadeIn();
 }
 

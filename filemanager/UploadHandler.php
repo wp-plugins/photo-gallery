@@ -641,7 +641,8 @@ class UploadHandler {
     protected function handle_file_import($uploaded_file, $name, $index = null, $content_range = null) {
       $parent_dir = wp_upload_dir();
       $parent_dir = $parent_dir['basedir'];
-      $type = strtolower(end(explode('.', $name)));
+      $file_type_array = explode('.', $name);
+      $type = strtolower(end($file_type_array));
       
       $file = new stdClass();
       $file->name = $this->get_file_name($name, $type, $index, $content_range);
@@ -840,12 +841,13 @@ class UploadHandler {
       if (isset($_GET['import']) && $_GET['import'] == 'true') {
         $file_names = explode('**@**', (isset($_REQUEST['file_namesML']) ? stripslashes($_REQUEST['file_namesML']) : ''));
         foreach ($file_names as $index => $value) {
-            $files[] = $this->handle_file_import(
-                $value,
-                end(explode('/', $value)),
-                0,
-                ""
-            );
+          $file_name_array = explode('/', $value);
+          $files[] = $this->handle_file_import(
+            $value,
+            end($file_name_array),
+            0,
+            ""
+          );
         }
         header('Location: ' . add_query_arg(array('action' => 'addImages', 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['redir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
         exit;

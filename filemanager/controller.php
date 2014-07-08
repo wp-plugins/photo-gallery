@@ -25,11 +25,12 @@ class FilemanagerController {
     
     public function __construct() {
       $upload_dir = wp_upload_dir();
-      $this->uploads_dir = (($this->get_options_data()->images_directory . '/photo-gallery') ? ABSPATH . $this->get_options_data()->images_directory . '/photo-gallery' : WD_BWG_DIR . '/filemanager/uploads');
+      $bwg_options = $this->get_options_data();
+      $this->uploads_dir = (($bwg_options->images_directory . '/photo-gallery') ? ABSPATH . $bwg_options->images_directory . '/photo-gallery' : WD_BWG_DIR . '/filemanager/uploads');
       if (file_exists($this->uploads_dir) == FALSE) {
         mkdir($this->uploads_dir);
       }
-      $this->uploads_url = (($this->get_options_data()->images_directory . '/photo-gallery') ? site_url() . '/' . $this->get_options_data()->images_directory . '/photo-gallery' : WD_BWG_URL . '/filemanager/uploads');
+      $this->uploads_url = (($bwg_options->images_directory . '/photo-gallery') ? site_url() . '/' . $bwg_options->images_directory . '/photo-gallery' : WD_BWG_URL . '/filemanager/uploads');
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////

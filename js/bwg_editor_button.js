@@ -25,7 +25,7 @@
       ed.addButton('bwg_mce', {
         title:'Insert Photo Gallery',
         cmd:'mcebwg_mce',
-        image: bwg_plugin_url + '/images/bwg_edit_but.png'
+        image: url + '/images/bwg_edit_but.png'
       });
       ed.onMouseDown.add(function (d, f) {
         if (f.target.nodeName == "IMG" && d.dom.hasClass(f.target, "bwg_shortcode")) {

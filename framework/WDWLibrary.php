@@ -596,6 +596,7 @@ class WDWLibrary {
       function check_enter_key(e) {
         var key_code = e.which || e.keyCode;
         if (key_code == 13) {
+          spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $cur_gal_id; ?>', <?php echo $album_gallery_id; ?>, '', '<?php echo $type; ?>', 1);
           return false;
         }
         return true;

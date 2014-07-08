@@ -203,6 +203,16 @@ class BWGViewOptions_bwg {
                   <div class="spider_description">Count of images to preload (0 for all).</div>
                 </td>
               </tr>	  
+	      <tr>
+                <td class="spider_label_options">
+                  <label>Import from Media Library:</label>
+                </td>
+                <td>
+                  <input type="radio" name="enable_ML_import" id="enable_ML_import_1" value="1" <?php if ($row->enable_ML_import) echo 'checked="checked"'; ?> /><label for="enable_ML_import_1">Yes</label>
+                  <input type="radio" name="enable_ML_import" id="enable_ML_import_0" value="0" <?php if (!$row->enable_ML_import) echo 'checked="checked"'; ?> /><label for="enable_ML_import_0">No</label>
+                 <div class="spider_description">Enable import from Media Library in file manager.</div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

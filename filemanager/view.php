@@ -40,6 +40,7 @@ class FilemanagerView {
         <?php
         $_GET['filemanager_msg'] = '';
       }
+      $bwg_options = $this->controller->get_options_data();
       $file_manager_data = $this->model->get_file_manager_data();
 
       $items_view = $file_manager_data['session_data']['items_view'];
@@ -114,10 +115,12 @@ class FilemanagerView {
                 <span class="ctrl_bar_btn btn_primary">
                   <a class="ctrl_bar_btn btn_upload_files" onclick="onBtnShowUploaderClick(event, this);"><?php echo 'Upload files'; ?></a>
                 </span>
+                <?php if ($bwg_options->enable_ML_import) { ?>
                 <span class="ctrl_bar_divider"></span>
                 <span class="ctrl_bar_btn btn_primary">
-                  <a class="ctrl_bar_btn btn_import_files" onclick="onBtnShowImportClick(event, this, '<?php echo wp_upload_dir(); ?>');"><?php echo 'Media library'; ?></a>
+                  <a class="ctrl_bar_btn btn_import_files" onclick="onBtnShowImportClick(event, this);"><?php echo 'Media library'; ?></a>
                 </span>
+                <?php } ?>
               </div>
               <div class="ctrls_right">
                 <a class="ctrl_bar_btn btn_view_thumbs" onclick="onBtnViewThumbsClick(event, this);" title="<?php echo 'View thumbs'; ?>"></a>
@@ -254,8 +257,8 @@ class FilemanagerView {
             <div class="ctrls_bar ctrls_bar_header">
               <div class="ctrls_left upload_thumb">
                 Generated Thumbnail Maximum Dimensions:
-                <input type="text" class="upload_thumb_dim" name="importer_thumb_width" id="importer_thumb_width" value="<?php echo $this->controller->get_options_data()->upload_thumb_width; ?>" /> x 
-                <input type="text" class="upload_thumb_dim" name="importer_thumb_height" id="importer_thumb_height" value="<?php echo $this->controller->get_options_data()->upload_thumb_height; ?>" /> px
+                <input type="text" class="upload_thumb_dim" name="importer_thumb_width" id="importer_thumb_width" value="<?php echo $bwg_options->upload_thumb_width; ?>" /> x 
+                <input type="text" class="upload_thumb_dim" name="importer_thumb_height" id="importer_thumb_height" value="<?php echo $bwg_options->upload_thumb_height; ?>" /> px
               </div>
               <div class="ctrls_right">
                 <a class="ctrl_bar_btn btn_back" onclick="onBtnBackClick(event, this);" title="<?php echo 'Back'; ?>"></a>
@@ -322,8 +325,8 @@ class FilemanagerView {
             <div class="ctrls_bar ctrls_bar_header">
               <div class="ctrls_left upload_thumb">
                 Generated Thumbnail Maximum Dimensions:
-                <input type="text" class="upload_thumb_dim" name="upload_thumb_width" id="upload_thumb_width" value="<?php echo $this->controller->get_options_data()->upload_thumb_width; ?>" /> x 
-                <input type="text" class="upload_thumb_dim" name="upload_thumb_height" id="upload_thumb_height" value="<?php echo $this->controller->get_options_data()->upload_thumb_height; ?>" /> px
+                <input type="text" class="upload_thumb_dim" name="upload_thumb_width" id="upload_thumb_width" value="<?php echo $bwg_options->upload_thumb_width; ?>" /> x 
+                <input type="text" class="upload_thumb_dim" name="upload_thumb_height" id="upload_thumb_height" value="<?php echo $bwg_options->upload_thumb_height; ?>" /> px
               </div>
               <div class="ctrls_right">
                 <a class="ctrl_bar_btn btn_back" onclick="onBtnBackClick(event, this);" title="<?php echo 'Back'; ?>"></a>

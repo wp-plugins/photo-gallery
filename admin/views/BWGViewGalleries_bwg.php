@@ -197,7 +197,6 @@ class BWGViewGalleries_bwg {
     global $WD_BWG_UPLOAD_DIR;
     $row = $this->model->get_row_data($id);
     $option_row = $this->model->get_option_row_data();
-    $pages = get_pages();
     $page_title = (($id != 0) ? 'Edit gallery ' . $row->name : 'Create new gallery');
     ?>
     <div style="clear: both; float: left; width: 95%;">

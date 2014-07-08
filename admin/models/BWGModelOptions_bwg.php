@@ -132,6 +132,7 @@ class BWGModelOptions_bwg {
       $row->thumb_link_target = 1;
       $row->comment_moderation = 0;
       $row->popup_hit_counter = 0;
+      $row->enable_ML_import = 0;
     }
     return $row;
   }

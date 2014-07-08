@@ -47,7 +47,7 @@ class FilemanagerModel {
       $data['path_components'] = $this->get_path_components();
       $data['dir'] = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
       $data['files'] = $this->get_files($session_data['sort_by'], $session_data['sort_order']);
-      $data['media_library_files'] = $this->get_media_library_files($session_data['sort_by'], $session_data['sort_order']);
+      $data['media_library_files'] = ($this->controller->get_options_data()->enable_ML_import ? $this->get_media_library_files($session_data['sort_by'], $session_data['sort_order']) : NULL);
       $data['extensions'] = (isset($_REQUEST['extensions']) ? $_REQUEST['extensions'] : '');
       $data['callback'] = (isset($_REQUEST['callback']) ? $_REQUEST['callback'] : '');
 
@@ -136,7 +136,8 @@ class FilemanagerModel {
           $file['is_dir'] = FALSE;
           $file['name'] = $file_name;
           $file['filename'] = substr($file_name, 0, strrpos($file_name, '.'));
-          $file['type'] = strtolower(end(explode('.', $file_name)));
+          $file_extension = explode('.', $file_name);
+          $file['type'] = strtolower(end($file_extension));
           $icon = $icons_dir_url . '/' . $file['type'] . '.png';
           if (file_exists($icons_dir_path . '/' . $file['type'] . '.png') == FALSE) {
             $icon = $icons_dir_url . '/' . '_blank.png';
@@ -181,11 +182,13 @@ class FilemanagerModel {
         if (isset($file_meta['file'])) {
           $file = array();
           $file['is_dir'] = FALSE;
-          $file_name = end(explode('/', $file_meta['file']));
+          $file_name_array = explode('/', $file_meta['file']);
+          $file_name = end($file_name_array);
           $file['name'] = $file_name;
           $file['path'] = $file_meta['file'];
           $file['filename'] = substr($file_name, 0, strrpos($file_name, '.'));
-          $file['type'] = strtolower(end(explode('.', $file_name)));
+          $file_type_array = explode('.', $file_name);
+          $file['type'] = strtolower(end($file_type_array));
           $file['thumb'] = wp_get_attachment_thumb_url($image->ID);
           $file['icon'] = $file['thumb'];
           if (($valid_types[0] != '*') && (in_array($file['type'], $valid_types) == FALSE)) {

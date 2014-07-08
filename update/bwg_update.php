@@ -123,6 +123,10 @@ function bwg_update($version) {
     // Add search box width option.
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `preload_images_count` int(4) NOT NULL DEFAULT 10");
   }
+  if (version_compare($version, '1.1.26') == -1) {
+    // Add import from media library option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `enable_ML_import` tinyint(1) NOT NULL DEFAULT 0");
+  }
   return;
 }
 
