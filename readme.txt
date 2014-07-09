@@ -171,6 +171,12 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 == Changelog ==
 
+= 1.1.26 =
+*  added option "Import from Media Library"      
+
+= 1.1.25 =
+*  bug fixed in save gallery      
+
 = 1.1.24 =
 *  Improve translation, Add tags to all images      
 
