@@ -172,6 +172,12 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 == Changelog ==
 
+= 1.1.28 =
+*  Bug fixed in filemanager     
+
+= 1.1.27 =
+*  change in loading   
+
 = 1.1.26 =
 *  added option "Import from Media Library"      
 
