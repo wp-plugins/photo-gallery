@@ -89,7 +89,7 @@ Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpres
 
 ### Supported languages 
 
- *If you need language of Photo Gallery which is not included in this list, please contact us and we will do the translation of Photo Gallery within 3 days. If you find any mistakes in the translation, please contact us and we will make relevant corrections within 3 days.*  
+ *If you need language of Photo Gallery which is not included in this list, please contact us and we will do the translation of Photo Gallery within 3 days. If you find any mistakes in the translation, please contact us and we will make relevant corrections within 3 days. *  
 
 Afrikaans (af)  
 Albanian (sq)  
