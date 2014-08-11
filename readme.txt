@@ -269,7 +269,7 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 ==Wordpress Photo Gallery Step by step guide==    
 Step by step guide  
   
-Step 1: Installing the Gallery   
+= Step 1: Installing the Gallery =   
 1.1 Minimum requirements.  
 Wordpress 3.0+  
 PHP 5.x  
@@ -284,7 +284,7 @@ Click `Activate Plugin` button for activating the plugin.
 If the installation succeeded you will see the success message. If any problem occurs, please contact us  info@web-dorado.com.  
   
   
-Step 2:  Creating/Editing Galleries for the Photo Gallery.   
+= Step 2:  Creating/Editing Galleries for the Photo Gallery. =   
 2.1 On the left menu select Photo Gallery>Add Galleries/Images> Add new.  
 2.2 Name. Specify the name of the gallery.  
 2.3 Slug. Specify the alias in your website for the gallery.  
@@ -326,13 +326,13 @@ Now let`s explore the individual gallery image options. Refer to the buttons on 
 2.21 Tags. Each gallery image can have a number of tags from the list of created tags.  
 2.22 Published. Choose whether to publish or unpublish the uploaded images within the gallery.  
   
-Step 3:  Creating/Editing Tags for the Photo Gallery galleries and albums.  
+= Step 3:  Creating/Editing Tags for the Photo Gallery galleries and albums. = 
 3.1 On the left menu select Photo Gallery> Tags.  
 3.2 Name. Provide a title for the tag.  
 3.3 Slug. Specify the alias for the tag in your website.  
 3.4 Add Tag. Press this button to add the created tag into the list.  
   
-Step 4:  Creating/Editing Albums for the Photo Gallery.   
+= Step 4:  Creating/Editing Albums for the Photo Gallery. =   
 4.1 On the left menu select Photo Gallery> Albums> Add new.  
 4.2 Name. Provide a name for the album.  
 4.3 Slug. Specify the alias for the album in your website.  
@@ -343,7 +343,7 @@ Step 4:  Creating/Editing Albums for the Photo Gallery.
 4.8 Albums and Galleries. Choose gallery, galleries or already created albums to be used in the album. Here you can add multiple galleries and albums. There is no such limitation. 
 4.9 Drag/Drop. After adding the albums you will be able to use drag/drop option to set the order for the albums to be displayed.  
   
-Step 5:   Editing Options for Photo Gallery.  
+= Step 5:   Editing Options for Photo Gallery. =  
 Here you can change default options for different views of Photo Gallery, as well as general options of the galleries and albums. You can simply navigate here choosing the corresponding tab.  
 5.1 Global Options of Photo Gallery.  
 5.1.1 Images directory. Provide an image directory location which will host the uploaded gallery images.  
@@ -451,7 +451,7 @@ Advertisement position. Choose the positioning of the advertisement from the ava
 5.8.6 Images per page in Blog Style view. Specify the number of images to be displayed in a single page for the Blog Style view.  
 5.8.7 Enable Pagination for Blog Style view. Choose whether to have pagination for the Blog Style view or not.  
   
-Step 6:  Creating/Editing Themes for different views of the Photo Gallery.  
+= Step 6:  Creating/Editing Themes for different views of the Photo Gallery. =  
 Use one of the default Photo Gallery themes or click `Add new` button to create a new theme.  
 6.1 Thumbnails.  
 6.1.1 Name. Provide a name for the theme.  
@@ -832,14 +832,14 @@ Use one of the default Photo Gallery themes or click `Add new` button to create 
 6.9.18 Numbering. Choose whether to have numbers next to navigation buttons or not.  
 6.9.19 Button text. Choose whether to have text or navigation arrow set for the page navigation.  
   
-Step 7: Editing comments.  
+= Step 7: Editing comments. =  
 7.1 Image. Choose the gallery image you want to moderate the comments for.  
 7.2 Name. Choose the author of the comments, if there are multiple comments for the chosen gallery image.  
 7.3 Publish. Click to publish the gallery image comment.  
 7.4 Unpublish. Click to unpublish the gallery image comment.  
 7.5 Delete. Click to delete the gallery image comment.  
   
-Step 8: Publishing the Created Photo Gallery.   
+= Step 8: Publishing the Created Photo Gallery. =   
 To insert a gallery into a Page or a Post.   
 Open the post/page you want to display the gallery. Press the button named Photo Gallery. A camera icon will be inserted into the page/post. Click on the image and select the gallery/album display you want to use for that specific page/post.  
 Each Photo Gallery shortcode uses three columns of parameters. The first column shows parameters specific for that Photo Gallery view only, the second one shows Lightbox (except Slideshow view) parameters, the third one is referred to the Advertisement.   
@@ -950,7 +950,7 @@ Advertisement opacity. Define the level of opacity for the advertisement, provid
 Advertisement position. Choose the positioning of the advertisement from the available 9 options.  
   
   
-Step 9: Publishing Photo Gallery widgets.  
+= Step 9: Publishing Photo Gallery widgets. =  
 Go to Appearance>Widgets. Here select the widget option you want to add to a custom location. Afterwards drag and drop the selected widget into the custom location, fill in the options and press Save button.  
 9.1 Tag Cloud. This widget is included as a hosted widget for the WordPress standard Tag Cloud. It will display the tags added to the albums and images. After the click, the images using the tags will be displayed in Thumbnails view.  
 9.1.1 Title. Provide a title for the tag cloud.  
@@ -993,7 +993,7 @@ Theme. Choose the theme, which will be applied to the gallery/album correspondin
 9.4.7 Theme. Choose the theme, which will be applied to the gallery/album.  
 
 
-Step 10: Generating shortcode for the Photo Gallery.    
+= Step 10: Generating shortcode for the Photo Gallery. =    
  
 To use the created galleries and albums for the custom location, you can generate custom shortcodes and edit the created shortcodes.    
 
