@@ -16,8 +16,6 @@ class BWGViewGalleryBox {
   ////////////////////////////////////////////////////////////////////////////////////////
   public function __construct($model) {
     $this->model = $model;
-    require_once WD_BWG_DIR . "/frontend/models/BWGModelThumbnails.php";
-    $this->thumb_model = new BWGModelThumbnails();
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Public Methods                                                                     //

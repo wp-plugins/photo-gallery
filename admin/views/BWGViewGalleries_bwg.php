@@ -535,7 +535,7 @@ class BWGViewGalleries_bwg {
             <td><?php echo get_userdata($row->author)->display_name; ?></td>
           </tr>
           <tr>
-            <td class="spider_label"><label for="published1">Published: </label></td>
+            <td class="spider_label"><label>Published: </label></td>
             <td>
               <input type="radio" class="inputbox" id="published0" name="published" <?php echo (($row->published) ? '' : 'checked="checked"'); ?> value="0" >
               <label for="published0">No</label>

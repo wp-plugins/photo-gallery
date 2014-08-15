@@ -318,9 +318,10 @@ class BWGControllerGalleries_bwg {
         }
         break;
       case 'image':
+        $watermark_path = str_replace(site_url() . '/', ABSPATH, $options->built_in_watermark_url);
         foreach ($images as $image) {
           if (isset($_POST['check_' . $image->id]) || isset($_POST['check_all_items'])) {
-            $this->set_image_watermark(ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, $options->built_in_watermark_url, $options->built_in_watermark_size, $options->built_in_watermark_size, $options->built_in_watermark_position);
+            $this->set_image_watermark(ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, ABSPATH . $WD_BWG_UPLOAD_DIR . $image->image_url, $watermark_path, $options->built_in_watermark_size, $options->built_in_watermark_size, $options->built_in_watermark_position);
           }
         }
         break;
