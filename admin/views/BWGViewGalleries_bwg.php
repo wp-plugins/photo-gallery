@@ -110,6 +110,7 @@ class BWGViewGalleries_bwg {
               <span>Author</span><span class="sorting-indicator"></span>
             </a>
           </th>
+					<th class="table_large_col">Images count</th>
           <th id="th_order" class="table_medium_col <?php if ($order_by == 'order') {echo $order_class;} ?>">
             <a onclick="spider_set_input_value('task', '');
                         spider_set_input_value('order_by', 'order');
@@ -136,6 +137,7 @@ class BWGViewGalleries_bwg {
               $alternate = (!isset($alternate) || $alternate == 'class="alternate"') ? '' : 'class="alternate"';
               $published_image = (($row_data->published) ? 'publish' : 'unpublish');
               $published = (($row_data->published) ? 'unpublish' : 'publish');
+							$images_count = $this->model->get_images_count($row_data->id);
               if ($row_data->preview_image == '') {
                 $preview_image = WD_BWG_URL . '/images/no-image.png';
               }
@@ -160,7 +162,8 @@ class BWGViewGalleries_bwg {
                                 spider_form_submit(event, 'galleries_form')" href="" title="Edit"><?php echo $row_data->name; ?></a></td>
                 <td><?php echo $row_data->slug; ?></td>
                 <td><?php echo get_userdata($row_data->author)->display_name; ?></td>
-                <td class="spider_order table_medium_col"><input id="order_input_<?php echo $row_data->id; ?>" name="order_input_<?php echo $row_data->id; ?>" type="text" size="1" value="<?php echo $row_data->order; ?>" /></td>
+								<td class="table_large_col"><?php echo $images_count; ?></td>
+								<td class="spider_order table_medium_col"><input id="order_input_<?php echo $row_data->id; ?>" name="order_input_<?php echo $row_data->id; ?>" type="text" size="1" value="<?php echo $row_data->order; ?>" /></td>
                 <td class="table_big_col"><a onclick="spider_set_input_value('task', '<?php echo $published; ?>');spider_set_input_value('current_id', '<?php echo $row_data->id; ?>');spider_form_submit(event, 'galleries_form')" href=""><img src="<?php echo WD_BWG_URL . '/images/' . $published_image . '.png'; ?>"></img></a></td>
                 <td class="table_big_col"><a onclick="spider_set_input_value('task', 'edit');
                                                       spider_set_input_value('page_number', '1');

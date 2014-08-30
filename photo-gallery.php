@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.29
+ * Version: 1.1.30
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -562,6 +562,9 @@ function bwg_activate() {
     `comment_moderation` tinyint(1) NOT NULL,
     `popup_hit_counter` tinyint(1) NOT NULL,
     `enable_ML_import` tinyint(1) NOT NULL,
+    `showthumbs_name` tinyint(1) NOT NULL,
+    `show_album_name` tinyint(1) NOT NULL,
+    `show_image_counts` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -1079,6 +1082,9 @@ function bwg_activate() {
       'popup_info_always_show' => 0,
       'popup_hit_counter' => 0,
       'enable_ML_import' => 0,
+      'showthumbs_name'=> 0,
+      'show_album_name'=> 0,
+      'show_image_counts'=> 0,
     ), array(
       '%d',
       '%s',
@@ -1182,6 +1188,9 @@ function bwg_activate() {
       '%d',
       '%d',
       '%s',
+      '%d',
+      '%d',
+      '%d',
       '%d',
       '%d',
       '%d',
@@ -2688,7 +2697,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.1.26';
+  $new_version = '1.1.30';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2703,7 +2712,7 @@ register_activation_hook(__FILE__, 'bwg_activate');
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.1.26';
+  $new_version = '1.1.30';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);

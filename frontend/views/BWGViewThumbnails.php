@@ -72,8 +72,8 @@ class BWGViewThumbnails {
     }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $sort_direction = ' ' . $params['order_by'] . ' ';
+    $options_row = $this->model->get_options_row_data();
     if ($from) {
-      $options_row = $this->model->get_options_row_data();
       $params['gallery_id'] = $params['id'];
       $params['images_per_page'] = $params['count'];
       $params['sort_by'] = (($params['show'] == 'random') ? 'RAND()' : 'order');
@@ -311,6 +311,17 @@ class BWGViewThumbnails {
         box-shadow: <?php echo $theme_row->page_nav_box_shadow; ?>;
         <?php echo ($theme_row->page_nav_button_transition ) ? 'transition: all 0.3s ease 0s;-webkit-transition: all 0.3s ease 0s;' : ''; ?>
       }
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_back_<?php echo $bwg; ?> {
+        background-color: rgba(0, 0, 0, 0);
+        color: #<?php echo $theme_row->album_compact_back_font_color; ?> !important;
+        cursor: pointer;
+        display: block;
+        font-family: <?php echo $theme_row->album_compact_back_font_style; ?>;
+        font-size: <?php echo $theme_row->album_compact_back_font_size; ?>px;
+        font-weight: <?php echo $theme_row->album_compact_back_font_weight; ?>;
+        text-decoration: none;
+        padding: <?php echo $theme_row->album_compact_back_padding; ?>;
+      }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_popup_overlay_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->lightbox_overlay_bg_color; ?>;
         opacity: <?php echo $theme_row->lightbox_overlay_bg_transparent / 100; ?>;
@@ -325,6 +336,7 @@ class BWGViewThumbnails {
             WDWLibrary::ajax_html_frontend_search_box('gal_front_form_' . $bwg, $bwg, 'bwg_standart_thumbnails_' . $bwg, $images_count, $params['search_box_width']);
           }
           ?>
+          <div class="bwg_back_<?php echo $bwg; ?>"><?php echo $options_row->showthumbs_name ? $gallery_row->name : ''; ?></div>
           <div style="background-color:rgba(0, 0, 0, 0); text-align: <?php echo $theme_row->thumb_align; ?>; width:100%; position: relative;">
             <div id="ajax_loading_<?php echo $bwg; ?>" style="position:absolute;width: 100%; z-index: 115; text-align: center; height: 100%; vertical-align: middle; display:none;">
               <div style="display: table; vertical-align: middle; width: 100%; height: 100%; background-color: #FFFFFF; opacity: 0.7; filter: Alpha(opacity=70);">

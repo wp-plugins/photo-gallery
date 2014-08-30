@@ -1,4 +1,4 @@
-function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_album_id, type, srch_btn) { 
+function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_album_id, type, srch_btn, title) {
   var page_number = jQuery("#page_number_" + current_view).val();
   var bwg_previous_album_ids = jQuery('#bwg_previous_album_id_' + current_view).val();
   var bwg_previous_album_page_numbers = jQuery('#bwg_previous_album_page_number_' + current_view).val();
@@ -21,11 +21,15 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
   if (srch_btn) { // Start search.
     page_number = 1; 
   }
+  if (typeof title == "undefined") {
+    var title = "";
+  }
   post_data["page_number_" + current_view] = page_number;
   post_data["album_gallery_id_" + current_view] = album_gallery_id;
   post_data["bwg_previous_album_id_" + current_view] = jQuery('#bwg_previous_album_id_' + current_view).val();
   post_data["bwg_previous_album_page_number_" + current_view] = jQuery('#bwg_previous_album_page_number_' + current_view).val();
   post_data["type_" + current_view] = type;
+  post_data["title_" + current_view] = title;
   if (jQuery("#bwg_search_input_" + current_view).length > 0) { // Search box exists.
     post_data["bwg_search_" + current_view] = jQuery("#bwg_search_input_" + current_view).val();
   }

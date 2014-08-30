@@ -80,8 +80,8 @@ class BWGViewAlbum_compact_preview {
     $type = (isset($_POST['type_' . $bwg]) ? esc_html($_POST['type_' . $bwg]) : (isset($params['type']) ? $params['type'] : 'album'));
     $bwg_search = ((isset($_POST['bwg_search_' . $bwg]) && esc_html($_POST['bwg_search_' . $bwg]) != '') ? esc_html($_POST['bwg_search_' . $bwg]) : '');
     $sort_direction = ' ' . $params['order_by'] . ' ';
+    $options_row = $this->model->get_options_row_data();
     if ($from === "widget") {
-      $options_row = $this->model->get_options_row_data();
       $params['album_id'] = $params['id'];
       $params['sort_by'] = $params['show'] == 'random' ? 'RAND()' : 'order';
       if ($params['show'] == 'last') {
@@ -133,7 +133,9 @@ class BWGViewAlbum_compact_preview {
       return;
     }
     $album_gallery_id = (isset($_POST['album_gallery_id_' . $bwg]) ? esc_html($_POST['album_gallery_id_' . $bwg]) : $params['album_id']);
-    if (!$album_gallery_id || ($type == 'album' && !$this->model->get_album_row_data($album_gallery_id))) {
+    $album_row_data = $this->model->get_album_row_data($album_gallery_id);
+
+    if (!$album_gallery_id || ($type == 'album' && !$album_row_data)) {
       echo WDWLibrary::message(__('There is no album selected or the album was deleted.', 'bwg'), 'error');
       return;
     }
@@ -508,6 +510,11 @@ class BWGViewAlbum_compact_preview {
               <a class="bwg_back_<?php echo $bwg; ?>" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', '<?php echo $album_gallery_div_id; ?>', 'back')"><?php echo __('Back', 'bwg'); ?></a>
               <?php
             }
+            if ($options_row->show_album_name) {
+              ?>
+              <div class="bwg_back_<?php echo $bwg; ?>" ><?php echo isset($_POST['title_' . $bwg]) ? esc_html($_POST['title_' . $bwg]) : $album_row_data->name; ?></div>
+              <?php
+            }
             ?>
             <div id="<?php echo $album_gallery_div_id; ?>" class="<?php echo $album_gallery_div_class; ?>" >
               <input type="hidden" id="bwg_previous_album_id_<?php echo $bwg; ?>" name="bwg_previous_album_id_<?php echo $bwg; ?>" value="<?php echo $bwg_previous_album_id; ?>" />
@@ -562,7 +569,7 @@ class BWGViewAlbum_compact_preview {
                   $thumb_top = ($params['compuct_album_thumb_height'] - $image_thumb_height) / 2;
                   if ($type != 'gallery') {
                     ?>
-                    <a style="font-size: 0;" <?php echo ($from !== "widget" ? "onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_compact_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "')\"" : "href='" . $permalink . "'") ?>>
+                    <a style="font-size: 0;" <?php echo ($from !== "widget" ? "onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_compact_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "', '', '" . $title . "')\"" : "href='" . $permalink . "'") ?>>
                       <span class="bwg_album_thumb_<?php echo $bwg; ?>">
                         <?php
                         if ($params['compuct_album_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top') {

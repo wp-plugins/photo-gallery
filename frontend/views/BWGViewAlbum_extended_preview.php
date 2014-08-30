@@ -27,6 +27,7 @@ class BWGViewAlbum_extended_preview {
     $current_url = $wp->query_string;
     global $WD_BWG_UPLOAD_DIR;
     require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
+    $options_row = $this->model->get_options_row_data();
 
     if (!isset($params['extended_album_image_title'])) {
       $params['extended_album_image_title'] = 'none';
@@ -544,7 +545,7 @@ class BWGViewAlbum_extended_preview {
                     ?>
                     <div class="bwg_album_extended_div_<?php echo $bwg; ?>">
                       <div class="bwg_album_extended_thumb_div_<?php echo $bwg; ?>">
-                        <a style="font-size: 0;" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_extended_<?php echo $bwg; ?>', '<?php echo $album_galallery_row->alb_gal_id; ?>', '<?php echo $album_gallery_id; ?>', '<?php echo $def_type; ?>')">
+                        <a style="font-size: 0;" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_extended_<?php echo $bwg; ?>', '<?php echo $album_galallery_row->alb_gal_id; ?>', '<?php echo $album_gallery_id; ?>', '<?php echo $def_type; ?>', '', '<?php echo $title; ?>')">
                           <span class="bwg_album_thumb_<?php echo $bwg; ?>" style="height:inherit;">
                             <span class="bwg_album_thumb_spun1_<?php echo $bwg; ?>">
                               <span class="bwg_album_thumb_spun2_<?php echo $bwg; ?>">
@@ -598,6 +599,11 @@ class BWGViewAlbum_extended_preview {
                 }
               }
               elseif ($type == 'gallery') {
+                if ($options_row->show_album_name) {
+                  ?>
+                  <div class="bwg_back_<?php echo $bwg; ?>" ><?php echo isset($_POST['title_' . $bwg]) ? esc_html($_POST['title_' . $bwg]) : ''; ?></div>
+                  <?php
+                }
                 if (!$page_nav['total']) {
                   if ($bwg_search != '') {
                     ?>

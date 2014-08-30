@@ -913,7 +913,7 @@ function bwg_change_theme_type(type) {
 }
 
 function bwg_get_video_host(url) {  
-  if ((/youtu\.be/i).test(url) || (/youtube\.com\/watch/i).test(url)) {
+  if ((/youtu\.be/i).test(url) || (/youtube\.com\/watch/i).test(url) || (/youtube\.com\/.*/i).test(url)) {
     return 'YOUTUBE';
   }
   if ((/vimeo\.com/i).test(url)) {
@@ -924,21 +924,50 @@ function bwg_get_video_host(url) {
 }
 
 function bwg_get_youtube_video_id(url) {
-  pattern = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-  var matches = url.match(pattern);
-  if (matches && (matches[7]).length == 11) {
-    return matches[7];
-  }   
-  return '';
+  // pattern = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+  // var matches = url.match(pattern);
+  // if (matches && (matches[7]).length == 11) {
+    // return matches[7];
+  // }   
+  // return '';
+  var video_id;	
+	var url_parts = url.split('v=');
+	if (url_parts.length <= 1) {
+		url_parts = url.split('/v/');
+		if (url_parts.length <= 1) {
+			url_parts = url_parts[url_parts.length - 1].split('/');
+			if (url_parts.length <= 1) {
+				url_parts = url_parts[0].split('?');
+			}
+		}
+		url_parts = url_parts[url_parts.length - 1].split('&');
+		if (url_parts.length <= 1) {
+			url_parts = url_parts[url_parts.length - 1].split('?');
+		}		
+	}
+  else {
+		url_parts = url_parts[url_parts.length - 1].split('&');
+		if (url_parts.length <= 1) {
+			url_parts = url_parts[url_parts.length - 1].split('#');			
+		}		
+	}
+	video_id = url_parts[0].split('?')[0];
+  return video_id ? video_id : false;
 }
 
 function bwg_get_vimeo_video_id(url) {
-  pattern = /\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
-  var matches = url.match(pattern);
-  if (matches) {
-    return matches[2];
-  }
-  return '';
+  // pattern = /\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
+  // var matches = url.match(pattern);
+  // if (matches) {
+    // return matches[2];
+  // }
+  // return '';
+  var url_parts
+	var video_id;
+	url_parts = url.split('/');	
+	url_parts = url_parts[url_parts.length - 1].split('?');
+	video_id = url_parts[0];
+	return video_id ? video_id : false;
 }
 
 function bwg_get_video_info(input_id) {

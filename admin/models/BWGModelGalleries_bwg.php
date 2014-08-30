@@ -88,6 +88,7 @@ class BWGModelGalleries_bwg {
       $row->preview_image = '';
       $row->order = 0;
       $row->author = get_current_user_id();
+      $row->images_count = 0;
       $row->published = 1;
     }
     return $row;
@@ -140,6 +141,18 @@ class BWGModelGalleries_bwg {
   public function get_option_row_data() {
     global $wpdb;
     $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_option WHERE id="%d"', 1));
+    return $row;
+  }
+
+	public function get_images_count($gallery_id) {
+    global $wpdb;
+		if (!current_user_can('manage_options') && $wpdb->get_var("SELECT image_role FROM " . $wpdb->prefix . "bwg_option")) {
+      $where = " WHERE author=" . get_current_user_id();
+    }
+    else {
+      $where = " WHERE author>=0 ";
+    }
+    $row = $wpdb->get_var($wpdb->prepare("SELECT COUNT(filename) FROM " . $wpdb->prefix . "bwg_image " . $where . " AND gallery_id='%d'", $gallery_id));
     return $row;
   }
 

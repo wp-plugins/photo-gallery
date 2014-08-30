@@ -133,6 +133,9 @@ class BWGModelOptions_bwg {
       $row->comment_moderation = 0;
       $row->popup_hit_counter = 0;
       $row->enable_ML_import = 0;
+      $row->showthumbs_name = 0;
+      $row->show_album_name = 0;
+      $row->show_image_counts = 0;
     }
     return $row;
   }

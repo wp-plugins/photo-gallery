@@ -202,7 +202,7 @@ class BWGViewOptions_bwg {
                   <input type="text" name="preload_images_count" id="preload_images_count" value="<?php echo $row->preload_images_count; ?>" class="spider_int_input" />
                   <div class="spider_description">Count of images to preload (0 for all).</div>
                 </td>
-              </tr>	  
+              </tr>
 	      <tr>
                 <td class="spider_label_options">
                   <label>Import from Media Library:</label>
@@ -788,6 +788,16 @@ class BWGViewOptions_bwg {
                   <div class="spider_description spider_free_version">This option is disabled in free version.</div>
                 </td>
               </tr>
+							<tr id="tr_image_count">
+                <td class="spider_label_options">
+                  <label>Show images count:</label>
+                </td>
+                <td>
+                  <input type="radio" name="show_image_counts" id="show_image_counts_current_image_number_1" value="1" <?php if ($row->show_image_counts) echo 'checked="checked"'; ?> /><label for="show_image_counts_current_image_number_1">Yes</label>
+                  <input type="radio" name="show_image_counts" id="show_image_counts_current_image_number_0" value="0" <?php if (!$row->show_image_counts) echo 'checked="checked"'; ?> /><label for="show_image_counts_current_image_number_0">No</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -842,6 +852,16 @@ class BWGViewOptions_bwg {
                   <input type="radio" name="album_title_show_hover" id="album_title_show_hover_1" value="hover" <?php if ($row->album_title_show_hover == "hover") echo 'checked="checked"'; ?> /><label for="album_title_show_hover_1">Show on hover</label><br />
                   <input type="radio" name="album_title_show_hover" id="album_title_show_hover_0" value="show" <?php if ($row->album_title_show_hover == "show") echo 'checked="checked"'; ?> /><label for="album_title_show_hover_0">Always show</label><br />
                   <input type="radio" name="album_title_show_hover" id="album_title_show_hover_2" value="none" <?php if ($row->album_title_show_hover == "none") echo 'checked="checked"'; ?> /><label for="album_title_show_hover_2">Don't show</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label>Show album/gallery name:</label>
+                </td>
+                <td>
+                  <input type="radio" name="show_album_name_enable" id="show_album_name_enable_1" value="1" <?php if ($row->show_album_name) echo 'checked="checked"'; ?> /><label for="show_album_name_enable_1">Yes</label>
+                  <input type="radio" name="show_album_name_enable" id="show_album_name_enable_0" value="0" <?php if (!$row->show_album_name) echo 'checked="checked"'; ?> /><label for="show_album_name_enable_0">No</label>
                   <div class="spider_description"></div>
                 </td>
               </tr>
@@ -1130,6 +1150,14 @@ class BWGViewOptions_bwg {
                   <input type="radio" name="image_title_show_hover" id="image_title_show_hover_1" value="hover" <?php if ($row->image_title_show_hover == "hover") echo 'checked="checked"'; ?> /><label for="image_title_show_hover_1">Show on hover</label><br />
                   <input type="radio" name="image_title_show_hover" id="image_title_show_hover_0" value="show" <?php if ($row->image_title_show_hover == "show") echo 'checked="checked"'; ?> /><label for="image_title_show_hover_0">Always show</label><br />
                   <input type="radio" name="image_title_show_hover" id="image_title_show_hover_2" value="none" <?php if ($row->image_title_show_hover == "none") echo 'checked="checked"'; ?> /><label for="image_title_show_hover_2">Don't show</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr id="tr_thumb_show_name">
+                <td class="spider_label_options"><label>Show gallery name: </label></td>
+                <td>
+                  <input type="radio" name="thumb_name" id="thumb_name_yes" value="1" <?php if ($row->showthumbs_name) echo 'checked="checked"'; ?> /><label for="thumb_name_yes">Yes</label>
+                  <input type="radio" name="thumb_name" id="thumb_name_no" value="0"  <?php if (!$row->showthumbs_name) echo 'checked="checked"'; ?> /><label for="thumb_name_no">No</label>
                   <div class="spider_description"></div>
                 </td>
               </tr>

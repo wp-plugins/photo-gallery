@@ -177,6 +177,8 @@ class FilemanagerModel {
       $query_images = new WP_Query( $query_images_args );
 
       $files = array();
+      $upload_dir = wp_upload_dir();
+
       foreach ($query_images->posts as $image) {
         $file_meta = wp_get_attachment_metadata($image->ID);
         if (isset($file_meta['file'])) {
@@ -189,7 +191,15 @@ class FilemanagerModel {
           $file['filename'] = substr($file_name, 0, strrpos($file_name, '.'));
           $file_type_array = explode('.', $file_name);
           $file['type'] = strtolower(end($file_type_array));
-          $file['thumb'] = wp_get_attachment_thumb_url($image->ID);
+          // $file['thumb'] = wp_get_attachment_thumb_url($image->ID);
+          if ($file_meta['sizes']['thumbnail']['file']) {
+            $file_pos = strrpos($file_meta['file'], '/');
+            $sub_folder = substr($file_meta['file'], 0, $file_pos); 
+            $file['thumb'] = $upload_dir['baseurl'] . '/' . $sub_folder . '/' . $file_meta['sizes']['thumbnail']['file'];
+          }
+          else {
+            $file['thumb'] = $upload_dir['baseurl'] . '/' . $file_meta['file'];
+          }
           $file['icon'] = $file['thumb'];
           if (($valid_types[0] != '*') && (in_array($file['type'], $valid_types) == FALSE)) {
             continue;
@@ -198,8 +208,8 @@ class FilemanagerModel {
           if (!$file_size_kb) continue;
           $file['size'] = $file_size_kb . ' KB';
           $file['date_modified'] = date('d F Y, H:i', filemtime($parent_dir . '/' . $file_meta['file']));
-          $image_info = getimagesize(htmlspecialchars_decode($parent_dir . '/' . $file_meta['file'], ENT_COMPAT | ENT_QUOTES));
-          $file['resolution'] = $this->is_img($file['type']) ? $image_info[0]  . ' x ' . $image_info[1] . ' px' : '';
+          // $image_info = getimagesize(htmlspecialchars_decode($parent_dir . '/' . $file_meta['file'], ENT_COMPAT | ENT_QUOTES));
+          $file['resolution'] = $this->is_img($file['type']) ? $file_meta['width']  . ' x ' . $file_meta['height'] . ' px' : '';
           $files[] = $file;
         }
       }

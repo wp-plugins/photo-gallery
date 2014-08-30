@@ -117,6 +117,11 @@ class BWGModelAlbum_extended_preview {
     }
     return $page_nav;
   }
+  public function get_options_row_data() {
+    global $wpdb;
+    $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_option WHERE id="%d"', 1));
+    return $row;
+  }
 
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //

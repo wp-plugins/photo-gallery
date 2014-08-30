@@ -179,6 +179,9 @@ class BWGControllerOptions_bwg {
     $comment_moderation = (isset($_POST['comment_moderation']) ? esc_html(stripslashes($_POST['comment_moderation'])) : 0);
     $popup_hit_counter = (isset($_POST['popup_hit_counter']) ? esc_html(stripslashes($_POST['popup_hit_counter'])) : 0);
     $enable_ML_import = (isset($_POST['enable_ML_import']) ? esc_html(stripslashes($_POST['enable_ML_import'])) : 0);
+    $showthumbs_name = (isset($_POST['thumb_name']) ? esc_html(stripslashes($_POST['thumb_name'])) : 1);
+    $show_album_name = (isset($_POST['show_album_name_enable']) ? esc_html(stripslashes($_POST['show_album_name_enable'])) : 1);
+    $show_image_counts = (isset($_POST['show_image_counts']) ? esc_html(stripslashes($_POST['show_image_counts'])) : 0);
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -278,6 +281,9 @@ class BWGControllerOptions_bwg {
       'comment_moderation' => $comment_moderation,
       'popup_hit_counter' => $popup_hit_counter,
       'enable_ML_import' => $enable_ML_import,
+      'showthumbs_name' => $showthumbs_name,
+      'show_album_name' => $show_album_name,
+      'show_image_counts' => $show_image_counts,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      

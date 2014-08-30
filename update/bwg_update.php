@@ -127,6 +127,12 @@ function bwg_update($version) {
     // Add import from media library option.
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `enable_ML_import` tinyint(1) NOT NULL DEFAULT 0");
   }
+  if (version_compare($version, '1.1.30') == -1) {
+    // Add enable/disable showing album or thumbnail names
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `showthumbs_name` tinyint(1) NOT NULL DEFAULT 0");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_album_name` tinyint(1) NOT NULL DEFAULT 0");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_image_counts` tinyint(1) NOT NULL DEFAULT 0");
+  }
   return;
 }
 

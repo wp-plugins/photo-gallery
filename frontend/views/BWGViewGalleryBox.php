@@ -719,6 +719,17 @@ class BWGViewGalleryBox {
         display: none;
         font-size: <?php echo $theme_row->lightbox_rate_size - 2; ?>px;
       }
+			@media (max-width: 480px) {
+				.bwg_image_count_container {
+					display: none;
+				}
+			}
+      .bwg_image_count_container {
+        left: 0;
+        line-height: 1;
+        position: absolute;
+        vertical-align: middle;
+      }
     </style>
     <script>
       var data = [];
@@ -743,6 +754,7 @@ class BWGViewGalleryBox {
         }
         ?>
         data["<?php echo $key; ?>"] = [];
+        data["<?php echo $key; ?>"]["number"] = <?php echo $key + 1; ?>;
         data["<?php echo $key; ?>"]["id"] = "<?php echo $image_row->id; ?>";
         data["<?php echo $key; ?>"]["alt"] = "<?php echo $image_row->alt; ?>";
         data["<?php echo $key; ?>"]["description"] = "<?php echo str_replace(array("\r\n", "\n", "\r"), esc_html('<br />'), $image_row->description); ?>";
@@ -772,6 +784,16 @@ class BWGViewGalleryBox {
       ?>
       <div class="bwg_btn_container">
         <div class="bwg_ctrl_btn_container">
+					<?php
+          if ($option_row->show_image_counts) {
+            ?>
+            <span class="bwg_image_count_container bwg_ctrl_btn">
+              <span class="bwg_image_count"><?php echo $current_image_key + 1; ?></span> / 
+              <span><?php echo count($image_rows); ?></span>
+            </span>
+            <?php
+          }
+					?>
           <i title="<?php echo __('Play', 'bwg'); ?>" class="bwg_ctrl_btn bwg_play_pause fa fa-play"></i>
           <?php if ($enable_image_fullscreen) {
                   if (!$open_with_fullscreen) {
@@ -1083,6 +1105,7 @@ class BWGViewGalleryBox {
         /* Set active thumbnail.*/
         jQuery(".bwg_filmstrip_thumbnail").removeClass("bwg_thumb_active").addClass("bwg_thumb_deactive");
         jQuery("#bwg_filmstrip_thumbnail_" + bwg_current_key).removeClass("bwg_thumb_deactive").addClass("bwg_thumb_active");
+        bwg_change_watermark_container();
       }
       function bwg_fade(current_image_class, next_image_class, direction) {
         /* Set active thumbnail.*/
@@ -1279,6 +1302,7 @@ class BWGViewGalleryBox {
           else if (key == (data.length - 1)) {
             jQuery("#spider_popup_right").hover().css({"display": "none"});
           }
+          jQuery(".bwg_image_count").html(data[key]["number"]);
           /* Set filmstrip initial position.*/
           jQuery(".bwg_watermark").css({display: 'none'});
           /* Set active thumbnail position.*/
