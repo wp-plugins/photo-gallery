@@ -174,6 +174,12 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 == Changelog ==
 
+= 1.1.30 =
+*  images count in ligthbox (optional - only in options page)  
+*  images count column in galleries table   
+*  WordPress Search Integration by gallery and album title   
+*  show gallery, album title (optional - only in options page)  
+
 = 1.1.29 =
 *  Bug fixed in tag cloud widget
 
