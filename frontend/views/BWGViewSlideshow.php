@@ -927,6 +927,7 @@ class BWGViewSlideshow {
         jQuery(next_image_class).css({
           opacity : 1,
           filter: 'Alpha(opacity=100)',
+          zIndex: 2,
           backfaceVisibility : 'hidden',
           transform : 'translateY(' + nty + 'px) translateX(' + ntx + 'px) rotateY('+ nry +'deg) rotateX('+ nrx +'deg)'
         });

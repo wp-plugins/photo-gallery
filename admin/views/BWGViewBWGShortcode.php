@@ -192,6 +192,7 @@ class BWGViewBWGShortcode {
                         <option value="order" selected="selected">Order</option>
                         <option value="alt">Title</option>
                         <option value="date">Date</option>
+                        <option value="filename">Filename</option>
                         <option value="size">Size</option>
                         <option value="filetype">Type</option>
                         <option value="resolution">Resolution</option>

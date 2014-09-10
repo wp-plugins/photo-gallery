@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.30
+ * Version: 1.1.31
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -100,6 +100,14 @@ function bwg_UploadHandler() {
 }
 
 function bwg_filemanager_ajax() {
+  if (function_exists('current_user_can')) {
+    if (!current_user_can('publish_posts')) {
+      die('Access Denied');
+    }
+  }
+  else {
+    die('Access Denied');
+  }
   global $wpdb;
   require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
   $page = WDWLibrary::get('action');
@@ -119,6 +127,14 @@ function bwg_edit_tag() {
 }
 
 function bwg_ajax() {
+  if (function_exists('current_user_can')) {
+    if (!current_user_can('publish_posts')) {
+      die('Access Denied');
+    }
+  }
+  else {
+    die('Access Denied');
+  }
   global $wpdb;
   require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
   $page = WDWLibrary::get('action');
@@ -398,7 +414,7 @@ function bwg_activate() {
     `author` bigint(20) NOT NULL,
     `published` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_gallery);
   $bwg_album = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_album` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -411,7 +427,7 @@ function bwg_activate() {
     `author` bigint(20) NOT NULL,
     `published` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_album);
   $bwg_album_gallery = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_album_gallery` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -420,7 +436,7 @@ function bwg_activate() {
     `alb_gal_id` bigint(20) NOT NULL,
     `order` bigint(20) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_album_gallery);
   $bwg_image = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_image` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -444,7 +460,7 @@ function bwg_activate() {
     `hit_count` bigint(20) NOT NULL,
     `redirect_url` varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_image);
   $bwg_image_tag = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_image_tag` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -452,7 +468,7 @@ function bwg_activate() {
     `image_id` bigint(20) NOT NULL,
     `gallery_id` bigint(20) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_image_tag);
   $bwg_option = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_option` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -566,7 +582,7 @@ function bwg_activate() {
     `show_album_name` tinyint(1) NOT NULL,
     `show_image_counts` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
   $bwg_theme = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_theme` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -943,7 +959,7 @@ function bwg_activate() {
 
     `default_theme` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_theme);
   $bwg_image_comment = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_image_comment` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -955,7 +971,7 @@ function bwg_activate() {
     `mail` mediumtext NOT NULL,
     `published` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_image_comment);
 
   $bwg_image_rate = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_image_rate` (
@@ -965,7 +981,7 @@ function bwg_activate() {
     `ip` varchar(64) NOT NULL,
     `date` varchar(64) NOT NULL,
     PRIMARY KEY (`id`)
-  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+  ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_image_rate);
 
   $upload_dir = wp_upload_dir();

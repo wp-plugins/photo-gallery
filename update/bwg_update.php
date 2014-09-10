@@ -74,7 +74,7 @@ function bwg_update($version) {
       `ip` varchar(64) NOT NULL,
       `date` varchar(64) NOT NULL,
       PRIMARY KEY (`id`)
-    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+    ) DEFAULT CHARSET=utf8;";
     $wpdb->query($bwg_image_rate);
     // Add average rating, rating count, hit counter to image table.
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_image ADD `avg_rating` float(20) NOT NULL DEFAULT 0");

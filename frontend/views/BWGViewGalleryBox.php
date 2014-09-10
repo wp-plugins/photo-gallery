@@ -723,6 +723,14 @@ class BWGViewGalleryBox {
 				.bwg_image_count_container {
 					display: none;
 				}
+        .bwg_image_title,
+        .bwg_image_title * {
+					font-size: 12px;
+				}
+        .bwg_image_description,
+        .bwg_image_description * {
+					font-size: 10px;
+				}
 			}
       .bwg_image_count_container {
         left: 0;

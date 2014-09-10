@@ -70,9 +70,9 @@ class FilemanagerView {
         var messageFilesUploadComplete = "<?php echo 'Files upload complete'; ?>";
 
         var root = "<?php echo addslashes($this->controller->get_uploads_dir()); ?>";
-        var dir = "<?php echo (isset($_REQUEST['dir']) ? addslashes($_REQUEST['dir']) : ''); ?>";
-        var dirUrl = "<?php echo $this->controller->get_uploads_url() . (isset($_REQUEST['dir']) ? $_REQUEST['dir'] . '/' : ''); ?>";
-        var callback = "<?php echo (isset($_REQUEST['callback']) ? $_REQUEST['callback'] : ''); ?>";
+        var dir = "<?php echo (isset($_REQUEST['dir']) ? addslashes(esc_html($_REQUEST['dir'])) : ''); ?>";
+        var dirUrl = "<?php echo $this->controller->get_uploads_url() . (isset($_REQUEST['dir']) ? esc_html($_REQUEST['dir']) . '/' : ''); ?>";
+        var callback = "<?php echo (isset($_REQUEST['callback']) ? esc_html($_REQUEST['callback']) : ''); ?>";
         var sortBy = "<?php echo $sort_by; ?>";
         var sortOrder = "<?php echo $sort_order; ?>";
       </script>
@@ -339,7 +339,7 @@ class FilemanagerView {
                 </div>
                 <div id="btnBrowseContainer">
                   <input id="jQueryUploader" type="file" name="files[]"
-                         data-url="<?php echo add_query_arg(array('action' => 'bwg_UploadHandler', 'dir' => $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '') . '/'), admin_url('admin-ajax.php')); ?>"
+                         data-url="<?php echo add_query_arg(array('action' => 'bwg_UploadHandler', 'dir' => $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? esc_html($_REQUEST['dir']) : '') . '/'), admin_url('admin-ajax.php')); ?>"
                          multiple>
                 </div>
                 <script>
@@ -402,12 +402,12 @@ class FilemanagerView {
         </div>
 
         <input type="hidden" name="task" value="">
-        <input type="hidden" name="extensions" value="<?php echo (isset($_REQUEST['extensions']) ? $_REQUEST['extensions'] : '*'); ?>">
-        <input type="hidden" name="callback" value="<?php echo (isset($_REQUEST['callback']) ? $_REQUEST['callback'] : ''); ?>">
+        <input type="hidden" name="extensions" value="<?php echo (isset($_REQUEST['extensions']) ? esc_html($_REQUEST['extensions']) : '*'); ?>">
+        <input type="hidden" name="callback" value="<?php echo (isset($_REQUEST['callback']) ? esc_html($_REQUEST['callback']) : ''); ?>">
         <input type="hidden" name="sort_by" value="<?php echo $sort_by; ?>">
         <input type="hidden" name="sort_order" value="<?php echo $sort_order; ?>">
         <input type="hidden" name="items_view" value="<?php echo $items_view; ?>">
-        <input type="hidden" name="dir" value="<?php echo (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : ''); ?>"/>
+        <input type="hidden" name="dir" value="<?php echo (isset($_REQUEST['dir']) ? esc_html($_REQUEST['dir']) : ''); ?>"/>
         <input type="hidden" name="file_names" value=""/>
         <input type="hidden" name="file_namesML" value=""/>
         <input type="hidden" name="file_new_name" value=""/>

@@ -45,11 +45,11 @@ class FilemanagerModel {
       $data = array();
       $data['session_data'] = $session_data;
       $data['path_components'] = $this->get_path_components();
-      $data['dir'] = (isset($_REQUEST['dir']) ? $_REQUEST['dir'] : '');
+      $data['dir'] = (isset($_REQUEST['dir']) ? esc_html($_REQUEST['dir']) : '');
       $data['files'] = $this->get_files($session_data['sort_by'], $session_data['sort_order']);
       $data['media_library_files'] = ($this->controller->get_options_data()->enable_ML_import ? $this->get_media_library_files($session_data['sort_by'], $session_data['sort_order']) : array());
-      $data['extensions'] = (isset($_REQUEST['extensions']) ? $_REQUEST['extensions'] : '');
-      $data['callback'] = (isset($_REQUEST['callback']) ? $_REQUEST['callback'] : '');
+      $data['extensions'] = (isset($_REQUEST['extensions']) ? esc_html($_REQUEST['extensions']) : '');
+      $data['callback'] = (isset($_REQUEST['callback']) ? esc_html($_REQUEST['callback']) : '');
 
       return $data;
     }
@@ -105,9 +105,9 @@ class FilemanagerModel {
     function get_files($sort_by, $sort_order) {
       $icons_dir_path = WD_BWG_DIR . '/filemanager/images/file_icons';
       $icons_dir_url = WD_BWG_URL . '/filemanager/images/file_icons';
-      $valid_types = explode(',', isset($_REQUEST['extensions']) ? strtolower($_REQUEST['extensions']) : '*');
-      $parent_dir = $this->controller->get_uploads_dir() . (isset($_REQUEST['dir']) ? '/' . $_REQUEST['dir'] : '');
-      $parent_dir_url = $this->controller->get_uploads_url() . (isset($_REQUEST['dir']) ? '/' . $_REQUEST['dir'] : '');
+      $valid_types = explode(',', isset($_REQUEST['extensions']) ? strtolower(esc_html($_REQUEST['extensions'])) : '*');
+      $parent_dir = $this->controller->get_uploads_dir() . (isset($_REQUEST['dir']) ? '/' . esc_html($_REQUEST['dir']) : '');
+      $parent_dir_url = $this->controller->get_uploads_url() . (isset($_REQUEST['dir']) ? '/' . esc_html($_REQUEST['dir']) : '');
 
 
       $file_names = $this->get_sorted_file_names($parent_dir, $sort_by, $sort_order);
@@ -165,7 +165,7 @@ class FilemanagerModel {
     function get_media_library_files($sort_by, $sort_order) {
       $icons_dir_path = WD_BWG_DIR . '/filemanager/images/file_icons';
       $icons_dir_url = WD_BWG_URL . '/filemanager/images/file_icons';
-      $valid_types = explode(',', isset($_REQUEST['extensions']) ? strtolower($_REQUEST['extensions']) : '*');
+      $valid_types = explode(',', isset($_REQUEST['extensions']) ? strtolower(esc_html($_REQUEST['extensions'])) : '*');
       $upload_dir = wp_upload_dir();
       $parent_dir = $upload_dir['basedir'];
       $parent_dir_url = $upload_dir['baseurl'];
