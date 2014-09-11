@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.1.31
+ * Version: 1.2.0
  * Author: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -160,6 +160,15 @@ function create_taxonomy() {
 add_action('init', 'create_taxonomy', 0);
 
 function bwg_shortcode($params) {
+  if (isset($params['id'])) {
+    global $wpdb;
+    $shortcode = $wpdb->get_var($wpdb->prepare("SELECT tagtext FROM " . $wpdb->prefix . "bwg_shortcode WHERE id='%d'", $params['id']));
+    $shortcode_params = explode('" ', $shortcode);
+    foreach ($shortcode_params as $shortcode_param) {
+      $shortcode_elem = explode('="', $shortcode_param);
+      $params[str_replace(' ', '', $shortcode_elem[0])] = $shortcode_elem[1];
+    }
+  }
   shortcode_atts(array(
     'gallery_type' => 'thumbnails',
     'theme_id' => 1,
@@ -402,6 +411,12 @@ if (class_exists('WP_Widget')) {
 // Activate plugin.
 function bwg_activate() {
   global $wpdb;
+  $bwg_shortcode = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_shortcode` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `tagtext` mediumtext NOT NULL,
+    PRIMARY KEY (`id`)
+  ) DEFAULT CHARSET=utf8;";
+  $wpdb->query($bwg_shortcode);
   $bwg_gallery = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_gallery` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `name` varchar(255) NOT NULL,
@@ -2713,7 +2728,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.1.30';
+  $new_version = '1.2.0';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2728,7 +2743,7 @@ register_activation_hook(__FILE__, 'bwg_activate');
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.1.30';
+  $new_version = '1.2.0';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);

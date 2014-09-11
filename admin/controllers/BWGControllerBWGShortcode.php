@@ -19,6 +19,10 @@ class BWGControllerBWGShortcode {
   // Public Methods                                                                     //
   ////////////////////////////////////////////////////////////////////////////////////////
   public function execute() {
+    $task = WDWLibrary::get('task');
+    if (method_exists($this, $task)) {
+      $this->$task();
+    }
     $this->display();
   }
 
@@ -31,6 +35,28 @@ class BWGControllerBWGShortcode {
     $view->display();
   }
 
+  public function save() {
+    global $wpdb;
+    $tagtext = ((isset($_POST['tagtext'])) ? stripslashes($_POST['tagtext']) : '');
+    if ($tagtext) {
+      $id = ((isset($_POST['currrent_id'])) ? (int) esc_html(stripslashes($_POST['currrent_id'])) : 0);
+      $insert = ((isset($_POST['bwg_insert'])) ? (int) esc_html(stripslashes($_POST['bwg_insert'])) : 0);
+      if (!$insert) {
+        $save = $wpdb->update($wpdb->prefix . 'bwg_shortcode', array(
+        'tagtext' => $tagtext
+        ), array('id' => $id));
+      }
+      else {
+        $save = $wpdb->insert($wpdb->prefix . 'bwg_shortcode', array(
+          'id' => $id,
+          'tagtext' => $tagtext
+        ), array(
+          '%d',
+          '%s'
+        ));
+      }
+    }
+  }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////

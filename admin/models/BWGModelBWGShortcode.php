@@ -19,6 +19,12 @@ class BWGModelBWGShortcode {
   // Public Methods                                                                     //
   ////////////////////////////////////////////////////////////////////////////////////////
 
+  public function get_shortcode_data() {
+    global $wpdb;
+    $shortcode = $wpdb->get_results("SELECT id, tagtext FROM " . $wpdb->prefix . "bwg_shortcode");
+    return $shortcode;
+  }
+
   public function get_gallery_rows_data() {
     global $wpdb;
     $query = "SELECT * FROM " . $wpdb->prefix . "bwg_gallery WHERE published=1 ORDER BY name";

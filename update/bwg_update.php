@@ -133,6 +133,14 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_album_name` tinyint(1) NOT NULL DEFAULT 0");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_image_counts` tinyint(1) NOT NULL DEFAULT 0");
   }
+  if (version_compare($version, '1.2.0') == -1) {
+    $bwg_shortcode = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_shortcode` (
+      `id` bigint(20) NOT NULL AUTO_INCREMENT,
+      `tagtext` mediumtext NOT NULL,
+      PRIMARY KEY (`id`)
+    ) DEFAULT CHARSET=utf8;";
+    $wpdb->query($bwg_shortcode);
+  }
   return;
 }
 

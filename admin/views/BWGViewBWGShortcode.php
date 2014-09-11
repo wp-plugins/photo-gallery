@@ -28,6 +28,7 @@ class BWGViewBWGShortcode {
     $option_row = $this->model->get_option_row_data();
     $theme_rows = $this->model->get_theme_rows_data();
     $from_menu = ((isset($_GET['page']) && (esc_html($_GET['page']) == 'BWGShortcode')) ? TRUE : FALSE);
+    $shortcodes = $this->model->get_shortcode_data();
     $effects = array(
       'none' => 'None',
       'cubeH' => 'Cube Horizontal',
@@ -69,11 +70,11 @@ class BWGViewBWGShortcode {
         <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/utils/form_utils.js"></script>
       <?php
       wp_print_scripts('jquery');
-      wp_print_scripts('jquery-ui-core');
-      wp_print_scripts('jquery-ui-widget');
-      wp_print_scripts('jquery-ui-position');
-      wp_print_scripts('jquery-ui-tooltip');
     }
+    wp_print_scripts('jquery-ui-core');
+    wp_print_scripts('jquery-ui-widget');
+    wp_print_scripts('jquery-ui-position');
+    wp_print_scripts('jquery-ui-tooltip');
     ?>
         <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/bwg_shortcode.css?ver='; ?><?php echo get_option("wd_bwg_version"); ?>">
         <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css'; ?>">
@@ -86,7 +87,7 @@ class BWGViewBWGShortcode {
         <base target="_self">
       </head>
       <body id="link" onLoad="tinyMCEPopup.executeOnLoad('init();');document.body.style.display='';" dir="ltr" class="forceColors">
-        <form method="post" action="#">
+        <form method="post" action="#" id="bwg_shortcode_form">
           <div class="tabs" role="tablist" tabindex="-1">
             <ul>
               <li id="display_tab" class="current" role="tab" tabindex="0">
@@ -102,7 +103,8 @@ class BWGViewBWGShortcode {
         }
         else {
         ?>
-        <div id="display_panel" style="width: 99%; margin-top: 30px;">
+        <form method="post" action="#" id="bwg_shortcode_form">
+          <div id="display_panel" style="width: 99%; margin-top: 30px;">
         <?php
         }
         ?>
@@ -852,30 +854,51 @@ class BWGViewBWGShortcode {
               <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="line-height: 25px; padding: 0 5px; text-decoration: none; vertical-align: middle; width: inherit; float: left;" href="http://wpdemo.web-dorado.com/thumbnails-view-2/">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
             </div>
             <div style="float:right;">
-              <input type="submit" id="insert" name="insert" value="Insert" onClick="bwg_insert_shortcode('');" />
+              <input type="button" id="insert" name="insert" value="Insert" onClick="bwg_insert_shortcode('');" />
               <input type="button" id="cancel" name="cancel" value="Cancel" onClick="tinyMCEPopup.close();" />
             </div>
           </div>
-        </form>
           <?php
           }
           else {
+            $tagtext = '';
+            if (isset($_POST['currrent_id'])) {
+              $currrent_id = stripslashes($_POST['currrent_id']);
+              $title = ((isset($_POST['title'])) ? stripslashes($_POST['title']) : '');
+              $tagtext = '[Best_Wordpress_Gallery id="' . $currrent_id . '"' . $title . ']';
+            }
             ?>
             <hr style="float: left; width: 100%;" />
             <span style="float: left; width: 100%;">
               <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="display: table; margin-bottom: 5px;" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
               <input type="button" class="button-primary" id="insert" name="insert" value="Generate" onclick="bwg_insert_shortcode('');" />
               <input type="button" class="button-secondary" id="import" name="import" value="Import" onclick="bwg_update_shortcode()" />
-              <textarea style="width: 100%; resize: vertical; margin-top: 5px;" id="bwg_shortcode" rows="4" onkeydown="bwg_onKeyDown(event)"></textarea>
+              <textarea style="width: 100%; resize: vertical; margin-top: 5px;" id="bwg_shortcode" rows="2" onkeydown="bwg_onKeyDown(event)"><?php echo $tagtext; ?></textarea>
             </span>
             </div>
             <?php
           }
           ?>
-        <script>
-	  window.onload = bwg_shortcode_load;
-	</script>
+          <input type="hidden" id="tagtext" name="tagtext" value="" />
+          <input type="hidden" id="currrent_id" name="currrent_id" value="" />
+          <input type="hidden" id="title" name="title" value="" />
+          <input type="hidden" id="bwg_insert" name="bwg_insert" value="" />
+          <input type="hidden" id="task" name="task" value="" />
+        </form>
         <script type="text/javascript">
+          var shortcodes = [];
+          var shortcode_id = 1;
+          <?php
+          foreach ($shortcodes as $shortcode) {
+            ?>
+            shortcodes[<?php echo $shortcode->id; ?>] = '<?php echo $shortcode->tagtext; ?>';
+            shortcode_id = <?php echo $shortcode->id + 1; ?>;
+            <?php
+          }
+          ?>
+          window.onload = bwg_shortcode_load;
+          var params = get_params("Best_Wordpress_Gallery");
+          var bwg_insert = 1;
           bwg_update_shortcode();
           <?php if (!$from_menu) { ?>
           var content = tinyMCE.activeEditor.selection.getContent();
@@ -883,17 +906,27 @@ class BWGViewBWGShortcode {
           var content = jQuery("#bwg_shortcode").val();
           <?php } ?>
           function bwg_update_shortcode() {
-            var short_code = get_params("Best_Wordpress_Gallery");
-            if (!short_code) { // Insert.
-              <?php if (!$from_menu) { ?>
+            params = get_params("Best_Wordpress_Gallery");
+            if (!params) { // Insert.
+            <?php if (!$from_menu) { ?>
               jQuery('#insert').val('Insert');
-              <?php } ?>
+            <?php } ?>
               bwg_gallery_type('thumbnails');
             }
             else { // Update.
-              <?php if (!$from_menu) { ?>
+              if (params['id']) {
+                shortcode_id = params['id'];
+                var short_code = get_short_params(shortcodes[params['id']]);
+                bwg_insert = 0;
+              }
+              else {
+                var short_code = get_params("Best_Wordpress_Gallery");
+              }
+            <?php if (!$from_menu) { ?>
               jQuery('#insert').val('Update');
-              <?php } ?>
+            <?php } else { ?>
+              content = jQuery("#bwg_shortcode").val();
+            <?php } ?>
               jQuery('#insert').attr('onclick', "bwg_insert_shortcode(content)");
               jQuery("select[id=theme] option[value='" + short_code['theme_id'] + "']").attr('selected', 'selected');
               switch (short_code['gallery_type']) {
@@ -1300,9 +1333,22 @@ class BWGViewBWGShortcode {
             }
             return short_code_attr;
           }
+          function get_short_params(tagtext) {
+            var params_str = tagtext.substring(tagtext.indexOf(" ") + 1);
+            var key_values = params_str.split('" ');
+            var short_code_attr = new Array();
+            for (var key in key_values) {
+              var short_code_index = key_values[key].split('=')[0];
+              var short_code_value = key_values[key].split('=')[1];
+              short_code_value = short_code_value.replace(/\"/g, '');
+              short_code_attr[short_code_index] = short_code_value;
+            }
+            return short_code_attr;
+          }
           function bwg_insert_shortcode(content) {
             var gallery_type = jQuery("input[name=gallery_type]:checked").val();
             var theme = jQuery("#theme").val();
+            var title = "";
             var short_code = '[Best_Wordpress_Gallery';
             var tagtext = ' gallery_type="' + gallery_type + '" theme_id="' + theme + '"';
             switch (gallery_type) {
@@ -1318,7 +1364,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' image_enable_page="' + jQuery("input[name=image_enable_page]:checked").val() + '"';
                 tagtext += ' thumb_width="' + jQuery("#thumb_width").val() + '"';
                 tagtext += ' thumb_height="' + jQuery("#thumb_height").val() + '"';
-                tagtext += ' gallery_name="' + jQuery('#gallery option:selected').text() + '"';
+                title = ' gal_title="' + jQuery('#gallery option:selected').text().replace("'", "").replace('"', '') + '"';
                 break;
 
               }
@@ -1341,7 +1387,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' slideshow_description_position="' + jQuery("input[name=slideshow_description_position]:checked").val() + '"';
                 tagtext += ' enable_slideshow_music="' + jQuery("input[name=enable_slideshow_music]:checked").val() + '"';
                 tagtext += ' slideshow_music_url="' + jQuery("#slideshow_music_url").val() + '"';
-								tagtext += ' gallery_name="' + jQuery('#gallery option:selected').text() + '"';
+								title = ' gal_title="' + jQuery('#gallery option:selected').text().replace("'", "").replace('"', '') + '"';
                 break;
 
               }
@@ -1354,7 +1400,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' image_browser_width="' + jQuery("#image_browser_width").val() + '"';
                 tagtext += ' image_browser_title_enable="' + jQuery("input[name=image_browser_title_enable]:checked").val() + '"';
                 tagtext += ' image_browser_description_enable="' + jQuery("input[name=image_browser_description_enable]:checked").val() + '"';
-								tagtext += ' gallery_name="' + jQuery('#gallery option:selected').text() + '"';
+								title = ' gal_title="' + jQuery('#gallery option:selected').text().replace("'", "").replace('"', '') + '"';
                 break;
 
               }
@@ -1376,7 +1422,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' compuct_album_image_thumb_width="' + jQuery("#compuct_album_image_thumb_width").val() + '"';
                 tagtext += ' compuct_album_image_thumb_height="' + jQuery("#compuct_album_image_thumb_height").val() + '"';
                 tagtext += ' compuct_album_enable_page="' + jQuery("input[name=compuct_album_enable_page]:checked").val() + '"';
-								tagtext += ' album_name="' + jQuery('#album option:selected').text() + '"';
+								title = ' gal_title="' + jQuery('#album option:selected').text().replace("'", "").replace('"', '') + '"';
                 break;
 
               }
@@ -1398,7 +1444,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' extended_album_image_thumb_width="' + jQuery("#extended_album_image_thumb_width").val() + '"';
                 tagtext += ' extended_album_image_thumb_height="' + jQuery("#extended_album_image_thumb_height").val() + '"';
                 tagtext += ' extended_album_enable_page="' + jQuery("input[name=extended_album_enable_page]:checked").val() + '"';
-								tagtext += ' album_name="' + jQuery('#album option:selected').text() + '"';
+								title = ' gal_title="' + jQuery('#album option:selected').text().replace("'", "").replace('"', '') + '"';
                 break;
 
               }
@@ -1446,28 +1492,33 @@ class BWGViewBWGShortcode {
               tagtext += ' watermark_opacity="' + jQuery("#watermark_opacity").val() + '"';
               tagtext += ' watermark_position="' + jQuery("input[name=watermark_position]:checked").val() + '"';
             }
-            short_code += tagtext + ']';
+            short_code += ' id="' + shortcode_id + '"' + title + ']';
+            var short_id = ' id="' + shortcode_id + '"' + title;
             short_code = short_code.replace(/\[Best_Wordpress_Gallery([^\]]*)\]/g, function(d, c) {
-              return "<img src='<?php echo WD_BWG_URL; ?>/images/bwg_shortcode.png' class='bwg_shortcode mceItem' title='Best_Wordpress_Gallery" + tagtext + "' />";
+              return "<img src='<?php echo WD_BWG_URL; ?>/images/bwg_shortcode.png' class='bwg_shortcode mceItem' title='Best_Wordpress_Gallery" + short_id + "' />";
             });
-
+            jQuery("#task").val("save");
+            jQuery("#tagtext").val(tagtext);
+            jQuery("#currrent_id").val(shortcode_id);
+            jQuery("#title").val(title);
+            jQuery("#bwg_insert").val((content && !bwg_insert) ? 0 : 1);
+            jQuery("#bwg_shortcode_form").submit();
             <?php if (!$from_menu) { ?>
             if (window.tinymce.isIE && content) {
               // IE and Update.
               var all_content = tinyMCE.activeEditor.getContent();
-              console.dir(all_content);
               all_content = all_content.replace('<p></p><p>[Best_Wordpress_Gallery', '<p>[Best_Wordpress_Gallery');
-              tinyMCE.activeEditor.setContent(all_content.replace(content, "[Best_Wordpress_Gallery" + tagtext + "]"));
+              tinyMCE.activeEditor.setContent(all_content.replace(content, '[Best_Wordpress_Gallery id="' + shortcode_id + '"' + title + ']'));
             }
             else {
-              // window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, short_code);
               window.tinyMCE.execCommand('mceInsertContent', false, short_code);
-              // window.tinyMCE.activeEditor.dom.setAttrib(window.tinyMCE.activeEditor.selection.getNode(), "title", "Best_Wordpress_Gallery" + tagtext);
             }
             tinyMCEPopup.editor.execCommand('mceRepaint');
-            tinyMCEPopup.close();
+            setTimeout(function() {
+              tinyMCEPopup.close();
+            }, 1000);            
             <?php } else { ?>
-            jQuery("#bwg_shortcode").val("[Best_Wordpress_Gallery" + tagtext + "]");
+            jQuery("#bwg_shortcode").val('[Best_Wordpress_Gallery id="' + shortcode_id + '"' + title + ']');
             <?php } ?>
           }
         </script>
@@ -1476,7 +1527,7 @@ class BWGViewBWGShortcode {
     <?php
     die();
   }
-  
+
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////
