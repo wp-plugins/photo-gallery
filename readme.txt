@@ -22,7 +22,6 @@ https://www.youtube.com/watch?v=4Mxg0FsFZZE&index=5&list=PLnxWPiY5tLFUsFI67acGEP
 
 Photo Gallery is an advanced plugin with a list of tools and options for adding and editing images for different views. It is fully responsive. The product includes plugin for adding image galleries and albums to posts and pages, as well as multiple widgets. You can add images, providing detailed descriptions and tags, organize the galleries into different albums.  
 
-
 The plugin allows displaying galleries/albums within the following views: 
 
 *   Thumbnails for image thumbnails
