@@ -87,6 +87,7 @@ class BWGViewBWGShortcode {
         <base target="_self">
       </head>
       <body id="link" onLoad="tinyMCEPopup.executeOnLoad('init();');document.body.style.display='';" dir="ltr" class="forceColors">
+        <?php if (isset($_POST['tagtext'])) { echo '<script>tinyMCEPopup.close();</script></body></html>'; die(); } ?>
         <form method="post" action="#" id="bwg_shortcode_form">
           <div class="tabs" role="tablist" tabindex="-1">
             <ul>
@@ -1514,9 +1515,6 @@ class BWGViewBWGShortcode {
               window.tinyMCE.execCommand('mceInsertContent', false, short_code);
             }
             tinyMCEPopup.editor.execCommand('mceRepaint');
-            setTimeout(function() {
-              tinyMCEPopup.close();
-            }, 1000);            
             <?php } else { ?>
             jQuery("#bwg_shortcode").val('[Best_Wordpress_Gallery id="' + shortcode_id + '"' + title + ']');
             <?php } ?>
