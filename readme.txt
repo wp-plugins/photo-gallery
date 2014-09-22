@@ -174,6 +174,12 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 == Changelog ==
 
+= 1.2.1 =
+minor changes in shortcode generation code 
+
+= 1.2.0 =
+change shortcodes
+
 = 1.1.30 =
 *  images count in ligthbox (optional - only in options page)  
 *  images count column in galleries table   
