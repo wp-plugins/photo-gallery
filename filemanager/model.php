@@ -192,7 +192,7 @@ class FilemanagerModel {
           $file_type_array = explode('.', $file_name);
           $file['type'] = strtolower(end($file_type_array));
           // $file['thumb'] = wp_get_attachment_thumb_url($image->ID);
-          if ($file_meta['sizes']['thumbnail']['file']) {
+          if (!empty($file_meta['sizes']) && $file_meta['sizes']['thumbnail']['file']) {
             $file_pos = strrpos($file_meta['file'], '/');
             $sub_folder = substr($file_meta['file'], 0, $file_pos); 
             $file['thumb'] = $upload_dir['baseurl'] . '/' . $sub_folder . '/' . $file_meta['sizes']['thumbnail']['file'];

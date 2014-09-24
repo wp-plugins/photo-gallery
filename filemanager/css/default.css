@@ -131,12 +131,20 @@ html, body, div, span, th, td, a {
     float: left;
     margin: 0;
     padding: 0;
+	margin-left: 5px;
 }
 
 .ctrls_bar .ctrls_right {
     float: right;
     margin: 0;
     padding: 0;
+}
+
+.ctrls_bar .ctrls_right_img {
+    float: right;
+    margin: 0;
+    padding: 0;
+	margin-right: 10px;
 }
 
 .ctrl_bar_divider {

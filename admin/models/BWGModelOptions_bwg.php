@@ -36,6 +36,8 @@ class BWGModelOptions_bwg {
       $row->thumb_height = 90;
       $row->upload_thumb_width = 300;
       $row->upload_thumb_height = 300;
+	  $row->upload_img_width = 1200; 
+      $row->upload_img_height = 1200;
       $row->image_enable_page = 1;
       $row->image_title_show_hover = 'none';
 

@@ -87,14 +87,20 @@ class UploadHandler {
         // The maximum number of files for the upload directory:
         'max_number_of_files' => null,
         // Image resolution restrictions:
-        'max_width' => null,
-        'max_height' => null,
+        'max_width' => ((isset($_REQUEST['file_namesML']) && esc_html($_REQUEST['file_namesML'])) ? (isset($_REQUEST['importer_img_width']) ? (int) $_REQUEST['importer_img_width'] : 1200) : (isset($_POST['upload_img_width']) ? (int) $_POST['upload_img_width'] : 1200)),
+        'max_height' => ((isset($_REQUEST['file_namesML']) && esc_html($_REQUEST['file_namesML'])) ? (isset($_REQUEST['importer_img_height']) ? (int) $_REQUEST['importer_img_height'] : 1200) : (isset($_POST['upload_img_height']) ? (int) $_POST['upload_img_height'] : 1200)),	
         'min_width' => 1,
         'min_height' => 1,
         // Set the following option to false to enable resumable uploads:
         'discard_aborted_uploads' => true,
         // Set to true to rotate images based on EXIF meta data, if available:
         'orient_image' => false,
+      );
+      if (!$this->options['max_width'] || !$this->options['max_height']) {
+        $this->options['max_width'] = NULL;
+        $this->options['max_height'] = NULL;
+      }
+      $this->options += array(
         'image_versions' => array(
           // Uncomment the following version to restrict the size of
           // uploaded images:
@@ -114,13 +120,13 @@ class UploadHandler {
           ),
           */
           '.original' => array(
-            'max_width' => NULL,
-            'max_height' => NULL,
+            'max_width' => $this->options['max_width'],
+            'max_height' => $this->options['max_height'],
             'jpeg_quality' => 100
           ),
           'thumb' => array(
-            'max_width' => ((isset($_REQUEST['file_namesML'])) ? (int) $_REQUEST['importer_thumb_width'] : ((isset($_POST['upload_thumb_width']) && (int) $_POST['upload_thumb_width']) ? (int) $_POST['upload_thumb_width'] : 300)),
-            'max_height' => ((isset($_REQUEST['file_namesML'])) ? (int) $_REQUEST['importer_thumb_height'] : ((isset($_POST['upload_thumb_height']) && (int) $_POST['upload_thumb_height']) ? (int) $_POST['upload_thumb_height'] : 300)),
+            'max_width' => ((isset($_REQUEST['file_namesML']) && esc_html($_REQUEST['file_namesML'])) ? (isset($_REQUEST['importer_thumb_width']) ? (int) $_REQUEST['importer_thumb_width'] : 300) : ((isset($_POST['upload_thumb_width']) && (int) $_POST['upload_thumb_width']) ? (int) $_POST['upload_thumb_width'] : 300)),
+            'max_height' => ((isset($_REQUEST['file_namesML']) && esc_html($_REQUEST['file_namesML'])) ? (isset($_REQUEST['importer_thumb_height']) ? (int) $_REQUEST['importer_thumb_height'] : 300) : ((isset($_POST['upload_thumb_height']) && (int) $_POST['upload_thumb_height']) ? (int) $_POST['upload_thumb_height'] : 300)),
             'jpeg_quality' => 90
           ),
         )
@@ -286,7 +292,7 @@ class UploadHandler {
 
     protected function create_scaled_image($file_name, $version, $options) {
       $file_path = $this->get_upload_path($file_name);
-      if (!empty($version)) {
+      if (!empty($version) && ($version != 'main')) {
         $version_dir = $this->get_upload_path(null, $version);
         if (!is_dir($version_dir)) {
           mkdir($version_dir, $this->options['mkdir_mode'], true);
@@ -310,7 +316,7 @@ class UploadHandler {
         $max_height / $img_height
       );
       ini_set('memory_limit', '-1');
-      if (($scale >= 1) || (($max_width === NULL) && ($max_height === NULL))) {
+      if (($scale >= 1) || (($max_width == NULL) && ($max_height == NULL))) {
         if ($file_path !== $new_file_path) {
           return copy($file_path, $new_file_path);
         }
@@ -442,14 +448,14 @@ class UploadHandler {
       }
       list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($uploaded_file, ENT_COMPAT | ENT_QUOTES));
       if (is_int($img_width)) {
-        if ($this->options['max_width'] && $img_width > $this->options['max_width']) {
-          $file->error = $this->get_error_message('max_width');
-          return false;
-        }
-        if ($this->options['max_height'] && $img_height > $this->options['max_height']) {
-          $file->error = $this->get_error_message('max_height');
-          return false;
-        }
+        // if ($this->options['max_width'] && $img_width > $this->options['max_width']) {
+          // $file->error = $this->get_error_message('max_width');
+          // return false;
+        // }
+        // if ($this->options['max_height'] && $img_height > $this->options['max_height']) {
+          // $file->error = $this->get_error_message('max_height');
+          // return false;
+        // }
         if ($this->options['min_width'] && $img_width < $this->options['min_width']) {
           $file->error = $this->get_error_message('min_width');
           return false;
@@ -625,6 +631,12 @@ class UploadHandler {
               $file->type = $type;
               $file->url = $this->get_download_url($file->name);
               list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($ex_file, ENT_COMPAT | ENT_QUOTES));
+
+              if ($this->options['max_width'] && $this->options['max_height']) {
+                // Zip Upload.
+                $this->create_scaled_image($file->name, 'main', $this->options);
+              }
+
               if (is_int($img_width)) {
                 $this->handle_image_file($ex_file, $file);
               }
@@ -656,6 +668,12 @@ class UploadHandler {
       
       copy($parent_dir . '/' . $uploaded_file, $file_path);
       list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($file_path, ENT_COMPAT | ENT_QUOTES));
+
+      if ($this->options['max_width'] && $this->options['max_height']) {
+        // Media libruary Upload.
+        $this->create_scaled_image($file->name, 'main', $this->options);
+      }
+
       if (is_int($img_width)) {
         $this->handle_image_file($file_path, $file);
       }        
@@ -701,6 +719,10 @@ class UploadHandler {
         }
         $file_size = $this->get_file_size($file_path, $append_file);
         if ($file_size === $file->size) {
+          if ($this->options['max_width'] && $this->options['max_height']) {
+            // Upload.
+            $this->create_scaled_image($file->name, 'main', $this->options);
+          }
           $file->url = $this->get_download_url($file->name);
           list($img_width, $img_height) = @getimagesize(htmlspecialchars_decode($file_path, ENT_COMPAT | ENT_QUOTES));
           if (is_int($img_width)) {

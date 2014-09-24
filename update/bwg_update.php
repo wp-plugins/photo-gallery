@@ -141,6 +141,11 @@ function bwg_update($version) {
     ) DEFAULT CHARSET=utf8;";
     $wpdb->query($bwg_shortcode);
   }
+  if (version_compare($version, '1.2.2') == -1) {
+    // Upload images with custom size.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `upload_img_width` int(4) NOT NULL DEFAULT 1200");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `upload_img_height` int(4) NOT NULL DEFAULT 1200");
+  }
   return;
 }
 

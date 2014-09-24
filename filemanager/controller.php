@@ -249,7 +249,7 @@ class FilemanagerController {
     }
 
     public function import_items() {
-      header('Location: ' . add_query_arg(array('action' => 'bwg_UploadHandler', 'importer_thumb_width' => esc_html($_REQUEST['importer_thumb_width']), 'importer_thumb_height' => esc_html($_REQUEST['importer_thumb_height']), 'callback' => esc_html($_REQUEST['callback']), 'file_namesML' => esc_html($_REQUEST['file_namesML']), 'import' => 'true', 'redir' => esc_html($_REQUEST['dir']), 'dir' => $this->get_uploads_dir() . '/' . esc_html($_REQUEST['dir']) . '/'), admin_url('admin-ajax.php')));
+      header('Location: ' . add_query_arg(array('action' => 'bwg_UploadHandler', 'importer_thumb_width' => esc_html($_REQUEST['importer_thumb_width']), 'importer_thumb_height' => esc_html($_REQUEST['importer_thumb_height']), 'callback' => esc_html($_REQUEST['callback']), 'file_namesML' => esc_html($_REQUEST['file_namesML']), 'importer_img_width' => esc_html($_REQUEST['importer_img_width']), 'importer_img_height' => esc_html($_REQUEST['importer_img_height']), 'import' => 'true', 'redir' => esc_html($_REQUEST['dir']), 'dir' => $this->get_uploads_dir() . '/' . esc_html($_REQUEST['dir']) . '/'), admin_url('admin-ajax.php')));
       exit;
     }
 

@@ -90,6 +90,8 @@ class BWGControllerOptions_bwg {
     $thumb_height = (isset($_POST['thumb_height']) ? esc_html(stripslashes($_POST['thumb_height'])) : 90);
     $upload_thumb_width = (isset($_POST['upload_thumb_width']) ? esc_html(stripslashes($_POST['upload_thumb_width'])) : 300);
     $upload_thumb_height = (isset($_POST['upload_thumb_height']) ? esc_html(stripslashes($_POST['upload_thumb_height'])) : 300);
+	$upload_img_width = (isset($_POST['upload_img_width']) ? esc_html(stripslashes($_POST['upload_img_width'])) : 1200);
+    $upload_img_height = (isset($_POST['upload_img_height']) ? esc_html(stripslashes($_POST['upload_img_height'])) : 1200);	
     $image_enable_page = (isset($_POST['image_enable_page']) ? esc_html(stripslashes($_POST['image_enable_page'])) : 1);
     $image_title_show_hover = (isset($_POST['image_title_show_hover']) ? esc_html(stripslashes($_POST['image_title_show_hover'])) : 'none');
     $album_column_number = (isset($_POST['album_column_number']) ? esc_html(stripslashes($_POST['album_column_number'])) : 5);
@@ -192,6 +194,8 @@ class BWGControllerOptions_bwg {
       'thumb_height' => $thumb_height,
       'upload_thumb_width' => $upload_thumb_width,
       'upload_thumb_height' => $upload_thumb_height,
+	  'upload_img_width' => $upload_img_width, 
+      'upload_img_height' => $upload_img_height,
       'image_enable_page' => $image_enable_page,
       'image_title_show_hover' => $image_title_show_hover,
       'album_column_number' => $album_column_number,

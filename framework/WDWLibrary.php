@@ -150,7 +150,7 @@ class WDWLibrary {
   }
 
   public static function message($message, $type) {
-    return '<div style="width:95%"><div class="' . $type . '"><p><strong>' . $message . '</strong></p></div></div>';
+    return '<div style="width:99%"><div class="' . $type . '"><p><strong>' . $message . '</strong></p></div></div>';
   }
 
   public static function search($search_by, $search_value, $form_id) {

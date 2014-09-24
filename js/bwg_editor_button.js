@@ -61,7 +61,7 @@
         }
         return e
       })
-    },
+    }
   });
   tinymce.PluginManager.add('bwg_mce', tinymce.plugins.bwg_mce);
 })();

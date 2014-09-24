@@ -33,7 +33,7 @@ class BWGViewAlbums_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
     ?>
-    <div style="clear: both; float: left; width: 95%;">
+    <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to create, edit and delete albums.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-4.html">Read More in User Manual</a>
@@ -44,7 +44,7 @@ class BWGViewAlbums_bwg {
         </a>
       </div>
     </div>
-    <form class="wrap" id="albums_form" method="post" action="admin.php?page=albums_bwg" style="float: left; width: 95%;">
+    <form class="wrap" id="albums_form" method="post" action="admin.php?page=albums_bwg" style="float: left; width: 99%;">
       <span class="album-icon"></span>
       <h2>
         Albums
@@ -188,7 +188,7 @@ class BWGViewAlbums_bwg {
     $row = $this->model->get_row_data($id);
     $page_title = (($id != 0) ? 'Edit album ' . $row->name : 'Create new album');
     ?>
-    <div style="clear: both; float: left; width: 95%;">
+    <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to add/edit album.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-4.html">Read More in User Manual</a>
@@ -254,7 +254,7 @@ class BWGViewAlbums_bwg {
         tb_remove();
       }
     </script>
-    <form class="wrap" method="post" action="admin.php?page=albums_bwg" style="float: left; width: 95%;">
+    <form class="wrap" method="post" action="admin.php?page=albums_bwg" style="float: left; width: 99%;">
       <span class="album-icon"></span>
       <h2><?php echo $page_title; ?></h2>
       <div style="float:right;">

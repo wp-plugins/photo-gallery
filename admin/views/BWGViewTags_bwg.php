@@ -34,7 +34,7 @@ class BWGViewTags_bwg {
     <script>
       var ajax_url = "<?php echo add_query_arg(array('action' => ''), admin_url('admin-ajax.php'));  ?>"
     </script>
-    <div style="clear: both; float: left; width: 95%;">
+    <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to create, edit and delete tags.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-3.html">Read More in User Manual</a>
@@ -45,8 +45,8 @@ class BWGViewTags_bwg {
         </a>
       </div>
     </div>
-    <div id="wordpress_message_1" style="width:95%;display:none"><div id="wordpress_message_2" class="updated"><p><strong>Item Succesfully Saved.</strong></p></div></div>
-    <form class="wrap" id="tags_form" method="post" action="admin.php?page=tags_bwg" style="float:left; width: 95%;">
+    <div id="wordpress_message_1" style="width:99%;display:none"><div id="wordpress_message_2" class="updated"><p><strong>Item Succesfully Saved.</strong></p></div></div>
+    <form class="wrap" id="tags_form" method="post" action="admin.php?page=tags_bwg" style="float:left; width: 99%;">
       <span class="tag_icon"></span>
       <h2>Tags</h2>
       <div class="buttons_div">

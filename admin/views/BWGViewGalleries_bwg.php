@@ -33,7 +33,7 @@ class BWGViewGalleries_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
     ?>
-    <div style="clear: both; float: left; width: 95%;">
+    <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to create, edit and delete galleries.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-2.html">Read More in User Manual</a>
@@ -44,7 +44,7 @@ class BWGViewGalleries_bwg {
         </a>
       </div>
     </div>
-    <form class="wrap" id="galleries_form" method="post" action="admin.php?page=galleries_bwg" style="float: left; width: 95%;">
+    <form class="wrap" id="galleries_form" method="post" action="admin.php?page=galleries_bwg" style="float: left; width: 99%;">
       <span class="gallery-icon"></span>
       <h2>
         Galleries
@@ -202,7 +202,7 @@ class BWGViewGalleries_bwg {
     $option_row = $this->model->get_option_row_data();
     $page_title = (($id != 0) ? 'Edit gallery ' . $row->name : 'Create new gallery');
     ?>
-    <div style="clear: both; float: left; width: 95%;">
+    <div style="clear: both; float: left; width: 99%;">
       <div id="message_div" class="updated" style="display: none;"></div>
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to add/edit gallery.
@@ -489,7 +489,7 @@ class BWGViewGalleries_bwg {
         spider_show_hide_weights();
       }
     </script>
-    <form class="wrap" method="post" id="galleries_form" action="admin.php?page=galleries_bwg" style="float: left; width: 95%;">
+    <form class="wrap" method="post" id="galleries_form" action="admin.php?page=galleries_bwg" style="float: left; width: 99%;">
       <span class="gallery-icon"></span>
       <h2><?php echo $page_title; ?></h2>
       <div style="float:right;">

@@ -25,7 +25,7 @@ class BWGViewOptions_bwg {
   public function display($reset = FALSE) {
     global $WD_BWG_UPLOAD_DIR;
     ?>
-    <div style="clear: both; float: left; width: 95%;">
+    <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to change settings for different views and general options.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-5/5-1.html">Read More in User Manual</a>
@@ -85,7 +85,7 @@ class BWGViewOptions_bwg {
       'random' => 'Random',
     );
     ?>
-    <form method="post" class="wrap" action="admin.php?page=options_bwg" style="float: left; width: 95%;">      
+    <form method="post" class="wrap" action="admin.php?page=options_bwg" style="float: left; width: 99%;">      
       <span class="option-icon"></span>
       <h2>Edit options</h2>
       <div style="display: inline-block; width: 100%;">
@@ -123,6 +123,16 @@ class BWGViewOptions_bwg {
                   <input id="images_directory" name="images_directory" type="text" style="display:inline-block; width:100%;" value="<?php echo $row->images_directory; ?>" />
                   <input type="hidden" id="old_images_directory" name="old_images_directory" value="<?php echo $row->old_images_directory; ?>"/>
                   <div class="spider_description">Input an existing directory inside the Wordpress directory to store uploaded images.<br />Old directory content will be moved to the new one.</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label for="upload_img_width">Image dimensions: </label>
+                </td>
+                <td>
+                  <input type="text" name="upload_img_width" id="upload_img_width" value="<?php echo $row->upload_img_width; ?>" class="spider_int_input" /> x 
+                  <input type="text" name="upload_img_height" id="upload_img_height" value="<?php echo $row->upload_img_height; ?>" class="spider_int_input" /> px
+                  <div class="spider_description">The maximum size of the uploaded image (0 for original size).</div>
                 </td>
               </tr>
               <tr>

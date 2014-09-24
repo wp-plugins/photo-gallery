@@ -32,7 +32,7 @@ class  BWGViewThemes_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
     ?>
-    <div style="clear: both; float: left; width: 95%;">
+    <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to create, edit and delete themes.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-6/6-1.html">Read More in User Manual</a>
@@ -69,7 +69,7 @@ class  BWGViewThemes_bwg {
       die();
     }
     ?>
-    <form class="wrap" id="themes_form" method="post" action="admin.php?page=themes_bwg" style="float: left; width: 95%;">
+    <form class="wrap" id="themes_form" method="post" action="admin.php?page=themes_bwg" style="float: left; width: 99%;">
       <span class="theme_icon"></span>
       <h2>
         Themes

@@ -256,12 +256,17 @@ class FilemanagerView {
             <div id="importer_bg"></div>
             <div class="ctrls_bar ctrls_bar_header">
               <div class="ctrls_left upload_thumb">
-                Generated Thumbnail Maximum Dimensions:
+                Thumbnail Maximum Dimensions:
                 <input type="text" class="upload_thumb_dim" name="importer_thumb_width" id="importer_thumb_width" value="<?php echo $bwg_options->upload_thumb_width; ?>" /> x 
                 <input type="text" class="upload_thumb_dim" name="importer_thumb_height" id="importer_thumb_height" value="<?php echo $bwg_options->upload_thumb_height; ?>" /> px
               </div>
               <div class="ctrls_right">
                 <a class="ctrl_bar_btn btn_back" onclick="onBtnBackClick(event, this);" title="<?php echo 'Back'; ?>"></a>
+              </div>
+              <div class="ctrls_right_img upload_thumb">
+                Image Maximum Dimensions:
+                <input type="text" class="upload_thumb_dim" name="importer_img_width" id="importer_img_width" value="<?php echo $bwg_options->upload_img_width; ?>" /> x 
+                <input type="text" class="upload_thumb_dim" name="importer_img_height" id="importer_img_height" value="<?php echo $bwg_options->upload_img_height; ?>" /> px
               </div>
             </div>
             <div id="importer_body_wrapper">
@@ -324,12 +329,17 @@ class FilemanagerView {
             <div id="uploader_bg"></div>
             <div class="ctrls_bar ctrls_bar_header">
               <div class="ctrls_left upload_thumb">
-                Generated Thumbnail Maximum Dimensions:
+                Thumbnail Maximum Dimensions:
                 <input type="text" class="upload_thumb_dim" name="upload_thumb_width" id="upload_thumb_width" value="<?php echo $bwg_options->upload_thumb_width; ?>" /> x 
                 <input type="text" class="upload_thumb_dim" name="upload_thumb_height" id="upload_thumb_height" value="<?php echo $bwg_options->upload_thumb_height; ?>" /> px
               </div>
               <div class="ctrls_right">
                 <a class="ctrl_bar_btn btn_back" onclick="onBtnBackClick(event, this);" title="<?php echo 'Back'; ?>"></a>
+              </div>
+              <div class="ctrls_right_img upload_thumb">
+                Image Maximum Dimensions:
+                <input type="text" class="upload_thumb_dim" name="upload_img_width" id="upload_img_width" value="<?php echo $bwg_options->upload_img_width; ?>" /> x 
+                <input type="text" class="upload_thumb_dim" name="upload_img_height" id="upload_img_height" value="<?php echo $bwg_options->upload_img_height; ?>" /> px
               </div>
             </div>
             <label for="jQueryUploader">
