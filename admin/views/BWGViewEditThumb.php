@@ -159,9 +159,9 @@ class BWGViewEditThumb {
     }
     ini_restore('memory_limit');
     wp_print_scripts('jquery');
+    wp_print_scripts('jcrop');
+    wp_print_styles('jcrop');
     ?>
-    <script src="<?php echo WD_BWG_URL . '/js/Jcrop-1902/js/jquery.Jcrop.min.js'; ?>" type="text/javascript"></script>
-    <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/js/Jcrop-1902/css/jquery.Jcrop.css'; ?>" type="text/css" />
     <style>
       body {
         height: <?php echo $popup_height; ?>px;

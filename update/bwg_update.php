@@ -128,7 +128,7 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `enable_ML_import` tinyint(1) NOT NULL DEFAULT 0");
   }
   if (version_compare($version, '1.1.30') == -1) {
-    // Add enable/disable showing album or thumbnail names
+    // Add enable/disable showing album or thumbnail names.
 		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `showthumbs_name` tinyint(1) NOT NULL DEFAULT 0");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_album_name` tinyint(1) NOT NULL DEFAULT 0");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_image_counts` tinyint(1) NOT NULL DEFAULT 0");
@@ -145,6 +145,10 @@ function bwg_update($version) {
     // Upload images with custom size.
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `upload_img_width` int(4) NOT NULL DEFAULT 1200");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `upload_img_height` int(4) NOT NULL DEFAULT 1200");
+  }
+  if (version_compare($version, '1.2.3') == -1) {
+    // Add enable/disable option for play icon on video thumbnail.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `play_icon` tinyint(1) NOT NULL DEFAULT 1");
   }
   return;
 }

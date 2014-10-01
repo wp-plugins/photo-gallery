@@ -202,11 +202,6 @@ class BWGViewSlideshow {
         vertical-align: middle;
         display: inline-block;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_prev_btn_<?php echo $bwg; ?>,
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_next_btn_<?php echo $bwg; ?> {
-        /*opacity: <?php echo $theme_row->slideshow_close_btn_transparent / 100; ?>;
-        filter: Alpha(opacity=<?php echo $theme_row->slideshow_close_btn_transparent; ?>);*/
-      }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_watermark_<?php echo $bwg; ?> {
         position: relative;
         z-index: 15;
@@ -307,7 +302,7 @@ class BWGViewSlideshow {
         position: absolute;
         top: 50%;
         /*z-index: 10135;*/
-        opacity: <?php echo $theme_row->slideshow_close_btn_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->slideshow_close_btn_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->slideshow_close_btn_transparent; ?>);
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_slideshow_left-ico_<?php echo $bwg; ?>:hover,
@@ -365,7 +360,7 @@ class BWGViewSlideshow {
         border: <?php echo $theme_row->slideshow_filmstrip_thumb_active_border_width; ?>px solid #<?php echo $theme_row->slideshow_filmstrip_thumb_active_border_color; ?>;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_thumb_deactive_<?php echo $bwg; ?> {
-        opacity: <?php echo $theme_row->slideshow_filmstrip_thumb_deactive_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->slideshow_filmstrip_thumb_deactive_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->slideshow_filmstrip_thumb_deactive_transparent; ?>);
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_slideshow_filmstrip_thumbnail_img_<?php echo $bwg; ?> {
@@ -438,7 +433,7 @@ class BWGViewSlideshow {
         margin: 4px !important;
         max-height: <?php echo $watermark_height; ?>px;
         max-width: <?php echo $watermark_width; ?>px;
-        opacity: <?php echo $watermark_opacity / 100; ?>;
+        opacity: <?php echo number_format($watermark_opacity / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $watermark_opacity; ?>);
         position: relative;
         z-index: 15;
@@ -450,7 +445,7 @@ class BWGViewSlideshow {
         font-size: <?php echo $watermark_font_size; ?>px;
         font-family: <?php echo $watermark_font; ?>;
         color: #<?php echo $watermark_color; ?> !important;
-        opacity: <?php echo $watermark_opacity / 100; ?>;
+        opacity: <?php echo number_format($watermark_opacity / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $watermark_opacity; ?>);
         position: relative;
         z-index: 15;
@@ -460,7 +455,7 @@ class BWGViewSlideshow {
         font-size: <?php echo $theme_row->slideshow_title_font_size; ?>px;
         font-family: <?php echo $theme_row->slideshow_title_font; ?>;
         color: #<?php echo $theme_row->slideshow_title_color; ?> !important;
-        opacity: <?php echo $theme_row->slideshow_title_opacity / 100; ?>;
+        opacity: <?php echo number_format($theme_row->slideshow_title_opacity / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->slideshow_title_opacity; ?>);
         position: relative;
         z-index: 11;
@@ -478,7 +473,7 @@ class BWGViewSlideshow {
         font-size: <?php echo $theme_row->slideshow_description_font_size; ?>px;
         font-family: <?php echo $theme_row->slideshow_description_font; ?>;
         color: #<?php echo $theme_row->slideshow_description_color; ?> !important;
-        opacity: <?php echo $theme_row->slideshow_description_opacity / 100; ?>;
+        opacity: <?php echo number_format($theme_row->slideshow_description_opacity / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->slideshow_description_opacity; ?>);
         position: relative;
         z-index: 15;

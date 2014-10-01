@@ -523,292 +523,304 @@ class BWGViewOptions_bwg {
 
         <!--Lightbox-->
         <div class="spider_div_options" id="div_content_3">        
-          <table>
-            <tbody>			
-              <tr id="tr_popup_full_width">
-                <td class="spider_label_options">
-                  <label>Full width lightbox:</label>
-                </td>
-                <td>
-                  <input type="radio" name="popup_fullscreen" id="popup_fullscreen_1" value="1" <?php if ($row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen(1)" /><label for="popup_fullscreen_1">Yes</label>
-                  <input type="radio" name="popup_fullscreen" id="popup_fullscreen_0" value="0" <?php if (!$row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen(0)" /><label for="popup_fullscreen_0">No</label>
-                  <div class="spider_description">Enable full width feature for the lightbox.</div>
-                </td>
-              </tr>			
-              <tr id="tr_popup_dimensions" >
-                <td class="spider_label_options">
-                  <label for="popup_width">Lightbox dimensions:</label>
-                </td>
-                <td>
-                  <input type="text" name="popup_width" id="popup_width" value="<?php echo $row->popup_width; ?>" class="spider_int_input" /> x 
-                  <input type="text" name="popup_height" id="popup_height" value="<?php echo $row->popup_height; ?>" class="spider_int_input" /> px
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr>
-                <td class="spider_label_options">
-                  <label for="popup_type">Lightbox effect:</label>
-                </td>
-                <td>
-                  <select name="popup_type" id="popup_type" style="width:150px;">
-                    <?php
-                    foreach ($effects as $key => $effect) {
-                      ?>
-                      <option value="<?php echo $key; ?>" <?php echo ($key != 'none' && $key != 'fade') ? 'disabled="disabled" title="This effect is disabled in free version."' : ''; ?> <?php if ($row->popup_type == $key) echo 'selected="selected"'; ?>><?php echo $effect; ?></option>
-                      <?php
-                    }
-                    ?>
-                  </select>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr id="tr_popup_autoplay">
-                <td class="spider_label_options">
-                  <label>Lightbox autoplay: </label>
-                </td>
-                <td>
-                  <input type="radio" name="popup_autoplay" id="popup_autoplay_1" value="1" <?php if ($row->popup_autoplay) echo 'checked="checked"'; ?> /><label for="popup_autoplay_1">Yes</label>
-                  <input type="radio" name="popup_autoplay" id="popup_autoplay_0" value="0" <?php if (!$row->popup_autoplay) echo 'checked="checked"'; ?> /><label for="popup_autoplay_0">No</label>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr>
-                <td class="spider_label_options">
-                  <label for="popup_interval">Time interval:</label>
-                </td>
-                <td>
-                  <input type="text" name="popup_interval" id="popup_interval" value="<?php echo $row->popup_interval; ?>" class="spider_int_input" /> sec.
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr>
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable filmstrip:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_filmstrip" id="popup_enable_filmstrip_1" value="1" <?php if ($row->popup_enable_filmstrip ) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_popup_filmstrip_height', 'popup_enable_filmstrip_1')" /><label for="popup_enable_filmstrip_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_filmstrip" id="popup_enable_filmstrip_0" value="0" <?php if (!$row->popup_enable_filmstrip ) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_popup_filmstrip_height', 'popup_enable_filmstrip_0')" /><label for="popup_enable_filmstrip_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_filmstrip_height">
-                <td class="spider_label_options spider_free_version_label">
-                  <label for="popup_filmstrip_height">Filmstrip size:</label>
-                </td>
-                <td class="spider_free_version_label">
-                  <input disabled="disabled" type="text" name="popup_filmstrip_height" id="popup_filmstrip_height" value="<?php echo $row->popup_filmstrip_height; ?>" class="spider_int_input spider_free_version_label" /> px
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-	      <tr id="tr_popup_hit_counter">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Display hit counter:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_hit_counter" id="popup_hit_counter_1" value="1" <?php if ($row->popup_hit_counter) echo 'checked="checked"'; ?> /><label for="popup_hit_counter_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_hit_counter" id="popup_hit_counter_0" value="0" <?php if (!$row->popup_hit_counter) echo 'checked="checked"'; ?> /><label for="popup_hit_counter_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr>
-                <td class="spider_label_options">
-                  <label>Enable control buttons:</label>
-                </td>
-                <td>
-                  <input type="radio" name="popup_enable_ctrl_btn" id="popup_enable_ctrl_btn_1" value="1" <?php if ($row->popup_enable_ctrl_btn) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_info', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_comment', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_facebook', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_twitter', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_google', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_tumblr', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_comment_moderation', 'comment_moderation_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_email', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_captcha', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_download', 'popup_enable_ctrl_btn_1');
-                                                                                                                                                                                       bwg_enable_disable('', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_1');" /><label for="popup_enable_ctrl_btn_1">Yes</label>
-                  <input type="radio" name="popup_enable_ctrl_btn" id="popup_enable_ctrl_btn_0" value="0" <?php if (!$row->popup_enable_ctrl_btn) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_info', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_comment', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_facebook', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_twitter', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_google', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_tumblr', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_comment_moderation', 'comment_moderation_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_email', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_captcha', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_download', 'popup_enable_ctrl_btn_0');
-                                                                                                                                                                                       bwg_enable_disable('none', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_0');" /><label for="popup_enable_ctrl_btn_0">No</label>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr id="tr_popup_fullscreen">
-                <td class="spider_label_options">
-                  <label>Enable fullscreen:</label>
-                </td>
-                <td>
-                  <input type="radio" name="popup_enable_fullscreen" id="popup_enable_fullscreen_1" value="1" <?php if ($row->popup_enable_fullscreen) echo 'checked="checked"'; ?> /><label for="popup_enable_fullscreen_1">Yes</label>
-                  <input type="radio" name="popup_enable_fullscreen" id="popup_enable_fullscreen_0" value="0" <?php if (!$row->popup_enable_fullscreen) echo 'checked="checked"'; ?> /><label for="popup_enable_fullscreen_0">No</label>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr id="tr_popup_info">
-                <td class="spider_label_options">
-                  <label>Enable info:</label>
-                </td>
-                <td>
-                  <input type="radio" name="popup_enable_info" id="popup_enable_info_1" value="1" <?php if ($row->popup_enable_info) echo 'checked="checked"'; ?> /><label for="popup_enable_info_1">Yes</label>
-                  <input type="radio" name="popup_enable_info" id="popup_enable_info_0" value="0" <?php if (!$row->popup_enable_info) echo 'checked="checked"'; ?> /><label for="popup_enable_info_0">No</label>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr id="tr_popup_info_always_show">
-                <td class="spider_label_options">
-                  <label>Display info by default:</label>
-                </td>
-                <td>
-                  <input type="radio" name="popup_info_always_show" id="popup_info_always_show_1" value="1" <?php if ($row->popup_info_always_show) echo 'checked="checked"'; ?> /><label for="popup_info_always_show_1">Yes</label>
-                  <input type="radio" name="popup_info_always_show" id="popup_info_always_show_0" value="0" <?php if (!$row->popup_info_always_show) echo 'checked="checked"'; ?> /><label for="popup_info_always_show_0">No</label>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr id="tr_popup_rate">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable rating:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_rate" id="popup_enable_rate_1" value="1" <?php if ($row->popup_enable_rate) echo 'checked="checked"'; ?> /><label for="popup_enable_rate_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_rate" id="popup_enable_rate_0" value="0" <?php if (!$row->popup_enable_rate) echo 'checked="checked"'; ?> /><label for="popup_enable_rate_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_comment">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable comments:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_comment" id="popup_enable_comment_1" value="1" <?php if ($row->popup_enable_comment) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_comment_moderation', 'popup_enable_comment_1');
-                                                                                                                                                                                    bwg_enable_disable('', 'tr_popup_email', 'popup_enable_comment_1');
-                                                                                                                                                                                    bwg_enable_disable('', 'tr_popup_captcha', 'popup_enable_comment_1');" /><label for="popup_enable_comment_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_comment" id="popup_enable_comment_0" value="0" <?php if (!$row->popup_enable_comment) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_comment_moderation', 'popup_enable_comment_0');
-                                                                                                                                                                                     bwg_enable_disable('none', 'tr_popup_email', 'popup_enable_comment_0');
-                                                                                                                                                                                      bwg_enable_disable('none', 'tr_popup_captcha', 'popup_enable_comment_0');" /><label for="popup_enable_comment_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_comment_moderation">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable comments moderation:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="comment_moderation" id="comment_moderation_1" value="1" <?php if ($row->comment_moderation) echo 'checked="checked"'; ?> /><label for="comment_moderation_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="comment_moderation" id="comment_moderation_0" value="0" <?php if (!$row->comment_moderation) echo 'checked="checked"'; ?> /><label for="comment_moderation_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_email">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable Email for comments:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_email" id="popup_enable_email_1" value="1" <?php if ($row->popup_enable_email) echo 'checked="checked"'; ?> /><label for="popup_enable_email_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_email" id="popup_enable_email_0" value="0" <?php if (!$row->popup_enable_email) echo 'checked="checked"'; ?> /><label for="popup_enable_email_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_captcha">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable Captcha for comments:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_captcha" id="popup_enable_captcha_1" value="1" <?php if ($row->popup_enable_captcha) echo 'checked="checked"'; ?> /><label for="popup_enable_captcha_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_captcha" id="popup_enable_captcha_0" value="0" <?php if (!$row->popup_enable_captcha) echo 'checked="checked"'; ?> /><label for="popup_enable_captcha_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_fullsize_image">
-                <td class="spider_label_options">
-                  <label>Enable original image display button:</label>
-                </td>
-                <td>
-                  <input type="radio" name="popup_enable_fullsize_image" id="popup_enable_fullsize_image_1" value="1" <?php if ($row->popup_enable_fullsize_image) echo 'checked="checked"'; ?> /><label for="popup_enable_fullsize_image_1">Yes</label>
-                  <input type="radio" name="popup_enable_fullsize_image" id="popup_enable_fullsize_image_0" value="0" <?php if (!$row->popup_enable_fullsize_image) echo 'checked="checked"'; ?> /><label for="popup_enable_fullsize_image_0">No</label>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr id="tr_popup_download">
-                <td class="spider_label_options">
-                  <label>Enable download button:</label>
-                </td>
-                <td>
-                  <input type="radio" name="popup_enable_download" id="popup_enable_download_1" value="1" <?php if ($row->popup_enable_download) echo 'checked="checked"'; ?> /><label for="popup_enable_download_1">Yes</label>
-                  <input type="radio" name="popup_enable_download" id="popup_enable_download_0" value="0" <?php if (!$row->popup_enable_download) echo 'checked="checked"'; ?> /><label for="popup_enable_download_0">No</label>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr id="tr_popup_facebook">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable Facebook button:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_facebook" id="popup_enable_facebook_1" value="1" <?php if ($row->popup_enable_facebook) echo 'checked="checked"'; ?> /><label for="popup_enable_facebook_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_facebook" id="popup_enable_facebook_0" value="0" <?php if (!$row->popup_enable_facebook) echo 'checked="checked"'; ?> /><label for="popup_enable_facebook_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_twitter">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable Twitter button:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_twitter" id="popup_enable_facebook_1" value="1" <?php if ($row->popup_enable_twitter) echo 'checked="checked"'; ?> /><label for="popup_enable_twitter_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_twitter" id="popup_enable_facebook_0" value="0" <?php if (!$row->popup_enable_twitter) echo 'checked="checked"'; ?> /><label for="popup_enable_twitter_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_google">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable Google+ button:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_google" id="popup_enable_google_1" value="1" <?php if ($row->popup_enable_google) echo 'checked="checked"'; ?> /><label for="popup_enable_google_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_google" id="popup_enable_google_0" value="0" <?php if (!$row->popup_enable_google) echo 'checked="checked"'; ?> /><label for="popup_enable_google_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_pinterest">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable Pinterest button:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_pinterest" id="popup_enable_pinterest_1" value="1" <?php if ($row->popup_enable_pinterest) echo 'checked="checked"'; ?> /><label for="popup_enable_pinterest_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_pinterest" id="popup_enable_pinterest_0" value="0" <?php if (!$row->popup_enable_pinterest) echo 'checked="checked"'; ?> /><label for="popup_enable_pinterest_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-              <tr id="tr_popup_tumblr">
-                <td class="spider_label_options spider_free_version_label">
-                  <label>Enable Tumblr button:</label>
-                </td>
-                <td>
-                  <input disabled="disabled" type="radio" name="popup_enable_tumblr" id="popup_enable_tumblr_1" value="1" <?php if ($row->popup_enable_tumblr) echo 'checked="checked"'; ?> /><label for="popup_enable_tumblr_1">Yes</label>
-                  <input disabled="disabled" type="radio" name="popup_enable_tumblr" id="popup_enable_tumblr_0" value="0" <?php if (!$row->popup_enable_tumblr) echo 'checked="checked"'; ?> /><label for="popup_enable_tumblr_0">No</label>
-                  <div class="spider_description spider_free_version">This option is disabled in free version.</div>
-                </td>
-              </tr>
-							<tr id="tr_image_count">
-                <td class="spider_label_options">
-                  <label>Show images count:</label>
-                </td>
-                <td>
-                  <input type="radio" name="show_image_counts" id="show_image_counts_current_image_number_1" value="1" <?php if ($row->show_image_counts) echo 'checked="checked"'; ?> /><label for="show_image_counts_current_image_number_1">Yes</label>
-                  <input type="radio" name="show_image_counts" id="show_image_counts_current_image_number_0" value="0" <?php if (!$row->show_image_counts) echo 'checked="checked"'; ?> /><label for="show_image_counts_current_image_number_0">No</label>
-                  <div class="spider_description"></div>
-                </td>
-              </tr>
-            </tbody>
+          <table style="width: 100%;">
+            <tr>
+              <td style="width: 50%; vertical-align: top;">
+                <table style="display: inline-table;">
+                  <tbody>			
+                    <tr id="tr_popup_full_width">
+                      <td class="spider_label_options">
+                        <label>Full width lightbox:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_fullscreen" id="popup_fullscreen_1" value="1" <?php if ($row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen(1)" /><label for="popup_fullscreen_1">Yes</label>
+                        <input type="radio" name="popup_fullscreen" id="popup_fullscreen_0" value="0" <?php if (!$row->popup_fullscreen) echo 'checked="checked"'; ?> onchange="bwg_popup_fullscreen(0)" /><label for="popup_fullscreen_0">No</label>
+                        <div class="spider_description">Enable full width feature for the lightbox.</div>
+                      </td>
+                    </tr>			
+                    <tr id="tr_popup_dimensions" >
+                      <td class="spider_label_options">
+                        <label for="popup_width">Lightbox dimensions:</label>
+                      </td>
+                      <td>
+                        <input type="text" name="popup_width" id="popup_width" value="<?php echo $row->popup_width; ?>" class="spider_int_input" /> x 
+                        <input type="text" name="popup_height" id="popup_height" value="<?php echo $row->popup_height; ?>" class="spider_int_input" /> px
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options">
+                        <label for="popup_type">Lightbox effect:</label>
+                      </td>
+                      <td>
+                        <select name="popup_type" id="popup_type" style="width:150px;">
+                          <?php
+                          foreach ($effects as $key => $effect) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo ($key != 'none' && $key != 'fade') ? 'disabled="disabled" title="This effect is disabled in free version."' : ''; ?> <?php if ($row->popup_type == $key) echo 'selected="selected"'; ?>><?php echo $effect; ?></option>
+                            <?php
+                          }
+                          ?>
+                        </select>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_autoplay">
+                      <td class="spider_label_options">
+                        <label>Lightbox autoplay: </label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_autoplay" id="popup_autoplay_1" value="1" <?php if ($row->popup_autoplay) echo 'checked="checked"'; ?> /><label for="popup_autoplay_1">Yes</label>
+                        <input type="radio" name="popup_autoplay" id="popup_autoplay_0" value="0" <?php if (!$row->popup_autoplay) echo 'checked="checked"'; ?> /><label for="popup_autoplay_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options">
+                        <label for="popup_interval">Time interval:</label>
+                      </td>
+                      <td>
+                        <input type="text" name="popup_interval" id="popup_interval" value="<?php echo $row->popup_interval; ?>" class="spider_int_input" /> sec.
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable filmstrip:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_filmstrip" id="popup_enable_filmstrip_1" value="1" <?php if ($row->popup_enable_filmstrip ) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_popup_filmstrip_height', 'popup_enable_filmstrip_1')" /><label for="popup_enable_filmstrip_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_filmstrip" id="popup_enable_filmstrip_0" value="0" <?php if (!$row->popup_enable_filmstrip ) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_popup_filmstrip_height', 'popup_enable_filmstrip_0')" /><label for="popup_enable_filmstrip_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_filmstrip_height">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label for="popup_filmstrip_height">Filmstrip size:</label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input disabled="disabled" type="text" name="popup_filmstrip_height" id="popup_filmstrip_height" value="<?php echo $row->popup_filmstrip_height; ?>" class="spider_int_input spider_free_version_label" /> px
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_hit_counter">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Display hit counter:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_hit_counter" id="popup_hit_counter_1" value="1" <?php if ($row->popup_hit_counter) echo 'checked="checked"'; ?> /><label for="popup_hit_counter_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_hit_counter" id="popup_hit_counter_0" value="0" <?php if (!$row->popup_hit_counter) echo 'checked="checked"'; ?> /><label for="popup_hit_counter_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options">
+                        <label>Enable control buttons:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_enable_ctrl_btn" id="popup_enable_ctrl_btn_1" value="1" <?php if ($row->popup_enable_ctrl_btn) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_info', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_comment', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_facebook', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_twitter', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_google', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_tumblr', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_comment_moderation', 'comment_moderation_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_email', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_captcha', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_download', 'popup_enable_ctrl_btn_1');
+                                                                                                                                                                                             bwg_enable_disable('', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_1');" /><label for="popup_enable_ctrl_btn_1">Yes</label>
+                        <input type="radio" name="popup_enable_ctrl_btn" id="popup_enable_ctrl_btn_0" value="0" <?php if (!$row->popup_enable_ctrl_btn) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_popup_fullscreen', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_info', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_comment', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_facebook', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_twitter', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_google', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_pinterest', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_tumblr', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_comment_moderation', 'comment_moderation_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_email', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_captcha', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_download', 'popup_enable_ctrl_btn_0');
+                                                                                                                                                                                             bwg_enable_disable('none', 'tr_popup_fullsize_image', 'popup_enable_ctrl_btn_0');" /><label for="popup_enable_ctrl_btn_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_fullscreen">
+                      <td class="spider_label_options">
+                        <label>Enable fullscreen:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_enable_fullscreen" id="popup_enable_fullscreen_1" value="1" <?php if ($row->popup_enable_fullscreen) echo 'checked="checked"'; ?> /><label for="popup_enable_fullscreen_1">Yes</label>
+                        <input type="radio" name="popup_enable_fullscreen" id="popup_enable_fullscreen_0" value="0" <?php if (!$row->popup_enable_fullscreen) echo 'checked="checked"'; ?> /><label for="popup_enable_fullscreen_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_info">
+                      <td class="spider_label_options">
+                        <label>Enable info:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_enable_info" id="popup_enable_info_1" value="1" <?php if ($row->popup_enable_info) echo 'checked="checked"'; ?> /><label for="popup_enable_info_1">Yes</label>
+                        <input type="radio" name="popup_enable_info" id="popup_enable_info_0" value="0" <?php if (!$row->popup_enable_info) echo 'checked="checked"'; ?> /><label for="popup_enable_info_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_info_always_show">
+                      <td class="spider_label_options">
+                        <label>Display info by default:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_info_always_show" id="popup_info_always_show_1" value="1" <?php if ($row->popup_info_always_show) echo 'checked="checked"'; ?> /><label for="popup_info_always_show_1">Yes</label>
+                        <input type="radio" name="popup_info_always_show" id="popup_info_always_show_0" value="0" <?php if (!$row->popup_info_always_show) echo 'checked="checked"'; ?> /><label for="popup_info_always_show_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td style="width: 50%; vertical-align: top;">
+                <table style="display: inline-table;">
+                  <tbody>
+                    <tr id="tr_popup_rate">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable rating:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_rate" id="popup_enable_rate_1" value="1" <?php if ($row->popup_enable_rate) echo 'checked="checked"'; ?> /><label for="popup_enable_rate_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_rate" id="popup_enable_rate_0" value="0" <?php if (!$row->popup_enable_rate) echo 'checked="checked"'; ?> /><label for="popup_enable_rate_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_comment">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable comments:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_comment" id="popup_enable_comment_1" value="1" <?php if ($row->popup_enable_comment) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_comment_moderation', 'popup_enable_comment_1');
+                                                                                                                                                                                          bwg_enable_disable('', 'tr_popup_email', 'popup_enable_comment_1');
+                                                                                                                                                                                          bwg_enable_disable('', 'tr_popup_captcha', 'popup_enable_comment_1');" /><label for="popup_enable_comment_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_comment" id="popup_enable_comment_0" value="0" <?php if (!$row->popup_enable_comment) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_comment_moderation', 'popup_enable_comment_0');
+                                                                                                                                                                                           bwg_enable_disable('none', 'tr_popup_email', 'popup_enable_comment_0');
+                                                                                                                                                                                            bwg_enable_disable('none', 'tr_popup_captcha', 'popup_enable_comment_0');" /><label for="popup_enable_comment_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_comment_moderation">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable comments moderation:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="comment_moderation" id="comment_moderation_1" value="1" <?php if ($row->comment_moderation) echo 'checked="checked"'; ?> /><label for="comment_moderation_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="comment_moderation" id="comment_moderation_0" value="0" <?php if (!$row->comment_moderation) echo 'checked="checked"'; ?> /><label for="comment_moderation_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_email">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable Email for comments:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_email" id="popup_enable_email_1" value="1" <?php if ($row->popup_enable_email) echo 'checked="checked"'; ?> /><label for="popup_enable_email_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_email" id="popup_enable_email_0" value="0" <?php if (!$row->popup_enable_email) echo 'checked="checked"'; ?> /><label for="popup_enable_email_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_captcha">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable Captcha for comments:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_captcha" id="popup_enable_captcha_1" value="1" <?php if ($row->popup_enable_captcha) echo 'checked="checked"'; ?> /><label for="popup_enable_captcha_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_captcha" id="popup_enable_captcha_0" value="0" <?php if (!$row->popup_enable_captcha) echo 'checked="checked"'; ?> /><label for="popup_enable_captcha_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_fullsize_image">
+                      <td class="spider_label_options">
+                        <label>Enable original image display button:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_enable_fullsize_image" id="popup_enable_fullsize_image_1" value="1" <?php if ($row->popup_enable_fullsize_image) echo 'checked="checked"'; ?> /><label for="popup_enable_fullsize_image_1">Yes</label>
+                        <input type="radio" name="popup_enable_fullsize_image" id="popup_enable_fullsize_image_0" value="0" <?php if (!$row->popup_enable_fullsize_image) echo 'checked="checked"'; ?> /><label for="popup_enable_fullsize_image_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_download">
+                      <td class="spider_label_options">
+                        <label>Enable download button:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_enable_download" id="popup_enable_download_1" value="1" <?php if ($row->popup_enable_download) echo 'checked="checked"'; ?> /><label for="popup_enable_download_1">Yes</label>
+                        <input type="radio" name="popup_enable_download" id="popup_enable_download_0" value="0" <?php if (!$row->popup_enable_download) echo 'checked="checked"'; ?> /><label for="popup_enable_download_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_facebook">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable Facebook button:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_facebook" id="popup_enable_facebook_1" value="1" <?php if ($row->popup_enable_facebook) echo 'checked="checked"'; ?> /><label for="popup_enable_facebook_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_facebook" id="popup_enable_facebook_0" value="0" <?php if (!$row->popup_enable_facebook) echo 'checked="checked"'; ?> /><label for="popup_enable_facebook_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_twitter">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable Twitter button:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_twitter" id="popup_enable_facebook_1" value="1" <?php if ($row->popup_enable_twitter) echo 'checked="checked"'; ?> /><label for="popup_enable_twitter_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_twitter" id="popup_enable_facebook_0" value="0" <?php if (!$row->popup_enable_twitter) echo 'checked="checked"'; ?> /><label for="popup_enable_twitter_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_google">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable Google+ button:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_google" id="popup_enable_google_1" value="1" <?php if ($row->popup_enable_google) echo 'checked="checked"'; ?> /><label for="popup_enable_google_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_google" id="popup_enable_google_0" value="0" <?php if (!$row->popup_enable_google) echo 'checked="checked"'; ?> /><label for="popup_enable_google_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_pinterest">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable Pinterest button:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_pinterest" id="popup_enable_pinterest_1" value="1" <?php if ($row->popup_enable_pinterest) echo 'checked="checked"'; ?> /><label for="popup_enable_pinterest_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_pinterest" id="popup_enable_pinterest_0" value="0" <?php if (!$row->popup_enable_pinterest) echo 'checked="checked"'; ?> /><label for="popup_enable_pinterest_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_popup_tumblr">
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable Tumblr button:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="popup_enable_tumblr" id="popup_enable_tumblr_1" value="1" <?php if ($row->popup_enable_tumblr) echo 'checked="checked"'; ?> /><label for="popup_enable_tumblr_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="popup_enable_tumblr" id="popup_enable_tumblr_0" value="0" <?php if (!$row->popup_enable_tumblr) echo 'checked="checked"'; ?> /><label for="popup_enable_tumblr_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_image_count">
+                      <td class="spider_label_options">
+                        <label>Show images count:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="show_image_counts" id="show_image_counts_current_image_number_1" value="1" <?php if ($row->show_image_counts) echo 'checked="checked"'; ?> /><label for="show_image_counts_current_image_number_1">Yes</label>
+                        <input type="radio" name="show_image_counts" id="show_image_counts_current_image_number_0" value="0" <?php if (!$row->show_image_counts) echo 'checked="checked"'; ?> /><label for="show_image_counts_current_image_number_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
           </table>
         </div>
 
@@ -887,7 +899,7 @@ class BWGViewOptions_bwg {
               </tr>
               <tr>
                 <td class="spider_label_options">
-                  <label for="album_thumb_width">Album thumb dimensions: </label>
+                  <label for="album_thumb_width">Album thumbnail dimensions: </label>
                 </td>
                 <td>
                   <input type="text" name="album_thumb_width" id="album_thumb_width" value="<?php echo $row->album_thumb_width; ?>" class="spider_int_input" /> x 
@@ -1180,7 +1192,7 @@ class BWGViewOptions_bwg {
                 </td>
               </tr>
               <tr>
-                <td class="spider_label_options"><label>Thumb click action: </label></td>
+                <td class="spider_label_options"><label>Thumbnail click action: </label></td>
                 <td>
                   <input type="radio" name="thumb_click_action" id="thumb_click_action_1" value="open_lightbox" <?php if ($row->thumb_click_action == 'open_lightbox') echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_thumb_link_target', 'thumb_click_action_1')" /><label for="thumb_click_action_1">Open lightbox</label>
                   <input type="radio" name="thumb_click_action" id="thumb_click_action_2" value="redirect_to_url" <?php if ($row->thumb_click_action == 'redirect_to_url') echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_thumb_link_target', 'thumb_click_action_2')" /><label for="thumb_click_action_2">Redirect to url</label>
@@ -1192,6 +1204,14 @@ class BWGViewOptions_bwg {
                 <td>
                   <input type="radio" name="thumb_link_target" id="thumb_link_target_yes" value="1" <?php if ($row->thumb_link_target) echo 'checked="checked"'; ?> /><label for="thumb_link_target_yes">Yes</label>
                   <input type="radio" name="thumb_link_target" id="thumb_link_target_no" value="0" <?php if (!$row->thumb_link_target) echo 'checked="checked"'; ?> /><label for="thumb_link_target_no">No</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="spider_label_options"><label>Play icon over the video thumbnail: </label></td>
+                <td>
+                  <input type="radio" name="play_icon" id="play_icon_yes" value="1" <?php if ($row->play_icon) echo 'checked="checked"'; ?> /><label for="play_icon_yes">Yes</label>
+                  <input type="radio" name="play_icon" id="play_icon_no" value="0" <?php if (!$row->play_icon) echo 'checked="checked"'; ?> /><label for="play_icon_no">No</label>
                   <div class="spider_description"></div>
                 </td>
               </tr>

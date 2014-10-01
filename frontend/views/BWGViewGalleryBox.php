@@ -191,14 +191,14 @@ class BWGViewGalleryBox {
         color: #<?php echo $theme_row->lightbox_ctrl_btn_color; ?>;
         font-size: <?php echo $theme_row->lightbox_ctrl_btn_height; ?>px;
         margin: <?php echo $theme_row->lightbox_ctrl_btn_margin_top; ?>px <?php echo $theme_row->lightbox_ctrl_btn_margin_left; ?>px;
-        opacity: <?php echo $theme_row->lightbox_ctrl_btn_transparent / 100; ?>;
+        opacity: <?php echo  number_format($theme_row->lightbox_ctrl_btn_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_ctrl_btn_transparent; ?>);
       }
       .bwg_toggle_btn {
         color: #<?php echo $theme_row->lightbox_ctrl_btn_color; ?>;
         font-size: <?php echo $theme_row->lightbox_toggle_btn_height; ?>px;
         margin: 0;
-        opacity: <?php echo $theme_row->lightbox_ctrl_btn_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->lightbox_ctrl_btn_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_ctrl_btn_transparent; ?>);
         padding: 0;
       }
@@ -211,7 +211,7 @@ class BWGViewGalleryBox {
         top: 0;
       }
       .bwg_ctrl_btn_container {
-        background-color: rgba(<?php echo $rgb_lightbox_ctrl_cont_bg_color['red']; ?>, <?php echo $rgb_lightbox_ctrl_cont_bg_color['green']; ?>, <?php echo $rgb_lightbox_ctrl_cont_bg_color['blue']; ?>, <?php echo $theme_row->lightbox_ctrl_cont_transparent / 100; ?>);
+        background-color: rgba(<?php echo $rgb_lightbox_ctrl_cont_bg_color['red']; ?>, <?php echo $rgb_lightbox_ctrl_cont_bg_color['green']; ?>, <?php echo $rgb_lightbox_ctrl_cont_bg_color['blue']; ?>, <?php echo number_format($theme_row->lightbox_ctrl_cont_transparent / 100, 2, ".", ""); ?>);
         /*background: none repeat scroll 0 0 #<?php echo $theme_row->lightbox_ctrl_cont_bg_color; ?>;*/
         <?php
         if ($theme_row->lightbox_ctrl_btn_pos == 'top') {
@@ -228,8 +228,6 @@ class BWGViewGalleryBox {
           <?php
         }?>
         height: <?php echo $theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top; ?>px;
-        /*opacity: <?php echo $theme_row->lightbox_ctrl_cont_transparent / 100; ?>;
-        filter: Alpha(opacity=<?php echo $theme_row->lightbox_ctrl_cont_transparent; ?>);*/
         position: absolute;
         text-align: <?php echo $theme_row->lightbox_ctrl_btn_align; ?>;
         width: 100%;
@@ -256,7 +254,7 @@ class BWGViewGalleryBox {
         left: 50%;
         line-height: 0;
         margin-left: -<?php echo $theme_row->lightbox_toggle_btn_width / 2; ?>px;
-        opacity: <?php echo $theme_row->lightbox_ctrl_cont_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->lightbox_ctrl_cont_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_ctrl_cont_transparent; ?>);
         position: absolute;
         text-align: center;
@@ -264,7 +262,7 @@ class BWGViewGalleryBox {
         z-index: 10150;
       }
       .bwg_close_btn {
-        opacity: <?php echo $theme_row->lightbox_close_btn_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->lightbox_close_btn_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_close_btn_transparent; ?>);
       }
       .spider_popup_close {
@@ -301,7 +299,7 @@ class BWGViewGalleryBox {
         height: <?php echo $theme_row->lightbox_rl_btn_height; ?>px;
         font-size: <?php echo $theme_row->lightbox_rl_btn_size; ?>px;
         width: <?php echo $theme_row->lightbox_rl_btn_width; ?>px;
-        opacity: <?php echo $theme_row->lightbox_rl_btn_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->lightbox_rl_btn_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_rl_btn_transparent; ?>);
       }
       .bwg_ctrl_btn:hover,
@@ -512,7 +510,7 @@ class BWGViewGalleryBox {
         border: <?php echo $theme_row->lightbox_filmstrip_thumb_active_border_width; ?>px solid #<?php echo $theme_row->lightbox_filmstrip_thumb_active_border_color; ?>;
       }
       .bwg_thumb_deactive {
-        opacity: <?php echo $theme_row->lightbox_filmstrip_thumb_deactive_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->lightbox_filmstrip_thumb_deactive_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_filmstrip_thumb_deactive_transparent; ?>);
       }
       .bwg_filmstrip_thumbnail_img {
@@ -569,7 +567,7 @@ class BWGViewGalleryBox {
         margin: 4px;
         max-height: <?php echo $watermark_height; ?>px;
         max-width: <?php echo $watermark_width; ?>px;
-        opacity: <?php echo $watermark_opacity / 100; ?>;
+        opacity: <?php echo number_format($watermark_opacity / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $watermark_opacity; ?>);
         position: relative;
         z-index: 10141;
@@ -581,7 +579,7 @@ class BWGViewGalleryBox {
         font-size: <?php echo $watermark_font_size; ?>px;
         font-family: <?php echo $watermark_font; ?>;
         color: #<?php echo $watermark_color; ?> !important;
-        opacity: <?php echo $watermark_opacity / 100; ?>;
+        opacity: <?php echo number_format($watermark_opacity / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $watermark_opacity; ?>);
         position: relative;
         z-index: 10141;
@@ -649,7 +647,7 @@ class BWGViewGalleryBox {
         vertical-align: <?php echo $theme_row->lightbox_hit_pos; ?>;
       }
       .bwg_image_hit {
-        background: rgba(<?php echo $rgb_bwg_image_hit_bg_color['red']; ?>, <?php echo $rgb_bwg_image_hit_bg_color['green']; ?>, <?php echo $rgb_bwg_image_hit_bg_color['blue']; ?>, <?php echo $theme_row->lightbox_hit_bg_transparent / 100; ?>);
+        background: rgba(<?php echo $rgb_bwg_image_hit_bg_color['red']; ?>, <?php echo $rgb_bwg_image_hit_bg_color['green']; ?>, <?php echo $rgb_bwg_image_hit_bg_color['blue']; ?>, <?php echo number_format($theme_row->lightbox_hit_bg_transparent / 100, 2, ".", ""); ?>);
         border: <?php echo $theme_row->lightbox_hit_border_width; ?>px <?php echo $theme_row->lightbox_hit_border_style; ?> #<?php echo $theme_row->lightbox_hit_border_color; ?>;
         border-radius: <?php echo $theme_row->lightbox_info_border_radius; ?>;
         <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_hit_pos == 'bottom') ? 'bottom: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
@@ -665,7 +663,7 @@ class BWGViewGalleryBox {
         font-weight: <?php echo $theme_row->lightbox_hit_font_weight; ?>;
       }
       .bwg_image_info {
-        background: rgba(<?php echo $rgb_bwg_image_info_bg_color['red']; ?>, <?php echo $rgb_bwg_image_info_bg_color['green']; ?>, <?php echo $rgb_bwg_image_info_bg_color['blue']; ?>, <?php echo $theme_row->lightbox_info_bg_transparent / 100; ?>);
+        background: rgba(<?php echo $rgb_bwg_image_info_bg_color['red']; ?>, <?php echo $rgb_bwg_image_info_bg_color['green']; ?>, <?php echo $rgb_bwg_image_info_bg_color['blue']; ?>, <?php echo number_format($theme_row->lightbox_info_bg_transparent / 100, 2, ".", ""); ?>);
         border: <?php echo $theme_row->lightbox_info_border_width; ?>px <?php echo $theme_row->lightbox_info_border_style; ?> #<?php echo $theme_row->lightbox_info_border_color; ?>;
         border-radius: <?php echo $theme_row->lightbox_info_border_radius; ?>;
         <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') ? 'bottom: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
@@ -958,10 +956,10 @@ class BWGViewGalleryBox {
             }
             if (width <= (jQuery(window).width() - comment_container_width)) {
               jQuery(".bwg_watermark_image").css({
-                width: (jQuery(".spider_popup_wrap").width() - comment_container_width) * <?php echo $watermark_width / $image_width; ?>
+                width: ((jQuery(".spider_popup_wrap").width() - comment_container_width) * <?php echo $watermark_width / $image_width; ?>)
               });
               jQuery(".bwg_watermark_text, .bwg_watermark_text:hover").css({
-                fontSize: (jQuery(".spider_popup_wrap").width() - comment_container_width) * <?php echo $watermark_font_size / $image_width; ?>
+                fontSize: ((jQuery(".spider_popup_wrap").width() - comment_container_width) * <?php echo $watermark_font_size / $image_width; ?>)
               });
             }
           }

@@ -138,6 +138,7 @@ class BWGModelOptions_bwg {
       $row->showthumbs_name = 0;
       $row->show_album_name = 0;
       $row->show_image_counts = 0;
+      $row->play_icon = 1;
     }
     return $row;
   }

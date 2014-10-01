@@ -73,6 +73,7 @@ class BWGViewThumbnails {
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $sort_direction = ' ' . $params['order_by'] . ' ';
     $options_row = $this->model->get_options_row_data();
+    $play_icon = $options_row->play_icon;
     if ($from) {
       $params['gallery_id'] = $params['id'];
       $params['images_per_page'] = $params['count'];
@@ -139,7 +140,7 @@ class BWGViewThumbnails {
       return;
     }
     $image_rows = $this->model->get_image_rows_data($params['gallery_id'], $params['images_per_page'], $params['sort_by'], $bwg, $type, $sort_direction);
-	$images_count = count($image_rows); 
+    $images_count = count($image_rows); 
     if (!$image_rows) {
       echo WDWLibrary::message(__('There are no images in this gallery.', 'bwg'), 'error');
     }
@@ -162,7 +163,7 @@ class BWGViewThumbnails {
         height: <?php echo $params['thumb_height']; ?>px;
         margin: <?php echo $theme_row->thumb_margin; ?>px;
         padding: <?php echo $theme_row->thumb_padding; ?>px;
-        opacity: <?php echo $theme_row->thumb_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->thumb_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->thumb_transparent; ?>);
         text-align: center;
         vertical-align: middle;
@@ -193,7 +194,7 @@ class BWGViewThumbnails {
         width: <?php echo $params['thumb_width']; ?>px;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> {
-        background-color: rgba(<?php echo $rgb_thumbs_bg_color['red']; ?>, <?php echo $rgb_thumbs_bg_color['green']; ?>, <?php echo $rgb_thumbs_bg_color['blue']; ?>, <?php echo $theme_row->thumb_bg_transparent / 100; ?>);
+        background-color: rgba(<?php echo $rgb_thumbs_bg_color['red']; ?>, <?php echo $rgb_thumbs_bg_color['green']; ?>, <?php echo $rgb_thumbs_bg_color['blue']; ?>, <?php echo number_format($theme_row->thumb_bg_transparent / 100, 2, ".", ""); ?>);
         display: inline-block;
         font-size: 0;
         max-width: <?php echo $params['image_column_number'] * ($params['thumb_width'] + 2 * (2 + $theme_row->thumb_margin + $theme_row->thumb_padding + $theme_row->thumb_border_width)); ?>px;
@@ -306,7 +307,7 @@ class BWGViewThumbnails {
         border-width: <?php echo $theme_row->page_nav_border_width; ?>px;
         border-color: #<?php echo $theme_row->page_nav_border_color; ?>;
         background-color: #<?php echo $theme_row->page_nav_button_bg_color; ?>;
-        opacity: <?php echo $theme_row->page_nav_button_bg_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->page_nav_button_bg_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->page_nav_button_bg_transparent; ?>);
         box-shadow: <?php echo $theme_row->page_nav_box_shadow; ?>;
         <?php echo ($theme_row->page_nav_button_transition ) ? 'transition: all 0.3s ease 0s;-webkit-transition: all 0.3s ease 0s;' : ''; ?>
@@ -324,9 +325,24 @@ class BWGViewThumbnails {
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_popup_overlay_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->lightbox_overlay_bg_color; ?>;
-        opacity: <?php echo $theme_row->lightbox_overlay_bg_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->lightbox_overlay_bg_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_overlay_bg_transparent; ?>);
       }      
+     .bwg_play_icon_spun_<?php echo $bwg; ?>	 {
+        width: inherit;
+        height: inherit;
+        display: table;
+        position: absolute;
+      }	 
+     .bwg_play_icon_<?php echo $bwg; ?> {
+        color: #<?php echo $theme_row->thumb_title_font_color; ?>;
+        font-size: <?php echo 2 * $theme_row->thumb_title_font_size; ?>px;
+        vertical-align: middle;
+        display: table-cell !important;
+        z-index: 1;
+        text-align: center;
+        margin: 0 auto;
+      }
     </style>
     <div id="bwg_container1_<?php echo $bwg; ?>">
       <div id="bwg_container2_<?php echo $bwg; ?>">
@@ -419,7 +435,7 @@ class BWGViewThumbnails {
                 $thumb_left = ($params['thumb_width'] - $image_thumb_width) / 2;
                 $thumb_top = ($params['thumb_height'] - $image_thumb_height) / 2;
                 ?>
-                <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ('href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"')) ?>>
+                <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
                   <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                     <?php
                     if ($params['image_title'] == 'show' and $theme_row->thumb_title_pos == 'top') {
@@ -434,8 +450,14 @@ class BWGViewThumbnails {
                     ?>
                     <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
-                        <img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ($is_video ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                         <?php
+                        if ($play_icon && $is_video) {
+                          ?>
+                        <span class="bwg_play_icon_spun_<?php echo $bwg; ?>">
+                           <i title="<?php echo __('Play', 'bwg'); ?>"  class="fa fa-play bwg_play_icon_<?php echo $bwg; ?>"></i>
+                        </span>
+                          <?php
+                        }
                         if ($params['image_title'] == 'hover') {
                           ?>
                           <span class="bwg_title_spun1_<?php echo $bwg; ?>">
@@ -446,6 +468,7 @@ class BWGViewThumbnails {
                           <?php
                         }
                         ?>
+			<img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ($is_video ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                       </span>
                     </span>
                     <?php

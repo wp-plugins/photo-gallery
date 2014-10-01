@@ -38,7 +38,7 @@ class BWGViewAddTags {
     <?php } ?>
     <link media="all" type="text/css" href="<?php echo WD_BWG_URL . '/css/bwg_tables.css'; ?>" id="bwg_tables-css" rel="stylesheet">
     <script src="<?php echo WD_BWG_URL . '/js/bwg.js'; ?>" type="text/javascript"></script>
-    <form class="wrap wp-core-ui" id="tags_form" method="post" action="<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" style="width:95%; margin: 0 auto;">
+    <form class="wrap wp-core-ui" id="tags_form" method="post" action="<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" style="width:99%; margin: 0 auto;">
       <h2 style="width:200px; float:left;">Tags</h2>
       <a href="" class="thickbox thickbox-preview" id="content-add_media" title="Add Tag" onclick="bwg_get_tags('<?php echo $image_id; ?>', event);" style="float:right; padding: 9px 0px 4px 0">
         <img src="<?php echo WD_BWG_URL . '/images/add_but.png'; ?>" style="border:none;" />

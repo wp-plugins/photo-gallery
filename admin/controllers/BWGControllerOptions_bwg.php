@@ -184,6 +184,7 @@ class BWGControllerOptions_bwg {
     $showthumbs_name = (isset($_POST['thumb_name']) ? esc_html(stripslashes($_POST['thumb_name'])) : 1);
     $show_album_name = (isset($_POST['show_album_name_enable']) ? esc_html(stripslashes($_POST['show_album_name_enable'])) : 1);
     $show_image_counts = (isset($_POST['show_image_counts']) ? esc_html(stripslashes($_POST['show_image_counts'])) : 0);
+    $play_icon = (isset($_POST['play_icon']) ? esc_html(stripslashes($_POST['play_icon'])) : 1);
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -288,6 +289,7 @@ class BWGControllerOptions_bwg {
       'showthumbs_name' => $showthumbs_name,
       'show_album_name' => $show_album_name,
       'show_image_counts' => $show_image_counts,
+      'play_icon' => $play_icon,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      

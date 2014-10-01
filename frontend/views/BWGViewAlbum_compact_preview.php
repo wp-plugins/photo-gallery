@@ -81,6 +81,7 @@ class BWGViewAlbum_compact_preview {
     $bwg_search = ((isset($_POST['bwg_search_' . $bwg]) && esc_html($_POST['bwg_search_' . $bwg]) != '') ? esc_html($_POST['bwg_search_' . $bwg]) : '');
     $sort_direction = ' ' . $params['order_by'] . ' ';
     $options_row = $this->model->get_options_row_data();
+    $play_icon = $options_row->play_icon;
     if ($from === "widget") {
       $params['album_id'] = $params['id'];
       $params['sort_by'] = $params['show'] == 'random' ? 'RAND()' : 'order';
@@ -204,7 +205,7 @@ class BWGViewAlbum_compact_preview {
         display: inline-block;
         height: <?php echo $params['compuct_album_thumb_height']; ?>px;
         margin: <?php echo $theme_row->album_compact_thumb_margin; ?>px;
-        opacity: <?php echo $theme_row->album_compact_thumb_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->album_compact_thumb_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->album_compact_thumb_transparent; ?>);
         <?php echo ($theme_row->album_compact_thumb_transition) ? 'transition: all 0.3s ease 0s;-webkit-transition: all 0.3s ease 0s;' : ''; ?>
         padding: <?php echo $theme_row->album_compact_thumb_padding; ?>px;
@@ -240,7 +241,7 @@ class BWGViewAlbum_compact_preview {
         display: inline-block;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        background-color: rgba(<?php echo $rgb_album_compact_thumbs_bg_color['red']; ?>, <?php echo $rgb_album_compact_thumbs_bg_color['green']; ?>, <?php echo $rgb_album_compact_thumbs_bg_color['blue']; ?>, <?php echo $theme_row->album_compact_thumb_bg_transparent / 100; ?>);
+        background-color: rgba(<?php echo $rgb_album_compact_thumbs_bg_color['red']; ?>, <?php echo $rgb_album_compact_thumbs_bg_color['green']; ?>, <?php echo $rgb_album_compact_thumbs_bg_color['blue']; ?>, <?php echo number_format($theme_row->album_compact_thumb_bg_transparent / 100, 2, ".", ""); ?>);
         font-size: 0;
         text-align: <?php echo $theme_row->album_compact_thumb_align; ?>;
         max-width: <?php echo $items_col_num * ($params['compuct_album_thumb_width'] + 2 * (2 + $theme_row->album_compact_thumb_margin + $theme_row->album_compact_thumb_padding + $theme_row->album_compact_thumb_border_width)); ?>px;
@@ -298,7 +299,7 @@ class BWGViewAlbum_compact_preview {
         display: inline-block;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        background-color: rgba(<?php echo $rgb_album_compact_thumbs_bg_color['red']; ?>, <?php echo $rgb_album_compact_thumbs_bg_color['green']; ?>, <?php echo $rgb_album_compact_thumbs_bg_color['blue']; ?>, <?php echo $theme_row->album_compact_thumb_bg_transparent / 100; ?>);
+        background-color: rgba(<?php echo $rgb_album_compact_thumbs_bg_color['red']; ?>, <?php echo $rgb_album_compact_thumbs_bg_color['green']; ?>, <?php echo $rgb_album_compact_thumbs_bg_color['blue']; ?>, <?php echo number_format($theme_row->album_compact_thumb_bg_transparent / 100, 2, ".", ""); ?>);
         font-size: 0;
         text-align: <?php echo $theme_row->album_compact_thumb_align; ?>;
         max-width: <?php echo $items_col_num * ($params['compuct_album_thumb_width'] + 2 * (2 + $theme_row->album_compact_thumb_margin + $theme_row->album_compact_thumb_padding + $theme_row->album_compact_thumb_border_width)); ?>px;
@@ -313,7 +314,7 @@ class BWGViewAlbum_compact_preview {
         display: inline-block;
         height: <?php echo $params['compuct_album_image_thumb_height']; ?>px;
         margin: <?php echo $theme_row->thumb_margin; ?>px;
-        opacity: <?php echo $theme_row->thumb_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->thumb_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->thumb_transparent; ?>);
         <?php echo ($theme_row->thumb_transition) ? 'transition: all 0.3s ease 0s;-webkit-transition: all 0.3s ease 0s;' : ''; ?>
         padding: <?php echo $theme_row->thumb_padding; ?>px;
@@ -347,7 +348,7 @@ class BWGViewAlbum_compact_preview {
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> {
         -moz-box-sizing: border-box;
         display: inline-block;
-        background-color: rgba(<?php echo $rgb_thumbs_bg_color['red']; ?>, <?php echo $rgb_thumbs_bg_color['green']; ?>, <?php echo $rgb_thumbs_bg_color['blue']; ?>, <?php echo $theme_row->thumb_bg_transparent / 100; ?>);
+        background-color: rgba(<?php echo $rgb_thumbs_bg_color['red']; ?>, <?php echo $rgb_thumbs_bg_color['green']; ?>, <?php echo $rgb_thumbs_bg_color['blue']; ?>, <?php echo number_format($theme_row->thumb_bg_transparent / 100, 2, ".", ""); ?>);
         box-sizing: border-box;
         font-size: 0;
         max-width: <?php echo $params['compuct_album_image_column_number'] * ($params['compuct_album_image_thumb_width'] + 2 * (2 + $theme_row->thumb_margin + $theme_row->thumb_padding + $theme_row->thumb_border_width)); ?>px;
@@ -460,7 +461,7 @@ class BWGViewAlbum_compact_preview {
         border-width: <?php echo $theme_row->page_nav_border_width; ?>px;
         border-color: #<?php echo $theme_row->page_nav_border_color; ?>;
         background-color: #<?php echo $theme_row->page_nav_button_bg_color; ?>;
-        opacity: <?php echo $theme_row->page_nav_button_bg_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->page_nav_button_bg_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->page_nav_button_bg_transparent; ?>);
         box-shadow: <?php echo $theme_row->page_nav_box_shadow; ?>;
         <?php echo ($theme_row->page_nav_button_transition ) ? 'transition: all 0.3s ease 0s;-webkit-transition: all 0.3s ease 0s;' : ''; ?>
@@ -478,8 +479,23 @@ class BWGViewAlbum_compact_preview {
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_popup_overlay_<?php echo $bwg; ?> {
         background-color: #<?php echo $theme_row->lightbox_overlay_bg_color; ?>;
-        opacity: <?php echo $theme_row->lightbox_overlay_bg_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->lightbox_overlay_bg_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_overlay_bg_transparent; ?>);
+      }
+      .bwg_play_icon_spun_<?php echo $bwg; ?>	 {
+        width: inherit;
+        height: inherit;
+        display: table;
+        position: absolute;
+      }	 
+     .bwg_play_icon_<?php echo $bwg; ?> {
+        color: #<?php echo $theme_row->thumb_title_font_color; ?>;
+        font-size: <?php echo 2 * $theme_row->thumb_title_font_size; ?>px;
+        vertical-align: middle;
+        display: table-cell !important;
+        z-index: 1;
+        text-align: center;
+        margin: 0 auto;
       }
     </style>
 
@@ -691,7 +707,7 @@ class BWGViewAlbum_compact_preview {
                   $thumb_left = ($params['compuct_album_image_thumb_width'] - $image_thumb_width) / 2;
                   $thumb_top = ($params['compuct_album_image_thumb_height'] - $image_thumb_height) / 2;
                   ?>
-                  <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ('href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"')) ?>>
+                  <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                       <?php
                       if ($params['compuct_album_image_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top') {
@@ -706,8 +722,14 @@ class BWGViewAlbum_compact_preview {
                       ?>
                       <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                         <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
-                          <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ($is_video ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                           <?php
+                          if ($play_icon && $is_video) {
+                            ?>
+                          <span class="bwg_play_icon_spun_<?php echo $bwg; ?>">
+                             <i title="<?php echo __('Play', 'bwg'); ?>"  class="fa fa-play bwg_play_icon_<?php echo $bwg; ?>"></i>
+                          </span>
+                            <?php
+                          }
                           if ($params['compuct_album_image_title'] == 'hover') {
                             ?>
                             <span class="bwg_image_title_spun1_<?php echo $bwg; ?>">
@@ -718,6 +740,7 @@ class BWGViewAlbum_compact_preview {
                             <?php
                           }
                           ?>
+			  <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ($is_video ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                         </span>
                       </span>
                       <?php

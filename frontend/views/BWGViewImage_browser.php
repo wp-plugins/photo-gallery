@@ -162,7 +162,7 @@ class BWGViewImage_browser {
         box-sizing: border-box;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .image_browser_images_conteiner_<?php echo $bwg; ?>{
-				background-color: rgba(<?php echo $image_browser_images_conteiner['red']; ?>, <?php echo $image_browser_images_conteiner['green']; ?>, <?php echo $image_browser_images_conteiner['blue']; ?>, <?php echo $theme_row->image_browser_full_transparent / 100; ?>);
+				background-color: rgba(<?php echo $image_browser_images_conteiner['red']; ?>, <?php echo $image_browser_images_conteiner['green']; ?>, <?php echo $image_browser_images_conteiner['blue']; ?>, <?php echo number_format($theme_row->image_browser_full_transparent / 100, 2, ".", ""); ?>);
 				text-align: center;
 				width: 100%;
 				border-style: <?php echo $theme_row->image_browser_full_border_style;?>;
@@ -189,7 +189,7 @@ class BWGViewImage_browser {
 				width:100%;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_browser_image_<?php echo $bwg; ?> {
-        background-color: rgba(<?php echo $bwg_image_browser_image['red']; ?>, <?php echo $bwg_image_browser_image['green']; ?>, <?php echo $bwg_image_browser_image['blue']; ?>, <?php echo $theme_row->image_browser_transparent / 100; ?>);
+        background-color: rgba(<?php echo $bwg_image_browser_image['red']; ?>, <?php echo $bwg_image_browser_image['green']; ?>, <?php echo $bwg_image_browser_image['blue']; ?>, <?php echo number_format($theme_row->image_browser_transparent / 100, 2, ".", ""); ?>);
 				text-align: center;
 				/*display: inline-block;*/
 				vertical-align: middle;
@@ -231,7 +231,7 @@ class BWGViewImage_browser {
 				  margin: 4px;
 				  font-family: <?php echo $params_array['watermark_font']; ?>;
 				  color: #<?php echo $params_array['watermark_color']; ?> !important;
-				  opacity: <?php echo $params_array['watermark_opacity'] / 100; ?>;
+				  opacity: <?php echo number_format($params_array['watermark_opacity'] / 100, 2, ".", ""); ?>;
 			  	filter: Alpha(opacity=<?php echo $params_array['watermark_opacity']; ?>);
           text-decoration: none;
 				  position: relative;
@@ -307,7 +307,7 @@ class BWGViewImage_browser {
 				border-width: <?php echo $theme_row->page_nav_border_width; ?>px;
 				border-color: #<?php echo $theme_row->page_nav_border_color; ?>;
 				background-color: #<?php echo $theme_row->page_nav_button_bg_color; ?>;
-				opacity: <?php echo $theme_row->page_nav_button_bg_transparent / 100; ?>;
+				opacity: <?php echo number_format($theme_row->page_nav_button_bg_transparent / 100, 2, ".", ""); ?>;
 				filter: Alpha(opacity=<?php echo $theme_row->page_nav_button_bg_transparent; ?>);
 				<?php echo ($theme_row->page_nav_button_transition ) ? 'transition: all 0.3s ease 0s;-webkit-transition: all 0.3s ease 0s;' : ''; ?>
       }
@@ -323,7 +323,7 @@ class BWGViewImage_browser {
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> #spider_popup_overlay_<?php echo $bwg; ?> {
 				background-color: #<?php echo $theme_row->lightbox_overlay_bg_color; ?>;
-        opacity: <?php echo $theme_row->lightbox_overlay_bg_transparent / 100; ?>;
+        opacity: <?php echo number_format($theme_row->lightbox_overlay_bg_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_overlay_bg_transparent; ?>);
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_browser_image_desp_<?php echo $bwg; ?> {
@@ -362,7 +362,7 @@ class BWGViewImage_browser {
 				font-size: <?php echo $params_array['watermark_font_size']; ?>px;
 				font-family: <?php echo $params_array['watermark_font']; ?>;
 				color: #<?php echo $params_array['watermark_color']; ?> !important;
-				opacity: <?php echo $params_array['watermark_opacity'] / 100; ?>;
+				opacity: <?php echo number_format($params_array['watermark_opacity'] / 100, 2, ".", ""); ?>;
 				filter: Alpha(opacity=<?php echo $params_array['watermark_opacity']; ?>);
 				position: relative;
 				z-index: 10141;
@@ -407,7 +407,7 @@ class BWGViewImage_browser {
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_image_browser_watermark_img_<?php echo $bwg; ?>{
 				max-width: 100%;
-				opacity: <?php echo $params_array['watermark_opacity'] / 100; ?>;
+				opacity: <?php echo number_format($params_array['watermark_opacity'] / 100, 2, ".", ""); ?>;
 				filter: Alpha(opacity=<?php echo $params_array['watermark_opacity']; ?>);
 				position: relative;
 				z-index: 10141;
@@ -481,7 +481,7 @@ class BWGViewImage_browser {
                       }
                       if (!$is_video) {
                       ?>
-                        <a style="position:relative;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ('href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"')) ?>>
+                        <a style="position:relative;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
                           <img class="bwg_image_browser_img_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                         </a>
                       <?php 
@@ -492,7 +492,7 @@ class BWGViewImage_browser {
                       }
                       ?>
                     <script>	
-                      setTimeout(function(){
+                      setTimeout(function() {
                         jQuery('#bwg_video_frame_<?php echo $bwg; ?>').height(jQuery('#bwg_video_frame_<?php echo $bwg; ?>').width() * 0.5625);
                         if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 108) {
                           jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');
