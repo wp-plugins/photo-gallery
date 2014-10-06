@@ -174,6 +174,12 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 == Changelog ==
 
+= 1.2.3 =
+play icon over the video thumbnail
+
+= 1.2.2 =
+add upload images with custom size
+
 = 1.2.1 =
 minor changes in shortcode generation code 
 
