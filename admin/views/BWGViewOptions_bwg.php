@@ -1184,6 +1184,16 @@ class BWGViewOptions_bwg {
                 </td>
               </tr>
               <tr>
+                <td class="spider_label_options spider_free_version_label">
+                  <label>Show description in Vertical Masonry view: </label>
+                </td>
+                <td>
+                  <input disabled="disabled" type="radio" name="show_masonry_thumb_description" id="masonry_thumb_desc_1" value="1" <?php if ($row->show_masonry_thumb_description) echo 'checked="checked"'; ?> /><label for="masonry_thumb_desc_1">Yes</label>
+                  <input disabled="disabled" type="radio" name="show_masonry_thumb_description" id="masonry_thumb_desc_0" value="0" <?php if (!$row->show_masonry_thumb_description) echo 'checked="checked"'; ?> /><label for="masonry_thumb_desc_0">No</label>
+                  <div style="width: 200px;" class="spider_description spider_free_version">This option is disabled in free version.</div>
+                </td>
+              </tr>
+              <tr>
                 <td class="spider_label_options"><label>Enable image pagination: </label></td>
                 <td>
                   <input type="radio" name="image_enable_page" id="image_enable_page_yes" value="1" <?php if ($row->image_enable_page) echo 'checked="checked"'; ?> /><label for="image_enable_page_yes">Yes</label>

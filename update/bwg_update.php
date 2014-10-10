@@ -150,6 +150,14 @@ function bwg_update($version) {
     // Add enable/disable option for play icon on video thumbnail.
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `play_icon` tinyint(1) NOT NULL DEFAULT 1");
   }
+  if (version_compare($version, '1.2.4') == -1) {
+    // Add enable/disable showing masonry thumb description.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_masonry_thumb_description` tinyint(1) NOT NULL DEFAULT 0");
+    // Add masonry description styles option.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `masonry_description_font_size` int(4) NOT NULL DEFAULT 12");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `masonry_description_color` varchar(8) NOT NULL DEFAULT 'CCCCCC'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `masonry_description_font_style` varchar(16) NOT NULL DEFAULT 'segoe ui'");
+  }
   return;
 }
 

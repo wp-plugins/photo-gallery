@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.3
+ * Version: 1.2.4
  * Author: WebDorado
  * Author URI: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,8 +50,7 @@ function bwg_options_panel() {
   $licensing_plugins_page = add_submenu_page('galleries_bwg', 'Licensing', 'Licensing', 'manage_options', 'licensing_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $licensing_plugins_page, 'bwg_licensing_styles');
 
-  $featured_plugins_page = add_submenu_page('galleries_bwg', 'Featured Plugins', 'Featured Plugins', 'manage_options', 'featured_plugins_bwg', 'bw_gallery');
-  add_action('admin_print_styles-' . $featured_plugins_page, 'bwg_featured_plugins_styles');
+  add_submenu_page('galleries_bwg', 'Featured Plugins', 'Featured Plugins', 'manage_options', 'featured_plugins_bwg', 'bwg_featured');
 
   $uninstall_page = add_submenu_page('galleries_bwg', 'Uninstall', 'Uninstall', 'manage_options', 'uninstall_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $uninstall_page, 'bwg_styles');
@@ -63,12 +62,19 @@ function bw_gallery() {
   global $wpdb;
   require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
   $page = WDWLibrary::get('page');
-  if (($page != '') && (($page == 'galleries_bwg') || ($page == 'albums_bwg') || ($page == 'tags_bwg') || ($page == 'options_bwg') || ($page == 'themes_bwg') || ($page == 'licensing_bwg') || ($page == 'featured_plugins_bwg') || ($page == 'uninstall_bwg') || ($page == 'BWGShortcode'))) {
+  if (($page != '') && (($page == 'galleries_bwg') || ($page == 'albums_bwg') || ($page == 'tags_bwg') || ($page == 'options_bwg') || ($page == 'themes_bwg') || ($page == 'licensing_bwg') || ($page == 'uninstall_bwg') || ($page == 'BWGShortcode'))) {
     require_once(WD_BWG_DIR . '/admin/controllers/BWGController' . (($page == 'BWGShortcode') ? $page : ucfirst(strtolower($page))) . '.php');
     $controller_class = 'BWGController' . ucfirst(strtolower($page));
     $controller = new $controller_class();
     $controller->execute();
   }
+}
+
+function bwg_featured() {
+  require_once(WD_S_DIR . '/featured/featured.php');
+  wp_register_style('bwg_featured', WD_S_URL . '/featured/style.css', array(), get_option("wd_bwg_version"));
+  wp_print_styles('bwg_featured');
+  spider_featured('photo-gallery');
 }
 
 function bwg_ajax_frontend() {
@@ -601,6 +607,7 @@ function bwg_activate() {
     `upload_img_width` int(4) NOT NULL,
     `upload_img_height` int(4) NOT NULL,
     `play_icon` tinyint(1) NOT NULL,
+    `show_masonry_thumb_description` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -976,6 +983,9 @@ function bwg_activate() {
     `lightbox_hit_font_style` varchar(16) NOT NULL,
     `lightbox_hit_font_weight` varchar(8) NOT NULL,
     `lightbox_hit_font_size` int(4) NOT NULL,
+    `masonry_description_font_size` int(4) NOT NULL,
+    `masonry_description_color` varchar(8) NOT NULL,
+    `masonry_description_font_style` varchar(16) NOT NULL,
 
     `default_theme` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
@@ -1613,6 +1623,9 @@ function bwg_activate() {
       'lightbox_hit_font_style' => 'segoe ui',
       'lightbox_hit_font_weight' => 'normal',
       'lightbox_hit_font_size' => 14,
+      'masonry_description_font_size' => 12,
+			'masonry_description_color' => 'CCCCCC',
+			'masonry_description_font_style' => 'segoe ui',
 
       'default_theme' => 1
     ), array(
@@ -1986,6 +1999,9 @@ function bwg_activate() {
       '%s',
       '%s',
       '%d',
+      '%d',
+			'%s',
+			'%s',
 
       '%d'
     ));
@@ -2361,6 +2377,9 @@ function bwg_activate() {
       'lightbox_hit_font_style' => 'segoe ui',
       'lightbox_hit_font_weight' => 'normal',
       'lightbox_hit_font_size' => 14,
+      'masonry_description_font_size' => 12,
+			'masonry_description_color' => 'CCCCCC',
+			'masonry_description_font_style' => 'segoe ui',
 
       'default_theme' => 0
     ), array(
@@ -2734,12 +2753,15 @@ function bwg_activate() {
       '%s',
       '%s',
       '%d',
+      '%d',
+			'%s',
+			'%s',
 
       '%d'
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.3';
+  $new_version = '1.2.4';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2754,7 +2776,7 @@ register_activation_hook(__FILE__, 'bwg_activate');
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.3';
+  $new_version = '1.2.4';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2785,10 +2807,6 @@ function bwg_scripts() {
   }
   wp_enqueue_script('jquery');
   wp_enqueue_script('jquery-ui-sortable');
-}
-
-function bwg_featured_plugins_styles() {
-  wp_enqueue_style('Featured_Plugins', WD_BWG_URL . '/css/bwg_featured_plugins.css');
 }
 
 function bwg_licensing_styles() {
