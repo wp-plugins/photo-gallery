@@ -1107,7 +1107,7 @@ class BWGViewBWGShortcode {
                     jQuery("#compuct_album_view_type_1").attr('checked', 'checked');								  
                   }
                   else { 
-                    jQuery("#compuct_album_view_type_2").attr('checked', 'checked');
+                    jQuery("#compuct_album_view_type_0").attr('checked', 'checked');
                   }
                   break;
 
@@ -1365,7 +1365,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' image_enable_page="' + jQuery("input[name=image_enable_page]:checked").val() + '"';
                 tagtext += ' thumb_width="' + jQuery("#thumb_width").val() + '"';
                 tagtext += ' thumb_height="' + jQuery("#thumb_height").val() + '"';
-                title = ' gal_title="' + jQuery('#gallery option:selected').text().replace("'", "").replace('"', '') + '"';
+                title = ' gal_title="' + jQuery.trim(jQuery('#gallery option:selected').text().replace("'", "").replace('"', '')) + '"';
                 break;
 
               }
@@ -1388,7 +1388,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' slideshow_description_position="' + jQuery("input[name=slideshow_description_position]:checked").val() + '"';
                 tagtext += ' enable_slideshow_music="' + jQuery("input[name=enable_slideshow_music]:checked").val() + '"';
                 tagtext += ' slideshow_music_url="' + jQuery("#slideshow_music_url").val() + '"';
-								title = ' gal_title="' + jQuery('#gallery option:selected').text().replace("'", "").replace('"', '') + '"';
+								title = ' gal_title="' + jQuery.trim(jQuery('#gallery option:selected').text().replace("'", "").replace('"', '')) + '"';
                 break;
 
               }
@@ -1401,7 +1401,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' image_browser_width="' + jQuery("#image_browser_width").val() + '"';
                 tagtext += ' image_browser_title_enable="' + jQuery("input[name=image_browser_title_enable]:checked").val() + '"';
                 tagtext += ' image_browser_description_enable="' + jQuery("input[name=image_browser_description_enable]:checked").val() + '"';
-								title = ' gal_title="' + jQuery('#gallery option:selected').text().replace("'", "").replace('"', '') + '"';
+								title = ' gal_title="' + jQuery.trim(jQuery('#gallery option:selected').text().replace("'", "").replace('"', '')) + '"';
                 break;
 
               }
@@ -1423,7 +1423,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' compuct_album_image_thumb_width="' + jQuery("#compuct_album_image_thumb_width").val() + '"';
                 tagtext += ' compuct_album_image_thumb_height="' + jQuery("#compuct_album_image_thumb_height").val() + '"';
                 tagtext += ' compuct_album_enable_page="' + jQuery("input[name=compuct_album_enable_page]:checked").val() + '"';
-								title = ' gal_title="' + jQuery('#album option:selected').text().replace("'", "").replace('"', '') + '"';
+								title = ' gal_title="' + jQuery.trim(jQuery('#album option:selected').text().replace("'", "").replace('"', '')) + '"';
                 break;
 
               }
@@ -1445,7 +1445,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' extended_album_image_thumb_width="' + jQuery("#extended_album_image_thumb_width").val() + '"';
                 tagtext += ' extended_album_image_thumb_height="' + jQuery("#extended_album_image_thumb_height").val() + '"';
                 tagtext += ' extended_album_enable_page="' + jQuery("input[name=extended_album_enable_page]:checked").val() + '"';
-								title = ' gal_title="' + jQuery('#album option:selected').text().replace("'", "").replace('"', '') + '"';
+								title = ' gal_title="' + jQuery.trim(jQuery('#album option:selected').text().replace("'", "").replace('"', '')) + '"';
                 break;
 
               }

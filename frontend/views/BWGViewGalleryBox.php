@@ -908,12 +908,6 @@ class BWGViewGalleryBox {
               </span>
               <input type="hidden" id="bwg_current_image_key" value="<?php echo $key; ?>" />
               <?php
-              if ($key == 0) {?>
-                <script>jQuery("#spider_popup_left").hover().css({"display": "none"});</script><?php
-              }
-              if ($key == (count($image_rows) - 1)) {?>
-                <script>jQuery("#spider_popup_right").hover().css({"display": "none"});</script><?php
-              }
               break;
             }
 	  }
@@ -1301,13 +1295,6 @@ class BWGViewGalleryBox {
           }
           jQuery("#spider_popup_left").hover().css({"display": "inline"});
           jQuery("#spider_popup_right").hover().css({"display": "inline"});
-          /* Hide previous/next buttons on first/last images.*/
-          if (key == 0) {
-            jQuery("#spider_popup_left").hover().css({"display": "none"});
-          }
-          else if (key == (data.length - 1)) {
-            jQuery("#spider_popup_right").hover().css({"display": "none"});
-          }
           jQuery(".bwg_image_count").html(data[key]["number"]);
           /* Set filmstrip initial position.*/
           jQuery(".bwg_watermark").css({display: 'none'});
@@ -1649,11 +1636,11 @@ class BWGViewGalleryBox {
         var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
         var bwg_click = isMobile ? 'touchend' : 'click';
         jQuery("#spider_popup_left").on(bwg_click, function () {
-          bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data);
+          bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), (parseInt(jQuery('#bwg_current_image_key').val()) - 1) >= 0 ? (parseInt(jQuery('#bwg_current_image_key').val()) - 1) % data.length : data.length - 1, data);
           return false;
         });
         jQuery("#spider_popup_right").on(bwg_click, function () {
-          bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data);
+          bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), (parseInt(jQuery('#bwg_current_image_key').val()) + 1) % data.length, data);
           return false;
         });
         if (navigator.appVersion.indexOf("MSIE 10") != -1 || navigator.appVersion.indexOf("MSIE 9") != -1) {
