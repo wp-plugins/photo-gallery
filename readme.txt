@@ -74,6 +74,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Possibility to display images in the albums in thumbnail or masonry view upon opening   
 *   WordPress Search Integration by gallery and album title   
 *   Possibility to display the number of the images in the lighbox (optional feature)   
+*   Resizing possibility after adding the images   
 
 Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
 
