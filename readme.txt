@@ -76,6 +76,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Possibility to display the number of the images in the lighbox (optional feature)   
 *   Resizing possibility after adding the images   
 *   Possibility to display Search Box on the gallery page for the search based on titles   
+*   Possibility to display the number of images in the lighbox  
 
 Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
 
