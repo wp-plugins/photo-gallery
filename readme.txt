@@ -88,7 +88,7 @@ Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpres
 *   Comment-managing possibility to avoid spamming (Unpublish/Delete).    
 *   Social sharing possibility (Facebook, Google+, Twitter, Pinterest and Tumblr)    
 *   Dynamic Photo Gallery Tag Cloud widget  with image tag cloud and text tag cloud options.   
-
+*   Possibility to include both videos and images within a single gallery.   
 
 
 
