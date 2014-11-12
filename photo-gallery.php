@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.5
+ * Version: 1.2.6
  * Author: WebDorado
  * Author URI: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,13 +23,13 @@ else {
 
 // Plugin menu.
 function bwg_options_panel() {
-  $galleries_page = add_menu_page('Photo Gallery', 'Photo Gallery', 'publish_posts', 'galleries_bwg', 'bw_gallery', WD_BWG_URL . '/images/best-wordpress-gallery.png');
+  $galleries_page = add_menu_page('Photo Gallery', 'Photo Gallery', 'manage_options', 'galleries_bwg', 'bw_gallery', WD_BWG_URL . '/images/best-wordpress-gallery.png');
 
-  $galleries_page = add_submenu_page('galleries_bwg', 'Add Galleries/Images', 'Add Galleries/Images', 'publish_posts', 'galleries_bwg', 'bw_gallery');
+  $galleries_page = add_submenu_page('galleries_bwg', 'Add Galleries/Images', 'Add Galleries/Images', 'manage_options', 'galleries_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $galleries_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $galleries_page, 'bwg_scripts');
 
-  $albums_page = add_submenu_page('galleries_bwg', 'Albums', 'Albums', 'publish_posts', 'albums_bwg', 'bw_gallery');
+  $albums_page = add_submenu_page('galleries_bwg', 'Albums', 'Albums', 'manage_options', 'albums_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $albums_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $albums_page, 'bwg_scripts');
 
@@ -45,7 +45,7 @@ function bwg_options_panel() {
   add_action('admin_print_styles-' . $themes_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $themes_page, 'bwg_options_scripts');
 
-  $generate_shortcode = add_submenu_page('galleries_bwg', 'Generate Shortcode', 'Generate Shortcode', 'manage_options', 'BWGShortcode', 'bw_gallery');
+  add_submenu_page('galleries_bwg', 'Generate Shortcode', 'Generate Shortcode', 'manage_options', 'BWGShortcode', 'bw_gallery');
 
   $licensing_plugins_page = add_submenu_page('galleries_bwg', 'Licensing', 'Licensing', 'manage_options', 'licensing_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $licensing_plugins_page, 'bwg_licensing_styles');
@@ -71,6 +71,14 @@ function bw_gallery() {
 }
 
 function bwg_featured() {
+  if (function_exists('current_user_can')) {
+    if (!current_user_can('manage_options')) {
+      die('Access Denied');
+    }
+  }
+  else {
+    die('Access Denied');
+  }
   require_once(WD_BWG_DIR . '/featured/featured.php');
   wp_register_style('bwg_featured', WD_BWG_URL . '/featured/style.css', array(), get_option("wd_bwg_version"));
   wp_print_styles('bwg_featured');
@@ -108,7 +116,7 @@ function bwg_UploadHandler() {
 
 function bwg_filemanager_ajax() {
   if (function_exists('current_user_can')) {
-    if (!current_user_can('publish_posts')) {
+    if (!current_user_can('manage_options')) {
       die('Access Denied');
     }
   }
@@ -127,6 +135,14 @@ function bwg_filemanager_ajax() {
 }
 
 function bwg_edit_tag() {
+  if (function_exists('current_user_can')) {
+    if (!current_user_can('manage_options')) {
+      die('Access Denied');
+    }
+  }
+  else {
+    die('Access Denied');
+  }
   require_once(WD_BWG_DIR . '/admin/controllers/BWGControllerTags_bwg.php');
   $controller_class = 'BWGControllerTags_bwg';
   $controller = new $controller_class();
@@ -135,7 +151,7 @@ function bwg_edit_tag() {
 
 function bwg_ajax() {
   if (function_exists('current_user_can')) {
-    if (!current_user_can('publish_posts')) {
+    if (!current_user_can('manage_options')) {
       die('Access Denied');
     }
   }
@@ -226,6 +242,7 @@ function bwg_shortcode($params) {
         'enable_slideshow_filmstrip' => 1,
         'slideshow_filmstrip_height' => 70,
         'slideshow_enable_title' => 0,
+        'slideshow_title_full_width' => 0,
         'slideshow_title_position' => 'top-right',
         'slideshow_enable_description' => 0,
         'slideshow_description_position' => 'bottom-right',
@@ -314,6 +331,7 @@ function bwg_shortcode($params) {
         'popup_enable_ctrl_btn' => 1,
         'popup_enable_fullscreen' => 1,
         'popup_enable_info' => 1,
+        'popup_info_full_width' => 0,
         'popup_info_always_show' => 0,
         'popup_hit_counter' => 0,
         'popup_enable_rate' => 0,
@@ -420,7 +438,7 @@ if (class_exists('WP_Widget')) {
 function bwg_activate() {
   global $wpdb;
   $bwg_shortcode = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_shortcode` (
-    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `id` bigint(20) NOT NULL,
     `tagtext` mediumtext NOT NULL,
     PRIMARY KEY (`id`)
   ) DEFAULT CHARSET=utf8;";
@@ -608,6 +626,8 @@ function bwg_activate() {
     `upload_img_height` int(4) NOT NULL,
     `play_icon` tinyint(1) NOT NULL,
     `show_masonry_thumb_description` tinyint(1) NOT NULL,
+    `slideshow_title_full_width` tinyint(1) NOT NULL,
+    `popup_info_full_width` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -1134,6 +1154,9 @@ function bwg_activate() {
       'upload_img_width' => 1200,
       'upload_img_height' => 1200,
       'play_icon'=> 1,
+      'show_masonry_thumb_description' => 0,
+      'slideshow_title_full_width' => 0,
+      'popup_info_full_width' => 0,
     ), array(
       '%d',
       '%s',
@@ -1237,6 +1260,9 @@ function bwg_activate() {
       '%d',
       '%d',
       '%s',
+      '%d',
+      '%d',
+      '%d',
       '%d',
       '%d',
       '%d',
@@ -2761,7 +2787,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.5';
+  $new_version = '1.2.6';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2776,7 +2802,7 @@ register_activation_hook(__FILE__, 'bwg_activate');
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.5';
+  $new_version = '1.2.6';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);

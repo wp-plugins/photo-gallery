@@ -535,6 +535,15 @@ class BWGViewBWGShortcode {
                       </table>
                     </td>
                   </tr>
+                  <tr id="tr_slideshow_full_width_title">
+                    <td title="Display image title based on the slideshow dimensions." class="spider_label">
+                      <label>Full width title:</label>
+                    </td>
+                    <td>
+                      <input type="radio" name="slideshow_title_full_width" id="slideshow_title_full_width_1" value="1" <?php if ($option_row->slideshow_title_full_width) echo 'checked="checked"'; ?>  /><label for="slideshow_title_full_width_1">Yes</label>
+                      <input type="radio" name="slideshow_title_full_width" id="slideshow_title_full_width_0" value="0" <?php if (!$option_row->slideshow_title_full_width) echo 'checked="checked"'; ?>  /><label for="slideshow_title_full_width_0">No</label>
+                    </td>
+                  </tr>
                   <tr id="tr_slideshow_enable_description">
                     <td class="spider_label"><label>Enable Image Description: </label></td>
                     <td>
@@ -692,6 +701,13 @@ class BWGViewBWGShortcode {
                     <td>
                       <input type="radio" name="popup_info_always_show" id="popup_info_always_show_yes" value="1" <?php echo ($option_row->popup_info_always_show) ? 'checked="checked"' : ''; ?> /><label for="popup_info_always_show_yes">Yes</label>
                       <input type="radio" name="popup_info_always_show" id="popup_info_always_show_no" value="0" <?php echo ($option_row->popup_info_always_show) ? '' : 'checked="checked"'; ?> /><label for="popup_info_always_show_no">No</label>
+                    </td>
+                  </tr>
+                  <tr id="tr_popup_info_full_width">
+                    <td title="Display image information based on the lightbox dimensions." class="spider_label"><label>Full width info:</label></td>
+                    <td>
+                      <input type="radio" name="popup_info_full_width" id="popup_info_full_width_1" value="1" <?php if ($option_row->popup_info_full_width) echo 'checked="checked"'; ?>  /><label for="popup_info_full_width_1">Yes</label>
+                      <input type="radio" name="popup_info_full_width" id="popup_info_full_width_0" value="0" <?php if (!$option_row->popup_info_full_width) echo 'checked="checked"'; ?>  /><label for="popup_info_full_width_0">No</label>
                     </td>
                   </tr>
                   <tr id="tr_popup_enable_rate">
@@ -1206,6 +1222,12 @@ class BWGViewBWGShortcode {
                   else {
                     jQuery("#popup_info_no").attr('checked', 'checked');
                   }
+				  if (short_code['popup_info_full_width'] == 1) {
+                    jQuery("#popup_info_full_width_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#popup_info_full_width_0").attr('checked', 'checked');
+                  }
                   if (short_code['popup_info_always_show'] == 1 && short_code['popup_info_always_show']) {
                     jQuery("#popup_info_always_show_yes").attr('checked', 'checked');
                   }
@@ -1384,6 +1406,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' slideshow_filmstrip_height="' + jQuery("#slideshow_filmstrip_height").val() + '"';
                 tagtext += ' slideshow_enable_title="' + jQuery("input[name=slideshow_enable_title]:checked").val() + '"';
                 tagtext += ' slideshow_title_position="' + jQuery("input[name=slideshow_title_position]:checked").val() + '"';
+				tagtext += ' slideshow_title_full_width="' + jQuery("input[name=slideshow_title_full_width]:checked").val() + '"';  				
                 tagtext += ' slideshow_enable_description="' + jQuery("input[name=slideshow_enable_description]:checked").val() + '"';
                 tagtext += ' slideshow_description_position="' + jQuery("input[name=slideshow_description_position]:checked").val() + '"';
                 tagtext += ' enable_slideshow_music="' + jQuery("input[name=enable_slideshow_music]:checked").val() + '"';
@@ -1466,6 +1489,7 @@ class BWGViewBWGShortcode {
               tagtext += ' popup_enable_fullscreen="' + jQuery("input[name=popup_enable_fullscreen]:checked").val() + '"';
               tagtext += ' popup_enable_info="' + jQuery("input[name=popup_enable_info]:checked").val() + '"';
               tagtext += ' popup_info_always_show="' + jQuery("input[name=popup_info_always_show]:checked").val() + '"';
+			  tagtext += ' popup_info_full_width="' + jQuery("input[name=popup_info_full_width]:checked").val() + '"';
               tagtext += ' popup_enable_rate="' + jQuery("input[name=popup_enable_rate]:checked").val() + '"';
               tagtext += ' popup_enable_comment="' + jQuery("input[name=popup_enable_comment]:checked").val() + '"';
               tagtext += ' popup_hit_counter="' + jQuery("input[name=popup_hit_counter]:checked").val() + '"';

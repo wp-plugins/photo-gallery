@@ -677,6 +677,16 @@ class BWGViewOptions_bwg {
                         <div class="spider_description"></div>
                       </td>
                     </tr>
+                    <tr id="tr_popup_info_full_width">
+                      <td class="spider_label_options">
+                        <label>Full width info:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="popup_info_full_width" id="popup_info_full_width_1" value="1" <?php if ($row->popup_info_full_width) echo 'checked="checked"'; ?>  /><label for="popup_info_full_width_1">Yes</label>
+                        <input type="radio" name="popup_info_full_width" id="popup_info_full_width_0" value="0" <?php if (!$row->popup_info_full_width) echo 'checked="checked"'; ?>  /><label for="popup_info_full_width_0">No</label>
+                        <div class="spider_description">Display image information based on the lightbox dimensions.</div>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </td>
@@ -1045,6 +1055,16 @@ class BWGViewOptions_bwg {
                           </tbody>
                         </table>
                         <div class="spider_description">Image title position on slideshow</div>
+                      </td>
+                    </tr>
+                    <tr id="tr_slideshow_full_width_title">
+                      <td class="spider_label_options">
+                        <label>Full width title:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="slideshow_title_full_width" id="slideshow_title_full_width_1" value="1" <?php if ($row->slideshow_title_full_width) echo 'checked="checked"'; ?>  /><label for="slideshow_title_full_width_1">Yes</label>
+                        <input type="radio" name="slideshow_title_full_width" id="slideshow_title_full_width_0" value="0" <?php if (!$row->slideshow_title_full_width) echo 'checked="checked"'; ?>  /><label for="slideshow_title_full_width_0">No</label>
+                        <div class="spider_description">Display image title based on the slideshow dimensions.</div>
                       </td>
                     </tr>
                     <tr>

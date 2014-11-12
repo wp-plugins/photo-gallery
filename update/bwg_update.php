@@ -135,7 +135,7 @@ function bwg_update($version) {
   }
   if (version_compare($version, '1.2.0') == -1) {
     $bwg_shortcode = "CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "bwg_shortcode` (
-      `id` bigint(20) NOT NULL AUTO_INCREMENT,
+      `id` bigint(20) NOT NULL,
       `tagtext` mediumtext NOT NULL,
       PRIMARY KEY (`id`)
     ) DEFAULT CHARSET=utf8;";
@@ -157,6 +157,12 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `masonry_description_font_size` int(4) NOT NULL DEFAULT 12");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `masonry_description_color` varchar(8) NOT NULL DEFAULT 'CCCCCC'");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `masonry_description_font_style` varchar(16) NOT NULL DEFAULT 'segoe ui'");
+  }
+  if (version_compare($version, '1.2.6') == -1) {
+    // Add enable/disable option for slideshow image title full width.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `slideshow_title_full_width` tinyint(1) NOT NULL DEFAULT 1"); 
+	// Add enable/disable option for lightbox info full width.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `popup_info_full_width` tinyint(1) NOT NULL DEFAULT 1");
   }
   return;
 }

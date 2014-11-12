@@ -264,7 +264,7 @@ class WDWLibrary {
           else {
            document.getElementById('page_number').value = jQuery('#current_page').val();
           }
-          return true;
+          document.getElementById('<?php echo $form_id; ?>').submit();
         }
         return true;
       }

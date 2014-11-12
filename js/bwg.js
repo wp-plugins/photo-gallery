@@ -852,6 +852,9 @@ function bwg_inputs() {
 function bwg_enable_disable(display, id, current) {
   jQuery("#" + current).attr('checked', 'checked');
   jQuery("#" + id).css('display', display);
+  if(id == 'tr_slideshow_title_position') {
+    jQuery("#tr_slideshow_full_width_title").css('display', display);
+  }
 }
 
 function bwg_popup_fullscreen(num) {

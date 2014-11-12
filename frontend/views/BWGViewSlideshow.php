@@ -33,6 +33,9 @@ class BWGViewSlideshow {
     else {
       $order_by = $params['order_by'];
     }
+    if (!isset($params['slideshow_title_full_width'])) {
+      $params['slideshow_title_full_width'] = 0;
+    }
     $image_right_click = $options_row->image_right_click;
     if (!$from) {
       $theme_id = (isset($params['theme_id']) ? esc_html($params['theme_id']) : 1);
@@ -462,6 +465,9 @@ class BWGViewSlideshow {
         border-radius: <?php echo $theme_row->slideshow_title_border_radius; ?>;
         background-color: #<?php echo $theme_row->slideshow_title_background_color; ?>;
         padding: <?php echo $theme_row->slideshow_title_padding; ?>;
+		<?php if($params['slideshow_title_full_width']) { ?>
+		width: 100%;
+		<?php } ?>
         margin: 5px;
         display: inline-block;
         word-wrap: break-word;
