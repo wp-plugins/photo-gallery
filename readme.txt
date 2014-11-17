@@ -177,6 +177,12 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 == Changelog ==
 
+= 1.2.6 =
+bug in new image save fixed
+
+= 1.2.5 =
+wrap around in lightbox
+
 = 1.2.4 =
 pagination input
 
