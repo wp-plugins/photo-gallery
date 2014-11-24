@@ -302,7 +302,6 @@ change shortcodes
 
   
 ==Wordpress Photo Gallery Step by step guide==    
-Step by step guide  
   
 = Step 1: Installing the Gallery =   
 1.1 Minimum requirements.  
