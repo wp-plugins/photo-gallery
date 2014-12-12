@@ -465,10 +465,11 @@ class BWGViewSlideshow {
         border-radius: <?php echo $theme_row->slideshow_title_border_radius; ?>;
         background-color: #<?php echo $theme_row->slideshow_title_background_color; ?>;
         padding: <?php echo $theme_row->slideshow_title_padding; ?>;
-		<?php if($params['slideshow_title_full_width']) { ?>
-		width: 100%;
-		<?php } ?>
+        <?php if($params['slideshow_title_full_width']) { ?>
+        width: 100%;
+        <?php } else { ?>
         margin: 5px;
+        <?php } ?>
         display: inline-block;
         word-wrap: break-word;
         word-break: break-word;

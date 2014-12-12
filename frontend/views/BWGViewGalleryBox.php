@@ -42,7 +42,7 @@ class BWGViewGalleryBox {
     $enable_image_fullscreen = (isset($_GET['enable_image_fullscreen']) ? esc_html($_GET['enable_image_fullscreen']) : 0);
     $popup_enable_info = (isset($_GET['popup_enable_info']) ? esc_html($_GET['popup_enable_info']) : 1);
     $popup_info_always_show = (isset($_GET['popup_info_always_show']) ? esc_html($_GET['popup_info_always_show']) : 0);
-	$popup_info_full_width = (isset($_GET['popup_info_full_width']) ? esc_html($_GET['popup_info_full_width']) : 0);
+    $popup_info_full_width = (isset($_GET['popup_info_full_width']) ? esc_html($_GET['popup_info_full_width']) : 0);
     $popup_enable_rate = (isset($_GET['popup_enable_rate']) ? esc_html($_GET['popup_enable_rate']) : 0);
     $popup_hit_counter = (isset($_GET['popup_hit_counter']) ? esc_html($_GET['popup_hit_counter']) : 0);
 
@@ -109,7 +109,7 @@ class BWGViewGalleryBox {
       'enable_image_fullscreen' => $enable_image_fullscreen,
       'popup_enable_info' => $popup_enable_info,
       'popup_info_always_show' => $popup_info_always_show,
-	  'popup_info_full_width' => $popup_info_full_width,
+      'popup_info_full_width' => $popup_info_full_width,
       'popup_hit_counter' => $popup_hit_counter,
       'popup_enable_rate' => $popup_enable_rate,
       'slideshow_interval' => $slideshow_interval,
@@ -670,10 +670,10 @@ class BWGViewGalleryBox {
         border-radius: <?php echo $theme_row->lightbox_info_border_radius; ?>;
         <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'bottom') && $theme_row->lightbox_ctrl_btn_pos == 'bottom' && $theme_row->lightbox_info_pos == 'bottom') ? 'bottom: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
         <?php if($params_array['popup_info_full_width']) { ?>
-		width: 100%;
-		<?php } else { ?>
-		margin: <?php echo $theme_row->lightbox_info_margin; ?>;
-		<?php } ?>
+        width: 100%;
+        <?php } else { ?>
+        margin: <?php echo $theme_row->lightbox_info_margin; ?>;
+        <?php } ?>
         padding: <?php echo $theme_row->lightbox_info_padding; ?>;
         <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'top') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') ? 'top: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>
       }

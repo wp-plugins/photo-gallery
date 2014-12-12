@@ -130,6 +130,10 @@ class BWGViewBWGShortcode {
                   <div style="text-align: center;"><input type="radio" id="album_compact_preview" name="gallery_type" value="album_compact_preview" /><label for="album_compact_preview">Compact Album</label></div>
                   <label for="album_compact_preview"><img src="<?php echo WD_BWG_URL . '/images/album_compact_preview.jpg'; ?>" /></label>
                 </span>
+                <span title="This view is disabled in free version." class="gallery_type">
+                  <div style="text-align: center;"><input disabled="disabled" type="radio" id="album_masonry_preview" name="gallery_type" value="album_masonry_preview" /><label class="spider_free_version_label" for="album_masonry_preview">Masonry Album</label></div>
+                  <label for="album_masonry_preview"><img style="opacity:0.5; filter: Alpha(opacity=50);" disabled="disabled" src="<?php echo WD_BWG_URL . '/images/thumbnails_masonry.jpg'; ?>" /></label>
+                </span>
                 <span class="gallery_type" onClick="bwg_gallery_type('album_extended_preview')">
                   <div style="text-align: center;"><input type="radio" id="album_extended_preview" name="gallery_type" value="album_extended_preview" /><label for="album_extended_preview">Extended Album</label></div>
                   <label for="album_extended_preview"><img src="<?php echo WD_BWG_URL . '/images/album_extended_preview.jpg'; ?>" /></label>
@@ -261,7 +265,7 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_thumb_width_height">
-                    <td title="Maximum values for thumbnails width dimension." class="spider_label"><label id="thumb_width_height_label" for="thumb_width">Image Thumbnail dimensions: </label></td>
+                    <td title="Maximum values for thumbnail dimension." class="spider_label"><label id="thumb_width_height_label" for="thumb_width">Image Thumbnail dimensions: </label></td>
                     <td>
                       <input type="text" name="thumb_width" id="thumb_width" value="<?php echo $option_row->thumb_width; ?>" class="spider_int_input" /><span id="thumb_width_height_separator"> x </span>
                       <input type="text" name="thumb_height" id="thumb_height" value="<?php echo $option_row->thumb_height; ?>" class="spider_int_input" /> px
@@ -316,7 +320,7 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_compuct_album_image_thumb_width_height">
-                    <td title="Maximum values for thumb width and height." class="spider_label"><label for="compuct_album_image_thumb_width" id="compuct_album_image_thumb_dimensions">Image thumbnail dimensions: </label></td>
+                    <td title="Maximum values for thumbnail width and height." class="spider_label"><label for="compuct_album_image_thumb_width" id="compuct_album_image_thumb_dimensions">Image thumbnail dimensions: </label></td>
                     <td>
                       <input type="text" name="compuct_album_image_thumb_width" id="compuct_album_image_thumb_width" value="<?php echo $option_row->thumb_width; ?>" class="spider_int_input" /><span id="compuct_album_image_thumb_dimensions_x" > x </span>
                       <input type="text" name="compuct_album_image_thumb_height" id="compuct_album_image_thumb_height" value="<?php echo $option_row->thumb_height; ?>" class="spider_int_input" /> px
@@ -377,7 +381,7 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
                   <tr id="tr_extended_album_image_thumb_width_height">
-                    <td title="Maximum values for thumb width and height." class="spider_label"><label for="extended_album_image_thumb_width" id="extended_album_image_thumb_dimensions">Image Thumbnail dimensions: </label></td>
+                    <td title="Maximum values for thumbnail width and height." class="spider_label"><label for="extended_album_image_thumb_width" id="extended_album_image_thumb_dimensions">Image Thumbnail dimensions: </label></td>
                     <td>
                       <input type="text" name="extended_album_image_thumb_width" id="extended_album_image_thumb_width" value="<?php echo $option_row->thumb_width; ?>" class="spider_int_input" /><span id="extended_album_image_thumb_dimensions_x" > x </span>
                       <input type="text" name="extended_album_image_thumb_height" id="extended_album_image_thumb_height" value="<?php echo $option_row->thumb_height; ?>" class="spider_int_input" /> px
@@ -1303,7 +1307,7 @@ class BWGViewBWGShortcode {
               // Watermark.
               if (short_code['watermark_type'] == 'text') {
                 jQuery("#watermark_type_text").attr('checked', 'checked');
-                jQuery("#watermark_link").val(short_code['watermark_link']);
+                jQuery("#watermark_link").val(decodeURIComponent(short_code['watermark_link']));
                 jQuery("#watermark_text").val(short_code['watermark_text']);
                 jQuery("#watermark_font_size").val(short_code['watermark_font_size']);
                 jQuery("select[id=watermark_font] option[value='" + short_code['watermark_font'] + "']").attr('selected', 'selected');
@@ -1314,7 +1318,7 @@ class BWGViewBWGShortcode {
               }
               else if (short_code['watermark_type'] == 'image') {
                 jQuery("#watermark_type_image").attr('checked', 'checked');
-                jQuery("#watermark_link").val(short_code['watermark_link']);
+                jQuery("#watermark_link").val(decodeURIComponent(short_code['watermark_link']));
                 jQuery("#watermark_url").val(short_code['watermark_url']);
                 jQuery("#watermark_width").val(short_code['watermark_width']);
                 jQuery("#watermark_height").val(short_code['watermark_height']);
@@ -1501,7 +1505,7 @@ class BWGViewBWGShortcode {
             }
             // Watermark parameters.
             tagtext += ' watermark_type="' + jQuery("input[name=watermark_type]:checked").val() + '"';
-            tagtext += ' watermark_link="' + jQuery("#watermark_link").val() + '"';
+            tagtext += ' watermark_link="' + encodeURIComponent(jQuery("#watermark_link").val()) + '"';
             if (jQuery("input[name=watermark_type]:checked").val() == 'text') {
               tagtext += ' watermark_text="' + jQuery("#watermark_text").val() + '"';
               tagtext += ' watermark_font_size="' + jQuery("#watermark_font_size").val() + '"';

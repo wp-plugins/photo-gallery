@@ -927,12 +927,6 @@ function bwg_get_video_host(url) {
 }
 
 function bwg_get_youtube_video_id(url) {
-  // pattern = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-  // var matches = url.match(pattern);
-  // if (matches && (matches[7]).length == 11) {
-    // return matches[7];
-  // }   
-  // return '';
   var video_id;	
 	var url_parts = url.split('v=');
 	if (url_parts.length <= 1) {
@@ -959,12 +953,6 @@ function bwg_get_youtube_video_id(url) {
 }
 
 function bwg_get_vimeo_video_id(url) {
-  // pattern = /\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
-  // var matches = url.match(pattern);
-  // if (matches) {
-    // return matches[2];
-  // }
-  // return '';
   var url_parts
 	var video_id;
 	url_parts = url.split('/');	

@@ -149,7 +149,7 @@ function updateFileNames() {
   if (filesSelected.length > 0) {
     var fileNames = [];
     for (var i = 0; i < filesSelected.length; i++) {
-      fileNames[i] = '"' + filesSelected[i] + '"'; 
+      fileNames[i] = "'" + filesSelected[i] + "'";
     }
     result = fileNames.join(" ");
   }
@@ -433,7 +433,7 @@ function onFileClickML(event, obj) {
   }
 
   for (var i = 0; i < filesSelectedML.length; i++) {
-    jQuery('.importer_item[path="' + filesSelectedML[i] + '"]').addClass("importer_item_select");
+    jQuery(".importer_item[path='" + filesSelectedML[i] + "']").addClass("importer_item_select");
   }
   updateFileNames();
 }

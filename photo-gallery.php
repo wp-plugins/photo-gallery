@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.6
+ * Version: 1.2.7
  * Author: WebDorado
  * Author URI: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -1007,6 +1007,34 @@ function bwg_activate() {
     `masonry_description_color` varchar(8) NOT NULL,
     `masonry_description_font_style` varchar(16) NOT NULL,
 
+    `album_masonry_back_font_color` varchar(8) NOT NULL,
+    `album_masonry_back_font_style` varchar(16) NOT NULL,
+    `album_masonry_back_font_size` int(4) NOT NULL,
+    `album_masonry_back_font_weight` varchar(8) NOT NULL,
+    `album_masonry_back_padding` varchar(32) NOT NULL,
+    `album_masonry_title_font_color` varchar(8) NOT NULL,
+    `album_masonry_title_font_style` varchar(16) NOT NULL,
+    `album_masonry_thumb_title_pos`  varchar(8) NOT NULL,
+    `album_masonry_title_font_size` int(4) NOT NULL,
+    `album_masonry_title_font_weight` varchar(8) NOT NULL,
+    `album_masonry_title_margin` varchar(32) NOT NULL,
+    `album_masonry_title_shadow` varchar(32) NOT NULL,
+    `album_masonry_thumb_margin` int(4) NOT NULL,
+    `album_masonry_thumb_padding` int(4) NOT NULL,
+    `album_masonry_thumb_border_radius` varchar(32) NOT NULL,
+    `album_masonry_thumb_border_width` int(4) NOT NULL,
+    `album_masonry_thumb_border_style` varchar(8) NOT NULL,
+    `album_masonry_thumb_border_color` varchar(8) NOT NULL,
+    `album_masonry_thumb_bg_color` varchar(8) NOT NULL,
+    `album_masonry_thumbs_bg_color` varchar(8) NOT NULL,
+    `album_masonry_thumb_bg_transparent` int(4) NOT NULL,
+    `album_masonry_thumb_box_shadow` varchar(32) NOT NULL,
+    `album_masonry_thumb_transparent` int(4) NOT NULL,
+    `album_masonry_thumb_align` varchar(8) NOT NULL,
+    `album_masonry_thumb_hover_effect` varchar(64) NOT NULL,
+    `album_masonry_thumb_hover_effect_value` varchar(64) NOT NULL,
+    `album_masonry_thumb_transition` tinyint(1) NOT NULL,
+
     `default_theme` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) DEFAULT CHARSET=utf8;";
@@ -1653,6 +1681,34 @@ function bwg_activate() {
 			'masonry_description_color' => 'CCCCCC',
 			'masonry_description_font_style' => 'segoe ui',
 
+			'album_masonry_back_font_color' => '000000',
+      'album_masonry_back_font_style' => 'segoe ui',
+      'album_masonry_back_font_size' => 16,
+      'album_masonry_back_font_weight' => 'bold',
+      'album_masonry_back_padding' => '0',
+      'album_masonry_title_font_color' => 'CCCCCC',
+      'album_masonry_title_font_style' => 'segoe ui',
+      'album_masonry_thumb_title_pos' => 'bottom',
+      'album_masonry_title_font_size' => 16,
+      'album_masonry_title_font_weight' => 'bold',
+      'album_masonry_title_margin' => '2px',
+      'album_masonry_title_shadow' => '0px 0px 0px #888888',
+      'album_masonry_thumb_margin' => 4,
+      'album_masonry_thumb_padding' => 0,
+      'album_masonry_thumb_border_radius' => '0',
+      'album_masonry_thumb_border_width' => 0,
+      'album_masonry_thumb_border_style' => 'none',
+      'album_masonry_thumb_border_color' => 'CCCCCC',
+      'album_masonry_thumb_bg_color' => 'FFFFFF',
+      'album_masonry_thumbs_bg_color' => 'FFFFFF',
+      'album_masonry_thumb_bg_transparent' => 0,
+      'album_masonry_thumb_box_shadow' => '0px 0px 0px #888888',
+      'album_masonry_thumb_transparent' => 100,
+      'album_masonry_thumb_align' => 'center',
+      'album_masonry_thumb_hover_effect' => 'scale',
+      'album_masonry_thumb_hover_effect_value' => '1.1',
+      'album_masonry_thumb_transition' => 0,
+
       'default_theme' => 1
     ), array(
       '%d',
@@ -2028,6 +2084,34 @@ function bwg_activate() {
       '%d',
 			'%s',
 			'%s',
+
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
 
       '%d'
     ));
@@ -2407,6 +2491,34 @@ function bwg_activate() {
 			'masonry_description_color' => 'CCCCCC',
 			'masonry_description_font_style' => 'segoe ui',
 
+			'album_masonry_back_font_color' => '000000',
+      'album_masonry_back_font_style' => 'segoe ui',
+      'album_masonry_back_font_size' => 14,
+      'album_masonry_back_font_weight' => 'normal',
+      'album_masonry_back_padding' => '0',
+      'album_masonry_title_font_color' => 'CCCCCC',
+      'album_masonry_title_font_style' => 'segoe ui',
+      'album_masonry_thumb_title_pos' => 'bottom',
+      'album_masonry_title_font_size' => 16,
+      'album_masonry_title_font_weight' => 'bold',
+      'album_masonry_title_margin' => '5px',
+      'album_masonry_title_shadow' => '',
+      'album_masonry_thumb_margin' => 4,
+      'album_masonry_thumb_padding' => 4,
+      'album_masonry_thumb_border_radius' => '0',
+      'album_masonry_thumb_border_width' => 1,
+      'album_masonry_thumb_border_style' => 'none',
+      'album_masonry_thumb_border_color' => '000000',
+      'album_masonry_thumb_bg_color' => 'E8E8E8',
+      'album_masonry_thumbs_bg_color' => 'FFFFFF',
+      'album_masonry_thumb_bg_transparent' => 100,
+      'album_masonry_thumb_box_shadow' => '',
+      'album_masonry_thumb_transparent' => 100,
+      'album_masonry_thumb_align' => 'center',
+      'album_masonry_thumb_hover_effect' => 'rotate',
+      'album_masonry_thumb_hover_effect_value' => '2deg',
+      'album_masonry_thumb_transition' => 1,
+
       'default_theme' => 0
     ), array(
       '%d',
@@ -2783,11 +2895,39 @@ function bwg_activate() {
 			'%s',
 			'%s',
 
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+
       '%d'
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.6';
+  $new_version = '1.2.7';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2802,7 +2942,7 @@ register_activation_hook(__FILE__, 'bwg_activate');
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.6';
+  $new_version = '1.2.7';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
