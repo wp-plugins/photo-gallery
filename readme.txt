@@ -84,6 +84,7 @@ Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpres
 
 *   Masonry View. 
 *   Blog Style View.   
+*   Masonry Album view   
 *   Slideshow/Lightbox 15 effects.    
 *   Editable themes.   
 *   Commenting possibility with Captcha protection possibility.   
