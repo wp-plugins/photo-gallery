@@ -182,6 +182,7 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 
 = 1.2.7 =
 masonry album view type
+single quota bug in image fixed
 
 = 1.2.6 =
 bug in new image save fixed
