@@ -205,6 +205,7 @@ class BWGViewThumbnails {
         text-align: <?php echo $theme_row->thumb_align; ?>;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> a {
+        border: none;
         cursor: pointer;
         text-decoration: none;
       }

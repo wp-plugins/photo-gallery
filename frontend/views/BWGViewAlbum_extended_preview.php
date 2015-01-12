@@ -159,6 +159,7 @@ class BWGViewAlbum_extended_preview {
         max-width: inherit;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_extended_thumbnails_<?php echo $bwg; ?> a {
+        border: none;
         cursor: pointer;
         text-decoration: none;
       }
@@ -337,6 +338,7 @@ class BWGViewAlbum_extended_preview {
         text-align: <?php echo $theme_row->thumb_align; ?>;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> a {
+        border: none;
         cursor: pointer;
         text-decoration: none;
       }

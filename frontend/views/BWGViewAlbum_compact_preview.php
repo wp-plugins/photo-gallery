@@ -255,6 +255,7 @@ class BWGViewAlbum_compact_preview {
         max-width: <?php echo $items_col_num * ($params['compuct_album_thumb_width'] + 2 * (2 + $theme_row->album_compact_thumb_margin + $theme_row->album_compact_thumb_padding + $theme_row->album_compact_thumb_border_width)); ?>px;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumbnails_<?php echo $bwg; ?> a {
+        border: none;
         cursor: pointer;
         text-decoration: none;
       }
@@ -313,6 +314,7 @@ class BWGViewAlbum_compact_preview {
         max-width: <?php echo $items_col_num * ($params['compuct_album_thumb_width'] + 2 * (2 + $theme_row->album_compact_thumb_margin + $theme_row->album_compact_thumb_padding + $theme_row->album_compact_thumb_border_width)); ?>px;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumbnails_<?php echo $bwg; ?> a {
+        border: none;
         cursor: pointer;
         text-decoration: none;
       }
@@ -363,6 +365,7 @@ class BWGViewAlbum_compact_preview {
         text-align: <?php echo $theme_row->thumb_align; ?>;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> a {
+        border: none;
         cursor: pointer;
         text-decoration: none;
       }

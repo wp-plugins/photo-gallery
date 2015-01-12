@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.7
+ * Version: 1.2.8
  * Author: WebDorado
  * Author URI: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -186,11 +186,13 @@ function bwg_shortcode($params) {
   if (isset($params['id'])) {
     global $wpdb;
     $shortcode = $wpdb->get_var($wpdb->prepare("SELECT tagtext FROM " . $wpdb->prefix . "bwg_shortcode WHERE id='%d'", $params['id']));
-    $shortcode_params = explode('" ', $shortcode);
-    foreach ($shortcode_params as $shortcode_param) {
-      $shortcode_param = str_replace('"', '', $shortcode_param);
-      $shortcode_elem = explode('=', $shortcode_param);
-      $params[str_replace(' ', '', $shortcode_elem[0])] = $shortcode_elem[1];
+    if ($shortcode) {
+      $shortcode_params = explode('" ', $shortcode);
+      foreach ($shortcode_params as $shortcode_param) {
+        $shortcode_param = str_replace('"', '', $shortcode_param);
+        $shortcode_elem = explode('=', $shortcode_param);
+        $params[str_replace(' ', '', $shortcode_elem[0])] = $shortcode_elem[1];
+      }
     }
   }
   shortcode_atts(array(
@@ -2927,7 +2929,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.7';
+  $new_version = '1.2.8';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2942,7 +2944,7 @@ register_activation_hook(__FILE__, 'bwg_activate');
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.7';
+  $new_version = '1.2.8';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
