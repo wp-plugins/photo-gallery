@@ -179,6 +179,8 @@ If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@w
 6.  Photo Gallery - Edit Watermark   
 
 == Changelog ==
+= 1.2.8 =
+security issue fixed
 
 = 1.2.7 =
 masonry album view type   
