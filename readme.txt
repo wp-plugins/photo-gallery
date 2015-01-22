@@ -161,14 +161,13 @@ Vietnamese (vi)
 After downloading the ZIP file,  
 
 1. Log in to the administrator panel.   
-1. Go to Plugins Add > New > Upload.     
-1. Click `Choose file` (`Browse`) and select the downloaded zip file of the gallery.     
+2. Go to Plugins Add > New > Upload.     
+3. Click `Choose file` (`Browse`) and select the downloaded zip file of the gallery.     
 *For Mac Users*     
 *Go to your Downloads folder and locate the folder with the gallery plugin. Right-click on the folder and select Compress. Now you have a newly created .zip file which can be installed as described here.*     
-1. Click `Install Now` button.     
-1. Click `Activate Plugin` button for activating the gallery plugin.    
-
-If any problem occurs, please contact us at  [info@web-dorado.com](mailto:info@web-dorado.com).
+4. Click `Install Now` button.     
+5. Click `Activate Plugin` button for activating the gallery plugin.    
+6. If the installation does not succeed, please contact us at [info@web-dorado.com](mailto:info@web-dorado.com).
 
 == Screenshots ==
 1.  Photo Gallery - Popup View   
