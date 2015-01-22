@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.8
+ * Version: 1.2.9
  * Author: WebDorado
  * Author URI: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -803,7 +803,7 @@ function bwg_activate() {
     `album_extended_thumb_hover_effect_value` varchar(64) NOT NULL,
     `album_extended_thumb_transition` tinyint(1) NOT NULL,
     `album_extended_back_font_color` varchar(8) NOT NULL,
-    `album_extended_back_font_style` varchar(8) NOT NULL,
+    `album_extended_back_font_style` varchar(16) NOT NULL,
     `album_extended_back_font_size` int(4) NOT NULL,
     `album_extended_back_font_weight` varchar(8) NOT NULL,
     `album_extended_back_padding` varchar(32) NOT NULL,
@@ -831,7 +831,7 @@ function bwg_activate() {
     `album_extended_title_span_border_style` varchar(8) NOT NULL,
     `album_extended_title_span_border_color` varchar(8) NOT NULL,
     `album_extended_title_font_color` varchar(8) NOT NULL,
-    `album_extended_title_font_style` varchar(8) NOT NULL,
+    `album_extended_title_font_style` varchar(16) NOT NULL,
     `album_extended_title_font_size` int(4) NOT NULL,
     `album_extended_title_font_weight` varchar(8) NOT NULL,
     `album_extended_title_margin_bottom` int(4) NOT NULL,
@@ -840,7 +840,7 @@ function bwg_activate() {
     `album_extended_desc_span_border_style` varchar(8) NOT NULL,
     `album_extended_desc_span_border_color` varchar(8) NOT NULL,
     `album_extended_desc_font_color` varchar(8) NOT NULL,
-    `album_extended_desc_font_style` varchar(8) NOT NULL,
+    `album_extended_desc_font_style` varchar(16) NOT NULL,
     `album_extended_desc_font_size` int(4) NOT NULL,
     `album_extended_desc_font_weight` varchar(8) NOT NULL,
     `album_extended_desc_padding` varchar(32) NOT NULL,
@@ -2929,7 +2929,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.8';
+  $new_version = '1.2.9';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2944,7 +2944,7 @@ register_activation_hook(__FILE__, 'bwg_activate');
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.8';
+  $new_version = '1.2.9';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -3013,7 +3013,7 @@ function bwg_front_end_scripts() {
   wp_enqueue_style('bwg_frontend', WD_BWG_URL . '/css/bwg_frontend.css', array(), $version);
 
   // Styles/Scripts for popup.
-  wp_enqueue_style('bwg_font-awesome', WD_BWG_URL . '/css/font-awesome-4.0.1/font-awesome.css', array(), '4.0.1');
+ wp_enqueue_style('bwg_font-awesome', WD_BWG_URL . '/css/font-awesome/font-awesome.css', array(), '4.2.0');
   wp_enqueue_script('bwg_jquery_mobile', WD_BWG_URL . '/js/jquery.mobile.js', array(), $version);
   wp_enqueue_script('bwg_mCustomScrollbar', WD_BWG_URL . '/js/jquery.mCustomScrollbar.concat.min.js', array(), $version);
   wp_enqueue_style('bwg_mCustomScrollbar', WD_BWG_URL . '/css/jquery.mCustomScrollbar.css', array(), $version);

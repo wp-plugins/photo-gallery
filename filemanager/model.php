@@ -73,7 +73,7 @@ class FilemanagerModel {
           $_REQUEST[$key] = stripslashes($default);
         }
         // return $_SESSION[$key];
-        return stripslashes($_REQUEST[$key]);
+        return esc_html(stripslashes($_REQUEST[$key]));
       // }
       // return '';
     }
