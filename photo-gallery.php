@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.11
+ * Version: 1.2.12
  * Author: WebDorado
  * Author URI: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,14 +28,17 @@ function bwg_options_panel() {
   $galleries_page = add_submenu_page('galleries_bwg', 'Add Galleries/Images', 'Add Galleries/Images', 'manage_options', 'galleries_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $galleries_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $galleries_page, 'bwg_scripts');
+  add_action('load-' . $galleries_page, 'bwg_add_galleries_per_page_option');
 
   $albums_page = add_submenu_page('galleries_bwg', 'Albums', 'Albums', 'manage_options', 'albums_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $albums_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $albums_page, 'bwg_scripts');
+  add_action('load-' . $albums_page, 'bwg_add_albums_per_page_option');
 
   $tags_page = add_submenu_page('galleries_bwg', 'Tags', 'Tags', 'manage_options', 'tags_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $tags_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $tags_page, 'bwg_scripts');
+  add_action('load-' . $tags_page, 'bwg_add_tags_per_page_option');
 
   $options_page = add_submenu_page('galleries_bwg', 'Options', 'Options', 'manage_options', 'options_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $options_page, 'bwg_styles');
@@ -44,6 +47,7 @@ function bwg_options_panel() {
   $themes_page = add_submenu_page('galleries_bwg', 'Themes', 'Themes', 'manage_options', 'themes_bwg', 'bw_gallery');
   add_action('admin_print_styles-' . $themes_page, 'bwg_styles');
   add_action('admin_print_scripts-' . $themes_page, 'bwg_options_scripts');
+  add_action('load-' . $themes_page, 'bwg_add_themes_per_page_option');
 
   add_submenu_page('galleries_bwg', 'Generate Shortcode', 'Generate Shortcode', 'manage_options', 'BWGShortcode', 'bw_gallery');
 
@@ -518,6 +522,10 @@ function bwg_activate() {
     `images_directory` mediumtext NOT NULL,
 
     `masonry` varchar(255) NOT NULL,
+
+    `mosaic` varchar(255) NOT NULL,
+    `resizable_mosaic` tinyint(1) NOT NULL,
+    `mosaic_total_width` int(4) NOT NULL,
     `image_column_number` int(4) NOT NULL,
     `images_per_page` int(4) NOT NULL,
     `thumb_width` int(4) NOT NULL,
@@ -630,6 +638,7 @@ function bwg_activate() {
     `show_masonry_thumb_description` tinyint(1) NOT NULL,
     `slideshow_title_full_width` tinyint(1) NOT NULL,
     `popup_info_full_width` tinyint(1) NOT NULL,
+    `show_sort_images` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -860,6 +869,24 @@ function bwg_activate() {
     `masonry_thumb_hover_effect_value` varchar(64) NOT NULL,
     `masonry_thumb_transition` tinyint(1) NOT NULL,
 
+    `mosaic_thumb_padding` int(4) NOT NULL,
+    `mosaic_thumb_border_radius` varchar(32) NOT NULL,
+    `mosaic_thumb_border_width` int(4) NOT NULL,
+    `mosaic_thumb_border_style` varchar(8) NOT NULL,
+    `mosaic_thumb_border_color` varchar(8) NOT NULL,
+    `mosaic_thumbs_bg_color` varchar(8) NOT NULL,
+    `mosaic_thumb_bg_transparent` int(4) NOT NULL,
+    `mosaic_thumb_transparent` int(4) NOT NULL,
+    `mosaic_thumb_align` varchar(8) NOT NULL,
+    `mosaic_thumb_hover_effect` varchar(64) NOT NULL,
+    `mosaic_thumb_hover_effect_value` varchar(64) NOT NULL,
+    `mosaic_thumb_title_font_color` varchar(8) NOT NULL,
+    `mosaic_thumb_title_font_style` varchar(16) NOT NULL,
+    `mosaic_thumb_title_font_size` int(4) NOT NULL,
+    `mosaic_thumb_title_font_weight` varchar(8) NOT NULL,
+    `mosaic_thumb_title_margin` varchar(32) NOT NULL,
+    `mosaic_thumb_title_shadow` varchar(32) NOT NULL,
+
     `slideshow_cont_bg_color` varchar(8) NOT NULL,
     `slideshow_close_btn_transparent` int(4) NOT NULL,
     `slideshow_rl_btn_bg_color`	varchar(8) NOT NULL,
@@ -1075,6 +1102,9 @@ function bwg_activate() {
       'images_directory' => str_replace(ABSPATH, '', $upload_dir['basedir']),
 
       'masonry' => 'vertical',
+      'mosaic' => 'vertical',
+      'resizable_mosaic' => 0,
+      'mosaic_total_width'=> 100,
       'image_column_number' => 5,
       'images_per_page' => 30,
       'thumb_width' => 180,
@@ -1187,11 +1217,15 @@ function bwg_activate() {
       'show_masonry_thumb_description' => 0,
       'slideshow_title_full_width' => 0,
       'popup_info_full_width' => 0,
+      'show_sort_images' => 0,
     ), array(
       '%d',
       '%s',
 
       '%s',
+      '%s',
+      '%d',
+      '%d',
       '%d',
       '%d',
       '%d',
@@ -1290,6 +1324,7 @@ function bwg_activate() {
       '%d',
       '%d',
       '%s',
+      '%d',
       '%d',
       '%d',
       '%d',
@@ -1710,6 +1745,24 @@ function bwg_activate() {
       'album_masonry_thumb_hover_effect' => 'scale',
       'album_masonry_thumb_hover_effect_value' => '1.1',
       'album_masonry_thumb_transition' => 0,
+      
+      'mosaic_thumb_padding' => 4,
+      'mosaic_thumb_border_radius' => '0',
+      'mosaic_thumb_border_width' => 0,
+      'mosaic_thumb_border_style' => 'none',
+      'mosaic_thumb_border_color' => 'CCCCCC',
+      'mosaic_thumbs_bg_color' => 'FFFFFF',
+      'mosaic_thumb_bg_transparent' => 0,
+      'mosaic_thumb_transparent' => 100,
+      'mosaic_thumb_align' => 'center',
+      'mosaic_thumb_hover_effect' => 'scale',
+      'mosaic_thumb_hover_effect_value' => '1.1',
+      'mosaic_thumb_title_font_color' => 'CCCCCC',
+      'mosaic_thumb_title_font_style' => 'segoe ui',
+      'mosaic_thumb_title_font_weight' => 'bold',
+      'mosaic_thumb_title_margin' => '2px',
+      'mosaic_thumb_title_shadow' => '0px 0px 0px #888888',
+      'mosaic_thumb_title_font_size' => 16,
 
       'default_theme' => 1
     ), array(
@@ -2110,6 +2163,24 @@ function bwg_activate() {
       '%d',
       '%s',
       '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      
+      '%d',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
       '%s',
       '%s',
       '%s',
@@ -2521,6 +2592,24 @@ function bwg_activate() {
       'album_masonry_thumb_hover_effect_value' => '2deg',
       'album_masonry_thumb_transition' => 1,
 
+      'mosaic_thumb_padding' => 4,
+      'mosaic_thumb_border_radius' => '2px',
+      'mosaic_thumb_border_width' => 1,
+      'mosaic_thumb_border_style' => 'none',
+      'mosaic_thumb_border_color' => 'CCCCCC',
+      'mosaic_thumbs_bg_color' => 'FFFFFF',
+      'mosaic_thumb_bg_transparent' => 0,
+      'mosaic_thumb_transparent' => 80,
+      'mosaic_thumb_align' => 'center',
+      'mosaic_thumb_hover_effect' => 'rotate',
+      'mosaic_thumb_hover_effect_value' => '2deg',
+      'mosaic_thumb_title_font_color' => 'CCCCCC',
+      'mosaic_thumb_title_font_style' => 'segoe ui',
+      'mosaic_thumb_title_font_weight' => 'bold',
+      'mosaic_thumb_title_margin' => '2px',
+      'mosaic_thumb_title_shadow' => '0px 0px 0px #888888',
+      'mosaic_thumb_title_font_size' => 16,
+
       'default_theme' => 0
     ), array(
       '%d',
@@ -2924,12 +3013,30 @@ function bwg_activate() {
       '%s',
       '%s',
       '%d',
+      
+      '%d',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
 
       '%d'
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.11';
+  $new_version = '1.2.12';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2944,7 +3051,7 @@ register_activation_hook(__FILE__, 'bwg_activate');
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.11';
+  $new_version = '1.2.12';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -2975,6 +3082,94 @@ function bwg_scripts() {
   }
   wp_enqueue_script('jquery');
   wp_enqueue_script('jquery-ui-sortable');
+}
+
+/* Add pagination to gallery admin pages.*/
+function bwg_add_galleries_per_page_option(){
+  $option = 'per_page';  
+  $args_galleries = array(
+    'label' => 'Items',
+    'default' => 20,
+    'option' => 'bwg_galleries_per_page'
+  );
+    add_screen_option( $option, $args_galleries ); 
+}
+function bwg_add_albums_per_page_option(){
+  $option = 'per_page';  
+  $args_albums = array(
+    'label' => 'Items',
+    'default' => 20,
+    'option' => 'bwg_albums_per_page'
+  );
+    add_screen_option( $option, $args_albums ); 
+}
+function bwg_add_tags_per_page_option(){
+  $option = 'per_page';  
+  $args_tags = array(
+    'label' => 'Tags',
+    'default' => 20,
+    'option' => 'bwg_tags_per_page'
+  );
+    add_screen_option( $option, $args_tags ); 
+}
+function bwg_add_themes_per_page_option(){
+  $option = 'per_page';  
+  $args_themes = array(
+    'label' => 'Themes',
+    'default' => 20,
+    'option' => 'bwg_themes_per_page'
+  );
+    add_screen_option( $option, $args_themes ); 
+}
+function bwg_add_comments_per_page_option(){
+  $option = 'per_page';  
+  $args_comments = array(
+    'label' => 'Comments',
+    'default' => 20,
+    'option' => 'bwg_comments_per_page'
+  );
+    add_screen_option( $option, $args_comments ); 
+}
+function bwg_add_rates_per_page_option(){
+  $option = 'per_page';  
+  $args_rates = array(
+    'label' => 'Ratings',
+    'default' => 20,
+    'option' => 'bwg_rates_per_page'
+  );
+    add_screen_option( $option, $args_rates ); 
+}
+
+add_filter('set-screen-option', 'bwg_set_option_galleries', 10, 3);
+add_filter('set-screen-option', 'bwg_set_option_albums', 10, 3);
+add_filter('set-screen-option', 'bwg_set_option_tags', 10, 3);
+add_filter('set-screen-option', 'bwg_set_option_themes', 10, 3);
+add_filter('set-screen-option', 'bwg_set_option_comments', 10, 3);
+add_filter('set-screen-option', 'bwg_set_option_rates', 10, 3);
+ 
+function bwg_set_option_galleries($status, $option, $value) {
+    if ( 'bwg_galleries_per_page' == $option ) return $value;
+    return $status;
+}
+function bwg_set_option_albums($status, $option, $value) {
+    if ( 'bwg_albums_per_page' == $option ) return $value;
+    return $status;
+}
+function bwg_set_option_tags($status, $option, $value) {
+    if ( 'bwg_tags_per_page' == $option ) return $value;
+    return $status;
+}
+function bwg_set_option_themes($status, $option, $value) {
+    if ( 'bwg_themes_per_page' == $option ) return $value;
+    return $status;
+}
+function bwg_set_option_comments($status, $option, $value) {
+    if ( 'bwg_comments_per_page' == $option ) return $value;
+    return $status;
+}
+function bwg_set_option_rates($status, $option, $value) {
+    if ( 'bwg_rates_per_page' == $option ) return $value;
+    return $status;
 }
 
 function bwg_licensing_styles() {
@@ -3013,7 +3208,7 @@ function bwg_front_end_scripts() {
   wp_enqueue_style('bwg_frontend', WD_BWG_URL . '/css/bwg_frontend.css', array(), $version);
 
   // Styles/Scripts for popup.
- wp_enqueue_style('bwg_font-awesome', WD_BWG_URL . '/css/font-awesome/font-awesome.css', array(), '4.2.0');
+  wp_enqueue_style('bwg_font-awesome', WD_BWG_URL . '/css/font-awesome/font-awesome.css', array(), '4.2.0');
   wp_enqueue_script('bwg_jquery_mobile', WD_BWG_URL . '/js/jquery.mobile.js', array(), $version);
   wp_enqueue_script('bwg_mCustomScrollbar', WD_BWG_URL . '/js/jquery.mCustomScrollbar.concat.min.js', array(), $version);
   wp_enqueue_style('bwg_mCustomScrollbar', WD_BWG_URL . '/css/jquery.mCustomScrollbar.css', array(), $version);

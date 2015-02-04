@@ -30,6 +30,9 @@ class BWGModelOptions_bwg {
       }
       $row->images_directory = str_replace(ABSPATH, '', $upload_dir['basedir']);
       $row->masonry = 'vertical';
+      $row->mosaic = 'vertical';
+      $row->resizable_mosaic = 0;
+      $row->mosaic_total_width = 100;
       $row->image_column_number = 5;
       $row->images_per_page = 30;
       $row->thumb_width = 180;
@@ -142,6 +145,7 @@ class BWGModelOptions_bwg {
       $row->play_icon = 1;
       $row->show_masonry_thumb_description = 0;
       $row->popup_info_full_width = 0;
+			$row->show_sort_images = 0;
     }
     return $row;
   }

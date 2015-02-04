@@ -30,6 +30,7 @@ class BWGViewTags_bwg {
     $order_by = (isset($_POST['order_by']) ? esc_html(stripslashes($_POST['order_by'])) : 'A.term_id');
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
+    $per_page = $this->model->per_page();
     ?>
     <script>
       var ajax_url = "<?php echo add_query_arg(array('action' => ''), admin_url('admin-ajax.php'));  ?>"
@@ -64,7 +65,7 @@ class BWGViewTags_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Name', $search_value, 'tags_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'tags_form');
+        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'tags_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">

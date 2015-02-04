@@ -1,4 +1,4 @@
-function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_album_id, type, srch_btn, title) {
+function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_album_id, type, srch_btn, title, sortByParam) {
   var page_number = jQuery("#page_number_" + current_view).val();
   var bwg_previous_album_ids = jQuery('#bwg_previous_album_id_' + current_view).val();
   var bwg_previous_album_page_numbers = jQuery('#bwg_previous_album_page_number_' + current_view).val();
@@ -24,12 +24,16 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
   if (typeof title == "undefined") {
     var title = "";
   }
+  if (typeof sortByParam == "undefined") {
+    var sortByParam = jQuery(".bwg_order_" + current_view).val();
+  }
   post_data["page_number_" + current_view] = page_number;
   post_data["album_gallery_id_" + current_view] = album_gallery_id;
   post_data["bwg_previous_album_id_" + current_view] = jQuery('#bwg_previous_album_id_' + current_view).val();
   post_data["bwg_previous_album_page_number_" + current_view] = jQuery('#bwg_previous_album_page_number_' + current_view).val();
   post_data["type_" + current_view] = type;
   post_data["title_" + current_view] = title;
+	post_data["sortImagesByValue_" + current_view] = sortByParam;
   if (jQuery("#bwg_search_input_" + current_view).length > 0) { // Search box exists.
     post_data["bwg_search_" + current_view] = jQuery("#bwg_search_input_" + current_view).val();
   }
@@ -55,14 +59,33 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     jQuery("#ajax_loading_" + current_view).css('display', 'none');
     // window.scroll(0, spider_get_pos(document.getElementById(form_id)));
     jQuery("html, body").animate({scrollTop: jQuery('#' + form_id).offset().top - 150}, 500);
-    // For masonry view.
-    var cccount = 0;
-    var obshicccount = jQuery(".bwg_masonry_thumb_spun_" + current_view + " a").length;
+    /* For masonry view.*/
+    var cccount_masonry = 0;
+    var tot_cccount_masonry = jQuery(".bwg_masonry_thumb_spun_" + current_view + " a").length;
     jQuery(".bwg_masonry_thumb_spun_" + current_view + " a img").on("load", function() {
-      if (++cccount == obshicccount) {
+      if (++cccount_masonry == tot_cccount_masonry) {
         window["bwg_masonry_" + current_view]();
       }
     });
+
+    /* For Blog style view.*/
+    jQuery(".blog_style_images_conteiner_" + current_view + " .bwg_video_frame_" + current_view).each(function (e) {
+      jQuery(this).height(jQuery(this).width() * 0.5625);
+    });
+
+    /* For mosaic view.*/
+    var cccount_mosaic = 0;
+    var tot_cccount_mosaic = jQuery(".bwg_mosaic_thumb_spun_" + current_view + " img").length;
+
+    jQuery(".bwg_mosaic_thumb_spun_" + current_view + " img").on("load", function() {
+
+      if (++cccount_mosaic == tot_cccount_mosaic) {
+        
+        window["bwg_mosaic_" + current_view]("load");
+
+      }
+    });
+    
   });
   // if (event.preventDefault) {
     // event.preventDefault();

@@ -826,8 +826,9 @@ class BWGViewGalleryBox {
             <?php
           }
           if ($option_row->popup_enable_download) {
+            $current_image_arr = explode('/', $current_image_url);
             ?>
-            <a id="bwg_download" href="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url; ?>" target="_blank" download="<?php echo $current_image_url; ?>">
+            <a id="bwg_download" href="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url; ?>" target="_blank" download="<?php echo end($current_image_arr); ?>">
               <i title="<?php echo __('Download original image', 'bwg'); ?>" class="bwg_ctrl_btn fa fa-download"></i>
             </a>
             <?php
@@ -852,7 +853,7 @@ class BWGViewGalleryBox {
               <?php
               if ($watermark_type == 'image') {
               ?>
-              <a href="<?php echo $watermark_link; ?>" target="_blank">
+              <a href="<?php echo urldecode($watermark_link); ?>" target="_blank">
                 <img class="bwg_watermark_image bwg_watermark" src="<?php echo $watermark_url; ?>" />
               </a>
               <?php
@@ -1343,7 +1344,8 @@ class BWGViewGalleryBox {
             bwg_<?php echo $image_effect; ?>(current_image_class, next_image_class, direction);
             jQuery("#bwg_fullsize_image").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
             jQuery("#bwg_download").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
-            jQuery("#bwg_download").attr("download", data[key]['image_url']);
+            var image_arr = data[key]['image_url'].split("/");
+            jQuery("#bwg_download").attr("download", image_arr[image_arr.length - 1]);
             /* Load comments.*/
             if (jQuery(".bwg_comment_container").hasClass("bwg_open")) {
               if (data[key]["comment_count"] == 0) {

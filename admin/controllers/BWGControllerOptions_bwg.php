@@ -83,7 +83,12 @@ class BWGControllerOptions_bwg {
       $images_directory = str_replace(ABSPATH, '', $upload_dir['basedir']);
     }
     $resize_image = (isset($_POST['resize_image']) ? esc_html(stripslashes($_POST['resize_image'])) : 1);
-    $masonry = (isset($_POST['masonry']) ? esc_html(stripslashes($_POST['masonry'])) : 'horizontal');
+
+    $masonry = (isset($_POST['masonry']) ? esc_html(stripslashes($_POST['masonry'])) : 'vertical');
+    $mosaic = (isset($_POST['mosaic']) ? esc_html(stripslashes($_POST['mosaic'])) : 'vertical');
+    $resizable_mosaic = (isset($_POST['resizable_mosaic']) ? esc_html(stripslashes($_POST['resizable_mosaic'])) : 0);
+    $mosaic_total_width = (isset($_POST['mosaic_total_width']) ? esc_html(stripslashes($_POST['mosaic_total_width'])) : 100);
+
     $image_column_number = (isset($_POST['image_column_number']) ? esc_html(stripslashes($_POST['image_column_number'])) : 5);
     $images_per_page = (isset($_POST['images_per_page']) ? esc_html(stripslashes($_POST['images_per_page'])) : 30);
     $thumb_width = (isset($_POST['thumb_width']) ? esc_html(stripslashes($_POST['thumb_width'])) : 120);
@@ -188,10 +193,14 @@ class BWGControllerOptions_bwg {
     $play_icon = (isset($_POST['play_icon']) ? esc_html(stripslashes($_POST['play_icon'])) : 1);
     $show_masonry_thumb_description = (isset($_POST['show_masonry_thumb_description']) ? esc_html(stripslashes($_POST['show_masonry_thumb_description'])) : 0);
     $popup_info_full_width = (isset($_POST['popup_info_full_width']) ? esc_html(stripslashes($_POST['popup_info_full_width'])) : 0);
+		$show_sort_images = (isset($_POST['show_sort_images']) ? esc_html(stripslashes($_POST['show_sort_images'])) : 0);
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
       'masonry' => $masonry,
+      'mosaic' => $mosaic,
+      'resizable_mosaic' => $resizable_mosaic,
+      'mosaic_total_width'=> $mosaic_total_width,
       'image_column_number' => $image_column_number,
       'images_per_page' => $images_per_page,
       'thumb_width' => $thumb_width,
@@ -296,6 +305,7 @@ class BWGControllerOptions_bwg {
       'play_icon' => $play_icon,
       'show_masonry_thumb_description' => $show_masonry_thumb_description,
       'popup_info_full_width' => $popup_info_full_width,
+      'show_sort_images' => $show_sort_images,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      

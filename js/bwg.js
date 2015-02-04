@@ -891,9 +891,11 @@ function bwg_change_theme_type(type) {
   var button_name = jQuery("#button_name").val();
   jQuery("#Thumbnail").hide();
   jQuery("#Masonry").hide();
+  jQuery("#Mosaic").hide();
   jQuery("#Slideshow").hide();
   jQuery("#Compact_album").hide();
   jQuery("#Extended_album").hide();
+  jQuery("#Masonry_album").hide();
   jQuery("#Image_browser").hide();
   jQuery("#Blog_style").hide();
   jQuery("#Lightbox").hide();
@@ -905,9 +907,11 @@ function bwg_change_theme_type(type) {
 
   jQuery("#type_Thumbnail").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Masonry").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
+  jQuery("#type_Mosaic").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
   jQuery("#type_Slideshow").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Compact_album").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Extended_album").attr("style", "background-color: #F4F4F4;");
+  jQuery("#type_Masonry_album").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
   jQuery("#type_Image_browser").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Blog_style").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
   jQuery("#type_Lightbox").attr("style", "background-color: #F4F4F4;");

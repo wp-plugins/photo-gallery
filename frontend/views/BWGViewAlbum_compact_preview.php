@@ -79,6 +79,9 @@ class BWGViewAlbum_compact_preview {
     if (!isset($params['order_by'])) {
       $params['order_by'] = ' ASC ';
     }
+    if (!isset($params['show_sort_images'])) {
+      $params['show_sort_images'] = 0;
+    }
     $options_row = $this->model->get_options_row_data();
     if (!isset($params['show_album_name'])) {
       $params['show_album_name'] = $options_row->show_album_name;
@@ -151,6 +154,18 @@ class BWGViewAlbum_compact_preview {
     if ($type == 'gallery') {
       $items_per_page = $params['compuct_album_images_per_page'];
       $items_col_num = $params['compuct_album_image_column_number'];
+      if (isset($_POST['sortImagesByValue_' . $bwg])) {
+        $sort_by = esc_html($_POST['sortImagesByValue_' . $bwg]);
+        if ($sort_by == 'random') {
+          $params['sort_by'] = 'RAND()';
+        }
+        else if ($sort_by == 'default')  {
+          $params['sort_by'] = $params['sort_by'];
+        }
+        else {
+          $params['sort_by'] = $sort_by;
+        }
+      }
       $image_rows = $this->model->get_image_rows_data($album_gallery_id, $items_per_page, $params['sort_by'], $bwg, $sort_direction);
       $images_count = count($image_rows);
       if (!$image_rows) {
@@ -520,6 +535,9 @@ class BWGViewAlbum_compact_preview {
           if ($params['show_search_box'] && $type == 'gallery') {
             WDWLibrary::ajax_html_frontend_search_box('gal_front_form_' . $bwg, $bwg, $album_gallery_div_id, $images_count, $params['search_box_width']);
           }
+          if (isset($params['show_sort_images']) && $params['show_sort_images'] && $type == 'gallery') {
+            WDWLibrary::ajax_html_frontend_sort_box('gal_front_form_' . $bwg, $bwg, $album_gallery_div_id, $params['sort_by'], $params['search_box_width']);
+          }
           ?>
           <div id="<?php echo $form_child_div_id; ?>" style="<?php echo $form_child_div_style; ?>">
             <div id="ajax_loading_<?php echo $bwg; ?>" style="position:absolute;width: 100%; z-index: 115; text-align: center; height: 100%; vertical-align: middle; display: none;">
@@ -606,7 +624,7 @@ class BWGViewAlbum_compact_preview {
                   $thumb_top = ($params['compuct_album_thumb_height'] - $image_thumb_height) / 2;
                   if ($type != 'gallery') {
                     ?>
-                    <a style="font-size: 0;" <?php echo ($from !== "widget" ? "onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_compact_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "', '', '" . htmlspecialchars(addslashes($title)) . "')\"" : "href='" . $permalink . "'") ?>>
+                    <a style="font-size: 0;" <?php echo ($from !== "widget" ? "onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_compact_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "', '', '" . htmlspecialchars(addslashes($title)) . "', 'default')\"" : "href='" . $permalink . "'") ?>>
                       <span class="bwg_album_thumb_<?php echo $bwg; ?>">
                         <?php
                         if ($params['compuct_album_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top') {

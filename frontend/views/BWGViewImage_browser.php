@@ -474,7 +474,7 @@ class BWGViewImage_browser {
                           <div class="bwg_image_browser_watermark_contain_<?php echo $bwg; ?>">
                             <div class="bwg_image_browser_watermark_cont_<?php echo $bwg; ?>">
                               <div <?php echo $watermark_div; ?> >
-                                <a class="bwg_none_selectable <?php echo $watermark_a; ?>" id="watermark_a<?php echo $image_row->id; ?>" href="<?php echo $params_array['watermark_link']; ?>" target="_blank">
+                                <a class="bwg_none_selectable <?php echo $watermark_a; ?>" id="watermark_a<?php echo $image_row->id; ?>" href="<?php echo urldecode($params_array['watermark_link']); ?>" target="_blank">
                                   <?php echo $watermark_image_or_text; ?>
                                 </a>
                               </div>
@@ -593,7 +593,6 @@ class BWGViewImage_browser {
         }
         ?>
       });
-      var bwg_current_url = '<?php echo add_query_arg($current_url, '', home_url($wp->request)); ?>';
     </script>
     <?php
     if ($from_shortcode) {

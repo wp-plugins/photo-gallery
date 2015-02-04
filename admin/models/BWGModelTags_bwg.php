@@ -10,10 +10,21 @@ class BWGModelTags_bwg {
   ////////////////////////////////////////////////////////////////////////////////////////
   // Variables                                                                          //
   ////////////////////////////////////////////////////////////////////////////////////////
+  private $per_page = 20;
   ////////////////////////////////////////////////////////////////////////////////////////
   // Constructor & Destructor                                                           //
   ////////////////////////////////////////////////////////////////////////////////////////
   public function __construct() {
+    $user = get_current_user_id();
+    $screen = get_current_screen();
+    $option = $screen->get_option('per_page', 'option');
+    
+    
+    $this->per_page = get_user_meta($user, $option, true);
+    
+    if ( empty ( $this->per_page) || $this->per_page < 1 ) {
+      $this->per_page = $screen->get_option( 'per_page', 'default' );
+    }
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Public Methods                                                                     //
@@ -25,12 +36,12 @@ class BWGModelTags_bwg {
     $asc_or_desc = ($asc_or_desc != 'asc') ? 'desc' : 'asc';
     $order_by = ' ORDER BY ' . ((isset($_POST['order_by']) && esc_html(stripslashes($_POST['order_by'])) != '') ? esc_html(stripslashes($_POST['order_by'])) : 'A.term_id') . ' ' . $asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
-      $limit = ((int) $_POST['page_number'] - 1) * 20;
+      $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }
     else {
       $limit = 0;
     }
-    $query ="SELECT * FROM ".$wpdb->prefix."terms as A LEFT JOIN ".$wpdb->prefix ."term_taxonomy as B ON A.term_id = B.term_id WHERE B.taxonomy ='bwg_tag' " . $where . $order_by . " LIMIT " . $limit . ",20"; 
+    $query ="SELECT * FROM ".$wpdb->prefix."terms as A LEFT JOIN ".$wpdb->prefix ."term_taxonomy as B ON A.term_id = B.term_id WHERE B.taxonomy ='bwg_tag' " . $where . $order_by . " LIMIT " . $limit . ",".$this->per_page;
     $rows = $wpdb->get_results($query);
     return $rows;
   }
@@ -42,12 +53,12 @@ class BWGModelTags_bwg {
     $total = $wpdb->get_var($query);
     $page_nav['total'] = $total;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
-      $limit = ((int) $_POST['page_number'] - 1) * 20;
+      $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }
     else {
       $limit = 0;
     }
-    $page_nav['limit'] = (int) ($limit / 20 + 1);
+    $page_nav['limit'] = (int) ($limit / $this->per_page + 1);
     return $page_nav;
   }
   
@@ -60,6 +71,10 @@ class BWGModelTags_bwg {
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////
+  public function per_page(){
+    return $this->per_page;
+
+  }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Private Methods                                                                    //
   ////////////////////////////////////////////////////////////////////////////////////////

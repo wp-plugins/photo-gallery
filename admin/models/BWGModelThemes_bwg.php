@@ -10,10 +10,20 @@ class BWGModelThemes_bwg {
   ////////////////////////////////////////////////////////////////////////////////////////
   // Variables                                                                          //
   ////////////////////////////////////////////////////////////////////////////////////////
+  private $per_page = 20;
   ////////////////////////////////////////////////////////////////////////////////////////
   // Constructor & Destructor                                                           //
   ////////////////////////////////////////////////////////////////////////////////////////
   public function __construct() {
+    $user = get_current_user_id();
+    $screen = get_current_screen();
+    $option = $screen->get_option('per_page', 'option');
+    
+    $this->per_page = get_user_meta($user, $option, true);
+    
+    if ( empty ( $this->per_page) || $this->per_page < 1 ) {
+      $this->per_page = $screen->get_option( 'per_page', 'default' );
+    }
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Public Methods                                                                     //
@@ -25,12 +35,12 @@ class BWGModelThemes_bwg {
     $asc_or_desc = ($asc_or_desc != 'asc') ? 'desc' : 'asc';
     $order_by = ' ORDER BY ' . ((isset($_POST['order_by']) && esc_html($_POST['order_by']) != '') ? esc_html($_POST['order_by']) : 'id') . ' ' . $asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
-      $limit = ((int) $_POST['page_number'] - 1) * 20;
+      $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }
     else {
       $limit = 0;
     }
-    $query = "SELECT * FROM " . $wpdb->prefix . "bwg_theme " . $where . $order_by . " LIMIT " . $limit . ",20";
+    $query = "SELECT * FROM " . $wpdb->prefix . "bwg_theme " . $where . $order_by . " LIMIT " . $limit . ",".$this->per_page;
     $rows = $wpdb->get_results($query);
     return $rows;
   }
@@ -259,6 +269,34 @@ class BWGModelThemes_bwg {
           $row->album_extended_desc_more_color = 'F2D22E';
           $row->album_extended_desc_more_size = 12;
 
+					$row->album_masonry_back_font_color = '000000';
+          $row->album_masonry_back_font_style = 'segoe ui';
+          $row->album_masonry_back_font_size = 16;
+          $row->album_masonry_back_font_weight = 'bold';
+          $row->album_masonry_back_padding = '0';
+          $row->album_masonry_title_font_color = 'CCCCCC';
+          $row->album_masonry_title_font_style = 'segoe ui'; 
+          $row->album_masonry_thumb_title_pos = 'bottom';
+          $row->album_masonry_title_font_size = 16;
+          $row->album_masonry_title_font_weight = 'bold';
+          $row->album_masonry_title_margin = '2px';
+          $row->album_masonry_title_shadow = '0px 0px 0px #888888';
+          $row->album_masonry_thumb_margin = 4;
+          $row->album_masonry_thumb_padding = 0;
+          $row->album_masonry_thumb_border_radius = '0';
+          $row->album_masonry_thumb_border_width = 0;
+          $row->album_masonry_thumb_border_style = 'none';
+          $row->album_masonry_thumb_border_color = 'CCCCCC';
+          $row->album_masonry_thumb_bg_color = 'FFFFFF';
+          $row->album_masonry_thumbs_bg_color = 'FFFFFF';
+          $row->album_masonry_thumb_bg_transparent = 0;
+          $row->album_masonry_thumb_box_shadow = '0px 0px 0px #888888';
+          $row->album_masonry_thumb_transparent = 100;
+          $row->album_masonry_thumb_align = 'left';
+          $row->album_masonry_thumb_hover_effect = 'scale';
+          $row->album_masonry_thumb_hover_effect_value = '1.1';
+          $row->album_masonry_thumb_transition = 0;
+
           $row->masonry_thumb_padding = 4;
           $row->masonry_thumb_border_radius = '0';
           $row->masonry_thumb_border_width = 0;
@@ -275,6 +313,25 @@ class BWGModelThemes_bwg {
 					$row->masonry_description_color = 'CCCCCC';
 					$row->masonry_description_font_style = 'segoe ui';
 
+          $row->mosaic_thumb_padding = 4;
+          $row->mosaic_thumb_border_radius = '0';
+          $row->mosaic_thumb_border_width = 0;
+          $row->mosaic_thumb_border_style = 'none';
+          $row->mosaic_thumb_border_color = 'CCCCCC';
+          $row->mosaic_thumbs_bg_color = 'FFFFFF';
+          $row->mosaic_thumb_bg_transparent = 0;
+          $row->mosaic_thumb_transparent = 100;
+          $row->mosaic_thumb_align = 'left';
+          $row->mosaic_thumb_hover_effect = 'scale';
+          $row->mosaic_thumb_hover_effect_value = '1.1';
+          
+
+          $row->mosaic_thumb_title_font_size = 16;
+          $row->mosaic_thumb_title_font_color = 'CCCCCC';
+          $row->mosaic_thumb_title_font_style = 'segoe ui';          
+          $row->mosaic_thumb_title_font_weight = 'bold';
+          $row->mosaic_thumb_title_shadow = '0px 0px 0px #888888';
+          $row->mosaic_thumb_title_margin = '2px';
           $row->slideshow_cont_bg_color = '000000';
           $row->slideshow_close_btn_transparent = 100;
           $row->slideshow_rl_btn_bg_color = '000000';
@@ -436,17 +493,21 @@ class BWGModelThemes_bwg {
     $total = $wpdb->get_var($query);
     $page_nav['total'] = $total;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
-      $limit = ((int) $_POST['page_number'] - 1) * 20;
+      $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }
     else {
       $limit = 0;
     }
-    $page_nav['limit'] = (int) ($limit / 20 + 1);
+    $page_nav['limit'] = (int) ($limit / $this->per_page + 1);
     return $page_nav;
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////
+  public function per_page(){
+    return $this->per_page;
+
+  }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Private Methods                                                                    //
   ////////////////////////////////////////////////////////////////////////////////////////

@@ -73,6 +73,9 @@ class BWGViewThumbnails {
     if (!isset($params['popup_hit_counter'])) {
       $params['popup_hit_counter'] = 0;
     }
+    if (!isset($params['show_sort_images'])) {
+      $params['show_sort_images'] = 0;
+    }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $sort_direction = ' ' . $params['order_by'] . ' ';
     $options_row = $this->model->get_options_row_data();
@@ -127,6 +130,18 @@ class BWGViewThumbnails {
       $params['thumb_click_action'] = $options_row->thumb_click_action;
       $params['thumb_link_target'] = $options_row->thumb_link_target;
     }
+    if (isset($_POST['sortImagesByValue_' . $bwg])) {
+			$sort_by = esc_html($_POST['sortImagesByValue_' . $bwg]);
+			if ($sort_by == 'random') {
+				$params['sort_by'] = 'RAND()';
+			}
+			else if ($sort_by == 'default')  {
+				$params['sort_by'] = $params['sort_by'];
+			}
+			else {
+				$params['sort_by'] = $sort_by;
+			}
+		}
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
     if (!$theme_row) {
       echo WDWLibrary::message(__('There is no theme selected or the theme was deleted.', 'bwg'), 'error');
@@ -356,6 +371,9 @@ class BWGViewThumbnails {
           if ($params['show_search_box']) {
             WDWLibrary::ajax_html_frontend_search_box('gal_front_form_' . $bwg, $bwg, 'bwg_standart_thumbnails_' . $bwg, $images_count, $params['search_box_width']);
           }
+          if (isset($params['show_sort_images']) && $params['show_sort_images']) {
+            WDWLibrary::ajax_html_frontend_sort_box('gal_front_form_' . $bwg, $bwg, 'bwg_standart_thumbnails_' . $bwg, $params['sort_by'], $params['search_box_width']);
+          }
           ?>
           <div class="bwg_back_<?php echo $bwg; ?>"><?php echo $options_row->showthumbs_name ? $gallery_row->name : ''; ?></div>
           <div style="background-color:rgba(0, 0, 0, 0); text-align: <?php echo $theme_row->thumb_align; ?>; width:100%; position: relative;">
@@ -506,7 +524,6 @@ class BWGViewThumbnails {
       </div>
     </div>
     <script>
-      var bwg_current_url = '<?php echo add_query_arg($current_url, '', home_url($wp->request)); ?>';
     </script>
     <?php
     if ($from_shortcode) {

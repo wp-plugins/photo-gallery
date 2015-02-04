@@ -184,7 +184,17 @@ class BWGViewOptions_bwg {
                   <input type="radio" name="show_search_box" id="show_search_box_0" value="0" <?php if (!$row->show_search_box) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_search_box_width', 'show_search_box_0')" /><label for="show_search_box_0">No</label>
                  <div class="spider_description"></div>
                 </td>
-              </tr>	
+              </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label>Show "Order by" dropdown list:</label>
+                </td>
+                <td>
+                  <input type="radio" name="show_sort_images" id="show_sort_images_1" value="1" <?php if ($row->show_sort_images) echo 'checked="checked"'; ?> /><label for="show_sort_images_1">Yes</label>
+                  <input type="radio" name="show_sort_images" id="show_sort_images_0" value="0" <?php if (!$row->show_sort_images) echo 'checked="checked"'; ?> /><label for="show_sort_images_0">No</label>
+                 <div class="spider_description"></div>
+                </td>
+              </tr>
               <tr id="tr_search_box_width">
                 <td class="spider_label_options">
                   <label for="search_box_width">Search box width: </label>
@@ -1145,7 +1155,36 @@ class BWGViewOptions_bwg {
                   <input type="radio" name="masonry" id="masonry_0" value="vertical" <?php if ($row->masonry == "vertical") echo 'checked="checked"'; ?> /><label for="masonry_0">Vertical</label>
                   <div class="spider_description"></div>
                 </td>
-              </tr>              
+              </tr>
+	      <tr style="display:none;">
+                <td class="spider_label_options">
+                  <label>Mosaic:</label>
+                </td>
+                <td>
+                  <input type="radio" name="mosaic" id="mosaic_0" value="vertical" <?php if ($row->mosaic == "vertical") echo 'checked="checked"'; ?> /><label for="mosaic_0">Vertical</label>
+                  <input type="radio" name="mosaic" id="mosaic_1" value="horizontal" <?php if ($row->mosaic == "horizontal") echo 'checked="checked"'; ?> /><label for="mosaic_1">Horizontal</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr style="display:none;">
+                <td class="spider_label_options">
+                  <label>Resizable mosaic:</label>
+                </td>
+                <td>
+                  <input type="radio" name="resizable_mosaic" id="resizable_mosaic_0" value="0" <?php if ($row->resizable_mosaic == "0") echo 'checked="checked"'; ?> /><label for="resizable_mosaic_0">No</label>
+                  <input type="radio" name="resizable_mosaic" id="resizable_mosaic_1" value="1" <?php if ($row->resizable_mosaic == "1") echo 'checked="checked"'; ?> /><label for="resizable_mosaic_1">Yes</label>
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
+              <tr style="display:none;">
+                <td class="spider_label_options">
+                  <label for="mosaic_total_width">Total width of mosaic: </label>
+                </td>
+                <td>
+                  <input type="text" name="mosaic_total_width" id="mosaic_total_width" value="<?php echo $row->mosaic_total_width; ?>" class="spider_int_input" /> %
+                  <div class="spider_description">Width of mosaic as a percentage of container's width.</div>
+                </td>
+              </tr>
               <tr>
                 <td class="spider_label_options">
                   <label for="image_column_number">Number of image columns: </label>

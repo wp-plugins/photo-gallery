@@ -30,6 +30,7 @@ class BWGViewAddAlbumsGalleries {
     $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
     $order_by = (isset($_POST['order_by']) ? esc_html(stripslashes($_POST['order_by'])) : 'name');
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
+    $per_page = $this->model->per_page();
     wp_print_scripts('jquery');
     ?>
     <link media="all" type="text/css" href="<?php echo get_admin_url(); ?>load-styles.php?c=1&amp;dir=ltr&amp;load=admin-bar,dashicons,wp-admin,buttons,wp-auth-check" rel="stylesheet">
@@ -38,7 +39,7 @@ class BWGViewAddAlbumsGalleries {
     <?php } ?>
     <link media="all" type="text/css" href="<?php echo WD_BWG_URL . '/css/bwg_tables.css'; ?>" id="spider_audio_player_tables-css" rel="stylesheet">
     <script src="<?php echo WD_BWG_URL . '/js/bwg.js'; ?>" type="text/javascript"></script>
-    <form class="wrap wp-core-ui" id="albums_galleries_form" method="post" action="<?php echo add_query_arg(array('action' => 'addAlbumsGalleries', 'width' => '700', 'height' => '550', 'callback' => 'bwg_add_items', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" style="width:95%; margin: 0 auto;">
+    <form class="wrap wp-core-ui" id="albums_galleries_form" method="post" action="<?php echo add_query_arg(array('action' => 'addAlbumsGalleries', 'width' => '700', 'height' => '550', 'callback' => 'bwg_add_items', 'bwg_items_per_page'=>$per_page , 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" style="width:95%; margin: 0 auto;">
       <h2 style="width:200px;float:left">Albums/Galleries</h2>
       <a href="" class="thickbox thickbox-preview" id="content-add_media" title="Add Album/Gallery" onclick="spider_get_items(event);" style="float:right; padding: 9px 0px 4px 0">
         <img src="<?php echo WD_BWG_URL . '/images/add_but.png'; ?>" style="border:none;" />
@@ -46,7 +47,7 @@ class BWGViewAddAlbumsGalleries {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Name', $search_value, 'albums_galleries_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'albums_galleries_form');
+        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'albums_galleries_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">

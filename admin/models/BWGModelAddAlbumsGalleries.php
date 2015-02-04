@@ -10,10 +10,12 @@ class BWGModelAddAlbumsGalleries {
   ////////////////////////////////////////////////////////////////////////////////////////
   // Variables                                                                          //
   ////////////////////////////////////////////////////////////////////////////////////////
+  private $per_page = 20;
   ////////////////////////////////////////////////////////////////////////////////////////
   // Constructor & Destructor                                                           //
   ////////////////////////////////////////////////////////////////////////////////////////
   public function __construct() {
+    $this->per_page = ((isset($_GET['bwg_items_per_page'])) ? esc_html($_GET['bwg_items_per_page']) : ((isset($_POST['bwg_items_per_page'])) ? esc_html($_POST['bwg_items_per_page']) : 20));
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Public Methods                                                                     //
@@ -26,12 +28,12 @@ class BWGModelAddAlbumsGalleries {
     $asc_or_desc = ($asc_or_desc != 'asc') ? 'desc' : 'asc';
     $order_by = ' ORDER BY ' . ((isset($_POST['order_by']) && esc_html(stripslashes($_POST['order_by'])) != '') ? esc_html(stripslashes($_POST['order_by'])) : 'name') . ' ' . $asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
-      $limit = ((int) $_POST['page_number'] - 1) * 20;
+      $limit = ((int) $_POST['page_number'] - 1)  * $this->per_page;
     }
     else {
       $limit = 0;
     }
-    $query = "SELECT id, name, 1 as is_album FROM " . $wpdb->prefix . "bwg_album WHERE published=1 AND id<>" . $album_id . " " . $where . " UNION ALL SELECT id, name, 0 as is_album FROM " . $wpdb->prefix . "bwg_gallery WHERE published=1 " . $where . $order_by . " LIMIT " . $limit . ",20";
+    $query = "SELECT id, name, 1 as is_album FROM " . $wpdb->prefix . "bwg_album WHERE published=1 AND id<>" . $album_id . " " . $where . " UNION ALL SELECT id, name, 0 as is_album FROM " . $wpdb->prefix . "bwg_gallery WHERE published=1 " . $where . $order_by . " LIMIT " . $limit . ",".$this->per_page;
     $rows = $wpdb->get_results($query);
     return $rows;
   }
@@ -43,17 +45,21 @@ class BWGModelAddAlbumsGalleries {
     $total = count($wpdb->get_col($query));
     $page_nav['total'] = $total;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
-      $limit = ((int) $_POST['page_number'] - 1) * 20;
+      $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }
     else {
       $limit = 0;
     }
-    $page_nav['limit'] = (int) ($limit / 20 + 1);
+    $page_nav['limit'] = (int) ($limit / $this->per_page + 1);
     return $page_nav;
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////
+  public function per_page(){
+    return $this->per_page;
+
+  }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Private Methods                                                                    //
   ////////////////////////////////////////////////////////////////////////////////////////

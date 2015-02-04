@@ -628,7 +628,6 @@ class UploadHandler {
      }
    }
 
-
     protected function handle_directory($target_dir) {
       $extracted_files = scandir($target_dir);
       if ($extracted_files) {

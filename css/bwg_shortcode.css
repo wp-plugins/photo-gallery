@@ -1,7 +1,7 @@
 .gallery_type {
   border: 1px solid #CCCCCC;
   display: inline-block;
-  width: 11.7%;
+  width: 10.5%;
 }
 
 .gallery_type img {
@@ -12,7 +12,7 @@
 .panel_wrapper #display_panel {
   height: 450px !important;
   overflow: auto;
-  font-size: 11px;
+  font-size: 9px;
 }
 
 .bwg_short_div * {

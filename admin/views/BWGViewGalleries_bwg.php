@@ -32,6 +32,7 @@ class BWGViewGalleries_bwg {
     $order_by = (isset($_POST['order_by']) ? esc_html(stripslashes($_POST['order_by'])) : 'order');
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
+    $per_page = $this->model->per_page();
     ?>
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
@@ -70,7 +71,7 @@ class BWGViewGalleries_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Name', $search_value, 'galleries_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form');
+        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">
@@ -201,6 +202,7 @@ class BWGViewGalleries_bwg {
     $row = $this->model->get_row_data($id);
     $option_row = $this->model->get_option_row_data();
     $page_title = (($id != 0) ? 'Edit gallery ' . $row->name : 'Create new gallery');
+    $per_page = $this->model->per_page();
     ?>
     <div style="clear: both; float: left; width: 99%;">
       <div id="message_div" class="updated" style="display: none;"></div>
@@ -438,7 +440,7 @@ class BWGViewGalleries_bwg {
           tr.appendChild(td_tag);
           var a_tag = document.createElement('a');
           a_tag.setAttribute('class', "button button-small button-primary thickbox thickbox-preview");
-          a_tag.setAttribute('href', "<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500'), admin_url('admin-ajax.php')); ?>&image_id=" + bwg_j + "&TB_iframe=1");
+          a_tag.setAttribute('href', "<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500', 'bwg_items_per_page' => $per_page), admin_url('admin-ajax.php')); ?>&image_id=" + bwg_j + "&TB_iframe=1");
           a_tag.innerHTML = 'Add tag';
           td_tag.appendChild(a_tag);
           var div_tag = document.createElement('div');
@@ -604,6 +606,7 @@ class BWGViewGalleries_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $page_number = (isset($_POST['page_number']) ? esc_html(stripslashes($_POST['page_number'])) : 1);
     $ids_string = '';
+    $per_page = $this->model->per_page();
     ?>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table should be saved.</p></strong></div>
       <div class="buttons_div_left">
@@ -625,7 +628,7 @@ class BWGViewGalleries_bwg {
         <input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_recover_all');
                                                              spider_ajax_save('galleries_form');
                                                              return false;" value="Reset" />
-        <a onclick="return bwg_check_checkboxes();" href="<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500'), admin_url('admin-ajax.php')); ?>&TB_iframe=1" class="button-primary thickbox thickbox-preview">Add tag</a>
+        <a onclick="return bwg_check_checkboxes();" href="<?php echo add_query_arg(array('action' => 'addTags', 'width' => '650', 'height' => '500', 'bwg_items_per_page' => $per_page ), admin_url('admin-ajax.php')); ?>&TB_iframe=1" class="button-primary thickbox thickbox-preview">Add tag</a>
         <input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'image_publish_all');
                                                      spider_ajax_save('galleries_form');
                                                      return false;" value="Publish" />
@@ -661,7 +664,7 @@ class BWGViewGalleries_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::ajax_search('Filename', $search_value, 'galleries_form');
-        WDWLibrary::ajax_html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form');
+        WDWLibrary::ajax_html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form', $per_page);
         ?>
       </div>
 
@@ -716,7 +719,7 @@ class BWGViewGalleries_bwg {
         </thead>
         <tbody id="tbody_arr">
           <?php
-          $i = ($page_number - 1) * 20;
+          $i = ($page_number - 1) * $per_page;
           if ($rows_data) {
             foreach ($rows_data as $row_data) {
               $is_video = $row_data->filetype == 'YOUTUBE' || $row_data->filetype == 'VIMEO';
@@ -772,7 +775,7 @@ class BWGViewGalleries_bwg {
                   <textarea cols="20" rows="2" id="image_description_<?php echo $row_data->id; ?>" name="image_description_<?php echo $row_data->id; ?>" style="resize:vertical;"><?php echo $row_data->description; ?></textarea>
                 </td>
                 <td class="table_extra_large_col">
-                  <a href="<?php echo add_query_arg(array('action' => 'addTags', 'image_id' => $row_data->id, 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" class="button button-small button-primary thickbox thickbox-preview">Add tag</a>
+                  <a href="<?php echo add_query_arg(array('action' => 'addTags', 'image_id' => $row_data->id, 'width' => '650', 'height' => '500', 'bwg_items_per_page' => $per_page , 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" class="button button-small button-primary thickbox thickbox-preview">Add tag</a>
                   <div class="tags_div" id="tags_div_<?php echo $row_data->id; ?>">
                   <?php
                   $tags_id_string = '';

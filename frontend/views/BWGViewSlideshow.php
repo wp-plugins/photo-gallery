@@ -721,7 +721,7 @@ class BWGViewSlideshow {
                   <?php
                   if ($watermark_type == 'image') {
                   ?>
-                  <a href="<?php echo $watermark_link; ?>" target="_blank">
+                  <a href="<?php echo urldecode($watermark_link); ?>" target="_blank">
                     <img class="bwg_slideshow_watermark_image_<?php echo $bwg; ?> bwg_slideshow_watermark_<?php echo $bwg; ?>" src="<?php echo $watermark_url; ?>" />
                   </a>
                   <?php

@@ -118,6 +118,10 @@ class BWGViewBWGShortcode {
                   <div style="text-align: center;"><input disabled="disabled" type="radio" id="thumbnails_masonry" name="gallery_type" value="thumbnails_masonry" /><label class="spider_free_version_label" for="thumbnails_masonry">Masonry</label></div>
                   <label><img style="opacity:0.5; filter: Alpha(opacity=50);" disabled="disabled" src="<?php echo WD_BWG_URL . '/images/thumbnails_masonry.jpg'; ?>" /></label>
                 </span>
+		<span title="This view is disabled in free version." class="gallery_type">
+                  <div style="text-align: center;"><input disabled="disabled" type="radio" id="thumbnails_mosaic" name="gallery_type" value="thumbnails_mosaic" /><label class="spider_free_version_label" for="thumbnails_mosaic">Mosaic</label></div>
+                  <label for="thumbnails_mosaic"><img style="opacity:0.5; filter: Alpha(opacity=50);" disabled="disabled" src="<?php echo WD_BWG_URL . '/images/thumbnails_mosaic.jpg'; ?>" /></label>
+                </span>
                 <span class="gallery_type" onClick="bwg_gallery_type('slideshow')">
                   <div style="text-align: center;"><input type="radio" id="slideshow" name="gallery_type" value="slideshow" /><label for="slideshow">Slideshow</label></div>
                   <label for="slideshow"><img src="<?php echo WD_BWG_URL . '/images/slideshow.jpg'; ?>" /></label>
@@ -220,6 +224,15 @@ class BWGViewBWGShortcode {
                       <input type="radio" name="show_search_box" id="show_search_box_0" value="0" <?php if (!$option_row->show_search_box) echo 'checked="checked"'; ?> onchange="bwg_show_search_box()" /><label for="show_search_box_0">No</label>
                     </td>
                   </tr>
+									
+									<tr id="tr_show_sort_images">
+                    <td class="spider_label"><label>Show "Order by" dropdown list: </label></td>
+                    <td>
+                      <input type="radio" name="show_sort_images" id="show_sort_images_1" value="1" <?php if ($option_row->show_sort_images) echo 'checked="checked"'; ?> onchange="" /><label for="show_sort_images_1">Yes</label>
+                      <input type="radio" name="show_sort_images" id="show_sort_images_0" value="0" <?php if (!$option_row->show_sort_images) echo 'checked="checked"'; ?> onchange="" /><label for="show_sort_images_0">No</label>
+                    </td>
+                  </tr>
+									
                   <tr id="tr_search_box_width">
                     <td class="spider_label"><label for="search_box_width">Search box width: </label></td>
                     <td><input type="text" name="search_box_width" id="search_box_width" value="<?php echo $option_row->search_box_width; ?>" class="spider_int_input" /> px</td>
@@ -240,6 +253,36 @@ class BWGViewBWGShortcode {
                                                                                                             jQuery('#thumb_height').hide();
                                                                                                             jQuery('#thumb_width_height_separator').hide();" <?php echo ($option_row->masonry == 'vertical') ? 'checked' : ''; ?> /><label for="masonry_ver">Vertical</label>
                     </td>
+                  </tr>
+		  <!--Thumbnails, Mosaic viewies-->
+                  <tr id="tr_mosaic_hor_ver">
+                    <td class="spider_label"><label>Mosaic: </label></td>
+                    <td>
+                      <input type="radio" name="mosaic_hor_ver" id="mosaic_ver" value="vertical" onclick="bwg_change_label('image_column_number_label', 'Number of image rows: ');
+                                                                                                            bwg_change_label('thumb_width_height_label', 'Image thumbnail width: ');
+                                                                                                            jQuery('#thumb_width').show();
+                                                                                                            jQuery('#thumb_height').hide();
+                                                                                                            jQuery('#thumb_width_height_separator').hide();" <?php echo ($option_row->mosaic == 'vertical') ? 'checked' : ''; ?> /><label for="mosaic_ver">Vertical</label>
+                      <input type="radio" name="mosaic_hor_ver" id="mosaic_hor" value="horizontal" onclick="bwg_change_label('image_column_number_label', 'Max. number of image columns: ');
+                                                                                                              bwg_change_label('thumb_width_height_label', 'Image Thumbnail Height: ');
+                                                                                                              jQuery('#thumb_width').hide();
+                                                                                                              jQuery('#thumb_height').show();
+                                                                                                              jQuery('#thumb_width_height_separator').hide();" <?php echo ($option_row->mosaic == 'horizontal') ? 'checked' : ''; ?> /><label for="mosaic_hor">Horizontal</label>
+                    
+                  
+                    </td>
+                  </tr>
+                  <tr id="tr_resizable_mosaic">
+                    <td title="Mosaic thumbnails do not have fixed size, but are proportional to the width of the parent container. This option keeps thumbs to look nice when viewed with very large or very small screen. Prevents zooming of thumbs." class="spider_label"><label for="resizable_mosaic">Resizable mosaic</label></td>
+                    <td>
+                      <input type="radio" name="resizable_mosaic" id="resizable_mosaic_1" value="1" <?php echo ($option_row->resizable_mosaic == 1) ? 'checked' : ''; ?> /><label for="resizable_mosaic_1">Yes</label>
+                      <input type="radio" name="resizable_mosaic" id="resizable_mosaic_0" value="0" <?php echo ($option_row->resizable_mosaic == 0) ? 'checked' : ''; ?> /><label for="resizable_mosaic_0">No</label>
+                      <br />
+                    </td>
+                  </tr>
+                  <tr id="tr_mosaic_total_width">
+                    <td title="Percentage of container's width" class="spider_label"><label for="mosaic_total_width">Total width of mosaic: </label></td>
+                    <td><input type="text" name="mosaic_total_width" id="mosaic_total_width" value="<?php echo $option_row->mosaic_total_width; ?>" class="spider_int_input" /> %</td>
                   </tr>
                   <tr id="tr_image_column_number">
                     <td class="spider_label"><label id="image_column_number_label" for="image_column_number">Max. number of image columns: </label></td>
@@ -289,19 +332,49 @@ class BWGViewBWGShortcode {
                       <input type="radio" name="compuct_album_title" id="compuct_album_title_none" value="none" <?php echo ($option_row->album_title_show_hover == 'none') ? 'checked' : ''; ?> /><label for="compuct_album_title_none">Don't show</label>
                     </td>
                   </tr>
-                  <tr id="tr_compuct_album_view_type">
-                    <td title="The gallery images view type in the album.<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Album view type: </label></td>
-                    <td>
-                      <input disabled="disabled" type="radio" name="compuct_album_view_type" id="compuct_album_view_type_1" value="thumbnail" <?php if ($option_row->album_view_type == "thumbnail") echo 'checked="checked"'; ?> onchange="bwg_change_compuct_album_view_type()" /><label for="compuct_album_view_type_1">Thumbnail</label>
-                      <input disabled="disabled" type="radio" name="compuct_album_view_type" id="compuct_album_view_type_0" value="masonry" <?php if ($option_row->album_view_type == "masonry") echo 'checked="checked"'; ?> onchange="bwg_change_compuct_album_view_type()" /><label for="compuct_album_view_type_0">Masonry</label>
-                    </td>
-                  </tr>
-                  <tr id="tr_compuct_album_thumb_width_height">
+		  <tr id="tr_compuct_album_thumb_width_height">
                     <td title="Maximum values for album thumb width and height." class="spider_label"><label for="compuct_album_thumb_width">Album Thumbnail dimensions: </label></td>
                     <td>
                       <input type="text" name="compuct_album_thumb_width" id="compuct_album_thumb_width" value="<?php echo $option_row->album_thumb_width; ?>" class="spider_int_input" /> x 
                       <input type="text" name="compuct_album_thumb_height" id="compuct_album_thumb_height" value="<?php echo $option_row->album_thumb_height; ?>" class="spider_int_input" /> px
                     </td>
+                  </tr>
+                  <tr id="tr_compuct_album_view_type">
+                    <td title="The gallery images view type in the album.<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Album view type: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="compuct_album_view_type" id="compuct_album_view_type_1" value="thumbnail" <?php if ($option_row->album_view_type == "thumbnail") echo 'checked="checked"'; ?> onchange="bwg_change_compuct_album_view_type()" /><label for="compuct_album_view_type_1">Thumbnail</label>
+                      <input disabled="disabled" type="radio" name="compuct_album_view_type" id="compuct_album_view_type_0" value="masonry" <?php if ($option_row->album_view_type == "masonry") echo 'checked="checked"'; ?> onchange="bwg_change_compuct_album_view_type()" /><label for="compuct_album_view_type_0">Masonry</label>
+                      <input disabled="disabled" type="radio" name="compuct_album_view_type" id="compuct_album_view_type_2" value="mosaic" <?php if ($option_row->album_view_type == "mosaic") echo 'checked="checked"'; ?> onchange="bwg_change_compuct_album_view_type()" /><label for="compuct_album_view_type_2">Mosaic</label>
+                    </td>
+                  </tr>
+                  <tr id="tr_compuct_album_mosaic_hor_ver">
+                    <td title="This option is disabled in free version." class="spider_label spider_free_version_label"><label>Mosaic: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="compuct_album_mosaic_hor_ver" id="compuct_album_mosaic_ver" value="vertical" onclick="bwg_change_label('compuct_album_image_column_number', 'Number of image rows: ');
+                                                                                                            bwg_change_label('compuct_album_image_thumb_dimensions', 'Image thumbnail width: ');
+                                                                                                            jQuery('#compuct_album_image_thumb_width').show();
+                                                                                                            jQuery('#compuct_album_image_thumb_height').hide();
+                                                                                                            jQuery('#compuct_album_image_thumb_dimensions_x').hide();" <?php echo ($option_row->mosaic == 'vertical') ? 'checked' : ''; ?> /><label for="compuct_album_mosaic_ver">Vertical</label>
+                      <input disabled="disabled" type="radio" name="compuct_album_mosaic_hor_ver" id="compuct_album_mosaic_hor" value="horizontal" onclick="bwg_change_label('compuct_album_image_column_number', 'Max. number of image columns: ');
+                                                                                                              bwg_change_label('compuct_album_image_thumb_dimensions', 'Image thumbnail height: ');
+                                                                                                              jQuery('#compuct_album_image_thumb_width').hide();
+                                                                                                              jQuery('#compuct_album_image_thumb_height').show();
+                                                                                                              jQuery('#compuct_album_image_thumb_dimensions_x').hide();" <?php echo ($option_row->mosaic == 'horizontal') ? 'checked' : ''; ?> /><label for="compuct_album_mosaic_hor">Horizontal</label>
+                    
+                  
+                    </td>
+                  </tr>
+                  <tr id="tr_compuct_album_resizable_mosaic">
+                    <td title="Mosaic thumbnails do not have fixed size, but are proportional to the width of the parent container. This option keeps thumbs to look nice when viewed with very large or very small screen. Prevents zooming of thumbs.<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label for="compuct_album_resizable_mosaic">Resizable mosaic</label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="compuct_album_resizable_mosaic" id="compuct_album_resizable_mosaic_1" value="1" <?php echo ($option_row->resizable_mosaic == 1) ? 'checked' : ''; ?> /><label for="compuct_album_resizable_mosaic_1">Yes</label>
+                      <input disabled="disabled" type="radio" name="compuct_album_resizable_mosaic" id="compuct_album_resizable_mosaic_0" value="0" <?php echo ($option_row->resizable_mosaic == 0) ? 'checked' : ''; ?> /><label for="compuct_album_resizable_mosaic_0">No</label>
+                      <br />
+                    </td>
+                  </tr>
+                  <tr id="tr_compuct_album_mosaic_total_width">
+                    <td title="Percentage of container's width" class="spider_label"><label for="compuct_album_mosaic_total_width">Total width of mosaic: </label></td>
+                    <td><input type="text" name="compuct_album_mosaic_total_width" id="compuct_album_mosaic_total_width" value="<?php echo $option_row->mosaic_total_width; ?>" class="spider_int_input" /> percent</td>
                   </tr>
                   <tr id="tr_compuct_album_image_column_number">
                     <td class="spider_label"><label for="compuct_album_image_column_number">Max. number of image columns: </label></td>
@@ -350,19 +423,50 @@ class BWGViewBWGShortcode {
                       <input type="radio" name="extended_album_description_enable" id="extended_album_description_no" value="0" <?php echo ($option_row->extended_album_description_enable) ? '' : 'checked'; ?> /><label for="extended_album_description_no">No</label>
                     </td>
                   </tr>
-                  <tr id="tr_extended_album_view_type">
-                    <td title="The gallery images view type in the album.<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Album view type: </label></td>
-                    <td>
-                      <input disabled="disabled" type="radio" name="extended_album_view_type" id="extended_album_view_type_1" value="thumbnail" <?php if ($option_row->album_view_type == "thumbnail") echo 'checked="checked"'; ?> onchange="bwg_change_extended_album_view_type()" /><label for="extended_album_view_type_1">Thumbnail</label>
-                      <input disabled="disabled" type="radio" name="extended_album_view_type" id="extended_album_view_type_0" value="masonry" <?php if ($option_row->album_view_type == "masonry") echo 'checked="checked"'; ?> onchange="bwg_change_extended_album_view_type()" /><label for="extended_album_view_type_0">Masonry</label>
-                    </td>
-                  </tr>				  
-                  <tr id="tr_extended_album_thumb_width_height">
+		  <tr id="tr_extended_album_thumb_width_height">
                     <td title="Maximum values for album thumb width and height." class="spider_label"><label for="extended_album_thumb_width">Album thumbnail dimensions: </label></td>
                     <td>
                       <input type="text" name="extended_album_thumb_width" id="extended_album_thumb_width" value="<?php echo $option_row->album_thumb_width; ?>" class="spider_int_input" /> x 
                       <input type="text" name="extended_album_thumb_height" id="extended_album_thumb_height" value="<?php echo $option_row->album_thumb_height; ?>" class="spider_int_input" /> px
                     </td>
+                  </tr>
+                  <tr id="tr_extended_album_view_type">
+                    <td title="The gallery images view type in the album.<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label>Album view type: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="extended_album_view_type" id="extended_album_view_type_1" value="thumbnail" <?php if ($option_row->album_view_type == "thumbnail") echo 'checked="checked"'; ?> onchange="bwg_change_extended_album_view_type()" /><label for="extended_album_view_type_1">Thumbnail</label>
+                      <input disabled="disabled" type="radio" name="extended_album_view_type" id="extended_album_view_type_0" value="masonry" <?php if ($option_row->album_view_type == "masonry") echo 'checked="checked"'; ?> onchange="bwg_change_extended_album_view_type()" /><label for="extended_album_view_type_0">Masonry</label>
+                      <input disabled="disabled" type="radio" name="extended_album_view_type" id="extended_album_view_type_2" value="mosaic" <?php if ($option_row->album_view_type == "mosaic") echo 'checked="checked"'; ?> onchange="bwg_change_extended_album_view_type()" /><label for="extended_album_view_type_2">Mosaic</label>
+                    </td>
+                  </tr>				  
+                  <tr id="tr_extended_album_mosaic_hor_ver">
+                    <td title="This option is disabled in free version." class="spider_label spider_free_version_label"><label>Mosaic: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="extended_album_mosaic_hor_ver" id="extended_album_mosaic_ver" value="vertical" onclick="bwg_change_label('extended_album_image_column_number', 'Number of image rows: ');
+                                                                                                            bwg_change_label('extended_album_image_thumb_dimensions', 'Image thumbnail width: ');
+                                                                                                            jQuery('#extended_album_image_thumb_width').show();
+                                                                                                            jQuery('#extended_album_image_thumb_height').hide();
+                                                                                                            jQuery('#extended_album_image_thumb_dimensions_x').hide();" <?php echo ($option_row->mosaic == 'vertical') ? 'checked' : ''; ?> /><label for="extended_album_mosaic_ver">Vertical</label>
+                      <input disabled="disabled" type="radio" name="extended_album_mosaic_hor_ver" id="extended_album_mosaic_hor" value="horizontal" onclick="bwg_change_label('extended_album_image_column_number', 'Max. number of image columns: ');
+                                                                                                              bwg_change_label('extended_album_image_thumb_dimensions', 'Image thumbnail height: ');
+                                                                                                              jQuery('#extended_album_image_thumb_width').hide();
+                                                                                                              jQuery('#extended_album_image_thumb_height').show();
+                                                                                                              jQuery('#extended_album_image_thumb_dimensions_x').hide();" <?php echo ($option_row->mosaic == 'horizontal') ? 'checked' : ''; ?> /><label for="extended_album_mosaic_hor">Horizontal</label>
+                    
+                  
+                    </td>
+                  </tr>
+                  <tr id="tr_extended_album_resizable_mosaic">
+                    <td title="Mosaic thumbnails do not have fixed size, but are proportional to the width of the parent container. This option keeps thumbs to look nice when viewed with very large or very small screen. Prevents zooming of thumbs.<br /><br />This option is disabled in free version." class="spider_label spider_free_version_label"><label for="extended_album_resizable_mosaic">Resizable mosaic: </label></td>
+                    <td>
+                      <input disabled="disabled" type="radio" name="extended_album_resizable_mosaic" id="extended_album_resizable_mosaic_1" value="1" <?php echo ($option_row->resizable_mosaic == 1) ? 'checked' : ''; ?> /><label for="extended_album_resizable_mosaic_1">Yes</label>
+                      <input disabled="disabled" type="radio" name="extended_album_resizable_mosaic" id="extended_album_resizable_mosaic_0" value="0" <?php echo ($option_row->resizable_mosaic == 0) ? 'checked' : ''; ?> /><label for="extended_album_resizable_mosaic_0">No</label>
+                      <br />
+                    </td>
+                  </tr>
+                  
+                  <tr id="tr_extended_album_mosaic_total_width">
+                    <td title="Percentage of container's width" class="spider_label"><label for="extended_album_mosaic_total_width">Total width of mosaic: </label></td>
+                    <td><input type="text" name="extended_album_mosaic_total_width" id="extended_album_mosaic_total_width" value="<?php echo $option_row->mosaic_total_width; ?>" class="spider_int_input" /> percent</td>
                   </tr>
                   <tr id="tr_extended_album_image_column_number">
                     <td class="spider_label"><label for="extended_album_image_column_number">Max. number of image columns: </label></td>
@@ -968,6 +1072,12 @@ class BWGViewBWGShortcode {
                     jQuery("#show_search_box_0").attr('checked', 'checked');
                     jQuery("#tr_search_box_width").css('display', 'none');
                   }
+									if (short_code['show_sort_images'] == 1) {
+                    jQuery("#show_sort_images_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#show_sort_images_0").attr('checked', 'checked');
+                  }
                   if (short_code['search_box_width']) {
                     jQuery("#search_box_width").val(short_code['search_box_width']);
                   }
@@ -1104,6 +1214,12 @@ class BWGViewBWGShortcode {
                     jQuery("#show_search_box_0").attr('checked', 'checked');
                     jQuery("#tr_search_box_width").css('display', 'none');
                   }
+									if (short_code['show_sort_images'] == 1) {
+                    jQuery("#show_sort_images_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#show_sort_images_0").attr('checked', 'checked');
+                  }
                   if (short_code['search_box_width']) {
                     jQuery("#search_box_width").val(short_code['search_box_width']);
                   }
@@ -1126,9 +1242,25 @@ class BWGViewBWGShortcode {
                   if (short_code['compuct_album_view_type'] == 'thumbnail') {				  
                     jQuery("#compuct_album_view_type_1").attr('checked', 'checked');								  
                   }
-                  else { 
+                  else if (short_code['compuct_album_view_type'] == 'masonry'){ 
                     jQuery("#compuct_album_view_type_0").attr('checked', 'checked');
                   }
+                  else{
+                    jQuery("#compuct_album_view_type_2").attr('checked', 'checked');
+                  }
+                  if (short_code['compuct_album_mosaic_hor_ver'] == "vertical") {
+                    jQuery("#compuct_album_mosaic_ver").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#compuct_album_mosaic_hor").attr('checked', 'checked');
+                  }
+                  if (short_code['compuct_album_resizable_mosaic'] == 1) {
+                    jQuery("#compuct_album_resizable_mosaic_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#compuct_album_resizable_mosaic_0").attr('checked', 'checked');
+                  }
+                  jQuery("#compuct_album_mosaic_total_width").val(short_code['compuct_album_mosaic_total_width']);
                   break;
 
                 }
@@ -1148,6 +1280,12 @@ class BWGViewBWGShortcode {
                   else {
                     jQuery("#show_search_box_0").attr('checked', 'checked');
                     jQuery("#tr_search_box_width").css('display', 'none');
+                  }
+									if (short_code['show_sort_images'] == 1) {
+                    jQuery("#show_sort_images_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#show_sort_images_0").attr('checked', 'checked');
                   }
                   if (short_code['search_box_width']) {
                     jQuery("#search_box_width").val(short_code['search_box_width']);
@@ -1176,9 +1314,25 @@ class BWGViewBWGShortcode {
                   if (short_code['extended_album_view_type'] == 'thumbnail') {  
                     jQuery("#extended_album_view_type_1").attr('checked', 'checked');
                   }
-                  else {
+                  else if(short_code['extended_album_view_type'] == 'masonry'){
                     jQuery("#extended_album_view_type_0").attr('checked', 'checked');
                   }
+                  else{
+                    jQuery("#extended_album_view_type_2").attr('checked', 'checked');
+                  }
+                  if (short_code['extended_album_mosaic_hor_ver'] == "vertical") {
+                    jQuery("#extended_album_mosaic_ver").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#extended_album_mosaic_hor").attr('checked', 'checked');
+                  }
+                  if (short_code['extended_album_resizable_mosaic'] == 1) {
+                    jQuery("#extended_album_resizable_mosaic_1").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#extended_album_resizable_mosaic_0").attr('checked', 'checked');
+                  }
+                  jQuery("#extended_album_mosaic_total_width").val(short_code['extended_album_mosaic_total_width']);
                   break;
 
                 }
@@ -1384,6 +1538,7 @@ class BWGViewBWGShortcode {
                 tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
                 tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
                 tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
+                tagtext += ' show_sort_images="' + jQuery("input[name=show_sort_images]:checked").val() + '"';
                 tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' image_column_number="' + jQuery("#image_column_number").val() + '"';
                 tagtext += ' images_per_page="' + jQuery("#images_per_page").val() + '"';
@@ -1437,11 +1592,15 @@ class BWGViewBWGShortcode {
                 tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
                 tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
                 tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
+								tagtext += ' show_sort_images="' + jQuery("input[name=show_sort_images]:checked").val() + '"';
                 tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' compuct_album_column_number="' + jQuery("#compuct_album_column_number").val() + '"';
                 tagtext += ' compuct_albums_per_page="' + jQuery("#compuct_albums_per_page").val() + '"';
                 tagtext += ' compuct_album_title="' + jQuery("input[name=compuct_album_title]:checked").val() + '"';
                 tagtext += ' compuct_album_view_type="' + jQuery("input[name=compuct_album_view_type]:checked").val() + '"';
+                tagtext += ' compuct_album_mosaic_hor_ver="' + jQuery("input[name=compuct_album_mosaic_hor_ver]:checked").val() + '"';
+                tagtext += ' compuct_album_resizable_mosaic="' + jQuery("input[name=compuct_album_resizable_mosaic]:checked").val() + '"';
+                tagtext += ' compuct_album_mosaic_total_width="' + jQuery("#compuct_album_mosaic_total_width").val() + '"';
                 tagtext += ' compuct_album_thumb_width="' + jQuery("#compuct_album_thumb_width").val() + '"';
                 tagtext += ' compuct_album_thumb_height="' + jQuery("#compuct_album_thumb_height").val() + '"';
                 tagtext += ' compuct_album_image_column_number="' + jQuery("#compuct_album_image_column_number").val() + '"';
@@ -1459,11 +1618,15 @@ class BWGViewBWGShortcode {
                 tagtext += ' sort_by="' + jQuery("#sort_by").val() + '"';
                 tagtext += ' order_by="' + jQuery("input[name=order_by]:checked").val() + '"';
                 tagtext += ' show_search_box="' + jQuery("input[name=show_search_box]:checked").val() + '"';
+								tagtext += ' show_sort_images="' + jQuery("input[name=show_sort_images]:checked").val() + '"';
                 tagtext += ' search_box_width="' + jQuery("#search_box_width").val() + '"';
                 tagtext += ' extended_albums_per_page="' + jQuery("#extended_albums_per_page").val() + '"';
                 tagtext += ' extended_album_height="' + jQuery("#extended_album_height").val() + '"';
                 tagtext += ' extended_album_description_enable="' + jQuery("input[name=extended_album_description_enable]:checked").val() + '"';
                 tagtext += ' extended_album_view_type="' + jQuery("input[name=extended_album_view_type]:checked").val() + '"';
+                tagtext += ' extended_album_mosaic_hor_ver="' + jQuery("input[name=extended_album_mosaic_hor_ver]:checked").val() + '"';
+                tagtext += ' extended_album_resizable_mosaic="' + jQuery("input[name=extended_album_resizable_mosaic]:checked").val() + '"';
+                tagtext += ' extended_album_mosaic_total_width="' + jQuery("#extended_album_mosaic_total_width").val() + '"';
                 tagtext += ' extended_album_thumb_width="' + jQuery("#extended_album_thumb_width").val() + '"';
                 tagtext += ' extended_album_thumb_height="' + jQuery("#extended_album_thumb_height").val() + '"';
                 tagtext += ' extended_album_image_column_number="' + jQuery("#extended_album_image_column_number").val() + '"';

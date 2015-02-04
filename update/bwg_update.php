@@ -193,7 +193,33 @@ function bwg_update($version) {
 		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `album_masonry_thumb_hover_effect` varchar(64) NOT NULL DEFAULT 'scale'");
 		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `album_masonry_thumb_hover_effect_value` varchar(64) NOT NULL DEFAULT '1.1'");
 		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `album_masonry_thumb_transition` tinyint(1) NOT NULL DEFAULT 0");
-	}	
+	}
+	if (version_compare($version, '1.2.12') == -1) {
+	  // Add sorting images on frontend.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `show_sort_images` tinyint(1) NOT NULL DEFAULT 0");
+    // Add options and themes for mosaic view style. 
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `mosaic` varchar(255) NOT NULL DEFAULT 'vertical'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `resizable_mosaic` tinyint(1) NOT NULL DEFAULT 0");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `mosaic_total_width` int(4) NOT NULL DEFAULT 100");
+
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_padding` int(4) NOT NULL DEFAULT 4");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_border_radius` varchar(32) NOT NULL default '0'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_border_width` int(4) NOT NULL DEFAULT 0");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_border_style` varchar(8) NOT NULL DEFAULT 'none'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_border_color` varchar(8) NOT NULL DEFAULT 'CCCCCC'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumbs_bg_color` varchar(8) NOT NULL DEFAULT 'FFFFFF'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_bg_transparent` int(4) NOT NULL DEFAULT 0");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_transparent` int(4) NOT NULL DEFAULT 100");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_align` varchar(8) NOT NULL DEFAULT 'center'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_hover_effect` varchar(64) NOT NULL DEFAULT 'scale'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_hover_effect_value` varchar(64) NOT NULL DEFAULT '1.1'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_title_shadow` varchar(32) NOT NULL DEFAULT '0px 0px 0px #888888'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_title_margin` varchar(32) NOT NULL DEFAULT '2px'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_title_font_weight` varchar(8) NOT NULL DEFAULT 'bold'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_title_font_size` int(4) NOT NULL DEFAULT 16");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_title_font_style` varchar(16) NOT NULL DEFAULT 'segoe ui'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_title_font_color` varchar(8) NOT NULL DEFAULT 'CCCCCC'");
+	}
   return;
 }
 

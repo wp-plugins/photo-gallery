@@ -211,7 +211,7 @@ class WDWLibrary {
   }
   
   public static function html_page_nav($count_items, $page_number, $form_id, $items_per_page = 20) {
-    $limit = 20;
+    $limit = $items_per_page;
     if ($count_items) {
       if ($count_items % $limit) {
         $items_county = ($count_items - $count_items % $limit) / $limit + 1;
@@ -347,8 +347,9 @@ class WDWLibrary {
     <?php
   }
 
-  public static function ajax_html_page_nav($count_items, $page_number, $form_id) {
-    $limit = 20;
+  public static function ajax_html_page_nav($count_items, $page_number, $form_id,  $items_per_page = 20) {
+    $limit = $items_per_page;
+
     if ($count_items) {
       if ($count_items % $limit) {
         $items_county = ($count_items - $count_items % $limit) / $limit + 1;
@@ -563,7 +564,7 @@ class WDWLibrary {
     <?php
   }
 
-  public static function ajax_html_frontend_search_box($form_id, $current_view, $cur_gal_id, $images_count, $search_box_width) {
+  public static function ajax_html_frontend_search_box($form_id, $current_view, $cur_gal_id, $images_count, $search_box_width = 180) {
     $bwg_search = ((isset($_POST['bwg_search_' . $current_view]) && esc_html($_POST['bwg_search_' . $current_view]) != '') ? esc_html($_POST['bwg_search_' . $current_view]) : '');	
     $type = (isset($_POST['type_' . $current_view]) ? esc_html($_POST['type_' . $current_view]) : 'album');
     $album_gallery_id = (isset($_POST['album_gallery_id_' . $current_view]) ? esc_html($_POST['album_gallery_id_' . $current_view]) : 0);
@@ -633,7 +634,7 @@ class WDWLibrary {
           return false;
         }
         return true;
-      } 
+      }
     </script>
     <div class="bwg_search_container_1" id="bwg_search_container_1_<?php echo $current_view; ?>">
       <div class="bwg_search_container_2" id="bwg_search_container_2_<?php echo $current_view; ?>">
@@ -648,6 +649,48 @@ class WDWLibrary {
           <input id="bwg_images_count_<?php echo $current_view; ?>" class="bwg_search_input" type="hidden" name="bwg_images_count_<?php echo $current_view; ?>" value="<?php echo $images_count; ?>" >
         </span>
       </div>
+    </div>
+    <?php
+  }
+
+  public static function ajax_html_frontend_sort_box($form_id, $current_view, $cur_gal_id, $sort_by = '', $search_box_width = 180) {
+    $bwg_search = ((isset($_POST['bwg_search_' . $current_view]) && esc_html($_POST['bwg_search_' . $current_view]) != '') ? esc_html($_POST['bwg_search_' . $current_view]) : '');	
+    $type = (isset($_POST['type_' . $current_view]) ? esc_html($_POST['type_' . $current_view]) : 'album');
+    $album_gallery_id = (isset($_POST['album_gallery_id_' . $current_view]) ? esc_html($_POST['album_gallery_id_' . $current_view]) : 0);
+    ?>
+    <style>
+      .bwg_order_cont_<?php echo $current_view; ?> {
+        background-color: rgba(0,0,0,0);
+        display: block;
+        margin: 0 5px 20px 5px;
+        text-align: right;
+        width: 100%;
+      }
+      .bwg_order_label_<?php echo $current_view; ?> {
+        border: none;
+        box-shadow: none;
+        color: #BBBBBB;
+        font-family: inherit;
+        font-weight: bold;
+        outline: none;
+      }
+      .bwg_order_<?php echo $current_view; ?> {
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        box-shadow: 0 0 3px 1px #CCCCCC;
+        border-radius: 4px;
+        max-width: 100%;
+        width: <?php echo $search_box_width; ?>px;
+      }
+    </style>
+    <div class="bwg_order_cont_<?php echo $current_view; ?>">
+      <span class="bwg_order_label_<?php echo $current_view; ?>"><?php echo __('Order by: ', 'bwg'); ?></span>
+      <select class="bwg_order_<?php echo $current_view; ?>" onchange="spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $cur_gal_id; ?>', <?php echo $album_gallery_id; ?>, '', '<?php echo $type; ?>', 1, '', this.value)">
+        <option <?php if ($sort_by == 'default') echo 'selected'; ?> value="default"><?php echo __('Default', 'bwg'); ?></option>
+        <option <?php if ($sort_by == 'filename') echo 'selected'; ?> value="filename"><?php echo __('Filename', 'bwg'); ?></option>								
+        <option <?php if ($sort_by == 'size') echo 'selected'; ?> value="size"><?php echo __('Size', 'bwg'); ?></option>
+        <option <?php if ($sort_by == 'RAND()') echo 'selected'; ?> value="random"><?php echo __('Random', 'bwg'); ?></option>
+      </select>
     </div>
     <?php
   }

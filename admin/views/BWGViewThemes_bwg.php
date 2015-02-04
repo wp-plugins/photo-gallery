@@ -31,6 +31,7 @@ class  BWGViewThemes_bwg {
     $order_by = (isset($_POST['order_by']) ? esc_html($_POST['order_by']) : 'id');
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
+    $per_page = $this->model->per_page();
     ?>
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
@@ -86,7 +87,7 @@ class  BWGViewThemes_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Title', $search_value, 'themes_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'themes_form');
+        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'themes_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">
@@ -264,9 +265,11 @@ class  BWGViewThemes_bwg {
       <div style="float: left; margin: 10px 0 0; display: none;" id="type_menu">
         <div id="type_Thumbnail" class="theme_type" onclick="bwg_change_theme_type('Thumbnail')">Thumbnails</div>
         <div id="type_Masonry" class="theme_type" style="opacity: 0.4; filter: Alpha(opacity=40);" title="This tab is disabled in free version">Masonry</div>
+        <div id="type_Mosaic" class="theme_type" style="opacity: 0.4; filter: Alpha(opacity=40);" title="This tab is disabled in free version">Mosaic</div>
         <div id="type_Slideshow" class="theme_type" onclick="bwg_change_theme_type('Slideshow')">Slideshow</div>
         <div id="type_Image_browser" class="theme_type" onclick="bwg_change_theme_type('Image_browser')">Image Browser</div>
         <div id="type_Compact_album" class="theme_type" onclick="bwg_change_theme_type('Compact_album')">Compact Album</div>
+        <div id="type_Masonry_album" class="theme_type" style="opacity: 0.4; filter: Alpha(opacity=40);" title="This tab is disabled in free version">Masonry Album</div>
         <div id="type_Extended_album" class="theme_type" onclick="bwg_change_theme_type('Extended_album')">Extended Album</div>
         <div id="type_Blog_style" class="theme_type" style="opacity: 0.4; filter: Alpha(opacity=40);" title="This tab is disabled in free version">Blog Style</div>
         <div id="type_Lightbox" class="theme_type" onclick="bwg_change_theme_type('Lightbox')">Lightbox</div>

@@ -32,6 +32,7 @@ class BWGViewAlbums_bwg {
     $order_by = (isset($_POST['order_by']) ? esc_html(stripslashes($_POST['order_by'])) : 'order');
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
+    $per_page = $this->model->per_page();
     ?>
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
@@ -70,7 +71,7 @@ class BWGViewAlbums_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Name', $search_value, 'albums_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'albums_form');
+        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'albums_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">
@@ -187,6 +188,7 @@ class BWGViewAlbums_bwg {
     global $WD_BWG_UPLOAD_DIR;
     $row = $this->model->get_row_data($id);
     $page_title = (($id != 0) ? 'Edit album ' . $row->name : 'Create new album');
+    $per_page = $this->model->per_page();
     ?>
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
@@ -326,7 +328,7 @@ class BWGViewAlbums_bwg {
           <tr>
             <td class="spider_label"><label for="content-add_media">Albums And Galleries: </label></td>
             <td>
-              <a href="<?php echo add_query_arg(array('action' => 'addAlbumsGalleries', 'album_id' => $id, 'width' => '700', 'height' => '550', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" class="button-primary thickbox thickbox-preview" id="content-add_media" title="Add Images" onclick="return false;" style="margin-bottom:5px;">
+              <a href="<?php echo add_query_arg(array('action' => 'addAlbumsGalleries', 'album_id' => $id, 'width' => '700', 'height' => '550', 'bwg_items_per_page'=>$per_page , 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" class="button-primary thickbox thickbox-preview" id="content-add_media" title="Add Images" onclick="return false;" style="margin-bottom:5px;">
                 Add Albums/Galleries
               </a>              
               <?php $albums_galleries = $this->model->get_albums_galleries_rows_data($id) ?>
