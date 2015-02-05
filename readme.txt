@@ -78,10 +78,12 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Possibility to display Search Box on the gallery page for the search based on titles   
 *   Possibility to display the number of images in the lighbox  
 *   Redirection option upon clicking image thumbnail  
+*   Front-end image sorting possibility (dropdown) for the users  
 
 Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
 
 *   Masonry View. 
+*   Mosaic View   
 *   Blog Style View.   
 *   Masonry Album view   
 *   Slideshow/Lightbox 15 effects.    
@@ -176,6 +178,9 @@ After downloading the ZIP file,
 6.  Photo Gallery - Edit Watermark   
 
 == Changelog ==
+
+= 1.2.12 =
+Front-end image sorting possibility (dropdown) for the users
 
 = 1.2.11 =
 security issue fixed
