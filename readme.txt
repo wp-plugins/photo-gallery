@@ -180,7 +180,7 @@ After downloading the ZIP file,
 == Changelog ==
 
 = 1.2.13 =
-security issue fixed
+security issue fixed in filemanager
 
 = 1.2.12 =
 Front-end image sorting possibility (dropdown) for the users
