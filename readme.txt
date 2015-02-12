@@ -192,12 +192,12 @@ Unfortunately, there is no such option. During the upload the thumbnails of the 
 Yes, you can add as many galleries/albums within a single post or domain as you wish. There are no limitations on these options.
 
 = 5. Is it possible to translate Photo Gallery into another language? =
-It is only possible to translate the front end of the plugin. To do so, you should set define('WPLANG','[lang_code]') to the desired language code in wp_config.php file of your website. This way the plugin should be translated automatically. Please be informed, that you can modify the translations from wp-content/plugins/photo_gallery/languages/ (you will need POEdit http://www.poedit.net/download.php). You can find the language codes for the Photo Gallery in Wordpress.org appropriate plugins’ page.  
+It is only possible to translate the front end of the plugin. To do so, you should set define('WPLANG','[lang_code]') to the desired language code in wp_config.php file of your website. This way the plugin should be translated automatically. Please be informed, that you can modify the translations from wp-content/plugins/photo_gallery/languages/ (you will need POEdit http://www.poedit.net/download.php). You can find the language codes for the Photo Gallery in Wordpress.org appropriate plugins' page.  
 
 = 6. Is the Photo Gallery responsive? =
 Yes, the Photo Gallery is responsive and displays resized image for the mobile devices and tablets.
 
-= 7. Is it possible to add advertising or watermark over the images with free version?
+= 7. Is it possible to add advertising or watermark over the images with free version? +
 Yes, it is possible to add advertising and/or watermark over the images. In both cases it can be only a single ad/watermark for all images. 
 
 
