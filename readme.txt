@@ -197,7 +197,7 @@ It is only possible to translate the front end of the plugin. To do so, you shou
 = 6. Is the Photo Gallery responsive? =
 Yes, the Photo Gallery is responsive and displays resized image for the mobile devices and tablets.
 
-= 7. Is it possible to add advertising or watermark over the images with free version? +
+= 7. Is it possible to add advertising or watermark over the images with free version? =
 Yes, it is possible to add advertising and/or watermark over the images. In both cases it can be only a single ad/watermark for all images. 
 
 
