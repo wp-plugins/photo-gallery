@@ -25,6 +25,12 @@ class BWGModelBWGShortcode {
     return $shortcode;
   }
 
+  public function get_shortcode_max_id() {
+    global $wpdb;
+    $max_id = $wpdb->get_var("SELECT MAX(id) FROM " . $wpdb->prefix . "bwg_shortcode");
+    return $max_id;
+  }
+
   public function get_gallery_rows_data() {
     global $wpdb;
     $query = "SELECT * FROM " . $wpdb->prefix . "bwg_gallery WHERE published=1 ORDER BY name";

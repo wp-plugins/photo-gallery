@@ -29,6 +29,7 @@ class BWGViewBWGShortcode {
     $theme_rows = $this->model->get_theme_rows_data();
     $from_menu = ((isset($_GET['page']) && (esc_html($_GET['page']) == 'BWGShortcode')) ? TRUE : FALSE);
     $shortcodes = $this->model->get_shortcode_data();
+    $shortcode_max_id = $this->model->get_shortcode_max_id();
     $effects = array(
       'none' => 'None',
       'cubeH' => 'Cube Horizontal',
@@ -1017,10 +1018,10 @@ class BWGViewBWGShortcode {
           foreach ($shortcodes as $shortcode) {
             ?>
             shortcodes[<?php echo $shortcode->id; ?>] = '<?php echo $shortcode->tagtext; ?>';
-            shortcode_id = <?php echo $shortcode->id + 1; ?>;
             <?php
           }
           ?>
+          shortcode_id = <?php echo $shortcode_max_id + 1; ?>;
           window.onload = bwg_shortcode_load;
           var params = get_params("Best_Wordpress_Gallery");
           var bwg_insert = 1;

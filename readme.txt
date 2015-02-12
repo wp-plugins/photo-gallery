@@ -4,7 +4,7 @@ Donate link: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: photo, photo gallery, image gallery, video gallery, gallery, galleries,  wordpress gallery plugin, images gallery, album, photo albums, simple gallery, best gallery plugin, free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, photogallery, widget gallery, image, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, fotogalerie, galleria, galerie, galeri 
 Requires at least: 3.0 
 Tested up to: 4.1 
-Stable tag: 1.2.13 
+Stable tag: 1.2.14 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -177,7 +177,34 @@ After downloading the ZIP file,
 5.  Photo Gallery - Edit Global Options   
 6.  Photo Gallery - Edit Watermark   
 
+== Frequently Asked Questions ==
+
+= 1. How can I add images to the Photo Gallery? =
+The images can be added to Photo Gallery using its standard Media Upload. The uploader can be used both for uploading individual images or multiple images (This should done by uploading a .zip archive file)
+
+= 2. What is the difference between galleries and albums? =
+The galleries are designed to contain images, whereas albums contain either galleries and/or other albums. 
+
+= 3. Can I add images using FTP? =
+Unfortunately, there is no such option. During the upload the thumbnails of the images are being created, whereas when using FTP the thumbnails do not get generated.  The image thumbnails are required for most of the views. Thus using Media Upload is the only option.
+
+= 4. Can I add multiple galleries/albums for a single page/domain? =
+Yes, you can add as many galleries/albums within a single post or domain as you wish. There are no limitations on these options.
+
+= 5. Is it possible to translate Photo Gallery into another language? =
+It is only possible to translate the front end of the plugin. To do so, you should set define('WPLANG','[lang_code]') to the desired language code in wp_config.php file of your website. This way the plugin should be translated automatically. Please be informed, that you can modify the translations from wp-content/plugins/photo_gallery/languages/ (you will need POEdit http://www.poedit.net/download.php). You can find the language codes for the Photo Gallery in Wordpress.org appropriate plugins’ page.  
+
+= 6. Is the Photo Gallery responsive? =
+Yes, the Photo Gallery is responsive and displays resized image for the mobile devices and tablets.
+
+= 7. Is it possible to add advertising or watermark over the images with free version?
+Yes, it is possible to add advertising and/or watermark over the images. In both cases it can be only a single ad/watermark for all images. 
+
+
 == Changelog ==
+
+= 1.2.14 =
+shortcode issue fixed
 
 = 1.2.13 =
 security issue fixed in filemanager
