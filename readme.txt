@@ -204,49 +204,49 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 == Changelog ==
 
 = 1.2.14 =
-shortcode issue fixed
+*  shortcode issue fixed
 
 = 1.2.13 =
-security issue fixed in filemanager
+*  security issue fixed in filemanager
 
 = 1.2.12 =
-Front-end image sorting possibility (dropdown) for the users
+*  Front-end image sorting possibility (dropdown) for the users
 
 = 1.2.11 =
-security issue fixed
-bug in fullscreen button and laoding image animation fixed
+*  security issue fixed
+*  bug in fullscreen button and laoding image animation fixed
 
 = 1.2.9 =
-updated font-awesome to 4.2.0 version
-sort bug in ligthbox
+*  updated font-awesome to 4.2.0 version
+*  sort bug in ligthbox
 
 = 1.2.8 =
-security issue fixed
+*  security issue fixed
 
 = 1.2.7 =
-masonry album view type   
-single quota bug in image fixed
+*  masonry album view type   
+*  single quota bug in image fixed
 
 = 1.2.6 =
-bug in new image save fixed
+*  bug in new image save fixed
 
 = 1.2.5 =
-wrap around in lightbox
+*  wrap around in lightbox
 
 = 1.2.4 =
-pagination input
+*  pagination input
 
 = 1.2.3 =
-play icon over the video thumbnail
+*  play icon over the video thumbnail
 
 = 1.2.2 =
-add upload images with custom size
+*  add upload images with custom size
 
 = 1.2.1 =
-minor changes in shortcode generation code 
+*  minor changes in shortcode generation code 
 
 = 1.2.0 =
-change shortcodes
+*  change shortcodes
 
 = 1.1.30 =
 *  images count in ligthbox (optional - only in options page)  
