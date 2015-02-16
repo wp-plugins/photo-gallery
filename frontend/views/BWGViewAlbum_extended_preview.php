@@ -63,7 +63,7 @@ class BWGViewAlbum_extended_preview {
     if (!isset($params['popup_info_always_show'])) {
       $params['popup_info_always_show'] = 0;
     }
-	if (!isset($params['popup_info_full_width'])) {
+    if (!isset($params['popup_info_full_width'])) {
       $params['popup_info_full_width'] = 0;
     }
     if (!isset($params['popup_enable_rate'])) {
@@ -80,6 +80,9 @@ class BWGViewAlbum_extended_preview {
     }
     if (!isset($params['order_by'])) {
       $params['order_by'] = ' ASC ';
+    }
+    if (!isset($params['show_sort_images'])) {
+      $params['show_sort_images'] = 0;
     }
     $sort_direction = ' ' . $params['order_by'] . ' ';
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
@@ -581,7 +584,7 @@ class BWGViewAlbum_extended_preview {
                     ?>
                     <div class="bwg_album_extended_div_<?php echo $bwg; ?>">
                       <div class="bwg_album_extended_thumb_div_<?php echo $bwg; ?>">
-                        <a style="font-size: 0;" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_extended_<?php echo $bwg; ?>', '<?php echo $album_galallery_row->alb_gal_id; ?>', '<?php echo $album_gallery_id; ?>', '<?php echo $def_type; ?>', '', '<?php echo htmlspecialchars(addslashes($title)); ?>', 'default')">
+                        <a href="<?php echo str_replace("/thumb/", "/", $preview_url); ?>" style="font-size: 0;" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_extended_<?php echo $bwg; ?>', '<?php echo $album_galallery_row->alb_gal_id; ?>', '<?php echo $album_gallery_id; ?>', '<?php echo $def_type; ?>', '', '<?php echo htmlspecialchars(addslashes($title)); ?>', 'default'); return false;">
                           <span class="bwg_album_thumb_<?php echo $bwg; ?>" style="height:inherit;">
                             <span class="bwg_album_thumb_spun1_<?php echo $bwg; ?>">
                               <span class="bwg_album_thumb_spun2_<?php echo $bwg; ?>">
@@ -666,8 +669,8 @@ class BWGViewAlbum_extended_preview {
                     'image_width' => $params['popup_width'],
                     'image_height' => $params['popup_height'],
                     'image_effect' => $params['popup_effect'],
-                    'sort_by' => $params['sort_by'],
-                    'order_by' => $params['order_by'],
+                    'wd_sor' => $params['sort_by'],
+                    'wd_ord' => $params['order_by'],
                     'enable_image_filmstrip' => $params['popup_enable_filmstrip'],
                     'image_filmstrip_height' => $params['popup_filmstrip_height'],
                     'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
@@ -717,7 +720,7 @@ class BWGViewAlbum_extended_preview {
                   $thumb_left = ($params['extended_album_image_thumb_width'] - $image_thumb_width) / 2;
                   $thumb_top = ($params['extended_album_image_thumb_height'] - $image_thumb_height) / 2;
                   ?>
-                  <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
+                  <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('href="' . ($is_video ? $image_row->thumb_url : site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url) . '" onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                         <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">

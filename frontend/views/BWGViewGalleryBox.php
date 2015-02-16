@@ -36,8 +36,8 @@ class BWGViewGalleryBox {
     $image_width = (isset($_GET['image_width']) ? esc_html($_GET['image_width']) : 800);
     $image_height = (isset($_GET['image_height']) ? esc_html($_GET['image_height']) : 500);
     $image_effect = ((isset($_GET['image_effect']) && esc_html($_GET['image_effect'])) ? esc_html($_GET['image_effect']) : 'fade');
-    $sort_by = (isset($_GET['sort_by']) ? esc_html($_GET['sort_by']) : 'order');
-    $order_by = (isset($_GET['order_by']) ? esc_html($_GET['order_by']) : 'asc');
+    $sort_by = (isset($_GET['wd_sor']) ? esc_html($_GET['wd_sor']) : 'order');
+    $order_by = (isset($_GET['wd_ord']) ? esc_html($_GET['wd_ord']) : 'asc');
     $enable_image_filmstrip = FALSE;
     $enable_image_fullscreen = (isset($_GET['enable_image_fullscreen']) ? esc_html($_GET['enable_image_fullscreen']) : 0);
     $popup_enable_info = (isset($_GET['popup_enable_info']) ? esc_html($_GET['popup_enable_info']) : 1);
@@ -101,8 +101,8 @@ class BWGViewGalleryBox {
       'image_width' => $image_width,
       'image_height' => $image_height,
       'image_effect' => $image_effect,
-      'sort_by' => $sort_by,
-      'order_by' => $order_by,
+      'wd_sor' => $sort_by,
+      'wd_ord' => $order_by,
       'enable_image_filmstrip' => $enable_image_filmstrip,
       'image_filmstrip_height' => $image_filmstrip_height,
       'enable_image_ctrl_btn' => $enable_image_ctrl_btn,

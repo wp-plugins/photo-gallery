@@ -61,7 +61,7 @@ class BWGViewAlbum_compact_preview {
     if (!isset($params['popup_info_always_show'])) {
       $params['popup_info_always_show'] = 0;
     }
-	if (!isset($params['popup_info_full_width'])) {
+    if (!isset($params['popup_info_full_width'])) {
       $params['popup_info_full_width'] = 0;
     }
     if (!isset($params['popup_enable_rate'])) {
@@ -116,7 +116,7 @@ class BWGViewAlbum_compact_preview {
       $params['popup_enable_fullscreen'] = $options_row->popup_enable_fullscreen;
       $params['popup_enable_info'] = $options_row->popup_enable_info;
       $params['popup_info_always_show'] = $options_row->popup_info_always_show;
-	  $params['popup_info_full_width'] = $options_row->popup_info_full_width;
+      $params['popup_info_full_width'] = $options_row->popup_info_full_width;
       $params['popup_hit_counter'] = $options_row->popup_hit_counter;
       $params['popup_enable_rate'] = $options_row->popup_enable_rate;
       $params['popup_interval'] = $options_row->popup_interval;
@@ -624,7 +624,7 @@ class BWGViewAlbum_compact_preview {
                   $thumb_top = ($params['compuct_album_thumb_height'] - $image_thumb_height) / 2;
                   if ($type != 'gallery') {
                     ?>
-                    <a style="font-size: 0;" <?php echo ($from !== "widget" ? "onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_compact_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "', '', '" . htmlspecialchars(addslashes($title)) . "', 'default')\"" : "href='" . $permalink . "'") ?>>
+                    <a style="font-size: 0;" <?php echo ($from !== "widget" ? "href='" . str_replace("/thumb/", "/", $preview_url) . "' onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_compact_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "', '', '" . htmlspecialchars(addslashes($title)) . "', 'default'); return false;\"" : "href='" . $permalink . "'") ?>>
                       <span class="bwg_album_thumb_<?php echo $bwg; ?>">
                         <?php
                         if ($params['compuct_album_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top') {
@@ -697,8 +697,8 @@ class BWGViewAlbum_compact_preview {
                     'image_width' => $params['popup_width'],
                     'image_height' => $params['popup_height'],
                     'image_effect' => $params['popup_effect'],
-                    'sort_by' => $params['sort_by'],
-                    'order_by' => $params['order_by'],
+                    'wd_sor' => $params['sort_by'],
+                    'wd_ord' => $params['order_by'],
                     'enable_image_filmstrip' => $params['popup_enable_filmstrip'],
                     'image_filmstrip_height' => $params['popup_filmstrip_height'],
                     'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
@@ -748,7 +748,7 @@ class BWGViewAlbum_compact_preview {
                   $thumb_left = ($params['compuct_album_image_thumb_width'] - $image_thumb_width) / 2;
                   $thumb_top = ($params['compuct_album_image_thumb_height'] - $image_thumb_height) / 2;
                   ?>
-                  <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
+                  <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('href="' . ($is_video ? $image_row->thumb_url : site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url) . '" onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                       <?php
                       if ($params['compuct_album_image_title'] == 'show' && $theme_row->album_compact_thumb_title_pos == 'top') {
@@ -813,9 +813,7 @@ class BWGViewAlbum_compact_preview {
         <div id="spider_popup_overlay_<?php echo $bwg; ?>" class="spider_popup_overlay" onclick="spider_destroypopup(1000)"></div>
       </div>
     </div>
-    <script>
-      var bwg_current_url = '<?php echo add_query_arg($current_url, '', home_url($wp->request)); ?>';
-    </script>
+
     <?php
     if ($from_shortcode) {
       return;

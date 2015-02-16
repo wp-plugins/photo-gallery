@@ -106,7 +106,7 @@ class BWGViewThumbnails {
       $params['popup_enable_fullscreen'] = $options_row->popup_enable_fullscreen;
       $params['popup_enable_info'] = $options_row->popup_enable_info;
       $params['popup_info_always_show'] = $options_row->popup_info_always_show;
-	  $params['popup_info_full_width'] = $options_row->popup_info_full_width;
+      $params['popup_info_full_width'] = $options_row->popup_info_full_width;
       $params['popup_hit_counter'] = $options_row->popup_hit_counter;
       $params['popup_enable_rate'] = $options_row->popup_enable_rate;
       $params['popup_interval'] = $options_row->popup_interval;
@@ -347,7 +347,7 @@ class BWGViewThumbnails {
         background-color: #<?php echo $theme_row->lightbox_overlay_bg_color; ?>;
         opacity: <?php echo number_format($theme_row->lightbox_overlay_bg_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_overlay_bg_transparent; ?>);
-      }      
+      }
      .bwg_play_icon_spun_<?php echo $bwg; ?>	 {
         width: inherit;
         height: inherit;
@@ -408,15 +408,15 @@ class BWGViewThumbnails {
                   'image_width' => $params['popup_width'],
                   'image_height' => $params['popup_height'],
                   'image_effect' => $params['popup_effect'],
-                  'sort_by' => (isset($params['type']) ? 'date' : (($params['sort_by'] == 'RAND()') ? 'order' : $params['sort_by'])),
-                  'order_by' => $sort_direction,
+                  'wd_sor' => (isset($params['type']) ? 'date' : (($params['sort_by'] == 'RAND()') ? 'order' : $params['sort_by'])),
+                  'wd_ord' => $sort_direction,
                   'enable_image_filmstrip' => $params['popup_enable_filmstrip'],
                   'image_filmstrip_height' => $params['popup_filmstrip_height'],
                   'enable_image_ctrl_btn' => $params['popup_enable_ctrl_btn'],
                   'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
                   'popup_enable_info' => $params['popup_enable_info'],
                   'popup_info_always_show' => $params['popup_info_always_show'],
-				  'popup_info_full_width' => $params['popup_info_full_width'],				  
+                  'popup_info_full_width' => $params['popup_info_full_width'],
                   'popup_hit_counter' => $params['popup_hit_counter'],
                   'popup_enable_rate' => $params['popup_enable_rate'],
                   'slideshow_interval' => $params['popup_interval'],
@@ -459,7 +459,7 @@ class BWGViewThumbnails {
                 $thumb_left = ($params['thumb_width'] - $image_thumb_width) / 2;
                 $thumb_top = ($params['thumb_height'] - $image_thumb_height) / 2;
                 ?>
-                <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
+                <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('href="' . ($is_video ? $image_row->thumb_url : site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url) . '" onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
                   <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                     <?php
                     if ($params['image_title'] == 'show' and $theme_row->thumb_title_pos == 'top') {

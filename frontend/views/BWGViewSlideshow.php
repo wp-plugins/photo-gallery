@@ -1242,8 +1242,6 @@ class BWGViewSlideshow {
           jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").css({width: <?php echo $image_width; ?>});
           jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").css({height: (<?php echo $image_height - $slideshow_filmstrip_height; ?>)});
           jQuery(".bwg_slideshow_image_<?php echo $bwg; ?>").css({
-            /*maxWidth: <?php echo $image_width; ?>,
-            maxHeight: <?php echo $image_height - $slideshow_filmstrip_height; ?>*/
             cssText: "max-width: <?php echo $image_width; ?>px !important; max-height: <?php echo $image_height - $slideshow_filmstrip_height; ?>px !important;"
           });
           jQuery(".bwg_slideshow_video_<?php echo $bwg; ?>").css({
@@ -1266,8 +1264,6 @@ class BWGViewSlideshow {
           jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").css({width: (parent_width)});
           jQuery(".bwg_slideshow_image_container_<?php echo $bwg; ?>").css({height: ((parent_width) * <?php echo $image_height / $image_width ?> - <?php echo $slideshow_filmstrip_height; ?>)});
           jQuery(".bwg_slideshow_image_<?php echo $bwg; ?>").css({
-            /*maxWidth: parent_width,
-            maxHeight: ((parent_width) * <?php echo $image_height / $image_width ?> - <?php echo $slideshow_filmstrip_height; ?>)*/
             cssText: "max-width: " + parent_width + "px !important; max-height: " + (parent_width * (<?php echo $image_height / $image_width ?>) - <?php echo $slideshow_filmstrip_height; ?> - 1) + "px !important;"
           });
           jQuery(".bwg_slideshow_video_<?php echo $bwg; ?>").css({
