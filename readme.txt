@@ -204,6 +204,9 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 == Changelog ==
 
 = 1.2.14 =
+*  added large image url in page source for SEO
+
+= 1.2.14 =
 *  shortcode issue fixed
 
 = 1.2.13 =
