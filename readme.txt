@@ -203,14 +203,14 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 
 == Changelog ==
 
-= 1.2.15 =
-*  added large image url in page source for SEO
+= 1.2.15 =  
+*  added large image url in page source for SEO  
 
-= 1.2.14 =
-*  shortcode issue fixed
+= 1.2.14 = 
+*  shortcode issue fixed   
 
-= 1.2.13 =
-*  security issue fixed in filemanager
+= 1.2.13 =  
+*  security issue fixed in filemanager     
 
 = 1.2.12 =
 *  Front-end image sorting possibility (dropdown) for the users
