@@ -27,14 +27,14 @@ The plugin allows displaying galleries/albums within the following views:
 *   Thumbnails for image thumbnails
 *   Masonry for multi-size thumbnails (commercial version)
 *   Slideshow
-*   Image Browser for single imagedisplay with a possibility of switchingbetween images
+*   Image Browser for single imagedisplay with a possibility of switching between images
 *   Compact Album
-*   Extended Album for displaying images with descriptions
+*   Extended Album for displaying albums with descriptions
 *   Blog Style (commercial version)
 
-You can make the required customizations for the view in the shortcode in advance to adding in the posts/ pages. 
+You can make the required customizations for the view in the shortcode in advance to adding in the posts/pages. 
 
-Included File Manager will help to rename, upload, add/removing,copyimages and/or image directories within a few simple steps.
+Included File Manager will help to rename, upload, remove, copy images and/or image directories within a few simple steps.
 
 Photo Gallery product in addition to the main plugin includes 4 specific widgets:
 
