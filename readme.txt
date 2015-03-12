@@ -207,7 +207,8 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 *  added large image url in page source for SEO  
 
 = 1.2.14 = 
-*  shortcode issue fixed   
+*  shortcode issue fixed  
+This vulnerability was discovered by Fortinet's FortiGuard Labs.  
 
 = 1.2.13 =  
 *  security issue fixed in filemanager     
