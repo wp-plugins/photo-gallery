@@ -208,10 +208,10 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 
 = 1.2.14 = 
 *  shortcode issue fixed  
-This vulnerability was discovered by Fortinet's FortiGuard Labs.  
 
 = 1.2.13 =  
 *  security issue fixed in filemanager     
+This vulnerability was discovered by Fortinet's FortiGuard Labs.  
 
 = 1.2.12 =
 *  Front-end image sorting possibility (dropdown) for the users
