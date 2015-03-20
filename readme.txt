@@ -210,7 +210,7 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 *  shortcode issue fixed  
 
 = 1.2.13 =  
-*  security issue fixed in filemanager     
+*  [CVE-2015-2324] security issue fixed in filemanager     
 This vulnerability was discovered by Fortinet's FortiGuard Labs.  
 
 = 1.2.12 =
