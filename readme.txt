@@ -12,6 +12,8 @@ Photo Gallery is an advanced plugin with a list of tools and options for adding 
 
 == Description ==
 
+Create 100% responsive FREE WordPress photo gallery in minutes. Easy to customize and various views. 
+  
 https://www.youtube.com/watch?v=4Mxg0FsFZZE&index=5&list=PLnxWPiY5tLFUsFI67acGEPAqoDMZqss5F
 
 [WordPress Photo Gallery](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html)  
