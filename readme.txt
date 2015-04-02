@@ -181,7 +181,7 @@ After downloading the ZIP file,
 == Frequently Asked Questions ==
 
 = 1. How can I add images to the Photo Gallery? =
-The images can be added to Photo Gallery using its standard Media Upload. The uploader can be used both for uploading individual images or multiple images (This should done by uploading a .zip archive file)
+The images can be added to Photo Gallery using its standard File Manager. The uploader can be used both for uploading individual images or multiple images (This should done by uploading a .zip archive file)
 
 = 2. What is the difference between galleries and albums? =
 The galleries are designed to contain images, whereas albums contain either galleries and/or other albums. 
