@@ -16,22 +16,24 @@ Create 100% responsive FREE WordPress photo gallery in minutes. Easy to customiz
 https://www.youtube.com/watch?v=4Mxg0FsFZZE&index=5&list=PLnxWPiY5tLFUsFI67acGEPAqoDMZqss5F
 
 [WordPress Photo Gallery](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html)  
-[Demo](http://wpdemo.web-dorado.com/gallery/)  
-[Demo Admin](http://wpdemo.web-dorado.com/wp-admin/admin.php?page=galleries_bwg)  
-[User Manual](http://web-dorado.com/wordpress-gallery-guide-step-1.html)  
-[Support Forum](http://web-dorado.com/forum/photo-gallery.html)  
+[Photo Gallery Demo](http://wpdemo.web-dorado.com/gallery/)  
+[Photo Gallery Demo Admin](http://wpdemo.web-dorado.com/wp-admin/admin.php?page=galleries_bwg)  
+[Photo Gallery User Manual](http://web-dorado.com/wordpress-gallery-guide-step-1.html)  
+[Photo Gallery Support Forum](http://web-dorado.com/forum/photo-gallery.html)  
 
 Photo Gallery is an advanced plugin with a list of tools and options for adding and editing images for different views. It is fully responsive. The product includes plugin for adding image galleries and albums to posts and pages, as well as multiple widgets. You can add images, providing detailed descriptions and tags, organize the galleries into different albums.  
 
 The plugin allows displaying galleries/albums within the following views: 
 
-*   Thumbnails for image thumbnails
-*   Masonry for multi-size thumbnails (commercial version)
+*   Thumbnails gallery view
+*   Masonry gallery view for multi-size thumbnails (commercial version)
+*   Mosaic gallery view (commercial version)
 *   Slideshow
-*   Image Browser for single imagedisplay with a possibility of switching between images
-*   Compact Album
-*   Extended Album for displaying albums with descriptions
-*   Blog Style (commercial version)
+*   Image Browser for single image display with a possibility of switching between images
+*   Compact Album view
+*   Masonry Album view (commercial version)
+*   Extended Album view for displaying albums with descriptions
+*   Blog Style gallery view (commercial version)
 
 You can make the required customizations for the view in the shortcode in advance to adding in the posts/pages. 
 
@@ -44,22 +46,23 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Photo Gallery Slideshow 
 *   Photo Gallery (similar to the main plugin option)
 
-###IMPORTANT: If you think you found a bug in Photo Gallery or have any problem/question concerning the plugin, please check out [Support Forum](http://web-dorado.com/forum/photo-gallery.html) in our website. If you do not find a solution here, do not hesitate to contact us at [info@web-dorado.com](mailto:info@web-dorado.com).
+###IMPORTANT:    
+If you think you found a bug in Photo Gallery or have any problem/question concerning the plugin, please check out [Photo Gallery Support Forum](http://web-dorado.com/forum/photo-gallery.html) in our website. If you do not find a solution here, do not hesitate to contact us at [info@web-dorado.com](mailto:info@web-dorado.com).
 
 
 ### The list of the features:
 
 *   100% Responsive   
-*   Multiple views to choose from: Thumbnails, Image Browser, Slideshow  for galleries and Compact Album, Extended Album views for albums   
+*   Multiple gallery views to choose from: Thumbnails, Image Browser, Slideshow  for galleries and Compact Album, Extended Album views for albums   
 *   Supports the following types of image files:  JPG, JPEG, PNG and GIF   
-*   Unlimited quantity of photos    
+*   Unlimited quantity of photos in gallery    
 *   Possibility of adding unlimited quantity of galleries/albums   
 *   Detailed three-column visual shortcode for adding created gallery/galleries and album/albums into the posts and pages.    
-*   Detailed  (Extended) album and compact album view  
+*   Detailed (Extended) album and compact album view  
 *   Possibility of changing the roles of who can edit the galleries/albums/images (Author/All Users)  
 *   Chances to provide details for images (tags, captions)  
 *   Thumbnail editing tools (Crop, rotate and flip)  
-*   Possibility of changing the amount  of images displayed  in a single row of an album  
+*   Possibility of changing the amount of images displayed in a single row of an album/gallery  
 *   Slideshow view with auto play and shuffle features   
 *   Audio track playback possibility with the image slideshow  
 *   Possibility of adding Watermarks/Advertisements for each individual image  
@@ -71,10 +74,10 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Support for YouTube and Vimeo videos within Galleries.    
 *   Possibility of uploading images from the Media Library of the website.
 *   Possibility to add tags to all images at once.  
-*   Right-click enabling option for the image downloads protection.   
+*   Right-click disabling option for the image downloads protection.   
 *   Possibility to display images in the albums in thumbnail or masonry view upon opening   
 *   WordPress Search Integration by gallery and album title   
-*   Possibility to display the number of the images in the lighbox (optional feature)   
+*   Possibility to display the number of the images in the gallery lighbox (optional feature)   
 *   Resizing possibility after adding the images   
 *   Possibility to display Search Box on the gallery page for the search based on titles   
 *   Possibility to display the number of images in the lighbox  
@@ -83,8 +86,8 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 
 Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
 
-*   Masonry View. 
-*   Mosaic View   
+*   Masonry gallery View. 
+*   Mosaic gallery View   
 *   Blog Style View.   
 *   Masonry Album view   
 *   Slideshow/Lightbox 15 effects.    
@@ -93,7 +96,6 @@ Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpres
 *   Social sharing possibility (Facebook, Google+, Twitter, Pinterest and Tumblr)    
 *   Dynamic Photo Gallery Tag Cloud widget  with image tag cloud and text tag cloud options.   
 *   Possibility to include both videos and images within a single gallery.   
-
 
 
 ### Supported languages 
