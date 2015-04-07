@@ -120,6 +120,11 @@ class BWGViewLicensing_bwg {
             <td class="icon-replace yes">yes</td>
           </tr>
           <tr>
+            <td>Pro Mosaic View </td>
+            <td class="icon-replace no">no</td>
+            <td class="icon-replace yes">yes</td>
+          </tr>
+          <tr>
             <td>Pro Masonry View </td>
             <td class="icon-replace no">no</td>
             <td class="icon-replace yes">yes</td>
@@ -149,13 +154,28 @@ class BWGViewLicensing_bwg {
             <td class="icon-replace no">no</td>
             <td class="icon-replace yes">yes</td>
           </tr>
+          <tr class="alt">
+            <td>Pro Masonry Album</td>
+            <td class="icon-replace no">no</td>
+            <td class="icon-replace yes">yes</td>
+          </tr>
           <tr>
             <td>Pro Extended Album</td>
             <td class="icon-replace no">no</td>
             <td class="icon-replace yes">yes</td>
           </tr>
           <tr class="alt">
-            <td>Image Commenting</td>
+            <td>Image Commenting and Rating</td>
+            <td class="icon-replace no">no</td>
+            <td class="icon-replace yes">yes</td>
+          </tr>
+          <tr>
+            <td>Bulk Embed</td>
+            <td class="icon-replace no">no</td>
+            <td class="icon-replace yes">yes</td>
+          </tr>
+          <tr>
+            <td>Autoupdatable Instagram Galleries</td>
             <td class="icon-replace no">no</td>
             <td class="icon-replace yes">yes</td>
           </tr>

@@ -86,6 +86,7 @@ class BWGViewOptions_bwg {
     );
     ?>
     <form method="post" class="wrap" action="admin.php?page=options_bwg" style="float: left; width: 99%;">      
+      <?php wp_nonce_field( 'options_bwg', 'bwg_nonce' ); ?>
       <span class="option-icon"></span>
       <h2>Edit options</h2>
       <div style="display: inline-block; width: 100%;">
@@ -108,6 +109,7 @@ class BWGViewOptions_bwg {
           <div id="div_5" class="gallery_type" onclick="bwg_change_option_type('5')"> Slideshow</div><br/>
           <div id="div_6" class="gallery_type" onclick="bwg_change_option_type('6')"> Thumbnail options</div><br/>
           <div id="div_7" class="gallery_type" onclick="bwg_change_option_type('7')"> Image options</div><br/>
+          <div id="div_9" class="gallery_type" onclick="bwg_change_option_type('9')"> Embed options</div><br/>
           <input type="hidden" id="type" name="type" value="<?php echo (isset($_POST["type"]) ? esc_html(stripslashes($_POST["type"])) : "1"); ?>"/>
         </div>
 
@@ -233,6 +235,17 @@ class BWGViewOptions_bwg {
                  <div class="spider_description">Enable import from Media Library in file manager.</div>
                 </td>
               </tr>
+              <tr>
+                <td class="spider_label_options">
+                  <label>Meta auto-fill:</label>
+                </td>
+                <td>
+                  <input type="radio" name="description_tb" id="description_tb_1" value="1" <?php if ($row->description_tb) echo 'checked="checked"'; ?> /><label for="description_tb_1">Yes</label>
+                  <input type="radio" name="description_tb" id="description_tb_0" value="0" <?php if (!$row->description_tb) echo 'checked="checked"'; ?> /><label for="description_tb_0">No</label>
+                  <div class="spider_description">Enabling this option the meta description of the image will be automatically filled in image description field.</div>
+                </td>
+              </tr>
+
             </tbody>
           </table>
         </div>
@@ -264,7 +277,12 @@ class BWGViewOptions_bwg {
                       </td>
                       <td>
                         <input type="text" id="built_in_watermark_url" name="built_in_watermark_url" style="width: 68%;" value="<?php echo $row->built_in_watermark_url; ?>" style="display:inline-block;" onchange="preview_built_in_watermark()" />
-                        <a href="<?php echo add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'png', 'callback' => 'bwg_add_built_in_watermark_image', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" id="button_add_built_in_watermark_image" class="button-primary thickbox thickbox-preview"
+                         <?php
+                         $query_url = add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'png', 'callback' => 'bwg_add_built_in_watermark_image'), admin_url('admin-ajax.php'));
+                         $query_url = wp_nonce_url( $query_url, 'addImages', 'bwg_nonce' );
+                         $query_url =  add_query_arg(array('TB_iframe' => '1'), $query_url );
+                         ?>
+                         <a href="<?php echo $query_url; ?>" id="button_add_built_in_watermark_image" class="button-primary thickbox thickbox-preview"
                            title="Add image" 
                            onclick="return false;"
                            style="margin-bottom:5px;">
@@ -309,7 +327,7 @@ class BWGViewOptions_bwg {
                           <?php
                           foreach ($built_in_watermark_fonts as $watermark_font) {
                             ?>
-                            <option value="<?php echo $watermark_font; ?>" <?php if ($row->watermark_font == $watermark_font) echo 'selected="selected"'; ?>><?php echo $watermark_font; ?></option>
+                            <option value="<?php echo $watermark_font; ?>" <?php if ($row->built_in_watermark_font == $watermark_font) echo 'selected="selected"'; ?>><?php echo $watermark_font; ?></option>
                             <?php
                           }
                           ?>
@@ -412,7 +430,12 @@ class BWGViewOptions_bwg {
                       </td>
                       <td>
                         <input type="text" id="watermark_url" name="watermark_url" style="width: 68%;" value="<?php echo $row->watermark_url; ?>" style="display:inline-block;" onchange="preview_watermark()" />
-                        <a href="<?php echo add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_watermark_image', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" id="button_add_watermark_image" class="button-primary thickbox thickbox-preview"
+                        <?php
+                        $query_url = add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_watermark_image'), admin_url('admin-ajax.php'));
+                        $query_url = wp_nonce_url( $query_url, 'addImages', 'bwg_nonce' );
+                        $query_url = add_query_arg(array('TB_iframe' => '1'), $query_url );
+                        ?>
+                        <a href="<?php echo $query_url; ?>" id="button_add_watermark_image" class="button-primary thickbox thickbox-preview"
                            title="Add image" 
                            onclick="return false;"
                            style="margin-bottom:5px;">
@@ -1126,7 +1149,12 @@ class BWGViewOptions_bwg {
                       </td>
                       <td>
                         <input type="text" id="slideshow_audio_url" name="slideshow_audio_url" style="width: 70%;" value="<?php echo $row->slideshow_audio_url; ?>" style="display:inline-block;" />
-                        <a href="<?php echo add_query_arg(array('action' => 'addMusic', 'width' => '700', 'height' => '550', 'extensions' => 'aac,m4a,f4a,mp3,ogg,oga', 'callback' => 'bwg_add_music', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" id="button_add_music" class="button-primary thickbox thickbox-preview"
+                        <?php
+                        $query_url = add_query_arg(array('action' => 'addMusic', 'width' => '700', 'height' => '550', 'extensions' => 'aac,m4a,f4a,mp3,ogg,oga', 'callback' => 'bwg_add_music'), admin_url('admin-ajax.php'));
+                        $query_url = wp_nonce_url( $query_url, 'addMusic', 'bwg_nonce' );
+                        $query_url = add_query_arg(array('TB_iframe' => '1'), $query_url );
+                        ?>
+                        <a href="<?php echo $query_url; ?>" id="button_add_music" class="button-primary thickbox thickbox-preview"
                            title="Add music"
                            onclick="return false;"
                            style="margin-bottom:5px;">
@@ -1367,6 +1395,37 @@ class BWGViewOptions_bwg {
             </tbody>
           </table>
         </div>
+        <!--Embed options-->
+        <div class="spider_div_options" id="div_content_9">
+          <table>
+            <tbody>
+              <tr>
+                <td class="spider_label_options spider_free_version_label">
+                  <label >Gallery autoupdate interval:</label>
+                </td>
+                <td class="spider_free_version_label">
+                  <input type="number" disabled="disabled" id="autoupdate_interval_hour" class="spider_int_input" min="0" max="24" value="0" />
+                  hour
+                  <input type="number" disabled="disabled" id="autoupdate_interval_min" class="spider_int_input" min="0" max="59" value="30" />
+                  min
+                  <div class="spider_description spider_free_version">Autoupdatable galleries are disabled in free version.</div>
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="spider_label_options spider_free_version_label">
+                  <label>Instagram CLIENT ID:</label>
+                </td>
+                <td class="spider_free_version_label">
+                  <input id="instagram_client_id" type="text" disabled="disabled" style="display:inline-block; width:100%;" value="" />
+                 <div class="spider_description spider_free_version">Instagram galleries are disabled in free version.</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
       </div>
               
       <input id="task" name="task" type="hidden" value="" />

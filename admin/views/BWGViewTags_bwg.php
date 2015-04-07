@@ -31,9 +31,12 @@ class BWGViewTags_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
     $per_page = $this->model->per_page();
+
+    $query_url = wp_nonce_url( admin_url('admin-ajax.php'), '', 'bwg_nonce' );
+    $query_url = add_query_arg(array('action' => ''), $query_url);
     ?>
     <script>
-      var ajax_url = "<?php echo add_query_arg(array('action' => ''), admin_url('admin-ajax.php'));  ?>"
+      var ajax_url = "<?php echo $query_url; ?>"
     </script>
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
@@ -48,10 +51,11 @@ class BWGViewTags_bwg {
     </div>
     <div id="wordpress_message_1" style="width:99%;display:none"><div id="wordpress_message_2" class="updated"><p><strong>Item Succesfully Saved.</strong></p></div></div>
     <form class="wrap" id="tags_form" method="post" action="admin.php?page=tags_bwg" style="float:left; width: 99%;">
+      <?php wp_nonce_field( 'tags_bwg', 'bwg_nonce' ); ?>
       <span class="tag_icon"></span>
       <h2>Tags</h2>
       <div class="buttons_div">
-        <input class="button-secondary" type="submit" value="Save" onclick="if (confirm('Do you want to edit items?')){
+        <input class="button-secondary" type="submit" value="Save" onclick="if (confirm('Do you want to save items?')){
                                                                     spider_set_input_value('task', 'edit_tags');
                                                                   } else {
                                                                     return false;

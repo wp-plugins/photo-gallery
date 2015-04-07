@@ -27,7 +27,7 @@ class BWGViewUninstall_bwg {
     $prefix = $wpdb->prefix;
     ?>
     <form method="post" action="admin.php?page=uninstall_bwg" style="width:99%;">
-      <?php wp_nonce_field('best_wordpress_gallery uninstall');?>
+      <?php wp_nonce_field( 'uninstall_bwg', 'bwg_nonce' ); ?>
       <div class="wrap">
         <span class="uninstall_icon"></span>
         <h2>Uninstall Photo Gallery</h2>

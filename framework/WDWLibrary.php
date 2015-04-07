@@ -326,18 +326,31 @@ class WDWLibrary {
         function spider_search() {
           document.getElementById("page_number").value = "1";
           document.getElementById("search_or_not").value = "search";
+          jQuery("#ajax_task").val("search");
           spider_ajax_save('<?php echo $form_id; ?>');
         }
         function spider_reset() {
           if (document.getElementById("search_value")) {
             document.getElementById("search_value").value = "";
           }
+          jQuery("#ajax_task").val("search");
           spider_ajax_save('<?php echo $form_id; ?>');
+        }
+        function check_enter_key_search(e) {     
+          var key_code = (e.keyCode ? e.keyCode : e.which);
+          if (key_code == 13) { /*Enter keycode*/
+            document.getElementById("page_number").value = "1";
+            document.getElementById("search_or_not").value = "search";
+            jQuery("#ajax_task").val("search");
+            spider_ajax_save('<?php echo $form_id; ?>');
+            return false;
+          }
+          return true;    
         }
       </script>
       <div class="alignleft actions" style="">
         <label for="search_value" style="font-size:14px; width:60px; display:inline-block;"><?php echo $search_by; ?>:</label>
-        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" style="width: 150px;<?php echo (get_bloginfo('version') > '3.7') ? ' height: 28px;' : ''; ?>" />
+        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" onkeypress="return check_enter_key_search(event)" style="width: 150px;<?php echo (get_bloginfo('version') > '3.7') ? ' height: 28px;' : ''; ?>" />
       </div>
       <div class="alignleft actions">
         <input type="button" value="Search" onclick="spider_search()" class="button-secondary action">
@@ -721,6 +734,32 @@ class WDWLibrary {
     </script>
     <?php
     exit();
+  }
+
+  /**
+  *  If string argument passed, put it into delimiters for AJAX response to separate from other data.
+  */
+
+  public static function delimit_wd_output($data) {
+    
+    if(is_string ( $data )){
+      return "WD_delimiter_start". $data . "WD_delimiter_end";
+    }
+    else{
+      return $data;
+    }
+  }
+
+  public static function verify_nonce($page){
+
+    $nonce_verified = false;
+    if ( isset( $_GET['bwg_nonce'] ) && wp_verify_nonce( $_GET['bwg_nonce'], $page )) {
+      $nonce_verified = true;
+    }
+    elseif ( isset( $_POST['bwg_nonce'] ) && wp_verify_nonce( $_POST['bwg_nonce'], $page )) {
+      $nonce_verified = true;
+    }
+    return $nonce_verified;
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Private Methods                                                                    //

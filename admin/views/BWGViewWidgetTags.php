@@ -109,7 +109,7 @@ class BWGViewWidgetTags {
         }
       }
     </script>
-    <script src="<?php echo WD_BWG_URL . '/js/jscolor/jscolor.js'?>" type="text/javascript" charset="utf-8"></script>
+    <script src="<?php echo WD_BWG_URL . '/js/jscolor/jscolor.js?ver='.wd_bwg_version(); ?>" type="text/javascript" charset="utf-8"></script>
     <p>
       <label for="<?php echo $id_title; ?>">Title:</label>
       <input class="widefat" id="<?php echo $id_title; ?>" name="<?php echo $name_title; ?>'" type="text" value="<?php echo $instance['title']; ?>"/>

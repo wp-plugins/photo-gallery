@@ -173,7 +173,7 @@ class BWGViewAlbum_extended_preview {
         text-align: <?php echo $theme_row->album_extended_thumb_align; ?>;
         max-width: inherit;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_extended_thumbnails_<?php echo $bwg; ?> a {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_extended_thumbnails_<?php echo $bwg; ?> .bwg_link {
         border: none;
         cursor: pointer;
         text-decoration: none;
@@ -352,10 +352,11 @@ class BWGViewAlbum_extended_preview {
         max-width: <?php echo $params['extended_album_image_column_number'] * ($params['extended_album_image_thumb_width'] + 2 * (2 + $theme_row->thumb_margin + $theme_row->thumb_padding + $theme_row->thumb_border_width)); ?>px;
         text-align: <?php echo $theme_row->thumb_align; ?>;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> a {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> .bwg_link {
         border: none;
         cursor: pointer;
         text-decoration: none;
+        font-size: 0;
       }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumb_<?php echo $bwg; ?> {
         display: inline-block;
@@ -566,25 +567,47 @@ class BWGViewAlbum_extended_preview {
                     $title = $gallery_row->name;
                     $description = wpautop($gallery_row->description);
                   }
+                  $local_preview_image = true;
+                  $parsed_prev_url = parse_url($preview_image, PHP_URL_SCHEME);
+                  
+                  if($parsed_prev_url =='http' || $parsed_prev_url =='https'){
+                    $local_preview_image = false;
+                  }
+
                   if (!$preview_image) {
                     $preview_url = WD_BWG_URL . '/images/no-image.png';
                     $preview_path = WD_BWG_DIR . '/images/no-image.png';
                   }
                   else {
-                    $preview_url = site_url() . '/' . $WD_BWG_UPLOAD_DIR . $preview_image;
-                    $preview_path = ABSPATH . $WD_BWG_UPLOAD_DIR . $preview_image;
+                    if($local_preview_image){
+                      $preview_url = site_url() . '/' . $WD_BWG_UPLOAD_DIR . $preview_image;
+                      $preview_path = ABSPATH . $WD_BWG_UPLOAD_DIR . $preview_image;
+                    }
+                    else{
+                      $preview_url = $preview_image;
+                      $preview_path = $preview_image;
+                    }
                   }
-                  list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode($preview_path, ENT_COMPAT | ENT_QUOTES));
-                  $scale = max($params['extended_album_thumb_width'] / $image_thumb_width, $params['extended_album_thumb_height'] / $image_thumb_height);
-                  $image_thumb_width *= $scale;
-                  $image_thumb_height *= $scale;
-                  $thumb_left = ($params['extended_album_thumb_width'] - $image_thumb_width) / 2;
-                  $thumb_top = ($params['extended_album_thumb_height'] - $image_thumb_height) / 2;
+                  if($local_preview_image){
+                    list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode($preview_path, ENT_COMPAT | ENT_QUOTES));
+                    $scale = max($params['extended_album_thumb_width'] / $image_thumb_width, $params['extended_album_thumb_height'] / $image_thumb_height);
+                    $image_thumb_width *= $scale;
+                    $image_thumb_height *= $scale;
+                    $thumb_left = ($params['extended_album_thumb_width'] - $image_thumb_width) / 2;
+                    $thumb_top = ($params['extended_album_thumb_height'] - $image_thumb_height) / 2;
+                  }
+                  else{
+                    $image_thumb_width = $params['extended_album_thumb_width'];
+                    $image_thumb_height = $params['extended_album_thumb_height'];
+                    $thumb_left = 0;
+                    $thumb_top = 0;
+                  }
                   if ($type != 'gallery') {
                     ?>
                     <div class="bwg_album_extended_div_<?php echo $bwg; ?>">
                       <div class="bwg_album_extended_thumb_div_<?php echo $bwg; ?>">
-                        <a href="<?php echo str_replace("/thumb/", "/", $preview_url); ?>" style="font-size: 0;" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_extended_<?php echo $bwg; ?>', '<?php echo $album_galallery_row->alb_gal_id; ?>', '<?php echo $album_gallery_id; ?>', '<?php echo $def_type; ?>', '', '<?php echo htmlspecialchars(addslashes($title)); ?>', 'default'); return false;">
+                        <a class="bwg_link" <?php echo "href='" . ($local_preview_image ? str_replace("/thumb/", "/", $preview_url) : $preview_url) . "'"; ?> 
+                          <?php echo  (" onclick=\"spider_frontend_ajax('gal_front_form_" . $bwg . "', '" . $bwg . "', 'bwg_album_extended_" . $bwg . "', '" . $album_galallery_row->alb_gal_id . "', '" . $album_gallery_id . "', '" . $def_type . "', '', '" . htmlspecialchars(addslashes($title)) . "', 'default'); return false;\""); ?>>
                           <span class="bwg_album_thumb_<?php echo $bwg; ?>" style="height:inherit;">
                             <span class="bwg_album_thumb_spun1_<?php echo $bwg; ?>">
                               <span class="bwg_album_thumb_spun2_<?php echo $bwg; ?>">
@@ -636,6 +659,17 @@ class BWGViewAlbum_extended_preview {
                     <?php
                   }
                 }
+                ?>
+                <div class='bwg_seo_links' style="display:none;">
+                <?php /*for SEO*/
+                foreach ($album_galleries_row as $album_galallery_row) {
+                ?>
+                  <a >&nbsp;</a>
+                <?php
+                }
+                ?>
+                </div>
+              <?php
               }
               elseif ($type == 'gallery') {
                 if ($options_row->show_album_name) {
@@ -706,13 +740,30 @@ class BWGViewAlbum_extended_preview {
                     $params_array['watermark_width'] = $params['watermark_width'];
                     $params_array['watermark_height'] = $params['watermark_height'];
                   }
-                  $is_video = $image_row->filetype == "YOUTUBE" || $image_row->filetype == "VIMEO";
-                  if (!$is_video) {
+                  $is_embed = preg_match('/EMBED/',$image_row->filetype)==1 ? true :false;
+                  $is_embed_video = preg_match('/VIDEO/',$image_row->filetype)==1 ? true :false;
+                  if (!$is_embed) {
                     list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
                   }
                   else {
-                    $image_thumb_width = $params['extended_album_image_thumb_width'];
-                    $image_thumb_height = $params['extended_album_image_thumb_height'];
+                    if($image_row->resolution != ''){
+                      $resolution_arr = explode(" ",$image_row->resolution);
+                      $resolution_w = intval($resolution_arr[0]);
+                      $resolution_h = intval($resolution_arr[2]);
+                      if($resolution_w != 0 && $resolution_h != 0){
+                        $scale = $scale = max($params['extended_album_image_thumb_width'] / $resolution_w, $params['extended_album_image_thumb_height'] / $resolution_h);
+                        $image_thumb_width = $resolution_w * $scale;
+                        $image_thumb_height = $resolution_h * $scale;
+                      }
+                      else{
+                        $image_thumb_width = $params['extended_album_image_thumb_width'];
+                        $image_thumb_height = $params['extended_album_image_thumb_height'];
+                      }
+                    }
+                    else{
+                      $image_thumb_width = $params['extended_album_image_thumb_width'];
+                      $image_thumb_height = $params['extended_album_image_thumb_height'];
+                    }
                   }
                   $scale = max($params['extended_album_image_thumb_width'] / $image_thumb_width, $params['extended_album_image_thumb_height'] / $image_thumb_height);
                   $image_thumb_width *= $scale;
@@ -720,12 +771,13 @@ class BWGViewAlbum_extended_preview {
                   $thumb_left = ($params['extended_album_image_thumb_width'] - $image_thumb_width) / 2;
                   $thumb_top = ($params['extended_album_image_thumb_height'] - $image_thumb_height) / 2;
                   ?>
-                  <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('href="' . ($is_video ? $image_row->thumb_url : site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url) . '" onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
+                  <a class="bwg_link" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('href="' . ( $is_embed ? $image_row->thumb_url : site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url) . '"' ) : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '"' : '')); ?>
+                  <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ( ' onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? ($params['thumb_link_target'] ? (' onclick="window.open('."'".$image_row->redirect_url."',"."'".'_blank'."'".')"' ) : ('onclick="window.location='."'" . $image_row->redirect_url ."'"  .'"')  ) :  '')) ?>>
                     <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                         <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
                           <?php
-                          if ($play_icon && $is_video) {
+                           if ($play_icon && $is_embed_video) {
                             ?>
                           <span class="bwg_play_icon_spun_<?php echo $bwg; ?>">
                              <i title="<?php echo __('Play', 'bwg'); ?>"  class="fa fa-play bwg_play_icon_<?php echo $bwg; ?>"></i>
@@ -742,7 +794,7 @@ class BWGViewAlbum_extended_preview {
                             <?php
                           }
                           ?>
-                          <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ($is_video ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
+                          <img style="max-height:none; max-width:none; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ( $is_embed ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                         </span>
                       </span>
                       <?php

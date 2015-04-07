@@ -61,19 +61,44 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     jQuery("html, body").animate({scrollTop: jQuery('#' + form_id).offset().top - 150}, 500);
     /* For masonry view.*/
     var cccount_masonry = 0;
-    var tot_cccount_masonry = jQuery(".bwg_masonry_thumb_spun_" + current_view + " a").length;
-    jQuery(".bwg_masonry_thumb_spun_" + current_view + " a img").on("load", function() {
+    var tot_cccount_masonry = jQuery(".bwg_masonry_thumb_spun_" + current_view + " img").length;
+    jQuery(".bwg_masonry_thumb_spun_" + current_view + " img").on("load", function() {
+      if (++cccount_masonry == tot_cccount_masonry) {
+        window["bwg_masonry_" + current_view]();
+      }
+    });
+    jQuery(".bwg_masonry_thumb_spun_" + current_view + " img").error(function() {
+      
+      jQuery(this).height(100);
+      jQuery(this).width(100);
       if (++cccount_masonry == tot_cccount_masonry) {
         window["bwg_masonry_" + current_view]();
       }
     });
 
     /* For Blog style view.*/
-    jQuery(".blog_style_images_conteiner_" + current_view + " .bwg_video_frame_" + current_view).each(function (e) {
+    jQuery(".blog_style_images_conteiner_" + current_view + " .bwg_embed_frame_16x9_" + current_view).each(function (e) {
+      jQuery(this).width(jQuery(this).parent().width());
       jQuery(this).height(jQuery(this).width() * 0.5625);
     });
 
+    jQuery(".blog_style_images_conteiner_" + current_view + " .bwg_embed_frame_instapost_" + current_view).each(function (e) {
+      jQuery(this).width(jQuery(this).parent().width());
+      jQuery(this).height(jQuery(this).width() +88);
+    });
+    
+
+
+    /* For Image browser view.*/
+    
+    jQuery('#bwg_embed_frame_16x9_'+current_view).width(jQuery('#bwg_embed_frame_16x9_'+current_view).parent().width());
+    jQuery('#bwg_embed_frame_16x9_'+current_view).height(jQuery('#bwg_embed_frame_16x9_'+current_view).width() * 0.5625);
+    jQuery('#bwg_embed_frame_instapost_'+current_view).width(jQuery('#bwg_embed_frame_16x9_'+current_view).parent().width());
+    jQuery('#bwg_embed_frame_instapost_'+current_view).height(jQuery('#bwg_embed_frame_instapost_'+current_view).width() +88);
+    
+
     /* For mosaic view.*/
+    /*
     var cccount_mosaic = 0;
     var tot_cccount_mosaic = jQuery(".bwg_mosaic_thumb_spun_" + current_view + " img").length;
 
@@ -85,6 +110,16 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
 
       }
     });
+    jQuery(".bwg_mosaic_thumb_spun_" + current_view + " img").error(function() {
++
++      jQuery(this).height(100);
++      jQuery(this).width(100);
++      if (++cccount_mosaic == tot_cccount_mosaic) {
++        
++        window["bwg_mosaic_" + current_view]("load");
++
++      }
++    });*/
     
   });
   // if (event.preventDefault) {

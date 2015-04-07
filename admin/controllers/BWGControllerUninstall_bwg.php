@@ -20,6 +20,13 @@ class BWGControllerUninstall_bwg {
   ////////////////////////////////////////////////////////////////////////////////////////
   public function execute() {
     $task = ((isset($_POST['task'])) ? esc_html(stripslashes($_POST['task'])) : '');
+
+    if($task != ''){
+      if(!WDWLibrary::verify_nonce('uninstall_bwg')){
+        die('Sorry, your nonce did not verify.');
+      }
+    }
+
     if (method_exists($this, $task)) {
       $this->$task();
     }

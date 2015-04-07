@@ -219,7 +219,8 @@ class BWGViewThumbnails {
         max-width: <?php echo $params['image_column_number'] * ($params['thumb_width'] + 2 * (2 + $theme_row->thumb_margin + $theme_row->thumb_padding + $theme_row->thumb_border_width)); ?>px;
         text-align: <?php echo $theme_row->thumb_align; ?>;
       }
-      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> a {
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_standart_thumbnails_<?php echo $bwg; ?> .bwg_link {
+        font-size: 0;
         border: none;
         cursor: pointer;
         text-decoration: none;
@@ -445,13 +446,31 @@ class BWGViewThumbnails {
                   $params_array['watermark_width'] = $params['watermark_width'];
                   $params_array['watermark_height'] = $params['watermark_height'];
                 }
-                $is_video = $image_row->filetype == "YOUTUBE" || $image_row->filetype == "VIMEO";
-                if (!$is_video) {
+                $is_embed = preg_match('/EMBED/',$image_row->filetype)==1 ? true :false;
+                $is_embed_video = preg_match('/VIDEO/',$image_row->filetype)==1 ? true :false;
+                if (!$is_embed) {
                   list($image_thumb_width, $image_thumb_height) = getimagesize(htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_row->thumb_url, ENT_COMPAT | ENT_QUOTES));
                 }
                 else {
                   $image_thumb_width = $params['thumb_width'];
-                  $image_thumb_height = $params['thumb_height'];
+                  if($image_row->resolution != ''){
+                    $resolution_arr = explode(" ",$image_row->resolution);
+                    $resolution_w = intval($resolution_arr[0]);
+                    $resolution_h = intval($resolution_arr[2]);
+                    if($resolution_w != 0 && $resolution_h != 0){
+                      $scale = $scale = max($params['thumb_width'] / $resolution_w, $params['thumb_height'] / $resolution_h);
+                      $image_thumb_width = $resolution_w * $scale;
+                      $image_thumb_height = $resolution_h * $scale;
+                    }
+                    else{
+                    $image_thumb_width = $params['thumb_width'];
+                    $image_thumb_height = $params['thumb_height'];
+                    }
+                  }
+                  else{
+                    $image_thumb_width = $params['thumb_width'];
+                    $image_thumb_height = $params['thumb_height'];
+                  }
                 }
                 $scale = max($params['thumb_width'] / $image_thumb_width, $params['thumb_height'] / $image_thumb_height);
                 $image_thumb_width *= $scale;
@@ -459,7 +478,7 @@ class BWGViewThumbnails {
                 $thumb_left = ($params['thumb_width'] - $image_thumb_width) / 2;
                 $thumb_top = ($params['thumb_height'] - $image_thumb_height) / 2;
                 ?>
-                <a style="font-size: 0;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('href="' . ($is_video ? $image_row->thumb_url : site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url) . '" onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
+                <a class="bwg_link"  <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('href="' . ( $is_embed ? $image_row->thumb_url : site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url) . '" onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
                   <span class="bwg_standart_thumb_<?php echo $bwg; ?>">
                     <?php
                     if ($params['image_title'] == 'show' and $theme_row->thumb_title_pos == 'top') {
@@ -475,7 +494,7 @@ class BWGViewThumbnails {
                     <span class="bwg_standart_thumb_spun1_<?php echo $bwg; ?>">
                       <span class="bwg_standart_thumb_spun2_<?php echo $bwg; ?>">
                         <?php
-                        if ($play_icon && $is_video) {
+                        if ($play_icon && $is_embed_video) {
                           ?>
                         <span class="bwg_play_icon_spun_<?php echo $bwg; ?>">
                            <i title="<?php echo __('Play', 'bwg'); ?>"  class="fa fa-play bwg_play_icon_<?php echo $bwg; ?>"></i>
@@ -492,7 +511,7 @@ class BWGViewThumbnails {
                           <?php
                         }
                         ?>
-			<img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ($is_video ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
+			                  <img class="bwg_standart_thumb_img_<?php echo $bwg; ?>" style="max-height: none !important;  max-width: none !important; padding: 0 !important; width:<?php echo $image_thumb_width; ?>px; height:<?php echo $image_thumb_height; ?>px; margin-left: <?php echo $thumb_left; ?>px; margin-top: <?php echo $thumb_top; ?>px;" id="<?php echo $image_row->id; ?>" src="<?php echo ( $is_embed ? "" : site_url() . '/' . $WD_BWG_UPLOAD_DIR) . $image_row->thumb_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                       </span>
                     </span>
                     <?php

@@ -83,7 +83,9 @@ class FilemanagerController {
       else {
         mkdir($new_dir_path);
       }
-      header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => esc_html($_REQUEST['extensions']), 'callback' => esc_html($_REQUEST['callback']), 'dir' => esc_html($_REQUEST['dir']), 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+      $query_url = wp_nonce_url( admin_url('admin-ajax.php'), 'addImages', 'bwg_nonce' );
+      $query_url  = add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => esc_html($_REQUEST['extensions']), 'callback' => esc_html($_REQUEST['callback']), 'dir' => esc_html($_REQUEST['dir']), 'TB_iframe' => '1'), $query_url);
+      header('Location: ' . $query_url);
       exit;
     }
 
@@ -123,7 +125,9 @@ class FilemanagerController {
         $msg = "Can't rename the file.";
       }
       $_REQUEST['file_names'] = '';
-      header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => esc_html($_REQUEST['extensions']), 'callback' => esc_html($_REQUEST['callback']), 'dir' => esc_html($_REQUEST['dir']), 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+      $query_url = wp_nonce_url( admin_url('admin-ajax.php'), 'addImages', 'bwg_nonce' );
+      $query_url = add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'display', 'extensions' => esc_html($_REQUEST['extensions']), 'callback' => esc_html($_REQUEST['callback']), 'dir' => esc_html($_REQUEST['dir']), 'TB_iframe' => '1'), $query_url);
+      header('Location: ' . $query_url);
       exit;
     }
 
@@ -154,7 +158,9 @@ class FilemanagerController {
         }
       }
       $_REQUEST['file_names'] = '';
-      header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => esc_html($_REQUEST['extensions']), 'callback' => esc_html($_REQUEST['callback']), 'dir' => esc_html($_REQUEST['dir']), 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+      $query_url = wp_nonce_url( admin_url('admin-ajax.php'), 'addImages', 'bwg_nonce' );
+      $query_url = add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => esc_html($_REQUEST['extensions']), 'callback' => esc_html($_REQUEST['callback']), 'dir' => esc_html($_REQUEST['dir']), 'TB_iframe' => '1'), $query_url);      
+      header('Location: ' . $query_url);
       exit;
     }
 
@@ -244,12 +250,16 @@ class FilemanagerController {
           }
           break;
       }
-      header('Location: ' . add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => esc_html($_REQUEST['extensions']), 'callback' => esc_html($_REQUEST['callback']), 'dir' => esc_html($_REQUEST['dir']), 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+      $query_url = wp_nonce_url( admin_url('admin-ajax.php'), 'addImages', 'bwg_nonce' );
+      $query_url = add_query_arg(array('action' => 'addImages', 'filemanager_msg' => $msg, 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => esc_html($_REQUEST['extensions']), 'callback' => esc_html($_REQUEST['callback']), 'dir' => esc_html($_REQUEST['dir']), 'TB_iframe' => '1'), $query_url);      
+      header('Location: ' . $query_url);
       exit;
     }
 
     public function import_items() {
-      header('Location: ' . add_query_arg(array('action' => 'bwg_UploadHandler', 'importer_thumb_width' => esc_html($_REQUEST['importer_thumb_width']), 'importer_thumb_height' => esc_html($_REQUEST['importer_thumb_height']), 'callback' => esc_html($_REQUEST['callback']), 'file_namesML' => esc_html($_REQUEST['file_namesML']), 'importer_img_width' => esc_html($_REQUEST['importer_img_width']), 'importer_img_height' => esc_html($_REQUEST['importer_img_height']), 'import' => 'true', 'redir' => esc_html($_REQUEST['dir']), 'dir' => $this->get_uploads_dir() . '/' . esc_html($_REQUEST['dir']) . '/'), admin_url('admin-ajax.php')));
+      $query_url = wp_nonce_url( admin_url('admin-ajax.php'), 'bwg_UploadHandler', 'bwg_nonce' );
+      $query_url = add_query_arg(array('action' => 'bwg_UploadHandler', 'importer_thumb_width' => esc_html($_REQUEST['importer_thumb_width']), 'importer_thumb_height' => esc_html($_REQUEST['importer_thumb_height']), 'callback' => esc_html($_REQUEST['callback']), 'file_namesML' => esc_html($_REQUEST['file_namesML']), 'importer_img_width' => esc_html($_REQUEST['importer_img_width']), 'importer_img_height' => esc_html($_REQUEST['importer_img_height']), 'import' => 'true', 'redir' => esc_html($_REQUEST['dir']), 'dir' => $this->get_uploads_dir() . '/' . esc_html($_REQUEST['dir']) . '/'), $query_url);
+      header('Location: ' . $query_url);
       exit;
     }
 

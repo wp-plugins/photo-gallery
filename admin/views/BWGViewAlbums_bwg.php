@@ -46,6 +46,7 @@ class BWGViewAlbums_bwg {
       </div>
     </div>
     <form class="wrap" id="albums_form" method="post" action="admin.php?page=albums_bwg" style="float: left; width: 99%;">
+      <?php wp_nonce_field( 'albums_bwg', 'bwg_nonce' ); ?>
       <span class="album-icon"></span>
       <h2>
         Albums
@@ -257,6 +258,7 @@ class BWGViewAlbums_bwg {
       }
     </script>
     <form class="wrap" method="post" action="admin.php?page=albums_bwg" style="float: left; width: 99%;">
+      <?php wp_nonce_field( 'albums_bwg', 'bwg_nonce' ); ?>
       <span class="album-icon"></span>
       <h2><?php echo $page_title; ?></h2>
       <div style="float:right;">
@@ -309,7 +311,12 @@ class BWGViewAlbums_bwg {
           <tr>
             <td class="spider_label"><label for="url">Preview image: </label></td>
             <td>
-              <a href="<?php echo add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_preview_image', 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>"
+              <?php 
+              $query_url =  add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_preview_image'), admin_url('admin-ajax.php'));
+              $query_url = wp_nonce_url( $query_url, 'addImages', 'bwg_nonce' );
+              $query_url =  add_query_arg(array('TB_iframe' => '1'), $query_url );
+              ?>
+              <a href="<?php echo $query_url; ?>"   
                  id="button_preview_image"
                  class="button-primary thickbox thickbox-preview"
                  title="Add Preview Image"
@@ -328,7 +335,12 @@ class BWGViewAlbums_bwg {
           <tr>
             <td class="spider_label"><label for="content-add_media">Albums And Galleries: </label></td>
             <td>
-              <a href="<?php echo add_query_arg(array('action' => 'addAlbumsGalleries', 'album_id' => $id, 'width' => '700', 'height' => '550', 'bwg_items_per_page'=>$per_page , 'TB_iframe' => '1'), admin_url('admin-ajax.php')); ?>" class="button-primary thickbox thickbox-preview" id="content-add_media" title="Add Images" onclick="return false;" style="margin-bottom:5px;">
+              <?php 
+              $query_url = add_query_arg(array('action' => 'addAlbumsGalleries', 'album_id' => $id, 'width' => '700', 'height' => '550', 'bwg_items_per_page'=>$per_page ), admin_url('admin-ajax.php'));
+              $query_url = wp_nonce_url( $query_url, 'addAlbumsGalleries', 'bwg_nonce' );
+              $query_url = add_query_arg(array('TB_iframe' => '1'), $query_url);
+              ?>
+              <a href="<?php echo $query_url; ?>" class="button-primary thickbox thickbox-preview" id="content-add_media" title="Add Images" onclick="return false;" style="margin-bottom:5px;">
                 Add Albums/Galleries
               </a>              
               <?php $albums_galleries = $this->model->get_albums_galleries_rows_data($id) ?>

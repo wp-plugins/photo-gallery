@@ -71,6 +71,7 @@ class  BWGViewThemes_bwg {
     }
     ?>
     <form class="wrap" id="themes_form" method="post" action="admin.php?page=themes_bwg" style="float: left; width: 99%;">
+      <?php wp_nonce_field( 'themes_bwg', 'bwg_nonce' ); ?>
       <span class="theme_icon"></span>
       <h2>
         Themes
@@ -250,6 +251,7 @@ class  BWGViewThemes_bwg {
       </div>
     </div>
     <form class="wrap" method="post" action="admin.php?page=themes_bwg" style="float: left; width: 99%;">
+      <?php wp_nonce_field( 'themes_bwg', 'bwg_nonce' ); ?>
       <span class="theme_icon"></span>
       <h2><?php echo $page_title; ?></h2>
       <div style="float: right; margin: 0 5px 0 0;">

@@ -192,6 +192,9 @@
 .spider_free_version_label {
   color: #808080 !important;
 }
+.spider_free_version_button{
+ background-color: #808080 !important; 
+}
 
 .handle {
   background: url("../images/draggable.png") no-repeat transparent;
@@ -289,6 +292,11 @@
 .spider_label {
   font-weight: bold;
   width: 100px;
+}
+
+.spider_label_galleries {
+ font-weight: bold;
+ width: 180px;
 }
 
 .spider_fieldset .spider_label {
@@ -496,7 +504,13 @@
   display: none;
 }
 
-.bwg_add_video,
+#add_embed_help {
+  height: 200px;
+  width: 672px;
+  top: 40%;
+}
+
+.bwg_add_embed,
 .bwg_resize_image {
   display: none;
   padding: 10px;
@@ -512,7 +526,7 @@
   margin-top: -45px;
 }
 
-.bwg_add_video {
+.bwg_add_embed {
   margin-left: -340px;
 }
 
@@ -520,7 +534,24 @@
   margin-left: -200px;
 }
 
-#add_video input[type="text"] {
+.bwg_bulk_embed {
+  display: none;
+  padding: 10px;
+  height: 160px;
+  background-color: #FFFFFF;
+  border: 1px solid #999999;
+  top: 40%;
+  position: fixed;
+  left: 55%;
+  text-align: left;
+  z-index: 100000;
+  border-radius: 3px;
+  margin-top: -45px;
+  margin-left: -340px;
+}
+
+
+#add_embed input[type="text"] {
   width: 500px;
 }
 
@@ -528,7 +559,7 @@
   width: 60px;
 }
 
-.bwg_opacity_video {
+.bwg_opacity_media {
   display: none;
   background-color: #000000;
   opacity: 0.75;

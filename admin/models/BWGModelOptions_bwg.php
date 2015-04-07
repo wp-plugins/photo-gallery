@@ -146,6 +146,7 @@ class BWGModelOptions_bwg {
       $row->show_masonry_thumb_description = 0;
       $row->popup_info_full_width = 0;
 			$row->show_sort_images = 0;
+      $row->description_tb = 0;
     }
     return $row;
   }

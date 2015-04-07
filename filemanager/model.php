@@ -154,6 +154,15 @@ class FilemanagerModel {
           $file['date_modified'] = date('d F Y, H:i', filemtime($parent_dir . '/' . $file_name));
           $image_info = getimagesize(htmlspecialchars_decode($parent_dir . '/' . $file_name, ENT_COMPAT | ENT_QUOTES));
           $file['resolution'] = $this->is_img($file['type']) ? $image_info[0]  . ' x ' . $image_info[1] . ' px' : '';
+          $exif = $this->bwg_wp_read_image_metadata( $parent_dir . '/.original/' . $file_name );
+          $file['credit'] = $exif['credit'];
+          $file['aperture'] = $exif['aperture'];
+          $file['camera'] = $exif['camera'];
+          $file['caption'] = $exif['caption'];
+          $file['iso'] = $exif['iso'];
+          $file['orientation'] = $exif['orientation'];
+          $file['copyright'] = $exif['copyright'];
+
           $files[] = $file;
         }
       }
@@ -210,10 +219,142 @@ class FilemanagerModel {
           $file['date_modified'] = date('d F Y, H:i', filemtime($parent_dir . '/' . $file_meta['file']));
           // $image_info = getimagesize(htmlspecialchars_decode($parent_dir . '/' . $file_meta['file'], ENT_COMPAT | ENT_QUOTES));
           $file['resolution'] = $this->is_img($file['type']) ? $file_meta['width']  . ' x ' . $file_meta['height'] . ' px' : '';
+          $exif = $this->bwg_wp_read_image_metadata($parent_dir . '/.original/' . $file_name);
+          $file['credit'] = $exif['credit'];
+          $file['aperture'] = $exif['aperture'];
+          $file['camera'] = $exif['camera'];
+          $file['caption'] = $exif['caption'];
+          $file['iso'] = $exif['iso'];
+          $file['orientation'] = $exif['orientation'];
+          $file['copyright'] = $exif['copyright'];
+
           $files[] = $file;
         }
       }
       return $files;
+    }
+
+
+    private function bwg_wp_read_image_metadata( $file ) {
+      if (!file_exists($file)) {
+        return false;
+      }
+      list( , , $sourceImageType ) = getimagesize($file);
+      $meta = array(
+        'aperture' => 0,
+        'credit' => '',
+        'camera' => '',
+        'caption' => '',
+        'created_timestamp' => 0,
+        'copyright' => '',
+        'focal_length' => 0,
+        'iso' => 0,
+        'shutter_speed' => 0,
+        'title' => '',
+        'orientation' => 0,
+      ); 
+      if ( is_callable( 'iptcparse' ) ) {
+        getimagesize( $file, $info );
+        if ( ! empty( $info['APP13'] ) ) {
+          $iptc = iptcparse( $info['APP13'] );     
+          if ( ! empty( $iptc['2#105'][0] ) ) {
+            $meta['title'] = trim( $iptc['2#105'][0] );      
+          } elseif ( ! empty( $iptc['2#005'][0] ) ) {
+            $meta['title'] = trim( $iptc['2#005'][0] );
+          }
+          if ( ! empty( $iptc['2#120'][0] ) ) { 
+            $caption = trim( $iptc['2#120'][0] );
+            if ( empty( $meta['title'] ) ) {
+              mbstring_binary_safe_encoding();
+              $caption_length = strlen( $caption );
+              reset_mbstring_encoding();         
+              if ( $caption_length < 80 ) {
+                $meta['title'] = $caption;
+              } else {
+                $meta['caption'] = $caption;
+              }
+            } elseif ( $caption != $meta['title'] ) {
+              $meta['caption'] = $caption;
+            }
+          }
+          if ( ! empty( $iptc['2#110'][0] ) ) {
+            $meta['credit'] = trim( $iptc['2#110'][0] );
+          }
+          elseif ( ! empty( $iptc['2#080'][0] ) ) {
+            $meta['credit'] = trim( $iptc['2#080'][0] );
+          }
+          if ( ! empty( $iptc['2#055'][0] ) and ! empty( $iptc['2#060'][0] ) ) {
+            $meta['created_timestamp'] = strtotime( $iptc['2#055'][0] . ' ' . $iptc['2#060'][0] );
+          }
+          if ( ! empty( $iptc['2#116'][0] ) ) {
+            $meta['copyright'] = trim( $iptc['2#116'][0] );
+          }
+        }
+      }
+      if ( is_callable( 'exif_read_data' ) && in_array( $sourceImageType, apply_filters( 'wp_read_image_metadata_types', array( IMAGETYPE_JPEG, IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM ) ) ) ) {
+        $exif = @exif_read_data( $file );
+        if ( empty( $meta['title'] ) && ! empty( $exif['Title'] ) ) {
+          $meta['title'] = trim( $exif['Title'] );
+        }
+        if ( ! empty( $exif['ImageDescription'] ) ) {
+          mbstring_binary_safe_encoding();
+          $description_length = strlen( $exif['ImageDescription'] );
+          reset_mbstring_encoding();
+          if ( empty( $meta['title'] ) && $description_length < 80 ) {       
+            $meta['title'] = trim( $exif['ImageDescription'] );
+            if ( empty( $meta['caption'] ) && ! empty( $exif['COMPUTED']['UserComment'] ) && trim( $exif['COMPUTED']['UserComment'] ) != $meta['title'] ) {
+              $meta['caption'] = trim( $exif['COMPUTED']['UserComment'] );
+            }
+          } elseif ( empty( $meta['caption'] ) && trim( $exif['ImageDescription'] ) != $meta['title'] ) {
+            $meta['caption'] = trim( $exif['ImageDescription'] );
+          }
+        } elseif ( empty( $meta['caption'] ) && ! empty( $exif['Comments'] ) && trim( $exif['Comments'] ) != $meta['title'] ) {
+          $meta['caption'] = trim( $exif['Comments'] );
+        }
+        if ( empty( $meta['credit'] ) ) {
+          if ( ! empty( $exif['Artist'] ) ) {
+            $meta['credit'] = trim( $exif['Artist'] );
+          } elseif ( ! empty($exif['Author'] ) ) {
+            $meta['credit'] = trim( $exif['Author'] );
+          }
+        }
+        if ( empty( $meta['copyright'] ) && ! empty( $exif['Copyright'] ) ) {
+          $meta['copyright'] = trim( $exif['Copyright'] );
+        }
+        if ( ! empty( $exif['FNumber'] ) ) {
+          $meta['aperture'] = round( wp_exif_frac2dec( $exif['FNumber'] ), 2 );
+        }
+        if ( ! empty( $exif['Model'] ) ) {
+          $meta['camera'] = trim( $exif['Model'] );
+        }
+        if ( empty( $meta['created_timestamp'] ) && ! empty( $exif['DateTimeDigitized'] ) ) {
+          $meta['created_timestamp'] = wp_exif_date2ts( $exif['DateTimeDigitized'] );
+        }
+        if ( ! empty( $exif['FocalLength'] ) ) {
+          $meta['focal_length'] = (string) wp_exif_frac2dec( $exif['FocalLength'] );
+        }
+        if ( ! empty( $exif['ISOSpeedRatings'] ) ) {
+          $meta['iso'] = is_array( $exif['ISOSpeedRatings'] ) ? reset( $exif['ISOSpeedRatings'] ) : $exif['ISOSpeedRatings'];
+          $meta['iso'] = trim( $meta['iso'] );
+        }
+        if ( ! empty( $exif['ExposureTime'] ) ) {
+          $meta['shutter_speed'] = (string) wp_exif_frac2dec( $exif['ExposureTime'] );
+        }
+        if ( ! empty( $exif['Orientation'] ) ) {
+          $meta['orientation'] = $exif['Orientation'];
+        }
+      }
+      foreach ( array( 'title', 'caption', 'credit', 'copyright', 'camera', 'iso' ) as $key ) {
+        if ( $meta[ $key ] && ! seems_utf8( $meta[ $key ] ) ) {
+          $meta[ $key ] = utf8_encode( $meta[ $key ] );
+        }
+      }
+      foreach ( $meta as &$value ) {
+        if ( is_string( $value ) ) {
+          $value = wp_kses_post( $value );
+        }
+      }
+      return $meta;
     }
 
     private function get_sorted_file_names($parent_dir, $sort_by, $sort_order) {

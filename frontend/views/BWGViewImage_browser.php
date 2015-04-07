@@ -27,6 +27,7 @@ class BWGViewImage_browser {
     $current_url = $wp->query_string;
     global $WD_BWG_UPLOAD_DIR;
     require_once(WD_BWG_DIR . '/framework/WDWLibrary.php');
+    require_once(WD_BWG_DIR . '/framework/WDWLibraryEmbed.php');
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
     if (!isset($params['order_by'])) {
       $order_by = 'asc';
@@ -127,6 +128,13 @@ class BWGViewImage_browser {
       'current_url' => $current_url
     );	
     if ($params['watermark_type'] == 'none') {
+      $params_array['watermark_font'] = '';
+      $params_array['watermark_color'] = '';
+      $params_array['watermark_font_size'] = '';
+      $params_array['watermark_opacity'] = '';
+      $text_align = '';
+      $vertical_align = '';
+      $params_array['watermark_width'] = '';
       $show_watermark = FALSE;
     }
     if ($params['watermark_type'] != 'none') {
@@ -158,6 +166,9 @@ class BWGViewImage_browser {
 			$watermark_image_or_text = '<img class="bwg_image_browser_watermark_img_' . $bwg . '" src="' . $params_array['watermark_url'] . '" />';
 			$watermark_a = '';
 			$watermark_div = 'class="bwg_image_browser_watermark_' . $bwg . '"';
+      $params_array['watermark_font'] = '';
+      $params_array['watermark_color'] = '';
+      $params_array['watermark_font_size'] = '';
     }
     ?>
     <style>
@@ -255,7 +266,7 @@ class BWGViewImage_browser {
 				  border-radius: <?php echo $theme_row->image_browser_image_description_border_radius; ?>;
 				  border-width: <?php echo $theme_row->image_browser_image_description_border_width; ?>px;
 				}
-				#bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .tablenav-pages_<?php echo $bwg; ?> a {
+				#bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .tablenav-pages_<?php echo $bwg; ?> .bwg_link {
 				  font-size: 10px !important;
 				}				
       }
@@ -451,7 +462,9 @@ class BWGViewImage_browser {
               foreach ($image_rows as $image_row) {
                 $params_array['image_id'] = (isset($_POST['image_id']) ? esc_html($_POST['image_id']) : $image_row->id);
                 $popup_url = add_query_arg(array($params_array), admin_url('admin-ajax.php'));
-                $is_video = $image_row->filetype == "YOUTUBE" || $image_row->filetype == "VIMEO";
+                $is_embed = preg_match('/EMBED/',$image_row->filetype)==1 ? true :false;
+                $is_embed_16x9 = ((preg_match('/EMBED/',$image_row->filetype)==1 ? true :false) && (preg_match('/VIDEO/',$image_row->filetype)==1 ? true :false) && !(preg_match('/INSTAGRAM/',$image_row->filetype)==1 ? true :false));
+                $is_embed_instagram_post = preg_match('/INSTAGRAM_POST/',$image_row->filetype)==1 ? true :false;
                 ?>  
                 <div class="image_browser_image_buttons_conteiner_<?php echo $bwg; ?>">
                   <div class="image_browser_image_buttons_<?php echo $bwg;?>">
@@ -483,21 +496,41 @@ class BWGViewImage_browser {
                         </div>
                         <?php
                       }
-                      if (!$is_video) {
+                      if (!$is_embed) {
                       ?>
-                        <a style="position:relative;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
+                        <a class="bwg_link" style="position:relative;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>  
                           <img class="bwg_image_browser_img_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                         </a>
                       <?php 
                       }
-                      else { ?>
-                        <iframe id="bwg_video_frame_<?php echo $bwg; ?>" src="<?php echo ($image_row->filetype == "YOUTUBE" ? "//www.youtube.com/embed/" . $image_row->filename : "//player.vimeo.com/video/" . $image_row->filename); ?>" width="<?php echo $params['image_browser_width']; ?>" height="<?php echo $params['image_browser_width'] * 0.5625; ?>" frameborder="0" allowfullscreen style="position: relative;"></iframe>
-                      <?php
+                      else{ /*$is_embed*/
+
+                        if($is_embed_16x9){
+                          WDWLibraryEmbed::display_embed($image_row->filetype, $image_row->filename, array('id'=>"bwg_embed_frame_16x9_".$bwg,'width'=>$params['image_browser_width'], 'height'=>$params['image_browser_width']*0.5625, 'frameborder'=>"0", 'allowfullscreen'=>"allowfullscreen", 'style'=>"position: relative; margin:0;"));          
+                        }
+                        elseif($is_embed_instagram_post){
+                          WDWLibraryEmbed::display_embed($image_row->filetype, $image_row->filename, array('id'=>"bwg_embed_frame_instapost_".$bwg,'width'=>$params['image_browser_width'], 'height'=>$params['image_browser_width']+88, 'frameborder'=>"0", 'allowfullscreen'=>"allowfullscreen", 'style'=>"position: relative; margin:0;"));          
+                        }
+                        else{/*for instagram image, video and flickr enable lightbox onclick*/
+                          ?>
+                          <a class="bwg_link" style="position:relative;" <?php echo ($params['thumb_click_action'] == 'open_lightbox' ? ('onclick="spider_createpopup(\'' . addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))) . '\', ' . $bwg . ', ' . $params['popup_width'] . ', ' . $params['popup_height'] . ', 1, \'testpopup\', 5); return false;"') : ($image_row->redirect_url ? 'href="' . $image_row->redirect_url . '" target="' .  ($params['thumb_link_target'] ? '_blank' : '')  . '"' : '')) ?>>
+                            <?php
+                            WDWLibraryEmbed::display_embed($image_row->filetype, $image_row->filename, array('id'=>"bwg_embed_frame_".$bwg,'width'=>$params['image_browser_width'], 'height'=>'auto', 'frameborder'=>"0", 'allowfullscreen'=>"allowfullscreen", 'style'=>"position: relative; margin:0;"));          
+                          ?>
+                          </a>
+
+                        <?php
+                        }
                       }
                       ?>
-                    <script>	
-                      setTimeout(function() {
-                        jQuery('#bwg_video_frame_<?php echo $bwg; ?>').height(jQuery('#bwg_video_frame_<?php echo $bwg; ?>').width() * 0.5625);
+                    <script>
+                    jQuery(window).load(function() { 
+                      /*setTimeout(function() {*/
+                        
+                        jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').width(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').parent().width());
+                        jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').width() * 0.5625);
+                        jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').width(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').parent().width());
+                        jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').width() +88);
                         if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 108) {
                           jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');
                         }
@@ -523,9 +556,11 @@ class BWGViewImage_browser {
                             jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 4%');
                           }
                         }
-                      }, 3);
+                      }/*, 3*/);
                       jQuery(window).resize(function() {
-                        jQuery('#bwg_video_frame_<?php echo $bwg; ?>').height(jQuery('#bwg_video_frame_<?php echo $bwg; ?>').width() * 0.5625);
+                        jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').width() * 0.5625);
+                        jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').width() +88);
+
                         if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 108) {
                           jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');					  
                         }

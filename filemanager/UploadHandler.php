@@ -888,7 +888,9 @@ class UploadHandler {
             ""
           );
         }
-        header('Location: ' . add_query_arg(array('action' => 'addImages', 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['redir'], 'TB_iframe' => '1'), admin_url('admin-ajax.php')));
+        $query_url = wp_nonce_url( admin_url('admin-ajax.php'), 'addImages', 'bwg_nonce' );
+        $query_url = add_query_arg(array('action' => 'addImages', 'width' => '650', 'height' => '500', 'task' => 'show_file_manager', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => $_REQUEST['callback'], 'dir' => $_REQUEST['redir'], 'TB_iframe' => '1'), $query_url);
+        header('Location: ' . $query_url);
         exit;
       }
       if ($print_response && isset($_GET['download'])) {

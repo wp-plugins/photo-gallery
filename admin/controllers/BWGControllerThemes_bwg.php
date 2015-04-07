@@ -21,6 +21,13 @@ class BWGControllerThemes_bwg {
   public function execute() {
     $task = WDWLibrary::get('task');
     $id = WDWLibrary::get('current_id', 0);
+
+    if($task != ''){
+      if(!WDWLibrary::verify_nonce('themes_bwg')){
+        die('Sorry, your nonce did not verify.');
+      }
+    }
+
     $message = WDWLibrary::get('message');
     echo WDWLibrary::message_id($message);
     if (method_exists($this, $task)) {
@@ -73,7 +80,9 @@ class BWGControllerThemes_bwg {
   public function save() {
     $message = $this->save_db();
     $page = WDWLibrary::get('page');
-    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    $query_url = wp_nonce_url( admin_url('admin.php'), 'themes_bwg', 'bwg_nonce' );
+    $query_url = add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), $query_url);
+    WDWLibrary::spider_redirect($query_url);
   }
 
   public function apply() {
@@ -83,7 +92,9 @@ class BWGControllerThemes_bwg {
     $current_id = WDWLibrary::get('current_id', $id);
     $page = WDWLibrary::get('page');
     $current_type = WDWLibrary::get('current_type', 'Thumbnail');
-    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'edit', 'current_id' => $current_id, 'message' => $message, 'current_type' => $current_type), admin_url('admin.php')));
+    $query_url = wp_nonce_url( admin_url('admin.php'), 'themes_bwg', 'bwg_nonce' );
+    $query_url = add_query_arg(array('page' => $page, 'task' => 'edit', 'current_id' => $current_id, 'message' => $message, 'current_type' => $current_type), $query_url);
+    WDWLibrary::spider_redirect($query_url);
   }  
   
   public function save_db() {
@@ -1613,7 +1624,9 @@ class BWGControllerThemes_bwg {
       }
     }
     $page = WDWLibrary::get('page');
-    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    $query_url = wp_nonce_url( admin_url('admin.php'), 'themes_bwg', 'bwg_nonce' );
+    $query_url = add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), $query_url);
+    WDWLibrary::spider_redirect($query_url);
   }
   
   public function delete_all() {
@@ -1641,7 +1654,9 @@ class BWGControllerThemes_bwg {
       $message = 6;
     }
     $page = WDWLibrary::get('page');
-    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    $query_url = wp_nonce_url( admin_url('admin.php'), 'themes_bwg', 'bwg_nonce' );
+    $query_url = add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), $query_url);
+    WDWLibrary::spider_redirect($query_url);
   }
 
   public function setdefault($id) {
@@ -1655,7 +1670,9 @@ class BWGControllerThemes_bwg {
       $message = 2;
     }
     $page = WDWLibrary::get('page');
-    WDWLibrary::spider_redirect(add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), admin_url('admin.php')));
+    $query_url = wp_nonce_url( admin_url('admin.php'), 'themes_bwg', 'bwg_nonce' );
+    $query_url = add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), $query_url);
+    WDWLibrary::spider_redirect($query_url);
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////

@@ -21,6 +21,12 @@ class BWGControllerGalleries_bwg {
   public function execute() {
     $task = ((isset($_POST['task'])) ? esc_html(stripslashes($_POST['task'])) : '');
     $id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
+
+    if($task != ''){
+      if(!WDWLibrary::verify_nonce('galleries_bwg')){
+        die('Sorry, your nonce did not verify.');
+      }
+    }
     if (method_exists($this, $task)) {
       $this->$task($id);
     }
@@ -781,14 +787,14 @@ class BWGControllerGalleries_bwg {
       if ($id != 0) {
         $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT random_preview_image FROM " . $wpdb->prefix . "bwg_gallery WHERE id='%d'", $id));
         if ($random_preview_image == '' || !file_exists(ABSPATH . $WD_BWG_UPLOAD_DIR . $random_preview_image)) {
-          $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT thumb_url FROM " . $wpdb->prefix . "bwg_image WHERE gallery_id='%d' AND STRCMP(filetype,'YOUTUBE') AND STRCMP(filetype,'VIMEO') ORDER BY `order`", $id));
+          $random_preview_image = $wpdb->get_var($wpdb->prepare("SELECT thumb_url FROM " . $wpdb->prefix . "bwg_image WHERE gallery_id='%d' ORDER BY `order`", $id));
         }
       }
       else {
         $i = 0;
         $random_preview_image = '';
         while (isset($_POST['thumb_url_pr_' . $i]) && isset($_POST["input_filetype_pr_" . $i])) {
-          if ($_POST["input_filetype_pr_" . $i] != "YOUTUBE" && $_POST["input_filetype_pr_" . $i] != "VIMEO") {
+          /*if ($_POST["input_filetype_pr_" . $i] == "JPG" || $_POST["input_filetype_pr_" . $i] == "PNG" || $_POST["input_filetype_pr_" . $i] == "GIF")*/ {  
             $random_preview_image = esc_html(stripslashes($_POST['thumb_url_pr_' . $i]));
             break;
           }

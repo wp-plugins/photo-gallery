@@ -76,18 +76,18 @@ class FilemanagerView {
         var sortBy = "<?php echo $sort_by; ?>";
         var sortOrder = "<?php echo $sort_order; ?>";
       </script>
-      <script src="<?php echo WD_BWG_URL; ?>/filemanager/js/default.js?ver=<?php echo get_option("wd_bwg_version"); ?>"></script>
-      <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default.css?ver=<?php echo get_option("wd_bwg_version"); ?>" type="text/css" rel="stylesheet">
+      <script src="<?php echo WD_BWG_URL; ?>/filemanager/js/default.js?ver=<?php echo wd_bwg_version(); ?>"></script>
+      <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default.css?ver=<?php echo wd_bwg_version(); ?>" type="text/css" rel="stylesheet">
       <?php
       switch ($items_view) {
         case 'list':
           ?>
-          <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default_view_list.css?ver=<?php echo get_option("wd_bwg_version"); ?>" type="text/css" rel="stylesheet">
+          <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default_view_list.css?ver=<?php echo wd_bwg_version(); ?>" type="text/css" rel="stylesheet">
           <?php
           break;
         case 'thumbs':
           ?>
-          <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default_view_thumbs.css?ver=<?php echo get_option("wd_bwg_version"); ?>" type="text/css" rel="stylesheet">
+          <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default_view_thumbs.css?ver=<?php echo wd_bwg_version(); ?>" type="text/css" rel="stylesheet">
           <?php
           break;
       }
@@ -95,6 +95,7 @@ class FilemanagerView {
       ?>
 
       <form id="adminForm" name="adminForm" action="" method="post">
+        <?php wp_nonce_field( '', 'bwg_nonce' ); ?>
         <div id="wrapper">
           <div id="opacity_div" style="background-color: rgba(0, 0, 0, 0.2); position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99998;"></div>
           <div id="loading_div" style="text-align: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999;">
@@ -202,6 +203,13 @@ class FilemanagerView {
                            filetype="<?php echo strtoupper($file['type']); ?>"
                            date_modified="<?php echo $file['date_modified']; ?>"
                            fileresolution="<?php echo $file['resolution']; ?>"
+                           fileCredit="<?php echo isset($file['credit']) ? $file['credit'] : ''; ?>"
+                           fileAperture="<?php echo isset($file['aperture']) ? $file['aperture'] : ''; ?>"
+                           fileCamera="<?php echo isset($file['camera']) ? $file['camera'] : ''; ?>"
+                           fileCaption="<?php echo isset($file['caption']) ? $file['caption'] : ''; ?>"
+                           fileIso="<?php echo isset($file['iso']) ? $file['iso'] : ''; ?>"
+                           fileOrientation="<?php echo isset($file['orientation']) ? $file['orientation'] : ''; ?>"
+                           fileCopyright="<?php echo isset($file['copyright']) ? $file['copyright'] : ''; ?>"
                            onmouseover="onFileMOver(event, this);"
                            onmouseout="onFileMOut(event, this);"
                            onclick="onFileClick(event, this);"
@@ -290,6 +298,13 @@ class FilemanagerView {
                          filetype="<?php echo strtoupper($file['type']); ?>"
                          date_modified="<?php echo $file['date_modified']; ?>"
                          fileresolution="<?php echo $file['resolution']; ?>"
+                         fileCredit="<?php echo $file['credit']; ?>"
+                         fileAperture="<?php echo $file['aperture']; ?>"
+                         fileCamera="<?php echo $file['camera']; ?>"
+                         fileCaption="<?php echo $file['caption']; ?>"
+                         fileIso="<?php echo $file['iso']; ?>"
+                         fileOrientation="<?php echo $file['orientation']; ?>"
+                         fileCopyright="<?php echo $file['copyright']; ?>"
                          onmouseover="onFileMOverML(event, this);"
                          onmouseout="onFileMOutML(event, this);"
                          onclick="onFileClickML(event, this);"
@@ -354,8 +369,12 @@ class FilemanagerView {
                   <span><?php echo 'Drag files here or click the button below' . '<br />' . 'to upload files' ?></span>
                 </div>
                 <div id="btnBrowseContainer">
+                <?php
+                $query_url = wp_nonce_url( admin_url('admin-ajax.php'), 'bwg_UploadHandler', 'bwg_nonce' );
+                $query_url = add_query_arg(array('action' => 'bwg_UploadHandler', 'dir' => $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? esc_html($_REQUEST['dir']) : '') . '/'), $query_url);
+                ?>
                   <input id="jQueryUploader" type="file" name="files[]"
-                         data-url="<?php echo add_query_arg(array('action' => 'bwg_UploadHandler', 'dir' => $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? esc_html($_REQUEST['dir']) : '') . '/'), admin_url('admin-ajax.php')); ?>"
+                         data-url="<?php echo $query_url; ?>"
                          multiple>
                 </div>
                 <script>

@@ -21,6 +21,13 @@ class BWGControllerOptions_bwg {
   public function execute() {
     $task = ((isset($_POST['task'])) ? esc_html(stripslashes($_POST['task'])) : '');
     $id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
+
+    if($task != ''){
+      if(!WDWLibrary::verify_nonce('options_bwg')){
+        die('Sorry, your nonce did not verify.');
+      }
+    }
+
     if (method_exists($this, $task)) {
       $this->$task($id);
     }
@@ -194,6 +201,7 @@ class BWGControllerOptions_bwg {
     $show_masonry_thumb_description = (isset($_POST['show_masonry_thumb_description']) ? esc_html(stripslashes($_POST['show_masonry_thumb_description'])) : 0);
     $popup_info_full_width = (isset($_POST['popup_info_full_width']) ? esc_html(stripslashes($_POST['popup_info_full_width'])) : 0);
 		$show_sort_images = (isset($_POST['show_sort_images']) ? esc_html(stripslashes($_POST['show_sort_images'])) : 0);
+    $description_tb = (isset($_POST['description_tb']) ? esc_html(stripslashes($_POST['description_tb'])) : 0);
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -306,6 +314,7 @@ class BWGControllerOptions_bwg {
       'show_masonry_thumb_description' => $show_masonry_thumb_description,
       'popup_info_full_width' => $popup_info_full_width,
       'show_sort_images' => $show_sort_images,
+      'description_tb' => $description_tb,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      

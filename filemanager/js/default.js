@@ -177,6 +177,13 @@ function submitFiles() {
       fileData['filetype'] = jQuery(file_object).attr("filetype");
       fileData['date_modified'] = jQuery(file_object).attr("date_modified");
       fileData['resolution'] = jQuery(file_object).attr("fileresolution");
+      fileData['aperture'] = jQuery(file_object).attr("fileAperture");
+      fileData['credit'] = jQuery(file_object).attr("fileCredit");
+      fileData['camera'] = jQuery(file_object).attr("fileCamera");
+      fileData['caption'] = jQuery(file_object).attr("fileCaption");
+      fileData['iso'] = jQuery(file_object).attr("fileIso");
+      fileData['orientation'] = jQuery(file_object).attr("fileOrientation");
+      fileData['copyright'] = jQuery(file_object).attr("fileCopyright");
       filesValid.push(fileData);
     }
   }

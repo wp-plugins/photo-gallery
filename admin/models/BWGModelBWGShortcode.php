@@ -21,7 +21,7 @@ class BWGModelBWGShortcode {
 
   public function get_shortcode_data() {
     global $wpdb;
-    $shortcode = $wpdb->get_results("SELECT id, tagtext FROM " . $wpdb->prefix . "bwg_shortcode");
+    $shortcode = $wpdb->get_results("SELECT id, tagtext FROM " . $wpdb->prefix . "bwg_shortcode ORDER BY `id` ASC");
     return $shortcode;
   }
 

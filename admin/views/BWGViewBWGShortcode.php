@@ -77,11 +77,10 @@ class BWGViewBWGShortcode {
     wp_print_scripts('jquery-ui-position');
     wp_print_scripts('jquery-ui-tooltip');
     ?>
-        <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/bwg_shortcode.css?ver='; ?><?php echo get_option("wd_bwg_version"); ?>">
+         <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/bwg_shortcode.css?ver='.wd_bwg_version(); ?>">
         <link rel="stylesheet" href="<?php echo WD_BWG_URL . '/css/jquery-ui-1.10.3.custom.css'; ?>">
-
-        <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/bwg_shortcode.js?ver='; ?><?php echo get_option("wd_bwg_version"); ?>"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/jscolor/jscolor.js'; ?>"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/bwg_shortcode.js?ver='.wd_bwg_version(); ?>"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/jscolor/jscolor.js?ver='.wd_bwg_version(); ?>"></script>
         <?php
         if (!$from_menu) {
         ?>
@@ -90,6 +89,7 @@ class BWGViewBWGShortcode {
       <body id="link" onLoad="tinyMCEPopup.executeOnLoad('init();');document.body.style.display='';" dir="ltr" class="forceColors">
         <?php if (isset($_POST['tagtext'])) { echo '<script>tinyMCEPopup.close();</script></body></html>'; die(); } ?>
         <form method="post" action="#" id="bwg_shortcode_form">
+          <?php wp_nonce_field( 'BWGShortcode', 'bwg_nonce' ); ?>
           <div class="tabs" role="tablist" tabindex="-1">
             <ul>
               <li id="display_tab" class="current" role="tab" tabindex="0">
@@ -106,6 +106,7 @@ class BWGViewBWGShortcode {
         else {
         ?>
         <form method="post" action="#" id="bwg_shortcode_form">
+          <?php wp_nonce_field( 'BWGShortcode', 'bwg_nonce' ); ?>
           <div id="display_panel" style="width: 99%; margin-top: 30px;">
         <?php
         }
@@ -1042,7 +1043,12 @@ class BWGViewBWGShortcode {
             else { // Update.
               if (params['id']) {
                 shortcode_id = params['id'];
-                var short_code = get_short_params(shortcodes[params['id']]);
+                if(typeof shortcodes[shortcode_id] === 'undefined'){
+                  alert("There is no shortcode with such ID!");
+                  bwg_gallery_type('thumbnails');
+                  return 0;
+                }
+                var short_code = get_short_params(shortcodes[shortcode_id]);
                 bwg_insert = 0;
               }
               else {

@@ -72,6 +72,7 @@ function spider_ajax_save(form_id, tr_group) {
   else if (ajax_task == 'ajax_apply' || ajax_task == 'ajax_save') {
     ajax_task = '';
   }
+  var bwg_nonce = jQuery("#bwg_nonce").val();
   var name = jQuery("#name").val();
   var slug = jQuery("#slug").val();
   if ((typeof tinyMCE != "undefined") && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden() && tinyMCE.activeEditor.getContent) {
@@ -101,6 +102,7 @@ function spider_ajax_save(form_id, tr_group) {
   }
 
   var post_data = {};
+  post_data["bwg_nonce"] = bwg_nonce;
   post_data["name"] = name;
   post_data["slug"] = slug;
   post_data["description"] = description;
@@ -218,6 +220,10 @@ function spider_ajax_save(form_id, tr_group) {
       else if (ajax_task == 'image_recover_all') {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Reset.</p></strong>");
         jQuery('#draganddrop').show();
+      }
+      else if (ajax_task == 'search') {
+        jQuery('#message_div').html("");
+        jQuery('#message_div').hide();
       }
       else {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Saved.</p></strong>");
@@ -826,7 +832,7 @@ function bwg_built_in_watermark(watermark_type) {
 function bwg_change_option_type(type) {
   type = (type == '' ? 1 : type);
   document.getElementById('type').value = type;
-  for (var i = 1; i <= 8; i++) {
+  for (var i = 1; i <= 9; i++) {
     if (i == type) {
       document.getElementById('div_content_' + i).style.display = 'block';
       document.getElementById('div_' + i).style.background = '#C5C5C5';
@@ -919,118 +925,112 @@ function bwg_change_theme_type(type) {
   jQuery("#type_" + type).attr("style", "background-color: #CFCBCB;");
 }
 
-function bwg_get_video_host(url) {  
-  if ((/youtu\.be/i).test(url) || (/youtube\.com\/watch/i).test(url) || (/youtube\.com\/.*/i).test(url)) {
-    return 'YOUTUBE';
-  }
-  if ((/vimeo\.com/i).test(url)) {
-    return 'VIMEO';
-  }
-  alert('Enter only YouTube or Vimeo url.');
-  return '';
+function bwg_gallery_type() {
+  var response = true;
+  var value = jQuery('#gallery_type').val();
+  response = bwg_change_gallery_type(value, 'change');
+  return response;
 }
 
-function bwg_get_youtube_video_id(url) {
-  var video_id;	
-	var url_parts = url.split('v=');
-	if (url_parts.length <= 1) {
-		url_parts = url.split('/v/');
-		if (url_parts.length <= 1) {
-			url_parts = url_parts[url_parts.length - 1].split('/');
-			if (url_parts.length <= 1) {
-				url_parts = url_parts[0].split('?');
-			}
-		}
-		url_parts = url_parts[url_parts.length - 1].split('&');
-		if (url_parts.length <= 1) {
-			url_parts = url_parts[url_parts.length - 1].split('?');
-		}		
-	}
-  else {
-		url_parts = url_parts[url_parts.length - 1].split('&');
-		if (url_parts.length <= 1) {
-			url_parts = url_parts[url_parts.length - 1].split('#');			
-		}		
-	}
-	video_id = url_parts[0].split('?')[0];
-  return video_id ? video_id : false;
-}
 
-function bwg_get_vimeo_video_id(url) {
-  var url_parts
-	var video_id;
-	url_parts = url.split('/');	
-	url_parts = url_parts[url_parts.length - 1].split('?');
-	video_id = url_parts[0];
-	return video_id ? video_id : false;
-}
+/*returns false if user cancels or impossible to do.*/
+/*
++   type_to_set:'' or 'instagram'
++*/
+function bwg_change_gallery_type(type_to_set, warning_type) {
+  
+  warning_type = (typeof warning_type === "undefined") ? "default" : warning_type;
+ 
+ if(type_to_set == 'instagram'){
 
-function bwg_get_video_info(input_id) {
-  var url = jQuery("#" + input_id).val();  
-  if (!url) {
-    alert('Please enter video url to add.');
-    return '';
+    jQuery('#gallery_type').val('instagram');
+    jQuery('#tr_instagram_post_gallery').show();
+    jQuery('#tr_gallery_source').show();
+    jQuery('#tr_update_flag').show();
+    jQuery('#tr_autogallery_image_number').show();
+    jQuery('#tr_instagram_gallery_add_button').show();
+
+    /*hide features of only standard gallery*/   
+    jQuery('.spider_delete_button').hide();
+    jQuery('#spider_setwatermark_button').hide();
+    jQuery('#spider_resize_button').hide();
+    jQuery('#spider_reset_button').hide();
+    jQuery('#content-add_media').hide();
+    jQuery('#show_add_embed').hide();
+    jQuery('#show_bulk_embed').hide();
+
   }
-  var host = bwg_get_video_host(url);
-  var filesValid = [];
-  var fileData = [];
-  switch (host) {
-    case 'YOUTUBE':
-      var video_id = bwg_get_youtube_video_id(url);
-      if (video_id) {
-        jQuery.getJSON('http://gdata.youtube.com/feeds/api/videos/'+video_id+'?v=2&alt=jsonc',function(data,status,xhr){
-            fileData['name'] = data.data.title;
-            fileData['description'] = data.data.description;
-            fileData['filename'] = video_id;
-            fileData['url'] = url;
-            fileData['reliative_url'] = url;
-            fileData['thumb_url'] = data.data.thumbnail.hqDefault;
-            fileData['thumb'] = data.data.thumbnail.hqDefault;
-            fileData['size'] = bwg_convert_seconds(data.data.duration);
-            fileData['filetype'] = 'YOUTUBE';
-            fileData['date_modified'] = bwg_convert_date(data.data.uploaded, 'T');
-            fileData['resolution'] = '';
-            fileData['redirect_url'] = '';
-            filesValid.push(fileData);
-            bwg_add_image(filesValid);
-            document.getElementById(input_id).value = '';
-        });
-        return 'ok';
+
+
+  
+  else{
+
+    var ids_string = jQuery("#ids_string").val();
+    ids_array = ids_string.split(",");
+    var tr_count = ids_array[0]=='' ? 0: ids_array.length;  
+    if(tr_count != 0){
+      switch(warning_type) {
+        case 'default':
+          var allowed = confirm("This action will reset gallery type to standard and will save that choice. You cannot undo it.");
+          break;
+        case 'change':
+          var allowed = confirm("After pressing save/apply buttons, you cannot change gallery type back to Instagram!");
+          break;
+        default:
+          var allowed = confirm("This action will reset gallery type to standard and will save that choice. You cannot undo it.");
+      }/*endof switch*/
+
+      if (allowed == false) {
+        jQuery('#gallery_type').val('instagram');
+        return false;
       }
-      else {
-        alert('Please enter a valid YouTube link.');
-        return '';
+
+
       }
-    case 'VIMEO':
-      var video_id = bwg_get_vimeo_video_id(url);
-      if (video_id) {
-        jQuery.getJSON('http://vimeo.com/api/v2/video/'+video_id+'.json',function(data,status,xhr){
-            fileData['name'] = data[0].title;
-            fileData['description'] = data[0].description;
-            fileData['filename'] = video_id;
-            fileData['url'] = url;
-            fileData['reliative_url'] = url;
-            fileData['thumb_url'] = data[0].thumbnail_large;
-            fileData['thumb'] = data[0].thumbnail_large;
-            fileData['size'] = bwg_convert_seconds(data[0].duration);
-            fileData['filetype'] = 'VIMEO';
-            fileData['date_modified'] = bwg_convert_date(data[0].upload_date, ' ');
-            fileData['resolution'] = '';
-            fileData['redirect_url'] = '';
-            filesValid.push(fileData);
-            bwg_add_image(filesValid);
-            document.getElementById(input_id).value = '';
-        });
-        return 'ok';
-      }
-      else {
-        alert('Please enter a valid Vimeo link.');
-        return '';
-      }
-    default:
-      return '';
-  }  
+  
+    jQuery('#gallery_type').val('');
+    jQuery('#tr_instagram_post_gallery').hide();
+    jQuery('#tr_gallery_source').hide();
+    
+    
+    jQuery('#tr_update_flag').hide();
+    jQuery('#tr_autogallery_image_number').hide();
+    jQuery('#tr_instagram_gallery_add_button').hide();
+
+    /*show features of only standard gallery*/
+    jQuery('.spider_delete_button').show();
+    jQuery('#spider_setwatermark_button').show();
+    jQuery('#spider_resize_button').show();
+    jQuery('#spider_reset_button').show();
+    jQuery('#content-add_media').show();
+    jQuery('#show_add_embed').show();
+    jQuery('#show_bulk_embed').show();    
+    
+  }
+  return true;
 }
+
+
+
+function bwg_is_instagram_gallery() {
+
+  var value = jQuery('#gallery_type').val();
+  if(value == 'instagram'){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+
+/**
+ *  
+ *  @param reset:bool true if reset to standard in case of not empty
+ *  @param message:bool true if to alert that not empty
+ *  @return true if empty, false if not empty
+ */
+
 
 function bwg_convert_seconds(seconds) {
   var sec_num = parseInt(seconds, 10);
@@ -1050,3 +1050,78 @@ function bwg_convert_date(date, separator) {
   var dateArray = date[0].split("-");
   return dateArray[2] + " " + m_names[dateArray[1] - 1] + " " + dateArray[0] + ", " + date[1].substring(0, 5);
 }
+
+/* EMBED handling */
+function bwg_get_embed_info(input_id) {
+  jQuery('#opacity_div').show();
+  jQuery('#loading_div').show();
+
+
+  var url = encodeURI(jQuery("#" + input_id).val());  
+  if (!url) {
+    alert('Please enter url to embed.');
+    return '';
+  }
+  var filesValid = [];
+  var data = {
+    'action': 'addEmbed',
+    'URL_to_embed': url,
+    'async':true
+  };
+
+
+   // get from the server data for the url. Here we use the server as a proxy, since Cross-Origin Resource Sharing AJAX is forbidden.
+  jQuery.post(ajax_url, data, function(response) {
+    
+    
+    if(response == false){
+
+      alert('Error: cannot get response from the server.');
+      jQuery('#opacity_div').hide();
+      jQuery('#loading_div').hide();
+      
+      return '';
+    }
+    else{  
+
+      var index_start = response.indexOf("WD_delimiter_start");
+      var index_end = response.indexOf("WD_delimiter_end");
+      if(index_start == -1 || index_end == -1){
+        alert('Error: something wrong happened at the server.');
+        jQuery('#opacity_div').hide();
+        jQuery('#loading_div').hide();
+      
+        return '';
+      }
+
+      /*filter out other echoed characters*/
+      /*18 is the length of "wd_delimiter_start"*/
+      response = response.substring(index_start+18,index_end);  
+      
+
+      response_JSON = jQuery.parseJSON(response);
+        /*if indexed array, it means there is error*/
+      if(typeof response_JSON[0] !== 'undefined'){
+        alert('Error: ' + jQuery.parseJSON(response)[1]);
+        jQuery('#opacity_div').hide();
+        jQuery('#loading_div').hide();
+        return '';
+      }
+      else{
+        fileData = response_JSON;
+        filesValid.push(fileData);
+        bwg_add_image(filesValid);
+        document.getElementById(input_id).value = '';
+        jQuery('#opacity_div').hide();
+        jQuery('#loading_div').hide();
+        return 'ok';
+      }
+    }
+    return ''; 
+   
+  });
+  return 'ok'; 
+   
+}
+
+
