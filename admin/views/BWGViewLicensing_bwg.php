@@ -24,173 +24,63 @@ class BWGViewLicensing_bwg {
   ////////////////////////////////////////////////////////////////////////////////////////
   public function display() {
     ?>
-    <div style="text-align:center; float: left;">
-      <table class="data-bordered">
-        <thead>
-          <tr>
-            <th class="top first" nowrap="nowrap" scope="col">Features of the Gallery</th>
-            <th class="top notranslate" nowrap="nowrap" scope="col">Free</th>
-            <th class="top notranslate" nowrap="nowrap" scope="col">Pro Version</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="alt">
-            <td>WordPress 3.4+ ready</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>SEO-friendly</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Responsive Design and Layout</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Full Back End Management</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Watermarking Possibility</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Advertising Possibility</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Image Download</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Standard Thumbnails View</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Standard Slideshow View</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Standard Image Browser View</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Standard Compact Album</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Standard Extended Album</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Basic Tag Cloud Widget</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Photo Gallery Slideshow Widget</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Photo Gallery Widget</td>
-            <td class="icon-replace yes">yes</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Slideshow/Lightbox Effects</td>
-            <td style="text-align:center;">1</td>
-            <td style="text-align:center;">15</td>
-          </tr>
-          <tr class="alt">
-            <td>Possibility of Editing/Creating Themes</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Pro Mosaic View </td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Pro Masonry View </td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Pro Blog Style View</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Pro Thumbnails View</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Pro Slideshow View</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Pro Image Browser View</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Pro Compact Album</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Pro Masonry Album</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Pro Extended Album</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Image Commenting and Rating</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Bulk Embed</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Autoupdatable Instagram Galleries</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr>
-            <td>Image Social Sharing</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-          <tr class="alt">
-            <td>Photo Gallery Tags Cloud Widget</td>
-            <td class="icon-replace no">no</td>
-            <td class="icon-replace yes">yes</td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="featurs_tables">
+      <div id="featurs_table1">
+        <span>WordPress 3.4+ ready</span>
+        <span>SEO-friendly</span>
+        <span>Responsive Design and Layout</span>
+        <span>5 Standard Gallery/Album Views</span>
+        <span>Watermarking/ Advertising Possibility</span>
+        <span>Basic Tag Cloud Widget</span>
+        <span>Image Download</span>
+        <span>Photo Gallery Slideshow Widget</span>
+        <span>Photo Gallery Widget</span>
+        <span>Slideshow/Lightbox Effects</span>
+        <span>Possibility of Editing/Creating New Themes</span>
+        <span>9 Pro Gallery/Album Views</span>
+        <span>Image Commenting</span>
+        <span>Image Social Sharing</span>
+        <span>Photo Gallery Tags Cloud Widget</span>
+        <span>Instagram Integration</span>
+      </div>
+      <div id="featurs_table2">
+        <span style="padding-top: 18px;height: 39px;">Free</span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span>1</span>
+        <span class="no"></span>
+        <span class="no"></span>
+        <span class="no"></span>
+        <span class="no"></span>
+        <span class="no"></span>
+        <span class="no"></span>
+      </div>
+      <div id="featurs_table3">
+        <span>Pro Version</span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span>15</span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+        <span class="yes"></span>
+      </div>
     </div>
     <div style="float: right; text-align: right;">
         <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
