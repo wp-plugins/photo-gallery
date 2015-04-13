@@ -205,6 +205,8 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 
 
 == Changelog ==
+= 1.2.17 =
+Edit licensing page
 
 = 1.2.16 =
 *  New: Embed support.
