@@ -42,7 +42,7 @@ class BWGViewWidgetSlideshow {
       echo $before_title . $title . $after_title;
     }
     // Widget output.
-    require_once(WD_BWG_DIR . '/frontend/controllers/BWGControllerSlideshow.php');
+  require_once(WD_BWG_DIR . '/frontend/controllers/BWGControllerSlideshow.php');
     $controller_class = 'BWGControllerSlideshow';
     $controller = new $controller_class();
     global $bwg;
@@ -51,7 +51,7 @@ class BWGViewWidgetSlideshow {
       'gallery_type' => 'slideshow',
       'gallery_id' => $gallery_id,
       'width' => $width, 
-      'height' => $height, 
+      'height' => $height,
       'effect' => $effect, 
       'interval' => $interval, 
       'shuffle' => $shuffle,

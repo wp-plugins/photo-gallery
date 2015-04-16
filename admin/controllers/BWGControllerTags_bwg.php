@@ -28,6 +28,7 @@ class BWGControllerTags_bwg {
       }
     }
 
+
     $message = WDWLibrary::get('message');
     echo WDWLibrary::message_id($message);
     if (method_exists($this, $task)) {
@@ -136,6 +137,7 @@ class BWGControllerTags_bwg {
         'name' => $name,
         'slug' => $slug
       ));
+      
       /*update data in corresponding posts*/
       $query2 = "SELECT ID, post_content FROM ".$wpdb->posts." WHERE post_type = 'bwg_tag' ";
       $posts = $wpdb->get_results($query2, OBJECT);
@@ -146,6 +148,7 @@ class BWGControllerTags_bwg {
           wp_update_post( $tag_post );
         }
       }
+      
       if (isset($save->errors)) {
         echo 'The slug must be unique.';
       }
@@ -198,6 +201,7 @@ class BWGControllerTags_bwg {
         else {
           $flag = TRUE;
         }
+        
         /*update data in corresponding posts*/
         $query2 = "SELECT ID, post_content FROM ".$wpdb->posts." WHERE post_type = 'bwg_tag' ";
         $posts = $wpdb->get_results($query2, OBJECT);
@@ -208,6 +212,7 @@ class BWGControllerTags_bwg {
             wp_update_post( $tag_post );
           }
         }
+        
       }
     }
     if ($flag) {
@@ -217,6 +222,7 @@ class BWGControllerTags_bwg {
       $message = '';
     }
     $page = WDWLibrary::get('page');
+
     $query_url = wp_nonce_url( admin_url('admin.php'), 'tags_bwg', 'bwg_nonce' );
     $query_url = add_query_arg(array('page' => $page, 'task' => 'display', 'message' => $message), $query_url);
     WDWLibrary::spider_redirect($query_url);
@@ -227,6 +233,7 @@ class BWGControllerTags_bwg {
     wp_delete_term($id, 'bwg_tag');
     $query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE tag_id="%d"', $id);
     $flag = $wpdb->query($query);
+    
     /*delete corresponding posts and their meta*/
     $query2 = "SELECT ID, post_content FROM ".$wpdb->posts." WHERE post_type = 'bwg_tag' ";
     $posts = $wpdb->get_results($query2, OBJECT);
@@ -236,6 +243,8 @@ class BWGControllerTags_bwg {
         wp_delete_post( $post->ID, true ); 
       }
     }
+    
+
     if ($flag !== FALSE) {
       $message = 3;
     }
@@ -259,6 +268,7 @@ class BWGControllerTags_bwg {
         $flag = TRUE;
       }
     }
+    
     /*delete corresponding posts and their meta*/
     $query2 = "SELECT ID, post_content FROM ".$wpdb->posts." WHERE post_type = 'bwg_tag' ";
     $posts = $wpdb->get_results($query2, OBJECT);
@@ -268,6 +278,7 @@ class BWGControllerTags_bwg {
         wp_delete_post( $post->ID, true ); 
       }
     }
+    
     if ($flag) {
       $message = 5;
     }

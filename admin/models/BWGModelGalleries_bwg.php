@@ -103,6 +103,10 @@ class BWGModelGalleries_bwg {
       $row->author = get_current_user_id();
       $row->images_count = 0;
       $row->published = 1;
+      $row->gallery_type = '';
+      $row->gallery_source = '';
+      $row->autogallery_image_number = 12;
+      $row->update_flag = '';
     }
     return $row;
   }

@@ -104,13 +104,7 @@ class UploadHandler {
         'image_versions' => array(
           // Uncomment the following version to restrict the size of
           // uploaded images:
-          /*
-          '' => array(
-            'max_width' => 1920,
-            'max_height' => 1200,
-            'jpeg_quality' => 95
-          ),
-          */
+          
           // Uncomment the following to create medium sized images:
           /*
           'medium' => array(
@@ -120,10 +114,17 @@ class UploadHandler {
           ),
           */
           '.original' => array(
+            'max_width' => NULL,
+            'max_height' => NULL,
+            'jpeg_quality' => 100
+          ),
+          
+          '' => array(
             'max_width' => $this->options['max_width'],
             'max_height' => $this->options['max_height'],
             'jpeg_quality' => 100
           ),
+          
           'thumb' => array(
             'max_width' => ((isset($_REQUEST['file_namesML']) && esc_html($_REQUEST['file_namesML'])) ? (isset($_REQUEST['importer_thumb_width']) ? (int) $_REQUEST['importer_thumb_width'] : 300) : ((isset($_POST['upload_thumb_width']) && (int) $_POST['upload_thumb_width']) ? (int) $_POST['upload_thumb_width'] : 300)),
             'max_height' => ((isset($_REQUEST['file_namesML']) && esc_html($_REQUEST['file_namesML'])) ? (isset($_REQUEST['importer_thumb_height']) ? (int) $_REQUEST['importer_thumb_height'] : 300) : ((isset($_POST['upload_thumb_height']) && (int) $_POST['upload_thumb_height']) ? (int) $_POST['upload_thumb_height'] : 300)),
@@ -131,6 +132,8 @@ class UploadHandler {
           ),
         )
       );
+      $this->options['max_width'] = NULL;
+      $this->options['max_height'] = NULL;
       if ($options) {
         $this->options = array_merge($this->options, $options);
       }

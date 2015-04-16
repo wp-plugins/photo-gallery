@@ -21,6 +21,7 @@ class BWGControllerThemes_bwg {
   public function execute() {
     $task = WDWLibrary::get('task');
     $id = WDWLibrary::get('current_id', 0);
+    $message = WDWLibrary::get('message');
 
     if($task != ''){
       if(!WDWLibrary::verify_nonce('themes_bwg')){
@@ -28,7 +29,6 @@ class BWGControllerThemes_bwg {
       }
     }
 
-    $message = WDWLibrary::get('message');
     echo WDWLibrary::message_id($message);
     if (method_exists($this, $task)) {
       $this->$task($id);
@@ -362,6 +362,34 @@ class BWGControllerThemes_bwg {
     $album_extended_desc_more_color = (isset($_POST['album_extended_desc_more_color']) ? esc_html(stripslashes( $_POST['album_extended_desc_more_color'])) : '000000');
     $album_extended_desc_more_size = (isset($_POST['album_extended_desc_more_size']) ? (int) esc_html(stripslashes( $_POST['album_extended_desc_more_size'])) : 12);
 
+		$album_masonry_title_margin = (isset($_POST['album_masonry_title_margin']) ? esc_html(stripslashes( $_POST['album_masonry_title_margin'])) : '');
+    $album_masonry_title_font_style = (isset($_POST['album_masonry_title_font_style']) ? esc_html(stripslashes( $_POST['album_masonry_title_font_style'])) : 'inherit');
+    $album_masonry_thumb_title_pos = (isset($_POST['album_masonry_thumb_title_pos']) ?  esc_html(stripslashes( $_POST['album_masonry_thumb_title_pos'])) :'bottom');
+    $album_masonry_title_font_color = (isset($_POST['album_masonry_title_font_color']) ? esc_html(stripslashes( $_POST['album_masonry_title_font_color'])) : 'CCCCCC');	
+    $album_masonry_title_shadow = (isset($_POST['album_masonry_title_shadow']) ?  esc_html(stripslashes( $_POST['album_masonry_title_shadow'])) : '');
+    $album_masonry_title_font_size = (isset($_POST['album_masonry_title_font_size']) ? (int) esc_html(stripslashes( $_POST['album_masonry_title_font_size'])) : 12);
+    $album_masonry_title_font_weight = (isset($_POST['album_masonry_title_font_weight']) ? esc_html(stripslashes( $_POST['album_masonry_title_font_weight'])) : 'normal');
+    $album_masonry_thumb_margin = (isset($_POST['album_masonry_thumb_margin']) ? (int) esc_html(stripslashes( $_POST['album_masonry_thumb_margin'])) : 0);   
+    $album_masonry_back_padding = (isset($_POST['album_masonry_back_padding']) ?  esc_html(stripslashes( $_POST['album_masonry_back_padding'])) : '');
+    $album_masonry_thumb_padding = (isset($_POST['album_masonry_thumb_padding']) ? (int)  esc_html(stripslashes( $_POST['album_masonry_thumb_padding'])) : 0);    
+    $album_masonry_thumb_border_radius = (isset($_POST['album_masonry_thumb_border_radius']) ?  esc_html(stripslashes( $_POST['album_masonry_thumb_border_radius'])) :'');
+    $album_masonry_thumb_border_width = (isset($_POST['album_masonry_thumb_border_width']) ? (int) esc_html(stripslashes( $_POST['album_masonry_thumb_border_width'])) : 1);
+    $album_masonry_back_font_color = (isset($_POST['album_masonry_back_font_color']) ? esc_html(stripslashes( $_POST['album_masonry_back_font_color'])) : '000000');
+    $album_masonry_thumb_bg_transparent = (isset($_POST['album_masonry_thumb_bg_transparent']) ? (int) esc_html(stripslashes( $_POST['album_masonry_thumb_bg_transparent'])) : 0);
+    $album_masonry_thumb_box_shadow = (isset($_POST['album_masonry_thumb_box_shadow']) ? esc_html(stripslashes( $_POST['album_masonry_thumb_box_shadow'])) : '');		
+    $album_masonry_thumb_transition = (isset($_POST['album_masonry_thumb_transition']) ? (int) esc_html(stripslashes( $_POST['album_masonry_thumb_transition'])) : 1);
+    $album_masonry_thumb_border_style = (isset($_POST['album_masonry_thumb_border_style']) ? esc_html(stripslashes( $_POST['album_masonry_thumb_border_style'])) : 'solid');
+    $album_masonry_thumb_border_color = (isset($_POST['album_masonry_thumb_border_color']) ? esc_html(stripslashes( $_POST['album_masonry_thumb_border_color'])) : '000000');
+    $album_masonry_thumb_bg_color = (isset($_POST['album_masonry_thumb_bg_color']) ? esc_html(stripslashes( $_POST['album_masonry_thumb_bg_color'])) : 'FFFFFF');	
+    $album_masonry_back_font_weight = (isset($_POST['album_masonry_back_font_weight']) ? esc_html(stripslashes( $_POST['album_masonry_back_font_weight'])) : 'normal');	
+    $album_masonry_back_font_size = (isset($_POST['album_masonry_back_font_size']) ? (int) esc_html(stripslashes( $_POST['album_masonry_back_font_size'])) : 12);
+    $album_masonry_back_font_style = (isset($_POST['album_masonry_back_font_style']) ? esc_html(stripslashes( $_POST['album_masonry_back_font_style'])) : 'inherit');
+    $album_masonry_thumbs_bg_color = (isset($_POST['album_masonry_thumbs_bg_color']) ? esc_html(stripslashes( $_POST['album_masonry_thumbs_bg_color'])) : 'FFFFFF');
+    $album_masonry_thumb_align = (isset($_POST['album_masonry_thumb_align']) ?  esc_html(stripslashes( $_POST['album_masonry_thumb_align'])) : 'center');
+    $album_masonry_thumb_hover_effect = (isset($_POST['album_masonry_thumb_hover_effect']) ?  esc_html(stripslashes( $_POST['album_masonry_thumb_hover_effect'])) :'skew');
+    $album_masonry_thumb_transparent = (isset($_POST['album_masonry_thumb_transparent']) ? (int) esc_html(stripslashes( $_POST['album_masonry_thumb_transparent'])) : 80);
+    $album_masonry_thumb_hover_effect_value = (isset($_POST['album_masonry_thumb_hover_effect_value']) ? esc_html(stripslashes( $_POST['album_masonry_thumb_hover_effect_value'])) : '35deg');
+		
     $slideshow_cont_bg_color = (isset($_POST['slideshow_cont_bg_color']) ?  esc_html(stripslashes( $_POST['slideshow_cont_bg_color'])) : 'FFFFFF');
     $slideshow_close_btn_transparent = (isset($_POST['slideshow_close_btn_transparent']) ? (int) esc_html(stripslashes( $_POST['slideshow_close_btn_transparent'])) : 80);
     $slideshow_rl_btn_bg_color = (isset($_POST['slideshow_rl_btn_bg_color']) ? esc_html(stripslashes( $_POST['slideshow_rl_btn_bg_color'])) : 'FFFFFF');
@@ -425,6 +453,23 @@ class BWGControllerThemes_bwg {
     $masonry_thumb_hover_effect_value = (isset($_POST['masonry_thumb_hover_effect_value']) ?  esc_html(stripslashes( $_POST['masonry_thumb_hover_effect_value'])) : '1.3');
     $masonry_thumb_transition = (isset($_POST['masonry_thumb_transition']) ?  esc_html(stripslashes( $_POST['masonry_thumb_transition'])) : 0);
 
+    $mosaic_thumb_padding = (isset($_POST['mosaic_thumb_padding']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_padding'])) : 4);
+    $mosaic_thumb_border_radius = (isset($_POST['mosaic_thumb_border_radius']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_border_radius'])) : '2px');
+    $mosaic_thumb_border_width = (isset($_POST['mosaic_thumb_border_width']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_border_width'])) : 1);
+    $mosaic_thumb_border_style = (isset($_POST['mosaic_thumb_border_style']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_border_style'])) : 'solid');
+    $mosaic_thumb_border_color = (isset($_POST['mosaic_thumb_border_color']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_border_color'])) : 'CCCCCC');
+    $mosaic_thumbs_bg_color = (isset($_POST['mosaic_thumbs_bg_color']) ?  esc_html(stripslashes( $_POST['mosaic_thumbs_bg_color'])) : 'FFFFFF');
+    $mosaic_thumb_bg_transparent = (isset($_POST['mosaic_thumb_bg_transparent']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_bg_transparent'])) : 0);
+    $mosaic_thumb_transparent = (isset($_POST['mosaic_thumb_transparent']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_transparent'])) : 100);
+    $mosaic_thumb_align = (isset($_POST['mosaic_thumb_align']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_align'])) : 'left');
+    $mosaic_thumb_hover_effect = (isset($_POST['mosaic_thumb_hover_effect']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_hover_effect'])) : 'scale');
+    $mosaic_thumb_hover_effect_value = (isset($_POST['mosaic_thumb_hover_effect_value']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_hover_effect_value'])) : '1.3');
+    $mosaic_thumb_title_margin = (isset($_POST['mosaic_thumb_title_margin']) ? esc_html(stripslashes( $_POST['mosaic_thumb_title_margin'])) : '');
+    $mosaic_thumb_title_font_style = (isset($_POST['mosaic_thumb_title_font_style']) ? esc_html(stripslashes( $_POST['mosaic_thumb_title_font_style'])) : 'inherit');
+    $mosaic_thumb_title_font_color = (isset($_POST['mosaic_thumb_title_font_color']) ? esc_html(stripslashes( $_POST['mosaic_thumb_title_font_color'])) : 'CCCCCC'); 
+    $mosaic_thumb_title_shadow = (isset($_POST['mosaic_thumb_title_shadow']) ?  esc_html(stripslashes( $_POST['mosaic_thumb_title_shadow'])) : '');
+    $mosaic_thumb_title_font_size = (isset($_POST['mosaic_thumb_title_font_size']) ? (int) esc_html(stripslashes( $_POST['mosaic_thumb_title_font_size'])) : 12);
+    $mosaic_thumb_title_font_weight = (isset($_POST['mosaic_thumb_title_font_weight']) ? esc_html(stripslashes( $_POST['mosaic_thumb_title_font_weight'])) : 'normal');    
     $lightbox_info_pos = (isset($_POST['lightbox_info_pos']) ?  esc_html(stripslashes( $_POST['lightbox_info_pos'])) : 'top');
     $lightbox_info_align = (isset($_POST['lightbox_info_align']) ?  esc_html(stripslashes( $_POST['lightbox_info_align'])) : 'right');
     $lightbox_info_bg_color = (isset($_POST['lightbox_info_bg_color']) ?  esc_html(stripslashes( $_POST['lightbox_info_bg_color'])) : '000000');
@@ -798,6 +843,23 @@ class BWGControllerThemes_bwg {
         'masonry_thumb_hover_effect_value' => $masonry_thumb_hover_effect_value,
         'masonry_thumb_transition' => $masonry_thumb_transition,
 
+        'mosaic_thumb_padding' => $mosaic_thumb_padding,
+        'mosaic_thumb_border_radius' => $mosaic_thumb_border_radius,
+        'mosaic_thumb_border_width' => $mosaic_thumb_border_width,
+        'mosaic_thumb_border_style' => $mosaic_thumb_border_style,
+        'mosaic_thumb_border_color' => $mosaic_thumb_border_color,
+        'mosaic_thumbs_bg_color' => $mosaic_thumbs_bg_color,
+        'mosaic_thumb_bg_transparent' => $mosaic_thumb_bg_transparent,
+        'mosaic_thumb_transparent' => $mosaic_thumb_transparent,
+        'mosaic_thumb_align' => $mosaic_thumb_align,
+        'mosaic_thumb_hover_effect' => $mosaic_thumb_hover_effect,
+        'mosaic_thumb_hover_effect_value' => $mosaic_thumb_hover_effect_value,
+        'mosaic_thumb_title_margin' => $mosaic_thumb_title_margin,
+        'mosaic_thumb_title_font_style' => $mosaic_thumb_title_font_style,
+        'mosaic_thumb_title_font_color' => $mosaic_thumb_title_font_color,
+        'mosaic_thumb_title_shadow' => $mosaic_thumb_title_shadow,
+        'mosaic_thumb_title_font_size' => $mosaic_thumb_title_font_size,
+        'mosaic_thumb_title_font_weight' => $mosaic_thumb_title_font_weight,
         'lightbox_info_pos' => $lightbox_info_pos,
         'lightbox_info_align' => $lightbox_info_align,
         'lightbox_info_bg_color' => $lightbox_info_bg_color,
@@ -843,6 +905,34 @@ class BWGControllerThemes_bwg {
         'masonry_description_font_size' => $masonry_description_font_size,
 				'masonry_description_color' => $masonry_description_color,
 				'masonry_description_font_style' => $masonry_description_font_style,
+
+        'album_masonry_back_font_color' => $album_masonry_back_font_color,
+        'album_masonry_back_font_style' => $album_masonry_back_font_style,
+        'album_masonry_back_font_size' => $album_masonry_back_font_size,
+        'album_masonry_back_font_weight' => $album_masonry_back_font_weight,
+        'album_masonry_back_padding' => $album_masonry_back_padding,
+        'album_masonry_title_font_color' => $album_masonry_title_font_color,
+        'album_masonry_title_font_style' => $album_masonry_title_font_style,
+        'album_masonry_thumb_title_pos' => $album_masonry_thumb_title_pos,
+        'album_masonry_title_font_size' => $album_masonry_title_font_size,
+        'album_masonry_title_font_weight' => $album_masonry_title_font_weight,
+        'album_masonry_title_margin' => $album_masonry_title_margin,
+        'album_masonry_title_shadow' => $album_masonry_title_shadow,
+        'album_masonry_thumb_margin' => $album_masonry_thumb_margin,
+        'album_masonry_thumb_padding' => $album_masonry_thumb_padding,
+        'album_masonry_thumb_border_radius' => $album_masonry_thumb_border_radius,
+        'album_masonry_thumb_border_width' => $album_masonry_thumb_border_width,
+        'album_masonry_thumb_border_style' => $album_masonry_thumb_border_style,
+        'album_masonry_thumb_border_color' => $album_masonry_thumb_border_color,
+        'album_masonry_thumb_bg_color' => $album_masonry_thumb_bg_color,
+        'album_masonry_thumbs_bg_color' => $album_masonry_thumbs_bg_color,
+        'album_masonry_thumb_bg_transparent' => $album_masonry_thumb_bg_transparent,
+        'album_masonry_thumb_box_shadow' => $album_masonry_thumb_box_shadow,
+        'album_masonry_thumb_transparent' => $album_masonry_thumb_transparent,
+        'album_masonry_thumb_align' => $album_masonry_thumb_align,
+        'album_masonry_thumb_hover_effect' => $album_masonry_thumb_hover_effect,
+        'album_masonry_thumb_hover_effect_value' => $album_masonry_thumb_hover_effect_value,
+        'album_masonry_thumb_transition' => $album_masonry_thumb_transition,
 
         'default_theme' => $default_theme,
       ), array('id' => $id));
@@ -1171,6 +1261,23 @@ class BWGControllerThemes_bwg {
         'masonry_thumb_hover_effect' => $masonry_thumb_hover_effect,
         'masonry_thumb_hover_effect_value' => $masonry_thumb_hover_effect_value,
         'masonry_thumb_transition' => $masonry_thumb_transition,
+        'mosaic_thumb_padding' => $mosaic_thumb_padding,
+        'mosaic_thumb_border_radius' => $mosaic_thumb_border_radius,
+        'mosaic_thumb_border_width' => $mosaic_thumb_border_width,
+        'mosaic_thumb_border_style' => $mosaic_thumb_border_style,
+        'mosaic_thumb_border_color' => $mosaic_thumb_border_color,
+        'mosaic_thumbs_bg_color' => $mosaic_thumbs_bg_color,
+        'mosaic_thumb_bg_transparent' => $mosaic_thumb_bg_transparent,
+        'mosaic_thumb_transparent' => $mosaic_thumb_transparent,
+        'mosaic_thumb_align' => $mosaic_thumb_align,
+        'mosaic_thumb_hover_effect' => $mosaic_thumb_hover_effect,
+        'mosaic_thumb_hover_effect_value' => $mosaic_thumb_hover_effect_value,
+        'mosaic_thumb_title_margin' => $mosaic_thumb_title_margin,
+        'mosaic_thumb_title_font_style' => $mosaic_thumb_title_font_style,
+        'mosaic_thumb_title_font_color' => $mosaic_thumb_title_font_color,
+        'mosaic_thumb_title_shadow' => $mosaic_thumb_title_shadow,
+        'mosaic_thumb_title_font_size' => $mosaic_thumb_title_font_size,
+        'mosaic_thumb_title_font_weight' => $mosaic_thumb_title_font_weight,
         'lightbox_rl_btn_transparent' => $lightbox_rl_btn_transparent,
 
         'lightbox_info_pos' => $lightbox_info_pos,
@@ -1218,6 +1325,34 @@ class BWGControllerThemes_bwg {
         'masonry_description_font_size' => $masonry_description_font_size,
 				'masonry_description_color' => $masonry_description_color,
 				'masonry_description_font_style' => $masonry_description_font_style,
+
+        'album_masonry_back_font_color' => $album_masonry_back_font_color,
+        'album_masonry_back_font_style' => $album_masonry_back_font_style,
+        'album_masonry_back_font_size' => $album_masonry_back_font_size,
+        'album_masonry_back_font_weight' => $album_masonry_back_font_weight,
+        'album_masonry_back_padding' => $album_masonry_back_padding,
+        'album_masonry_title_font_color' => $album_masonry_title_font_color,
+        'album_masonry_title_font_style' => $album_masonry_title_font_style,
+        'album_masonry_thumb_title_pos' => $album_masonry_thumb_title_pos,
+        'album_masonry_title_font_size' => $album_masonry_title_font_size,
+        'album_masonry_title_font_weight' => $album_masonry_title_font_weight,
+        'album_masonry_title_margin' => $album_masonry_title_margin,
+        'album_masonry_title_shadow' => $album_masonry_title_shadow,
+        'album_masonry_thumb_margin' => $album_masonry_thumb_margin,
+        'album_masonry_thumb_padding' => $album_masonry_thumb_padding,
+        'album_masonry_thumb_border_radius' => $album_masonry_thumb_border_radius,
+        'album_masonry_thumb_border_width' => $album_masonry_thumb_border_width,
+        'album_masonry_thumb_border_style' => $album_masonry_thumb_border_style,
+        'album_masonry_thumb_border_color' => $album_masonry_thumb_border_color,
+        'album_masonry_thumb_bg_color' => $album_masonry_thumb_bg_color,
+        'album_masonry_thumbs_bg_color' => $album_masonry_thumbs_bg_color,
+        'album_masonry_thumb_bg_transparent' => $album_masonry_thumb_bg_transparent,
+        'album_masonry_thumb_box_shadow' => $album_masonry_thumb_box_shadow,
+        'album_masonry_thumb_transparent' => $album_masonry_thumb_transparent,
+        'album_masonry_thumb_align' => $album_masonry_thumb_align,
+        'album_masonry_thumb_hover_effect' => $album_masonry_thumb_hover_effect,
+        'album_masonry_thumb_hover_effect_value' => $album_masonry_thumb_hover_effect_value,
+        'album_masonry_thumb_transition' => $album_masonry_thumb_transition,
 
         'default_theme' => $default_theme,
       ), array(
@@ -1549,6 +1684,51 @@ class BWGControllerThemes_bwg {
         '%s',
         '%d',
         '%d',
+        '%s',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%s',
+
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
 
         '%s',
         '%s',
@@ -1564,30 +1744,30 @@ class BWGControllerThemes_bwg {
         '%s',
         '%s',
         '%d',
+	
+        '%s',
+        '%s',
+        '%d',
+        '%s',
+        '%s',
         '%s',
         '%s',
         '%s',
         '%d',
-
-        '%s',
-        '%s',
-        '%s',
-        '%s',
-        '%d',
-        '%d',
-        '%s',
-        '%s',
-
         '%s',
         '%s',
         '%s',
         '%d',
         '%d',
         '%s',
+        '%d',
         '%s',
         '%s',
         '%s',
         '%s',
+        '%d',
+        '%s',
+        '%d',
         '%s',
         '%s',
         '%s',

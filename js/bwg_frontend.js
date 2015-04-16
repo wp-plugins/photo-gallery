@@ -59,7 +59,10 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     jQuery("#ajax_loading_" + current_view).css('display', 'none');
     // window.scroll(0, spider_get_pos(document.getElementById(form_id)));
     jQuery("html, body").animate({scrollTop: jQuery('#' + form_id).offset().top - 150}, 500);
+    /* For all*/
+    window["bwg_document_ready_" + current_view]();
     /* For masonry view.*/
+    /*
     var cccount_masonry = 0;
     var tot_cccount_masonry = jQuery(".bwg_masonry_thumb_spun_" + current_view + " img").length;
     jQuery(".bwg_masonry_thumb_spun_" + current_view + " img").on("load", function() {
@@ -72,16 +75,18 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
       jQuery(this).height(100);
       jQuery(this).width(100);
       if (++cccount_masonry == tot_cccount_masonry) {
+        
         window["bwg_masonry_" + current_view]();
+
       }
     });
+    */
 
     /* For Blog style view.*/
     jQuery(".blog_style_images_conteiner_" + current_view + " .bwg_embed_frame_16x9_" + current_view).each(function (e) {
       jQuery(this).width(jQuery(this).parent().width());
       jQuery(this).height(jQuery(this).width() * 0.5625);
     });
-
     jQuery(".blog_style_images_conteiner_" + current_view + " .bwg_embed_frame_instapost_" + current_view).each(function (e) {
       jQuery(this).width(jQuery(this).parent().width());
       jQuery(this).height(jQuery(this).width() +88);
@@ -111,15 +116,15 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
       }
     });
     jQuery(".bwg_mosaic_thumb_spun_" + current_view + " img").error(function() {
-+
-+      jQuery(this).height(100);
-+      jQuery(this).width(100);
-+      if (++cccount_mosaic == tot_cccount_mosaic) {
-+        
-+        window["bwg_mosaic_" + current_view]("load");
-+
-+      }
-+    });*/
+
+      jQuery(this).height(100);
+      jQuery(this).width(100);
+      if (++cccount_mosaic == tot_cccount_mosaic) {
+        
+        window["bwg_mosaic_" + current_view]("load");
+
+      }
+    });*/
     
   });
   // if (event.preventDefault) {

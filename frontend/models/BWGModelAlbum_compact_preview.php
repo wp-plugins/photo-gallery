@@ -31,8 +31,8 @@ class BWGModelAlbum_compact_preview {
 
   public function get_alb_gals_row($id, $albums_per_page, $sort_by, $bwg, $sort_direction = ' ASC ') {
     global $wpdb;
-    if (isset($_POST['page_number_' . $bwg]) && $_POST['page_number_' . $bwg]) {
-      $limit = ((int) $_POST['page_number_' . $bwg] - 1) * $albums_per_page;
+    if (isset($_REQUEST['page_number_' . $bwg]) && $_REQUEST['page_number_' . $bwg]) {
+      $limit = ((int) $_REQUEST['page_number_' . $bwg] - 1) * $albums_per_page;
     }
     else {
       $limit = 0;
@@ -67,8 +67,8 @@ class BWGModelAlbum_compact_preview {
 
   public function get_image_rows_data($id, $images_per_page, $sort_by, $bwg, $sort_direction = ' ASC ') {
     global $wpdb;
-    if (isset($_POST['page_number_' . $bwg]) && $_POST['page_number_' . $bwg]) {
-      $limit = ((int) $_POST['page_number_' . $bwg] - 1) * $images_per_page;
+    if (isset($_REQUEST['page_number_' . $bwg]) && $_REQUEST['page_number_' . $bwg]) {
+      $limit = ((int) $_REQUEST['page_number_' . $bwg] - 1) * $images_per_page;
     }
     else {
       $limit = 0;
@@ -101,8 +101,8 @@ class BWGModelAlbum_compact_preview {
     }
     $total = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 ' . $where . ' AND gallery_id="%d"', $id));
     $page_nav['total'] = $total;
-    if (isset($_POST['page_number_' . $bwg]) && $_POST['page_number_' . $bwg]) {
-      $limit = ((int) $_POST['page_number_' . $bwg] - 1) * $images_per_page;
+    if (isset($_REQUEST['page_number_' . $bwg]) && $_REQUEST['page_number_' . $bwg]) {
+      $limit = ((int) $_REQUEST['page_number_' . $bwg] - 1) * $images_per_page;
     }
     else {
       $limit = 0;
@@ -117,8 +117,8 @@ class BWGModelAlbum_compact_preview {
     global $wpdb;
     $total = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->prefix . 'bwg_album_gallery WHERE album_id="%d"', $id));
     $page_nav['total'] = $total;
-    if (isset($_POST['page_number_' . $bwg]) && $_POST['page_number_' . $bwg]) {
-      $limit = ((int) $_POST['page_number_' . $bwg] - 1) * $albums_per_page;
+    if (isset($_REQUEST['page_number_' . $bwg]) && $_REQUEST['page_number_' . $bwg]) {
+      $limit = ((int) $_REQUEST['page_number_' . $bwg] - 1) * $albums_per_page;
     }
     else {
       $limit = 0;

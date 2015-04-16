@@ -37,10 +37,10 @@ class BWGModelSlideshow {
 
   public function get_image_rows_data($id, $sort_by, $order_by = 'asc', $bwg) {
     global $wpdb;
-    if ($sort_by == 'size' || $sort_by == 'resolution' || $sort_by == 'filename') {
+    if ($sort_by == 'size' || $sort_by == 'resolution') {
       $sort_by = ' CAST(' . $sort_by . ' AS SIGNED) ';
     }
-    elseif (($sort_by != 'alt') && ($sort_by != 'date') && ($sort_by != 'filetype')) {
+    elseif (($sort_by != 'alt') && ($sort_by != 'date') && ($sort_by != 'filetype') && ($sort_by != 'filename')) {
       $sort_by = '`order`';
     }
     $row = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'bwg_image WHERE published=1 AND gallery_id="%d" ORDER BY ' . $sort_by . ' ' . $order_by, $id));

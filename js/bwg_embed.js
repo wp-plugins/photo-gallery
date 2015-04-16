@@ -135,7 +135,7 @@ function spider_display_embed(embed_type, embed_id, attrs){
         break;
     case 'EMBED_OEMBED_INSTAGRAM_POST':
       var oembed_instagram_html ='<div '; 
-      var id = '';    
+      var id = '';
         for (attr in attrs) {
         if(!(/src/i).test(attr)){
           if(attr != '' && attrs[attr] != ''){

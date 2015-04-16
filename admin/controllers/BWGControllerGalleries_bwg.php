@@ -27,6 +27,7 @@ class BWGControllerGalleries_bwg {
         die('Sorry, your nonce did not verify.');
       }
     }
+
     if (method_exists($this, $task)) {
       $this->$task($id);
     }
@@ -794,7 +795,7 @@ class BWGControllerGalleries_bwg {
         $i = 0;
         $random_preview_image = '';
         while (isset($_POST['thumb_url_pr_' . $i]) && isset($_POST["input_filetype_pr_" . $i])) {
-          /*if ($_POST["input_filetype_pr_" . $i] == "JPG" || $_POST["input_filetype_pr_" . $i] == "PNG" || $_POST["input_filetype_pr_" . $i] == "GIF")*/ {  
+          /*if ($_POST["input_filetype_pr_" . $i] == "JPG" || $_POST["input_filetype_pr_" . $i] == "PNG" || $_POST["input_filetype_pr_" . $i] == "GIF")*/ {
             $random_preview_image = esc_html(stripslashes($_POST['thumb_url_pr_' . $i]));
             break;
           }
@@ -802,6 +803,7 @@ class BWGControllerGalleries_bwg {
         }
       }
     }
+    
     $published = (isset($_POST['published']) ? (int) $_POST['published'] : 1);
     if ($id != 0) {
       $save = $wpdb->update($wpdb->prefix . 'bwg_gallery', array(
@@ -825,7 +827,6 @@ class BWGControllerGalleries_bwg {
         'author' => get_current_user_id(),
         'published' => $published,
       ), array(
-        '%s',
         '%s',
         '%s',
         '%s',

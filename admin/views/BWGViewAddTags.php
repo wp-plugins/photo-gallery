@@ -31,6 +31,7 @@ class BWGViewAddTags {
     $image_id = ((isset($_GET['image_id'])) ? esc_html($_GET['image_id']) : ((isset($_POST['image_id'])) ? esc_html($_POST['image_id']) : '0'));
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $per_page = $this->model->per_page();
+	$pager = 0;
     wp_print_scripts('jquery');
     ?>
     <link media="all" type="text/css" href="<?php echo get_admin_url(); ?>load-styles.php?c=1&amp;dir=ltr&amp;load=admin-bar,wp-admin,dashicons,buttons,wp-auth-check" rel="stylesheet">
@@ -48,7 +49,7 @@ class BWGViewAddTags {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Name', $search_value, 'tags_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'tags_form', $per_page);
+        WDWLibrary::html_page_nav($page_nav['total'], $pager++, $page_nav['limit'], 'tags_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">
@@ -93,6 +94,11 @@ class BWGViewAddTags {
           ?>
         </tbody>
       </table>
+      <div class="tablenav bottom">
+        <?php
+        WDWLibrary::html_page_nav($page_nav['total'], $pager++, $page_nav['limit'], 'tags_form', $per_page);
+        ?>
+      </div>
       <input id="asc_or_desc" name="asc_or_desc" type="hidden" value="asc" />
       <input id="order_by" name="order_by" type="hidden" value="<?php echo $order_by; ?>" />
       <input id="image_id" name="image_id" type="hidden" value="<?php echo $image_id; ?>" />

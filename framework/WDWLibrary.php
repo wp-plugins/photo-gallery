@@ -171,10 +171,18 @@ class WDWLibrary {
           }
           document.getElementById("<?php echo $form_id; ?>").submit();
         }
+        function check_search_key(e, that) {
+          var key_code = (e.keyCode ? e.keyCode : e.which);
+          if (key_code == 13) { /*Enter keycode*/
+            spider_search();
+            return false;
+          }
+          return true;
+        }
       </script>
       <div class="alignleft actions" style="">
         <label for="search_value" style="font-size:14px; width:50px; display:inline-block;"><?php echo $search_by; ?>:</label>
-        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" style="width: 150px;<?php echo (get_bloginfo('version') > '3.7') ? ' height: 28px;' : ''; ?>" />
+        <input type="text" id="search_value" name="search_value" class="spider_search_value" onkeypress="return check_search_key(event, this);" value="<?php echo esc_html($search_value); ?>" style="width: 150px;<?php echo (get_bloginfo('version') > '3.7') ? ' height: 28px;' : ''; ?>" />
       </div>
       <div class="alignleft actions">
         <input type="button" value="Search" onclick="spider_search()" class="button-secondary action">
@@ -210,7 +218,7 @@ class WDWLibrary {
     <?php
   }
   
-  public static function html_page_nav($count_items, $page_number, $form_id, $items_per_page = 20) {
+  public static function html_page_nav($count_items, $pager, $page_number, $form_id, $items_per_page = 20) {
     $limit = $items_per_page;
     if ($count_items) {
       if ($count_items % $limit) {
@@ -223,6 +231,7 @@ class WDWLibrary {
     else {
       $items_county = 1;
     }
+    if (!$pager) {
     ?>
     <script type="text/javascript">
       var items_county = <?php echo $items_county; ?>;
@@ -255,20 +264,21 @@ class WDWLibrary {
         }
         document.getElementById('<?php echo $form_id; ?>').submit();
       }
-      function check_enter_key(e) {
+      function check_enter_key(e, that) {
         var key_code = (e.keyCode ? e.keyCode : e.which);
         if (key_code == 13) { /*Enter keycode*/
-          if (jQuery('#current_page').val() >= items_county) {
+          if (jQuery(that).val() >= items_county) {
            document.getElementById('page_number').value = items_county;
           }
           else {
-           document.getElementById('page_number').value = jQuery('#current_page').val();
+           document.getElementById('page_number').value = jQuery(that).val();
           }
           document.getElementById('<?php echo $form_id; ?>').submit();
         }
         return true;
       }
     </script>
+    <?php } ?>
     <div class="tablenav-pages">
       <span class="displaying-num">
         <?php
@@ -301,7 +311,7 @@ class WDWLibrary {
         <a class="<?php echo $prev_page; ?>" title="Go to the previous page" href="javascript:spider_page(<?php echo $page_number; ?>,-1);">‹</a>
         <span class="paging-input">
           <span class="total-pages">
-          <input class="current_page" id="current_page" name="current_page" value="<?php echo $page_number; ?>" onkeypress="return check_enter_key(event)" title="Go to the page" type="text" size="1" />
+          <input class="current_page" id="current_page" name="current_page" value="<?php echo $page_number; ?>" onkeypress="return check_enter_key(event, this)" title="Go to the page" type="text" size="1" />
         </span> of 
         <span class="total-pages">
             <?php echo $items_county; ?>
@@ -314,11 +324,12 @@ class WDWLibrary {
       ?>
       </span>
     </div>
-    <input type="hidden" id="page_number" name="page_number" value="<?php echo ((isset($_POST['page_number'])) ? (int) $_POST['page_number'] : 1); ?>" />
+    <?php if (!$pager) { ?>
+    <input type="hidden" id="page_number"  name="page_number" value="<?php echo ((isset($_POST['page_number'])) ? (int) $_POST['page_number'] : 1); ?>" />
     <input type="hidden" id="search_or_not" name="search_or_not" value="<?php echo ((isset($_POST['search_or_not'])) ? esc_html($_POST['search_or_not']) : ''); ?>"/>
     <?php
+    }
   }
-
   public static function ajax_search($search_by, $search_value, $form_id) {
     ?>
     <div class="alignleft actions" style="clear:both;">
@@ -326,31 +337,26 @@ class WDWLibrary {
         function spider_search() {
           document.getElementById("page_number").value = "1";
           document.getElementById("search_or_not").value = "search";
-          jQuery("#ajax_task").val("search");
           spider_ajax_save('<?php echo $form_id; ?>');
         }
         function spider_reset() {
           if (document.getElementById("search_value")) {
             document.getElementById("search_value").value = "";
           }
-          jQuery("#ajax_task").val("search");
           spider_ajax_save('<?php echo $form_id; ?>');
-        }
-        function check_enter_key_search(e) {     
+        }        
+        function check_search_key(e, that) {
           var key_code = (e.keyCode ? e.keyCode : e.which);
           if (key_code == 13) { /*Enter keycode*/
-            document.getElementById("page_number").value = "1";
-            document.getElementById("search_or_not").value = "search";
-            jQuery("#ajax_task").val("search");
-            spider_ajax_save('<?php echo $form_id; ?>');
+            spider_search();
             return false;
           }
-          return true;    
+          return true;
         }
       </script>
       <div class="alignleft actions" style="">
         <label for="search_value" style="font-size:14px; width:60px; display:inline-block;"><?php echo $search_by; ?>:</label>
-        <input type="text" id="search_value" name="search_value" class="spider_search_value" value="<?php echo esc_html($search_value); ?>" onkeypress="return check_enter_key_search(event)" style="width: 150px;<?php echo (get_bloginfo('version') > '3.7') ? ' height: 28px;' : ''; ?>" />
+        <input type="text" id="search_value" name="search_value" class="spider_search_value" onkeypress="return check_search_key(event, this);" value="<?php echo esc_html($search_value); ?>" style="width: 150px;<?php echo (get_bloginfo('version') > '3.7') ? ' height: 28px;' : ''; ?>" />
       </div>
       <div class="alignleft actions">
         <input type="button" value="Search" onclick="spider_search()" class="button-secondary action">
@@ -360,7 +366,7 @@ class WDWLibrary {
     <?php
   }
 
-  public static function ajax_html_page_nav($count_items, $page_number, $form_id,  $items_per_page = 20) {
+  public static function ajax_html_page_nav($count_items, $page_number, $form_id, $items_per_page = 20, $pager = 0) {
     $limit = $items_per_page;
 
     if ($count_items) {
@@ -374,6 +380,7 @@ class WDWLibrary {
     else {
       $items_county = 1;
     }
+    if (!$pager) {
     ?>
     <script type="text/javascript">
       var items_county = <?php echo $items_county; ?>;
@@ -406,14 +413,14 @@ class WDWLibrary {
         }
         spider_ajax_save('<?php echo $form_id; ?>');
       }
-      function check_enter_key(e) { 	  
+      function check_enter_key(e, that) {
         var key_code = (e.keyCode ? e.keyCode : e.which);
         if (key_code == 13) { /*Enter keycode*/
-          if (jQuery('#current_page').val() >= items_county) {
+          if (jQuery(that).val() >= items_county) {
            document.getElementById('page_number').value = items_county;
           }
           else {
-           document.getElementById('page_number').value = jQuery('#current_page').val();
+           document.getElementById('page_number').value = jQuery(that).val();
           }
           spider_ajax_save('<?php echo $form_id; ?>');
           return false;
@@ -421,6 +428,7 @@ class WDWLibrary {
        return true;		 
       }
     </script>
+    <?php } ?>
     <div id="tablenav-pages" class="tablenav-pages">
       <span class="displaying-num">
         <?php
@@ -453,7 +461,7 @@ class WDWLibrary {
         <a class="<?php echo $prev_page; ?>" title="Go to the previous page" onclick="spider_page(<?php echo $page_number; ?>,-1)">‹</a>
         <span class="paging-input">
           <span class="total-pages">
-          <input class="current_page" id="current_page" name="current_page" value="<?php echo $page_number; ?>" onkeypress="return check_enter_key(event)" title="Go to the page" type="text" size="1" />
+          <input class="current_page" id="current_page" name="current_page" value="<?php echo $page_number; ?>" onkeypress="return check_enter_key(event, this)" title="Go to the page" type="text" size="1" />
         </span> of 
         <span class="total-pages">
             <?php echo $items_county; ?>
@@ -466,12 +474,14 @@ class WDWLibrary {
       ?>
       </span>
     </div>
+    <?php if (!$pager) { ?>
     <input type="hidden" id="page_number" name="page_number" value="<?php echo ((isset($_POST['page_number'])) ? (int) $_POST['page_number'] : 1); ?>" />
     <input type="hidden" id="search_or_not" name="search_or_not" value="<?php echo ((isset($_POST['search_or_not'])) ? esc_html($_POST['search_or_not']) : ''); ?>"/>
     <?php
+    }
   }
 
-  public static function ajax_html_frontend_page_nav($theme_row, $count_items, $page_number, $form_id, $limit = 20, $current_view, $id, $cur_alb_gal_id = 0, $type = 'album') {
+  public static function ajax_html_frontend_page_nav($theme_row, $count_items, $page_number, $form_id, $limit = 20, $current_view, $id, $cur_alb_gal_id = 0, $type = 'album', $enable_seo = false) {
     $type = (isset($_POST['type_' . $current_view]) ? esc_html($_POST['type_' . $current_view]) : $type);
     $album_gallery_id = (isset($_POST['album_gallery_id_' . $current_view]) ? esc_html($_POST['album_gallery_id_' . $current_view]) : $cur_alb_gal_id);
     if ($count_items) {
@@ -485,42 +495,10 @@ class WDWLibrary {
     else {
       $items_county = 1;
     }
+    if ($page_number > $items_county) {
+      return;
+    }
     ?>
-    <script type="text/javascript">
-      function spider_page_<?php echo $current_view; ?>(cur, x, y) {
-        if (jQuery(cur).hasClass('disabled')) {
-          return false;
-        }
-        var items_county_<?php echo $current_view; ?> = <?php echo $items_county; ?>;
-        switch (y) {
-          case 1:
-            if (x >= items_county_<?php echo $current_view; ?>) {
-              document.getElementById('page_number_<?php echo $current_view; ?>').value = items_county_<?php echo $current_view; ?>;
-            }
-            else {
-              document.getElementById('page_number_<?php echo $current_view; ?>').value = x + 1;
-            }
-            break;
-          case 2:
-            document.getElementById('page_number_<?php echo $current_view; ?>').value = items_county_<?php echo $current_view; ?>;
-            break;
-          case -1:
-            if (x == 1) {
-              document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
-            }
-            else {
-              document.getElementById('page_number_<?php echo $current_view; ?>').value = x - 1;
-            }
-            break;
-          case -2:
-            document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
-            break;
-          default:
-            document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
-        }
-        spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $id; ?>', '<?php echo $album_gallery_id; ?>', '', '<?php echo $type; ?>', 0);
-      }
-    </script>
     <div class="tablenav-pages_<?php echo $current_view; ?>">
       <?php
       if ($theme_row->page_nav_number) {
@@ -559,16 +537,67 @@ class WDWLibrary {
         }
       ?>
       <span class="pagination-links_<?php echo $current_view; ?>">
-        <a class="<?php echo $first_page; ?>" title="<?php echo __('Go to the first page', 'bwg'); ?>" onclick="spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, -2)"><?php echo $first_button; ?></a>
-        <a class="<?php echo $prev_page; ?>" title="<?php echo __('Go to the previous page', 'bwg'); ?>" onclick="spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, -1)"><?php echo $previous_button; ?></a>
+        <a class="<?php echo $first_page; ?>" title="<?php echo __('Go to the first page', 'bwg'); ?>"><?php echo $first_button; ?></a>
+        <a class="<?php echo $prev_page; ?>" title="<?php echo __('Go to the previous page', 'bwg'); ?>" <?php echo  $page_number > 1 && $enable_seo ? 'href="' . add_query_arg(array("page_number_" . $current_view => $page_number - 1), $_SERVER['REQUEST_URI']) . '"' : ""; ?>><?php echo $previous_button; ?></a>
         <span class="paging-input_<?php echo $current_view; ?>">
           <span class="total-pages_<?php echo $current_view; ?>"><?php echo $page_number; ?></span> <?php echo __('of', 'bwg'); ?> <span class="total-pages_<?php echo $current_view; ?>">
             <?php echo $items_county; ?>
           </span>
         </span>
-        <a class="<?php echo $next_page ?>" title="<?php echo __('Go to the next page', 'bwg'); ?>" onclick="spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 1)"><?php echo $next_button; ?></a>
-        <a class="<?php echo $last_page ?>" title="<?php echo __('Go to the last page', 'bwg'); ?>" onclick="spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 2)"><?php echo $last_button; ?></a>
+        <a class="<?php echo $next_page ?>" title="<?php echo __('Go to the next page', 'bwg'); ?>" <?php echo  $page_number + 1 <= $items_county && $enable_seo ? 'href="' . add_query_arg(array("page_number_" . $current_view => $page_number + 1), $_SERVER['REQUEST_URI']) . '"' : ""; ?>><?php echo $next_button; ?></a>
+        <a class="<?php echo $last_page ?>" title="<?php echo __('Go to the last page', 'bwg'); ?>"><?php echo $last_button; ?></a>
       </span>
+      <script type="text/javascript">
+        function spider_page_<?php echo $current_view; ?>(cur, x, y) {
+          if (jQuery(cur).hasClass('disabled')) {
+            return false;
+          }
+          var items_county_<?php echo $current_view; ?> = <?php echo $items_county; ?>;
+          switch (y) {
+            case 1:
+              if (x >= items_county_<?php echo $current_view; ?>) {
+                document.getElementById('page_number_<?php echo $current_view; ?>').value = items_county_<?php echo $current_view; ?>;
+              }
+              else {
+                document.getElementById('page_number_<?php echo $current_view; ?>').value = x + 1;
+              }
+              break;
+            case 2:
+              document.getElementById('page_number_<?php echo $current_view; ?>').value = items_county_<?php echo $current_view; ?>;
+              break;
+            case -1:
+              if (x == 1) {
+                document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
+              }
+              else {
+                document.getElementById('page_number_<?php echo $current_view; ?>').value = x - 1;
+              }
+              break;
+            case -2:
+              document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
+              break;
+            default:
+              document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
+          }
+          spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $id; ?>', '<?php echo $album_gallery_id; ?>', '', '<?php echo $type; ?>', 0);
+        }
+        jQuery(document).ready(function() {
+          jQuery('.<?php echo $first_page; ?>').on('click', function() {
+            spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, -2);
+          });
+          jQuery('.<?php echo $prev_page; ?>').on('click', function() {
+            spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, -1);
+            return false;
+          });
+          jQuery('.<?php echo $next_page; ?>').on('click', function() {
+            spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 1);
+            return false;
+          });
+          jQuery('.<?php echo $last_page; ?>').on('click', function() {
+            spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 2);
+          });
+        });
+      </script>
       <?php
       }
       ?>
@@ -736,7 +765,7 @@ class WDWLibrary {
     exit();
   }
 
-  /**
+ /**
   *  If string argument passed, put it into delimiters for AJAX response to separate from other data.
   */
 
@@ -761,6 +790,7 @@ class WDWLibrary {
     }
     return $nonce_verified;
   }
+
   ////////////////////////////////////////////////////////////////////////////////////////
   // Private Methods                                                                    //
   ////////////////////////////////////////////////////////////////////////////////////////

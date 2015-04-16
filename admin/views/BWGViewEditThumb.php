@@ -32,26 +32,28 @@ class BWGViewEditThumb {
     ?>
     <div style="display:table; width:100%; height:<?php echo $popup_height; ?>px;">
       <div id='bwg_container_for_media_1' style="display:table-cell; text-align:center; vertical-align:middle;">
-        <img id="image_display" src="" style="max-width:<?php echo $image_width; ?>px; max-height:<?php echo $image_height; ?>px;"/>
+        <img id="image_display" src="" style="max-width:<?php echo $image_width; ?>px; max-height:<?php echo $image_height; ?>px;"/>        
       </div>
     </div>
     <script language="javascript" type="text/javascript" src="<?php echo WD_BWG_URL . '/js/bwg_embed.js?ver='.wd_bwg_version(); ?>"></script>
     <script>
       var file_type = window.parent.document.getElementById("input_filetype_<?php echo $image_id; ?>").value;
+      
       var is_embed = file_type.indexOf("EMBED_") > -1 ? true : false;
       var is_instagram_post = file_type.indexOf("INSTAGRAM_POST") > -1 ? true : false;
-      if (!is_embed) {  
+      if (!is_embed) {
         var image_url = "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + window.parent.document.getElementById("image_url_<?php echo $image_id; ?>").value;
         window.document.getElementById("image_display").src = image_url + "?date=<?php echo date('Y-m-y H:i:s'); ?>";
       }
       else if(is_embed){
         var embed_id = window.parent.document.getElementById("input_filename_<?php echo $image_id; ?>").value;
         window.document.getElementById("image_display").setAttribute('style', 'display: none;');
+        
         if(!is_instagram_post){
-          window.document.getElementById("bwg_container_for_media_1").innerHTML = spider_display_embed(file_type, embed_id, {id:"embed_display", width:"<?php echo $image_width; ?>", height:"<?php echo $image_height; ?>", frameborder:"0", allowfullscreen:"allowfullscreen", style:"width:<?php echo $image_width; ?>px; height:<?php echo $image_height; ?>px; vertical-align:middle; text-align: center; margin: 0 auto;" });
+          window.document.getElementById("bwg_container_for_media_1").innerHTML = spider_display_embed(file_type, embed_id, {class:"embed_display", width:"<?php echo $image_width; ?>", height:"<?php echo $image_height; ?>", frameborder:"0", allowfullscreen:"allowfullscreen", style:"width:<?php echo $image_width; ?>px; height:<?php echo $image_height; ?>px; vertical-align:middle; text-align: center; margin: 0 auto;" });
         }
         else{
-          window.document.getElementById("bwg_container_for_media_1").innerHTML = spider_display_embed(file_type, embed_id, {id:"embed_display", width:"<?php echo $image_height -88; ?>", height:"<?php echo $image_height; ?>", frameborder:"0", allowfullscreen:"allowfullscreen", style:"width:<?php echo $image_height -88 ; ?>px; height:<?php echo $image_height; ?>px; vertical-align:middle; text-align: center; margin: 0 auto;" });          
+          window.document.getElementById("bwg_container_for_media_1").innerHTML = spider_display_embed(file_type, embed_id, {class:"embed_display", width:"<?php echo $image_height -88; ?>", height:"<?php echo $image_height; ?>", frameborder:"0", allowfullscreen:"allowfullscreen", style:"width:<?php echo $image_height -88 ; ?>px; height:<?php echo $image_height; ?>px; vertical-align:middle; text-align: center; margin: 0 auto;" });
         }
       }
     </script>
@@ -550,7 +552,7 @@ class BWGViewEditThumb {
       window.parent.document.getElementById("image_thumb_<?php echo $image_id; ?>").src = image_src + "?date=<?php echo date('Y-m-y H:i:s'); ?>";
     </script>
     <form method="post" id="rotate_image" action="<?php echo $form_action; ?>">
-      <?php wp_nonce_field( 'editThumb', 'bwg_nonce' ); ?>
+    <?php wp_nonce_field( 'editThumb', 'bwg_nonce' ); ?>
       <div style="text-align:center; width:inherit; height:<?php echo $popup_height; ?>px;">
         <div style="height:40px;">
           <img title="Flip Both" class="spider_rotate" onclick="spider_rotate('both', 'rotate_image')" src="<?php echo WD_BWG_URL . '/images/flip_both.png'; ?>"/>

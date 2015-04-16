@@ -33,6 +33,7 @@ class BWGViewGalleries_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
     $per_page = $this->model->per_page();
+    $pager = 0;
     ?>
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
@@ -72,7 +73,7 @@ class BWGViewGalleries_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Name', $search_value, 'galleries_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form', $per_page);
+        WDWLibrary::html_page_nav($page_nav['total'], $pager++, $page_nav['limit'], 'galleries_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">
@@ -186,6 +187,11 @@ class BWGViewGalleries_bwg {
           ?>
         </tbody>
       </table>
+      <div class="tablenav bottom">
+        <?php
+        WDWLibrary::html_page_nav($page_nav['total'], $pager++, $page_nav['limit'], 'galleries_form', $per_page);		
+        ?>
+      </div>
       <input id="task" name="task" type="hidden" value="" />
       <input id="current_id" name="current_id" type="hidden" value="" />
       <input id="ids_string" name="ids_string" type="hidden" value="<?php echo $ids_string; ?>" />
@@ -446,7 +452,7 @@ class BWGViewGalleries_bwg {
           if (is_embed && !is_direct_url) {
             textarea_desc.innerHTML = files[i]['description'];
           }
-          else if (<?php echo $option_row->description_tb; ?>) {
+          else if (<?php echo $option_row->read_metadata; ?>) {
             textarea_desc.innerHTML = files[i]['credit'] ? 'Author: ' + files[i]['credit'] + '\n' : '';
             textarea_desc.innerHTML += ((files[i]['aperture'] != 0 && files[i]['aperture'] != '') ? 'Aperture: ' + files[i]['aperture'] + '\n' : '');
             textarea_desc.innerHTML += ((files[i]['camera'] != 0 && files[i]['camera'] != '') ? 'Camera: ' + files[i]['camera'] + '\n' : '');
@@ -502,8 +508,7 @@ class BWGViewGalleries_bwg {
           a_publish.appendChild(img_publish);
           // Delete TD.
           var td_delete = document.createElement('td');
-          td_delete.setAttribute('class', "table_big_col");
-          td_delete.setAttribute('class', "spider_delete_button");
+          td_delete.setAttribute('class', "table_big_col spider_delete_button");
           tr.appendChild(td_delete);
           var a_delete = document.createElement('a');
           a_delete.setAttribute('onclick', "spider_set_input_value('ajax_task', 'image_delete');spider_set_input_value('image_current_id', '" + bwg_j + "');spider_ajax_save('galleries_form');");
@@ -689,7 +694,7 @@ class BWGViewGalleries_bwg {
     $ids_string = '';
     $per_page = $this->model->per_page();
     $gallery_row = $this->model->get_row_data($id);
-    
+    $pager = 0;
     ?>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table should be saved.</p></strong></div>
       <div class="buttons_div_left">
@@ -813,7 +818,7 @@ class BWGViewGalleries_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::ajax_search('Filename', $search_value, 'galleries_form');
-        WDWLibrary::ajax_html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form', $per_page);
+        WDWLibrary::ajax_html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form', $per_page, $pager++);
         ?>
       </div>
 
@@ -985,6 +990,11 @@ class BWGViewGalleries_bwg {
           <input id="added_tags_select_all" name="added_tags_select_all" type="hidden" value="" />
         </tbody>
       </table>
+      <div class="tablenav bottom">
+        <?php
+        WDWLibrary::ajax_html_page_nav($page_nav['total'], $page_nav['limit'], 'galleries_form', $per_page, $pager++);
+        ?>
+      </div>
       <script>
         window.onload = spider_show_hide_weights;
       </script>

@@ -70,17 +70,18 @@ class BWGViewWidget {
   
   // Widget Control Panel.
   function form($instance, $id_title, $name_title, $id_type, $name_type, $id_show, $name_show, $id_gallery_id, $name_gallery_id, $id_album_id, $name_album_id, $id_count, $name_count, $id_width, $name_width, $id_height, $name_height, $id_theme_id, $name_theme_id) {
-    $defaults = array(
-      'title' => 'Photo Gallery',
-      'type' => 'gallery',
-      'gallery_id' => 0,
-      'album_id' => 0,
-      'show' => 'random',
-      'count' => 4,
-      'width' => 100,
-      'height' => 100,
-      'theme_id' => 0,
-    );
+		$defaults = array(
+			'title' => 'Photo Gallery',
+			'type' => 'gallery',
+			'gallery_id' => 0,
+			'album_id' => 0,
+			'show' => 'random',
+			'count' => 4,
+			'width' => 100,
+			'height' => 100,
+			'theme_id' => 0,
+		);
+		
     $instance = wp_parse_args((array) $instance, $defaults);
     $gallery_rows = $this->model->get_gallery_rows_data();
     $album_rows = $this->model->get_album_rows_data();

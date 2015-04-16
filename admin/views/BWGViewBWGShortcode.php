@@ -227,17 +227,17 @@ class BWGViewBWGShortcode {
                     </td>
                   </tr>
 									
+                  <tr id="tr_search_box_width">
+                    <td class="spider_label"><label for="search_box_width">Search box width: </label></td>
+                    <td><input type="text" name="search_box_width" id="search_box_width" value="<?php echo $option_row->search_box_width; ?>" class="spider_int_input" /> px</td>
+                  </tr>
+									
 									<tr id="tr_show_sort_images">
                     <td class="spider_label"><label>Show "Order by" dropdown list: </label></td>
                     <td>
                       <input type="radio" name="show_sort_images" id="show_sort_images_1" value="1" <?php if ($option_row->show_sort_images) echo 'checked="checked"'; ?> onchange="" /><label for="show_sort_images_1">Yes</label>
                       <input type="radio" name="show_sort_images" id="show_sort_images_0" value="0" <?php if (!$option_row->show_sort_images) echo 'checked="checked"'; ?> onchange="" /><label for="show_sort_images_0">No</label>
                     </td>
-                  </tr>
-									
-                  <tr id="tr_search_box_width">
-                    <td class="spider_label"><label for="search_box_width">Search box width: </label></td>
-                    <td><input type="text" name="search_box_width" id="search_box_width" value="<?php echo $option_row->search_box_width; ?>" class="spider_int_input" /> px</td>
                   </tr>
 				  
                   <!--Thumbnails, Masonry viewies-->
@@ -1018,7 +1018,7 @@ class BWGViewBWGShortcode {
           <?php
           foreach ($shortcodes as $shortcode) {
             ?>
-            shortcodes[<?php echo $shortcode->id; ?>] = '<?php echo $shortcode->tagtext; ?>';
+            shortcodes[<?php echo $shortcode->id; ?>] = '<?php echo addslashes($shortcode->tagtext); ?>';
             <?php
           }
           ?>

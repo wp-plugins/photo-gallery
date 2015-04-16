@@ -95,7 +95,7 @@ class FilemanagerView {
       ?>
 
       <form id="adminForm" name="adminForm" action="" method="post">
-        <?php wp_nonce_field( '', 'bwg_nonce' ); ?>
+      <?php wp_nonce_field( '', 'bwg_nonce' ); ?>
         <div id="wrapper">
           <div id="opacity_div" style="background-color: rgba(0, 0, 0, 0.2); position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99998;"></div>
           <div id="loading_div" style="text-align: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999;">
@@ -372,7 +372,11 @@ class FilemanagerView {
                 <?php
                 $query_url = wp_nonce_url( admin_url('admin-ajax.php'), 'bwg_UploadHandler', 'bwg_nonce' );
                 $query_url = add_query_arg(array('action' => 'bwg_UploadHandler', 'dir' => $this->controller->get_uploads_dir() . '/' . (isset($_REQUEST['dir']) ? esc_html($_REQUEST['dir']) : '') . '/'), $query_url);
+                
+
                 ?>
+
+
                   <input id="jQueryUploader" type="file" name="files[]"
                          data-url="<?php echo $query_url; ?>"
                          multiple>

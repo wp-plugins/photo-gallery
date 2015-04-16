@@ -155,14 +155,13 @@ class FilemanagerModel {
           $image_info = getimagesize(htmlspecialchars_decode($parent_dir . '/' . $file_name, ENT_COMPAT | ENT_QUOTES));
           $file['resolution'] = $this->is_img($file['type']) ? $image_info[0]  . ' x ' . $image_info[1] . ' px' : '';
           $exif = $this->bwg_wp_read_image_metadata( $parent_dir . '/.original/' . $file_name );
-          $file['credit'] = $exif['credit'];
+          $file['credit'] = $exif['credit'];          
           $file['aperture'] = $exif['aperture'];
           $file['camera'] = $exif['camera'];
           $file['caption'] = $exif['caption'];
           $file['iso'] = $exif['iso'];
           $file['orientation'] = $exif['orientation'];
           $file['copyright'] = $exif['copyright'];
-
           $files[] = $file;
         }
       }
@@ -219,7 +218,7 @@ class FilemanagerModel {
           $file['date_modified'] = date('d F Y, H:i', filemtime($parent_dir . '/' . $file_meta['file']));
           // $image_info = getimagesize(htmlspecialchars_decode($parent_dir . '/' . $file_meta['file'], ENT_COMPAT | ENT_QUOTES));
           $file['resolution'] = $this->is_img($file['type']) ? $file_meta['width']  . ' x ' . $file_meta['height'] . ' px' : '';
-          $exif = $this->bwg_wp_read_image_metadata($parent_dir . '/.original/' . $file_name);
+          $exif = $this->bwg_wp_read_image_metadata($parent_dir . '/.original/' . $file_name);          
           $file['credit'] = $exif['credit'];
           $file['aperture'] = $exif['aperture'];
           $file['camera'] = $exif['camera'];
@@ -227,13 +226,11 @@ class FilemanagerModel {
           $file['iso'] = $exif['iso'];
           $file['orientation'] = $exif['orientation'];
           $file['copyright'] = $exif['copyright'];
-
           $files[] = $file;
         }
       }
       return $files;
     }
-
 
     private function bwg_wp_read_image_metadata( $file ) {
       if (!file_exists($file)) {
@@ -252,13 +249,13 @@ class FilemanagerModel {
         'shutter_speed' => 0,
         'title' => '',
         'orientation' => 0,
-      ); 
+      );	
       if ( is_callable( 'iptcparse' ) ) {
         getimagesize( $file, $info );
         if ( ! empty( $info['APP13'] ) ) {
-          $iptc = iptcparse( $info['APP13'] );     
+          $iptc = iptcparse( $info['APP13'] );			
           if ( ! empty( $iptc['2#105'][0] ) ) {
-            $meta['title'] = trim( $iptc['2#105'][0] );      
+            $meta['title'] = trim( $iptc['2#105'][0] );			
           } elseif ( ! empty( $iptc['2#005'][0] ) ) {
             $meta['title'] = trim( $iptc['2#005'][0] );
           }
@@ -267,7 +264,7 @@ class FilemanagerModel {
             if ( empty( $meta['title'] ) ) {
               mbstring_binary_safe_encoding();
               $caption_length = strlen( $caption );
-              reset_mbstring_encoding();         
+              reset_mbstring_encoding();					
               if ( $caption_length < 80 ) {
                 $meta['title'] = $caption;
               } else {
@@ -300,7 +297,7 @@ class FilemanagerModel {
           mbstring_binary_safe_encoding();
           $description_length = strlen( $exif['ImageDescription'] );
           reset_mbstring_encoding();
-          if ( empty( $meta['title'] ) && $description_length < 80 ) {       
+          if ( empty( $meta['title'] ) && $description_length < 80 ) {				
             $meta['title'] = trim( $exif['ImageDescription'] );
             if ( empty( $meta['caption'] ) && ! empty( $exif['COMPUTED']['UserComment'] ) && trim( $exif['COMPUTED']['UserComment'] ) != $meta['title'] ) {
               $meta['caption'] = trim( $exif['COMPUTED']['UserComment'] );

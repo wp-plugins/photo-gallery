@@ -39,7 +39,7 @@ class BWGModelOptions_bwg {
       $row->thumb_height = 90;
       $row->upload_thumb_width = 300;
       $row->upload_thumb_height = 300;
-	  $row->upload_img_width = 1200; 
+      $row->upload_img_width = 1200; 
       $row->upload_img_height = 1200;
       $row->image_enable_page = 1;
       $row->image_title_show_hover = 'none';
@@ -73,7 +73,7 @@ class BWGModelOptions_bwg {
       $row->slideshow_filmstrip_height = 90;
       $row->slideshow_enable_title = 0;
       $row->slideshow_title_position = 'top-right';
-	  $row->slideshow_title_full_width = 0;
+      $row->slideshow_title_full_width = 0;
       $row->slideshow_enable_description = 0;
       $row->slideshow_description_position = 'bottom-right';
       $row->slideshow_enable_music = 0;
@@ -139,6 +139,8 @@ class BWGModelOptions_bwg {
       $row->comment_moderation = 0;
       $row->popup_hit_counter = 0;
       $row->enable_ML_import = 0;
+      $row->autoupdate_interval = 30;
+      $row->instagram_client_id = '';
       $row->showthumbs_name = 0;
       $row->show_album_name = 0;
       $row->show_image_counts = 0;
@@ -146,7 +148,10 @@ class BWGModelOptions_bwg {
       $row->show_masonry_thumb_description = 0;
       $row->popup_info_full_width = 0;
 			$row->show_sort_images = 0;
-      $row->description_tb = 0;
+			$row->enable_seo = 1;
+			$row->autohide_lightbox_navigation = 1;
+      $row->autohide_slideshow_navigation = 1;
+      $row->read_metadata = 0;
     }
     return $row;
   }

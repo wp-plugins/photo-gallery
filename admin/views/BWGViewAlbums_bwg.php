@@ -33,6 +33,7 @@ class BWGViewAlbums_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
     $per_page = $this->model->per_page();
+	$pager = 0;
     ?>
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
@@ -45,8 +46,8 @@ class BWGViewAlbums_bwg {
         </a>
       </div>
     </div>
-    <form class="wrap" id="albums_form" method="post" action="admin.php?page=albums_bwg" style="float: left; width: 99%;">
-      <?php wp_nonce_field( 'albums_bwg', 'bwg_nonce' ); ?>
+    <form class="wrap" id="albums_form" method="post" action="admin.php?page=albums_bwg" style="float: left; width:99%;">
+    <?php wp_nonce_field( 'albums_bwg', 'bwg_nonce' ); ?>
       <span class="album-icon"></span>
       <h2>
         Albums
@@ -72,7 +73,7 @@ class BWGViewAlbums_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Name', $search_value, 'albums_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'albums_form', $per_page);
+        WDWLibrary::html_page_nav($page_nav['total'],$pager++, $page_nav['limit'], 'albums_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">
@@ -173,6 +174,11 @@ class BWGViewAlbums_bwg {
           ?>
         </tbody>
       </table>
+      <div class="tablenav bottom">
+        <?php
+        WDWLibrary::html_page_nav($page_nav['total'],$pager++, $page_nav['limit'], 'albums_form', $per_page);
+        ?>
+      </div>
       <input id="task" name="task" type="hidden" value="" />
       <input id="current_id" name="current_id" type="hidden" value="" />
       <input id="ids_string" name="ids_string" type="hidden" value="<?php echo $ids_string; ?>" />
@@ -257,7 +263,7 @@ class BWGViewAlbums_bwg {
         tb_remove();
       }
     </script>
-    <form class="wrap" method="post" action="admin.php?page=albums_bwg" style="float: left; width: 99%;">
+    <form class="wrap" method="post" action="admin.php?page=albums_bwg" style="float: left; width:99%;">
       <?php wp_nonce_field( 'albums_bwg', 'bwg_nonce' ); ?>
       <span class="album-icon"></span>
       <h2><?php echo $page_title; ?></h2>
@@ -311,12 +317,14 @@ class BWGViewAlbums_bwg {
           <tr>
             <td class="spider_label"><label for="url">Preview image: </label></td>
             <td>
-              <?php 
-              $query_url =  add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_preview_image'), admin_url('admin-ajax.php'));
-              $query_url = wp_nonce_url( $query_url, 'addImages', 'bwg_nonce' );
-              $query_url =  add_query_arg(array('TB_iframe' => '1'), $query_url );
-              ?>
-              <a href="<?php echo $query_url; ?>"   
+            <?php 
+            $query_url =  add_query_arg(array('action' => 'addImages', 'width' => '700', 'height' => '550', 'extensions' => 'jpg,jpeg,png,gif', 'callback' => 'bwg_add_preview_image'), admin_url('admin-ajax.php'));
+            $query_url = wp_nonce_url( $query_url, 'addImages', 'bwg_nonce' );
+            $query_url =  add_query_arg(array('TB_iframe' => '1'), $query_url );
+            
+
+            ?>
+              <a href="<?php echo $query_url; ?>"
                  id="button_preview_image"
                  class="button-primary thickbox thickbox-preview"
                  title="Add Preview Image"
@@ -335,11 +343,13 @@ class BWGViewAlbums_bwg {
           <tr>
             <td class="spider_label"><label for="content-add_media">Albums And Galleries: </label></td>
             <td>
-              <?php 
+            <?php 
               $query_url = add_query_arg(array('action' => 'addAlbumsGalleries', 'album_id' => $id, 'width' => '700', 'height' => '550', 'bwg_items_per_page'=>$per_page ), admin_url('admin-ajax.php'));
               $query_url = wp_nonce_url( $query_url, 'addAlbumsGalleries', 'bwg_nonce' );
               $query_url = add_query_arg(array('TB_iframe' => '1'), $query_url);
-              ?>
+
+              
+            ?>
               <a href="<?php echo $query_url; ?>" class="button-primary thickbox thickbox-preview" id="content-add_media" title="Add Images" onclick="return false;" style="margin-bottom:5px;">
                 Add Albums/Galleries
               </a>              

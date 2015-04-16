@@ -31,7 +31,7 @@ class BWGViewTags_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
     $per_page = $this->model->per_page();
-
+	$pager = 0;
     $query_url = wp_nonce_url( admin_url('admin-ajax.php'), '', 'bwg_nonce' );
     $query_url = add_query_arg(array('action' => ''), $query_url);
     ?>
@@ -69,7 +69,7 @@ class BWGViewTags_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Name', $search_value, 'tags_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'tags_form', $per_page);
+        WDWLibrary::html_page_nav($page_nav['total'], $pager++, $page_nav['limit'], 'tags_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">
@@ -170,6 +170,11 @@ class BWGViewTags_bwg {
           ?>
         </tbody>
       </table>
+      <div class="tablenav bottom">
+        <?php
+        WDWLibrary::html_page_nav($page_nav['total'], $pager++, $page_nav['limit'], 'tags_form', $per_page);
+        ?>
+      </div>
       <input id="task" name="task" type="hidden" value="" />
       <input id="current_id" name="current_id" type="hidden" value="" />
       <input id="ids_string" name="ids_string" type="hidden" value="<?php echo $ids_string; ?>" />

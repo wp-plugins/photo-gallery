@@ -220,7 +220,8 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_title_font_style` varchar(16) NOT NULL DEFAULT 'segoe ui'");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_title_font_color` varchar(8) NOT NULL DEFAULT 'CCCCCC'");
 	}
-  if (version_compare($version, '1.2.16') == -1) {
+	if (version_compare($version, '1.2.16') == -1) {
+	  // Add Embeds and instagram galleries.
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `autoupdate_interval` int(4) NOT NULL DEFAULT 30");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `instagram_client_id` varchar(40) NOT NULL DEFAULT ''");  
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_gallery ADD `gallery_type` varchar(32) NOT NULL DEFAULT ''");
@@ -228,10 +229,21 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_gallery ADD `update_flag` varchar(32) NOT NULL DEFAULT ''");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_gallery ADD `autogallery_image_number` int(4) NOT NULL DEFAULT 12");
     /*auto-filling image meta description*/
-    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `description_tb` tinyint(1) NOT NULL DEFAULT 0");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `description_tb` tinyint(1) NOT NULL DEFAULT 1");
+
     /*convert old videos with "YOUTUBE" and "VIMEO" videos to new EMBED format*/
     $wpdb->update($wpdb->prefix . 'bwg_image', array('filetype' => 'EMBED_OEMBED_YOUTUBE_VIDEO', 'size' => '', 'resolution' => '480 x 360 px' ), array('filetype' => 'YOUTUBE'));
     $wpdb->update($wpdb->prefix . 'bwg_image', array('filetype' => 'EMBED_OEMBED_VIMEO_VIDEO', 'size' => '', 'resolution' => '480 x 360 px' ), array('filetype' => 'VIMEO'));
+	}
+  
+	if (version_compare($version, '1.2.18') == -1) {
+	  // Add load all images on frontend.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `enable_seo` tinyint(1) NOT NULL DEFAULT 1");
+    // Navigation buttons autohide option
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `autohide_lightbox_navigation` tinyint(1) NOT NULL DEFAULT 1");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `autohide_slideshow_navigation` tinyint(1) NOT NULL DEFAULT 1");
+    // Load image metadata.
+        $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option CHANGE `description_tb` `read_metadata` tinyint(1) NOT NULL DEFAULT 1");
   }
   return;
 }

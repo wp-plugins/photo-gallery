@@ -535,9 +535,9 @@ function bwg_gallery_type(gallery_type) {
       jQuery("#bwg_pro_version").html('Extended Album');
       jQuery("#bwg_pro_version_link").attr("href", "http://wpdemo.web-dorado.com/extended-album-view/");
       break;
-
     }
-    case 'album_masonry_preview': {			
+
+		case 'album_masonry_preview': {			
       jQuery("#tr_album").css('display', '');
       jQuery("#tr_sort_by").css('display', '');
       jQuery("#tr_order_by").css('display', '');
@@ -553,7 +553,7 @@ function bwg_gallery_type(gallery_type) {
       //bwg_change_masonry_album_view_type();
       bwg_show_search_box();
       break;
-    }
+    }		
 
     case 'blog_style': {
       jQuery("#tr_gallery").css('display', '');

@@ -295,8 +295,8 @@
 }
 
 .spider_label_galleries {
- font-weight: bold;
- width: 180px;
+	font-weight: bold;
+	width: 180px;
 }
 
 .spider_fieldset .spider_label {
@@ -503,7 +503,6 @@
 .spider_order {
   display: none;
 }
-
 #add_embed_help {
   height: 200px;
   width: 672px;

@@ -21,12 +21,13 @@ class BWGControllerOptions_bwg {
   public function execute() {
     $task = ((isset($_POST['task'])) ? esc_html(stripslashes($_POST['task'])) : '');
     $id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
-
+    
     if($task != ''){
       if(!WDWLibrary::verify_nonce('options_bwg')){
         die('Sorry, your nonce did not verify.');
       }
     }
+
 
     if (method_exists($this, $task)) {
       $this->$task($id);
@@ -102,7 +103,7 @@ class BWGControllerOptions_bwg {
     $thumb_height = (isset($_POST['thumb_height']) ? esc_html(stripslashes($_POST['thumb_height'])) : 90);
     $upload_thumb_width = (isset($_POST['upload_thumb_width']) ? esc_html(stripslashes($_POST['upload_thumb_width'])) : 300);
     $upload_thumb_height = (isset($_POST['upload_thumb_height']) ? esc_html(stripslashes($_POST['upload_thumb_height'])) : 300);
-	$upload_img_width = (isset($_POST['upload_img_width']) ? esc_html(stripslashes($_POST['upload_img_width'])) : 1200);
+	  $upload_img_width = (isset($_POST['upload_img_width']) ? esc_html(stripslashes($_POST['upload_img_width'])) : 1200);
     $upload_img_height = (isset($_POST['upload_img_height']) ? esc_html(stripslashes($_POST['upload_img_height'])) : 1200);	
     $image_enable_page = (isset($_POST['image_enable_page']) ? esc_html(stripslashes($_POST['image_enable_page'])) : 1);
     $image_title_show_hover = (isset($_POST['image_title_show_hover']) ? esc_html(stripslashes($_POST['image_title_show_hover'])) : 'none');
@@ -194,6 +195,10 @@ class BWGControllerOptions_bwg {
     $comment_moderation = (isset($_POST['comment_moderation']) ? esc_html(stripslashes($_POST['comment_moderation'])) : 0);
     $popup_hit_counter = (isset($_POST['popup_hit_counter']) ? esc_html(stripslashes($_POST['popup_hit_counter'])) : 0);
     $enable_ML_import = (isset($_POST['enable_ML_import']) ? esc_html(stripslashes($_POST['enable_ML_import'])) : 0);
+    $autoupdate_interval = (isset($_POST['autoupdate_interval_hour']) && isset($_POST['autoupdate_interval_min']) ? ((int) $_POST['autoupdate_interval_hour'] * 60 + (int) $_POST['autoupdate_interval_min']) : 30);
+    /*minimum autoupdate interval is 1 min*/
+    $autoupdate_interval = ($autoupdate_interval >= 1 ? $autoupdate_interval : 1 );
+    $instagram_client_id = (isset($_POST['instagram_client_id']) ? esc_html(stripslashes($_POST['instagram_client_id'])) : '');
     $showthumbs_name = (isset($_POST['thumb_name']) ? esc_html(stripslashes($_POST['thumb_name'])) : 1);
     $show_album_name = (isset($_POST['show_album_name_enable']) ? esc_html(stripslashes($_POST['show_album_name_enable'])) : 1);
     $show_image_counts = (isset($_POST['show_image_counts']) ? esc_html(stripslashes($_POST['show_image_counts'])) : 0);
@@ -201,7 +206,10 @@ class BWGControllerOptions_bwg {
     $show_masonry_thumb_description = (isset($_POST['show_masonry_thumb_description']) ? esc_html(stripslashes($_POST['show_masonry_thumb_description'])) : 0);
     $popup_info_full_width = (isset($_POST['popup_info_full_width']) ? esc_html(stripslashes($_POST['popup_info_full_width'])) : 0);
 		$show_sort_images = (isset($_POST['show_sort_images']) ? esc_html(stripslashes($_POST['show_sort_images'])) : 0);
-    $description_tb = (isset($_POST['description_tb']) ? esc_html(stripslashes($_POST['description_tb'])) : 0);
+		$enable_seo = (isset($_POST['enable_seo']) ? esc_html(stripslashes($_POST['enable_seo'])) : 1);
+    $autohide_lightbox_navigation = (isset($_POST['autohide_lightbox_navigation']) ? esc_html(stripslashes($_POST['autohide_lightbox_navigation'])) : 1);
+    $autohide_slideshow_navigation = (isset($_POST['autohide_slideshow_navigation']) ? esc_html(stripslashes($_POST['autohide_slideshow_navigation'])) : 1);
+    $read_metadata = (isset($_POST['read_metadata']) ? esc_html(stripslashes($_POST['read_metadata'])) : 0);
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -307,6 +315,8 @@ class BWGControllerOptions_bwg {
       'comment_moderation' => $comment_moderation,
       'popup_hit_counter' => $popup_hit_counter,
       'enable_ML_import' => $enable_ML_import,
+      'autoupdate_interval' => $autoupdate_interval,
+      'instagram_client_id' => $instagram_client_id,
       'showthumbs_name' => $showthumbs_name,
       'show_album_name' => $show_album_name,
       'show_image_counts' => $show_image_counts,
@@ -314,7 +324,10 @@ class BWGControllerOptions_bwg {
       'show_masonry_thumb_description' => $show_masonry_thumb_description,
       'popup_info_full_width' => $popup_info_full_width,
       'show_sort_images' => $show_sort_images,
-      'description_tb' => $description_tb,
+      'enable_seo' => $enable_seo,
+      'autohide_lightbox_navigation' => $autohide_lightbox_navigation,
+      'autohide_slideshow_navigation' => $autohide_slideshow_navigation,
+      'read_metadata' => $read_metadata,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      
@@ -325,6 +338,7 @@ class BWGControllerOptions_bwg {
         mkdir(ABSPATH . $images_directory . '/photo-gallery', 0777);
       }
       echo WDWLibrary::message('Item Succesfully Saved.', 'updated');
+
     }
     else {
       echo WDWLibrary::message('Error. Please install plugin again.', 'error');

@@ -139,7 +139,7 @@ class BWGViewGalleryBox {
       $params_array['watermark_width'] = $watermark_width;
       $params_array['watermark_height'] = $watermark_height;
     }
-    $popup_url = add_query_arg(array($params_array), admin_url('admin-ajax.php'));
+    $popup_url = add_query_arg(array($params_array), home_url('wp-admin/admin-ajax.php'));
     $filmstrip_thumb_margin = $theme_row->lightbox_filmstrip_thumb_margin;
     $margins_split = explode(" ", $filmstrip_thumb_margin);
     $filmstrip_thumb_margin_right = 0;
@@ -306,6 +306,24 @@ class BWGViewGalleryBox {
         opacity: <?php echo number_format($theme_row->lightbox_rl_btn_transparent / 100, 2, ".", ""); ?>;
         filter: Alpha(opacity=<?php echo $theme_row->lightbox_rl_btn_transparent; ?>);
       }
+      <?php
+      if($option_row->autohide_lightbox_navigation){?>
+      #spider_popup_left-ico{
+        left: -9999px;
+      }
+      #spider_popup_right-ico{
+        left: -9999px;
+      }      
+      <?php }
+      else { ?>
+        #spider_popup_left-ico {
+        left: 20px;
+        }
+        #spider_popup_right-ico {
+          left: auto;
+          right: 20px;
+        }
+      <?php } ?>
       .bwg_ctrl_btn:hover,
       .bwg_toggle_btn:hover,
       .spider_popup_close:hover,
@@ -675,6 +693,7 @@ class BWGViewGalleryBox {
         width: 100%;
         <?php } else { ?>
         margin: <?php echo $theme_row->lightbox_info_margin; ?>;
+        width: 33%;
         <?php } ?>
         padding: <?php echo $theme_row->lightbox_info_padding; ?>;
         <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'top') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') ? 'top: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>

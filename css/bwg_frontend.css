@@ -3,6 +3,14 @@ div[id^="bwg_container"] p {
   margin: 0 !important;
 }
 
+div[id^="bwg_container"] a {
+  border: none;
+  outline: none;
+  font-size: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .spider_popup_loading,
 .footer-list-block .bwp_gallery .spider_popup_loading,
 .footer-list-block .bwp_gallery_tags .spider_popup_loading {
@@ -102,7 +110,6 @@ div[id^="bwg_container"] p {
   box-sizing: border-box;
   cursor: pointer;
   display: table;
-  left: -9999px;
   line-height: 0;
   margin-top: -15px;
   position: absolute;

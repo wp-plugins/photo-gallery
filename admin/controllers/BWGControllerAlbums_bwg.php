@@ -21,11 +21,15 @@ class BWGControllerAlbums_bwg {
   public function execute() {
     $task = WDWLibrary::get('task');
     $id = WDWLibrary::get('current_id', 0);
+
+
     if($task != ''){
       if(!WDWLibrary::verify_nonce('albums_bwg')){
         die('Sorry, your nonce did not verify.');
       }
     }
+    
+
     $message = WDWLibrary::get('message');
     echo WDWLibrary::message_id($message);
     if (method_exists($this, $task)) {
@@ -350,6 +354,7 @@ class BWGControllerAlbums_bwg {
   public function save_order($flag = TRUE) {
     global $wpdb;
     $album_ids_col = $wpdb->get_col('SELECT id FROM ' . $wpdb->prefix . 'bwg_album');
+    $message = 0;
     if ($album_ids_col) {
       foreach ($album_ids_col as $album_id) {
         if (isset($_POST['order_input_' . $album_id])) {

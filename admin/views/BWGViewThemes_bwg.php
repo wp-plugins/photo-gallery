@@ -32,6 +32,7 @@ class  BWGViewThemes_bwg {
     $order_class = 'manage-column column-title sorted ' . $asc_or_desc;
     $ids_string = '';
     $per_page = $this->model->per_page();
+	$pager = 0;
     ?>
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
@@ -88,7 +89,7 @@ class  BWGViewThemes_bwg {
       <div class="tablenav top">
         <?php
         WDWLibrary::search('Title', $search_value, 'themes_form');
-        WDWLibrary::html_page_nav($page_nav['total'], $page_nav['limit'], 'themes_form', $per_page);
+        WDWLibrary::html_page_nav($page_nav['total'], $pager++, $page_nav['limit'], 'themes_form', $per_page);
         ?>
       </div>
       <table class="wp-list-table widefat fixed pages">
@@ -173,6 +174,11 @@ class  BWGViewThemes_bwg {
           ?>
         </tbody>
       </table>
+      <div class="tablenav bottom">
+        <?php
+        WDWLibrary::html_page_nav($page_nav['total'], $pager++, $page_nav['limit'], 'themes_form', $per_page);
+        ?>
+      </div>
       <input id="task" name="task" type="hidden" value=""/>
       <input id="current_id" name="current_id" type="hidden" value=""/>
       <input id="ids_string" name="ids_string" type="hidden" value="<?php echo $ids_string; ?>"/>
@@ -239,7 +245,7 @@ class  BWGViewThemes_bwg {
       'square' => 'Square',
     );
     ?>
-    <div style="clear: both; float: left; width: 99%;">
+   <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to add/edit theme.
         <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-6/6-1.html">Read More in User Manual</a>
@@ -646,7 +652,7 @@ class  BWGViewThemes_bwg {
             </table>
           </fieldset>
         </fieldset>
-
+        
         <fieldset class="spider_type_fieldset" id="Slideshow">
           <fieldset class="spider_child_fieldset" id="Slideshow_1">
             <table style="clear:both;">
@@ -2211,7 +2217,7 @@ class  BWGViewThemes_bwg {
                     <input type="text" name="blog_style_share_buttons_bg_color" id="blog_style_share_buttons_bg_color" value="<?php echo $row->blog_style_share_buttons_bg_color; ?>" class="color"/>
                   </td>
                 </tr>
-		<tr>
+                <tr>
                   <td class="spider_label"><label for="blog_style_share_buttons_bg_transparent">Buttons and title background transparency: </label></td>
                   <td>
                     <input type="text" name="blog_style_share_buttons_bg_transparent" id="blog_style_share_buttons_bg_transparent" value="<?php echo $row->blog_style_share_buttons_bg_transparent; ?>" class="spider_int_input" onkeypress="return spider_check_isnum(event)"/> %

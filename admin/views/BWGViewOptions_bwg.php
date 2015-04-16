@@ -187,6 +187,15 @@ class BWGViewOptions_bwg {
                  <div class="spider_description"></div>
                 </td>
               </tr>
+              <tr id="tr_search_box_width">
+                <td class="spider_label_options">
+                  <label for="search_box_width">Search box width: </label>
+                </td>
+                <td>
+                  <input type="text" name="search_box_width" id="search_box_width" value="<?php echo $row->search_box_width; ?>" class="spider_int_input" /> px
+                  <div class="spider_description"></div>
+                </td>
+              </tr>
               <tr>
                 <td class="spider_label_options">
                   <label>Show "Order by" dropdown list:</label>
@@ -195,15 +204,6 @@ class BWGViewOptions_bwg {
                   <input type="radio" name="show_sort_images" id="show_sort_images_1" value="1" <?php if ($row->show_sort_images) echo 'checked="checked"'; ?> /><label for="show_sort_images_1">Yes</label>
                   <input type="radio" name="show_sort_images" id="show_sort_images_0" value="0" <?php if (!$row->show_sort_images) echo 'checked="checked"'; ?> /><label for="show_sort_images_0">No</label>
                  <div class="spider_description"></div>
-                </td>
-              </tr>
-              <tr id="tr_search_box_width">
-                <td class="spider_label_options">
-                  <label for="search_box_width">Search box width: </label>
-                </td>
-                <td>
-                  <input type="text" name="search_box_width" id="search_box_width" value="<?php echo $row->search_box_width; ?>" class="spider_int_input" /> px
-                  <div class="spider_description"></div>
                 </td>
               </tr>
               <tr>
@@ -236,12 +236,22 @@ class BWGViewOptions_bwg {
                 </td>
               </tr>
               <tr>
+              <td class="spider_label_options">
+                <label>Enable href attribute:</label>
+              </td>
+              <td>
+                <input type="radio" name="enable_seo" id="enable_seo_1" value="1" <?php if ($row->enable_seo) echo 'checked="checked"'; ?> /><label for="enable_seo_1">Yes</label>
+                <input type="radio" name="enable_seo" id="enable_seo_0" value="0" <?php if (!$row->enable_seo) echo 'checked="checked"'; ?> /><label for="enable_seo_0">No</label>
+               <div class="spider_description">Disable this option only if it conflicts with your theme.</div>
+              </td>
+            </tr>
+	    <tr>
                 <td class="spider_label_options">
                   <label>Meta auto-fill:</label>
                 </td>
                 <td>
-                  <input type="radio" name="description_tb" id="description_tb_1" value="1" <?php if ($row->description_tb) echo 'checked="checked"'; ?> /><label for="description_tb_1">Yes</label>
-                  <input type="radio" name="description_tb" id="description_tb_0" value="0" <?php if (!$row->description_tb) echo 'checked="checked"'; ?> /><label for="description_tb_0">No</label>
+                  <input type="radio" name="read_metadata" id="read_metadata_1" value="1" <?php if ($row->read_metadata) echo 'checked="checked"'; ?> /><label for="read_metadata_1">Yes</label>
+                  <input type="radio" name="read_metadata" id="read_metadata_0" value="0" <?php if (!$row->read_metadata) echo 'checked="checked"'; ?> /><label for="read_metadata_0">No</label>
                   <div class="spider_description">Enabling this option the meta description of the image will be automatically filled in image description field.</div>
                 </td>
               </tr>
@@ -648,6 +658,16 @@ class BWGViewOptions_bwg {
                     </tr>
                     <tr>
                       <td class="spider_label_options">
+                        <label> Show Next / Previous buttons:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="autohide_lightbox_navigation" id="autohide_lightbox_navigation_1" value="1" <?php if ($row->autohide_lightbox_navigation ) echo 'checked="checked"'; ?> /><label for="autohide_lightbox_navigation_1">On hover</label>
+                        <input type="radio" name="autohide_lightbox_navigation" id="autohide_lightbox_navigation_0" value="0" <?php if (!$row->autohide_lightbox_navigation ) echo 'checked="checked"'; ?> /><label for="autohide_lightbox_navigation_0">Always</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options">
                         <label>Enable control buttons:</label>
                       </td>
                       <td>
@@ -1023,6 +1043,16 @@ class BWGViewOptions_bwg {
                       <td>
                         <input type="radio" name="slideshow_enable_shuffle" id="slideshow_enable_shuffle_yes" value="1" <?php if ($row->slideshow_enable_shuffle) echo 'checked="checked"'; ?> /><label for="slideshow_enable_shuffle_yes">Yes</label>
                         <input type="radio" name="slideshow_enable_shuffle" id="slideshow_enable_shuffle_no" value="0" <?php if (!$row->slideshow_enable_shuffle) echo 'checked="checked"'; ?> /><label for="slideshow_enable_shuffle_no">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options">
+                        <label> Show Next / Previous buttons:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="autohide_slideshow_navigation" id="autohide_slideshow_navigation_1" value="1" <?php if ($row->autohide_slideshow_navigation) echo 'checked="checked"'; ?> /><label for="autohide_slideshow_navigation_1">On hover</label>
+                        <input type="radio" name="autohide_slideshow_navigation" id="autohide_slideshow_navigation_0" value="0" <?php if (!$row->autohide_slideshow_navigation) echo 'checked="checked"'; ?> /><label for="autohide_slideshow_navigation_0">Always</label>
                         <div class="spider_description"></div>
                       </td>
                     </tr>

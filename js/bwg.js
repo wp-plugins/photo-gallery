@@ -7,7 +7,7 @@ function edit_tag(m) {
   jQuery("#td_id_" + m).attr('class', 'table_big_col');
 }
 
-function save_tag(tag_id) { 
+function save_tag(tag_id) {
   var tagname=jQuery('input[name=tagname'+tag_id+']').val();
   var slug = jQuery('input[name=slug'+tag_id+']').val();
   var datas = "tagname="+tagname+"&"+"slug="+slug+"&"+"tag_id="+tag_id;
@@ -75,6 +75,7 @@ function spider_ajax_save(form_id, tr_group) {
   var bwg_nonce = jQuery("#bwg_nonce").val();
   var name = jQuery("#name").val();
   var slug = jQuery("#slug").val();
+
   if ((typeof tinyMCE != "undefined") && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden() && tinyMCE.activeEditor.getContent) {
     var description = tinyMCE.activeEditor.getContent();
   }
@@ -105,6 +106,7 @@ function spider_ajax_save(form_id, tr_group) {
   post_data["bwg_nonce"] = bwg_nonce;
   post_data["name"] = name;
   post_data["slug"] = slug;
+
   post_data["description"] = description;
   post_data["preview_image"] = preview_image;
   post_data["published"] = published;
@@ -167,8 +169,10 @@ function spider_ajax_save(form_id, tr_group) {
     else {
       var str = jQuery(data).find('#images_table').html();
       jQuery('#images_table').html(str);
-      var str = jQuery(data).find('.tablenav').html();
-      jQuery('.tablenav').html(str);
+      var str = jQuery(data).find('.tablenav.top').html();
+      jQuery('.tablenav.top').html(str);
+      var str = jQuery(data).find('.tablenav.bottom').html();
+      jQuery('.tablenav.bottom').html(str);
       jQuery("#show_hide_weights").val("Hide order column");
       spider_show_hide_weights();
       spider_run_checkbox();
@@ -224,6 +228,7 @@ function spider_ajax_save(form_id, tr_group) {
       else if (ajax_task == 'search') {
         jQuery('#message_div').html("");
         jQuery('#message_div').hide();
+       
       }
       else {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Saved.</p></strong>");
@@ -932,17 +937,15 @@ function bwg_gallery_type() {
   return response;
 }
 
-
 /*returns false if user cancels or impossible to do.*/
 /*
-+   type_to_set:'' or 'instagram'
-+*/
+   type_to_set:'' or 'instagram'
+*/
 function bwg_change_gallery_type(type_to_set, warning_type) {
   
   warning_type = (typeof warning_type === "undefined") ? "default" : warning_type;
- 
- if(type_to_set == 'instagram'){
 
+  if(type_to_set == 'instagram'){
     jQuery('#gallery_type').val('instagram');
     jQuery('#tr_instagram_post_gallery').show();
     jQuery('#tr_gallery_source').show();
@@ -958,11 +961,8 @@ function bwg_change_gallery_type(type_to_set, warning_type) {
     jQuery('#content-add_media').hide();
     jQuery('#show_add_embed').hide();
     jQuery('#show_bulk_embed').hide();
-
+    
   }
-
-
-  
   else{
 
     var ids_string = jQuery("#ids_string").val();
@@ -984,15 +984,12 @@ function bwg_change_gallery_type(type_to_set, warning_type) {
         jQuery('#gallery_type').val('instagram');
         return false;
       }
-
-
-      }
+    }
   
     jQuery('#gallery_type').val('');
     jQuery('#tr_instagram_post_gallery').hide();
     jQuery('#tr_gallery_source').hide();
-    
-    
+
     jQuery('#tr_update_flag').hide();
     jQuery('#tr_autogallery_image_number').hide();
     jQuery('#tr_instagram_gallery_add_button').hide();
@@ -1009,8 +1006,6 @@ function bwg_change_gallery_type(type_to_set, warning_type) {
   }
   return true;
 }
-
-
 
 function bwg_is_instagram_gallery() {
 
@@ -1030,7 +1025,6 @@ function bwg_is_instagram_gallery() {
  *  @param message:bool true if to alert that not empty
  *  @return true if empty, false if not empty
  */
-
 
 function bwg_convert_seconds(seconds) {
   var sec_num = parseInt(seconds, 10);
@@ -1123,5 +1117,3 @@ function bwg_get_embed_info(input_id) {
   return 'ok'; 
    
 }
-
-

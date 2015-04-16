@@ -20,7 +20,7 @@ class BWGControllerBWGShortcode {
   ////////////////////////////////////////////////////////////////////////////////////////
   public function execute() {
     $task = WDWLibrary::get('task');
-
+    
     $from_menu = ((isset($_GET['page']) && (esc_html($_GET['page']) == 'BWGShortcode')) ? TRUE : FALSE);
     
     if($task != '' && $from_menu){
@@ -28,6 +28,8 @@ class BWGControllerBWGShortcode {
         die('Sorry, your nonce did not verify.');
       }
     }
+
+    
     if (method_exists($this, $task)) {
       $this->$task();
     }
