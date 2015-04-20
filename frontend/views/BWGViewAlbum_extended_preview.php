@@ -643,7 +643,7 @@ class BWGViewAlbum_extended_preview {
                     ?>
                     <div class="bwg_album_extended_div_<?php echo $bwg; ?>">
                       <div class="bwg_album_extended_thumb_div_<?php echo $bwg; ?>">
-                        <a <?php echo ($options_row->enable_seo ? 'href="' . add_query_arg(array("type_" . $bwg => $def_type, "album_gallery_id_" . $bwg => $album_galallery_row->alb_gal_id, "bwg_previous_album_id_" . $bwg => $album_gallery_id . ',' . $bwg_previous_album_id , "bwg_previous_album_page_number_" . $bwg => (isset($_REQUEST['page_number_' . $bwg]) ? esc_html($_REQUEST['page_number_' . $bwg]) : 0) . ',' . $bwg_previous_album_page_number), $_SERVER['REQUEST_URI']) . '"' : ''); ?> style="font-size: 0;" onclick="spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_extended_<?php echo $bwg; ?>', '<?php echo $album_galallery_row->alb_gal_id; ?>', '<?php echo $album_gallery_id; ?>', '<?php echo $def_type; ?>', '', '<?php echo htmlspecialchars(addslashes($title)); ?>', 'default'); return false;">
+                        <a class="bwg_album_<?php echo $bwg; ?>" <?php echo ($options_row->enable_seo ? 'href="' . add_query_arg(array("type_" . $bwg => $def_type, "album_gallery_id_" . $bwg => $album_galallery_row->alb_gal_id, "bwg_previous_album_id_" . $bwg => $album_gallery_id . ',' . $bwg_previous_album_id , "bwg_previous_album_page_number_" . $bwg => (isset($_REQUEST['page_number_' . $bwg]) ? esc_html($_REQUEST['page_number_' . $bwg]) : 0) . ',' . $bwg_previous_album_page_number), $_SERVER['REQUEST_URI']) . '"' : ''); ?> style="font-size: 0;" data-alb_gal_id="<?php echo $album_galallery_row->alb_gal_id; ?>" data-def_type="<?php echo $def_type; ?>" data-title="<?php htmlspecialchars(addslashes($title)); ?>">
                           <span class="bwg_album_thumb_<?php echo $bwg; ?>" style="height:inherit;">
                             <span class="bwg_album_thumb_spun1_<?php echo $bwg; ?>">
                               <span class="bwg_album_thumb_spun2_<?php echo $bwg; ?>">
@@ -822,6 +822,10 @@ class BWGViewAlbum_extended_preview {
         jQuery(".bwg_lightbox_<?php echo $bwg; ?>").on("click", function () {
           bwg_gallery_box_<?php echo $bwg; ?>(jQuery(this).attr("data-gallery-id"), jQuery(this).attr("data-image-id"));
           return false;
+        });
+        jQuery(".bwg_album_<?php echo $bwg; ?>").on("click", function () {
+          spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_extended_<?php echo $bwg; ?>', jQuery(this).attr("data-alb_gal_id"), '<?php echo $album_gallery_id; ?>', jQuery(this).attr("data-def_type"), '', jQuery(this).attr("data-title"), 'default'); 
+           return false;
         });
       }
       jQuery(document).ready(function () {
