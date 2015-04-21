@@ -139,7 +139,7 @@ class BWGViewGalleryBox {
       $params_array['watermark_width'] = $watermark_width;
       $params_array['watermark_height'] = $watermark_height;
     }
-    $popup_url = add_query_arg(array($params_array), home_url('wp-admin/admin-ajax.php'));
+    $popup_url = add_query_arg(array($params_array), admin_url('admin-ajax.php'));
     $filmstrip_thumb_margin = $theme_row->lightbox_filmstrip_thumb_margin;
     $margins_split = explode(" ", $filmstrip_thumb_margin);
     $filmstrip_thumb_margin_right = 0;

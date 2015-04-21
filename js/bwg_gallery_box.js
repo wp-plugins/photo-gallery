@@ -1,6 +1,7 @@
 var isPopUpOpened = false;
 
 function spider_createpopup(url, current_view, width, height, duration, description, lifetime) {
+  url = url.replace(/&#038;/g, '&');
   if (isPopUpOpened) { return };
   isPopUpOpened = true;
   if (spider_hasalreadyreceivedpopup(description) || spider_isunsupporteduseragent()) {

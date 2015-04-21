@@ -631,7 +631,7 @@ class BWGViewImage_browser {
         ?>
       });
       function bwg_gallery_box_<?php echo $bwg; ?>(image_id) {
-        spider_createpopup('<?php echo addslashes(add_query_arg($params_array, home_url('wp-admin/admin-ajax.php'))); ?>&image_id=' + image_id, '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);
+        spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>&image_id=' + image_id, '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);
       }
       function bwg_document_ready_<?php echo $bwg; ?>() {
         jQuery(".bwg_lightbox_<?php echo $bwg; ?>").on("click", function () {
