@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.20
+ * Version: 1.2.21
  * Author: WebDorado
  * Author URI: http://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,8 +12,31 @@
 
 define('WD_BWG_DIR', WP_PLUGIN_DIR . "/" . plugin_basename(dirname(__FILE__)));
 define('WD_BWG_URL', plugins_url(plugin_basename(dirname(__FILE__))));
-define('WD_BWG_FRONT_URL', home_url("wp-content/plugins/" . plugin_basename(dirname(__FILE__))));
 define('WD_BWG_PRO', false);
+
+function bwg_use_home_url() {
+  $home_url = str_replace("http://", "", home_url());
+  $home_url = str_replace("https://", "", $home_url);
+  $pos = strpos($home_url, "/");
+  if ($pos) {
+    $home_url = substr($home_url, 0, $pos);
+  }
+  
+  $site_url = str_replace("http://", "", WD_BWG_URL);
+  $site_url = str_replace("https://", "", $site_url);
+  $pos = strpos($site_url, "/");
+  if ($pos) {
+    $site_url = substr($site_url, 0, $pos);
+  }
+  return $site_url != $home_url;
+}
+
+if (bwg_use_home_url()) {
+  define('WD_BWG_FRONT_URL', home_url("wp-content/plugins/" . plugin_basename(dirname(__FILE__))));
+}
+else {
+  define('WD_BWG_FRONT_URL', WD_BWG_URL);
+}
 
 global $wpdb;
 if ($wpdb->query("SHOW TABLES LIKE '" . $wpdb->prefix . "bwg_option'")) {
@@ -3116,7 +3139,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.20';
+  $new_version = '1.2.21';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -3134,7 +3157,7 @@ wp_oembed_add_provider( '#https://instagr(\.am|am\.com)/p/.*#i', 'https://api.in
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.20';
+  $new_version = '1.2.21';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
