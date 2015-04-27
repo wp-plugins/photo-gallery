@@ -788,6 +788,12 @@ class WDWLibrary {
     elseif ( isset( $_POST['bwg_nonce'] ) && wp_verify_nonce( $_POST['bwg_nonce'], $page )) {
       $nonce_verified = true;
     }
+    elseif ( isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], $page )) {
+      $nonce_verified = true;
+    }
+    elseif ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], $page )) {
+      $nonce_verified = true;
+    }
     return $nonce_verified;
   }
 
