@@ -519,19 +519,15 @@ class WDWLibrary {
           $next_button = '›';
           $last_button = '»';
         }
-        $first_page = "first-page";
-        $prev_page = "prev-page";
-        $next_page = "next-page";
-        $last_page = "last-page";
+        $first_page = "first-page-" . $current_view;
+        $prev_page = "prev-page-" . $current_view;
+        $next_page = "next-page-" . $current_view;
+        $last_page = "last-page-" . $current_view;
         if ($page_number == 1) {
           $first_page = "first-page disabled";
           $prev_page = "prev-page disabled";
-          $next_page = "next-page";
-          $last_page = "last-page";
         }
         if ($page_number >= $items_county) {
-          $first_page = "first-page ";
-          $prev_page = "prev-page";
           $next_page = "next-page disabled";
           $last_page = "last-page disabled";
         }

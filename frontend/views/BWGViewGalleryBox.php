@@ -1489,32 +1489,15 @@ class BWGViewGalleryBox {
       });
       function bwg_preload_images(key) {
         count = <?php echo (int) $option_row->preload_images_count / 2; ?>;
+        var count_all = data.length;
+        if (count_all < <?php echo $option_row->preload_images_count; ?>) {
+          count = 0;
+        }
         if (count != 0) {
-          var img_number = data.length;
-          /*check if interval is within image numbers interval*/
-          if(key - count >=0 ){
-            for (var i = key - count; i < key; i++) {
-              var is_embed = data[i]['filetype'].indexOf("EMBED_") > -1 ? true : false;
-              jQuery("<img/>").attr("src", (typeof data[i] != "undefined" && !is_embed) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[i]["image_url"]).text() : "");
-            }
-          }
-          else{
-            for (var i = 0; i < key; i++) {
-              var is_embed = data[i]['filetype'].indexOf("EMBED_") > -1 ? true : false;
-              jQuery("<img/>").attr("src", (typeof data[i] != "undefined" && !is_embed) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[i]["image_url"]).text() : "");
-            }
-          }
-          if(key + count <=img_number ){
-            for (var i = key; i < key + count; i++) {
-              var is_embed = data[i]['filetype'].indexOf("EMBED_") > -1 ? true : false;
-              jQuery("<img/>").attr("src", (typeof data[i] != "undefined" && !is_embed) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[i]["image_url"]).text() : "");
-            }
-          }
-          else{
-            for (var i = key; i < data.length; i++) {
-              var is_embed = data[i]['filetype'].indexOf("EMBED_") > -1 ? true : false;
-              jQuery("<img/>").attr("src", (typeof data[i] != "undefined" && !is_embed) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[i]["image_url"]).text() : "");
-            }
+          for (var i = key - count; i < key + count; i++) {
+            var index = (i + count_all) % count_all;
+            var is_embed = data[index]['filetype'].indexOf("EMBED_") > -1 ? true : false;
+            jQuery("<img/>").attr("src", (typeof data[index] != "undefined" && !is_embed) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[index]["image_url"]).text() : "");
           }
         }
         else {
