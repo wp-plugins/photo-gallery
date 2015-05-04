@@ -147,7 +147,7 @@ class BWGViewOptions_bwg {
                   <div class="spider_description">Disable image right click possibility.</div>
                 </td>
               </tr>
-              <tr>
+              <tr style="display: none;">
                 <td class="spider_label_options">
                   <label>Gallery role:</label>
                 </td>
@@ -157,7 +157,7 @@ class BWGViewOptions_bwg {
                   <div class="spider_description">Only author can change a gallery.</div>
                 </td>
               </tr>
-              <tr>
+              <tr style="display: none;">
                 <td class="spider_label_options">
                   <label>Album role:</label>
                 </td>
@@ -167,7 +167,7 @@ class BWGViewOptions_bwg {
                   <div class="spider_description">Only author can change an album.</div>
                 </td>
               </tr>
-              <tr>
+              <tr style="display: none;">
                 <td class="spider_label_options">
                   <label>Image role:</label>
                 </td>

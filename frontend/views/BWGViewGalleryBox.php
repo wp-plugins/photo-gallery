@@ -1495,7 +1495,7 @@ class BWGViewGalleryBox {
         }
         if (count != 0) {
           for (var i = key - count; i < key + count; i++) {
-            var index = (i + count_all) % count_all;
+            var index = parseInt((i + count_all) % count_all);
             var is_embed = data[index]['filetype'].indexOf("EMBED_") > -1 ? true : false;
             jQuery("<img/>").attr("src", (typeof data[index] != "undefined" && !is_embed) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[index]["image_url"]).text() : "");
           }

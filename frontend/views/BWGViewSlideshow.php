@@ -707,11 +707,11 @@ class BWGViewSlideshow {
                           <?php 
                             if (! $is_embed) {
                             ?>
-                            <img id="bwg_slideshow_image_second_<?php echo $bwg; ?>" class="bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>"/>
+                            <img class="bwg_slideshow_image_<?php echo $bwg; ?>" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>"/>
                           <?php 
                             }
                             else {   /*$is_embed*/ ?>
-                            <span id="bwg_slideshow_image_second_<?php echo $bwg; ?>" class="bwg_slideshow_embed_<?php echo $bwg; ?>">
+                            <span class="bwg_slideshow_embed_<?php echo $bwg; ?>">
                                 <?php
                               if($is_embed_instagram_post){
                                 $post_width = $image_width - ($filmstrip_direction == 'vertical' ? $slideshow_filmstrip_width : 0);
