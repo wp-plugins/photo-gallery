@@ -845,12 +845,14 @@ class BWGViewAlbum_compact_preview {
         spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>&gallery_id=' + gallery_id + '&image_id=' + image_id, '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);
       }
       function bwg_document_ready_<?php echo $bwg; ?>() {
-        jQuery(".bwg_lightbox_<?php echo $bwg; ?>").on("click", function () {
+        var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+        var bwg_click = isMobile ? 'touchend' : 'click';
+        jQuery(".bwg_lightbox_<?php echo $bwg; ?>").on(bwg_click, function () {
           bwg_gallery_box_<?php echo $bwg; ?>(jQuery(this).attr("data-gallery-id"), jQuery(this).attr("data-image-id"));
           return false;
         });
         <?php if ($from !== "widget") { ?>
-        jQuery(".bwg_album_<?php echo $bwg; ?>").on("click", function () {
+        jQuery(".bwg_album_<?php echo $bwg; ?>").on(bwg_click, function () {
           spider_frontend_ajax('gal_front_form_<?php echo $bwg; ?>', '<?php echo $bwg; ?>', 'bwg_album_compact_<?php echo $bwg; ?>', jQuery(this).attr("data-alb_gal_id"), '<?php echo $album_gallery_id; ?>', jQuery(this).attr("data-def_type"), '', jQuery(this).attr("data-title"), 'default'); 
            return false;
         });
