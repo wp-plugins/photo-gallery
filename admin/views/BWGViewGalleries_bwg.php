@@ -694,6 +694,7 @@ class BWGViewGalleries_bwg {
     $ids_string = '';
     $per_page = $this->model->per_page();
     $gallery_row = $this->model->get_row_data($id);
+    $gallery_type = ($gallery_row->gallery_type == 'instagram' || $gallery_row->gallery_type == 'instagram_post') ? 'instagram' : '';
     $pager = 0;
     ?>
       <div id="draganddrop" class="updated" style="display:none;"><strong><p>Changes made in this table should be saved.</p></strong></div>
