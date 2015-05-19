@@ -659,6 +659,7 @@ class BWGViewSlideshow {
                   
                   $is_embed = preg_match('/EMBED/',$image_row->filetype)==1 ? true :false;
                   $is_embed_video = ($is_embed && preg_match('/_VIDEO/',$image_row->filetype)==1) ? true :false;
+                  $is_embed_instagram_post = preg_match('/INSTAGRAM_POST/',$image_row->filetype)==1 ? true :false;
                   if ($image_row->id == $current_image_id) {
                     $current_key = $key;
                     ?>
@@ -1452,6 +1453,8 @@ class BWGViewSlideshow {
             document.getElementById("bwg_audio_<?php echo $bwg; ?>").play();
           }
         }
+        jQuery(".bwg_slideshow_image_<?php echo $bwg; ?>").removeAttr("width");
+        jQuery(".bwg_slideshow_image_<?php echo $bwg; ?>").removeAttr("height");
       });
 
 

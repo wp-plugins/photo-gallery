@@ -896,7 +896,7 @@ class BWGViewGalleryBox {
         <div class="bwg_image_info_container1">
           <div class="bwg_image_info_container2">
             <span class="bwg_image_info_spun">
-              <div class="bwg_image_info">
+              <div class="bwg_image_info" <?php if(trim($current_image_alt) == '' && trim($current_image_description) == '') { echo 'style="background:none;"'; } ?>>
                 <div class="bwg_image_title"><?php echo html_entity_decode($current_image_alt); ?></div>
                 <div class="bwg_image_description"><?php echo html_entity_decode($current_image_description); ?></div>
               </div>
@@ -1370,6 +1370,12 @@ class BWGViewGalleryBox {
           /* Change image title, description.*/
           jQuery(".bwg_image_title").html(jQuery('<div />').html(data[key]["alt"]).text());
           jQuery(".bwg_image_description").html(jQuery('<div />').html(data[key]["description"]).text());
+          if(data[key]["alt"].trim() == "" && data[key]["description"].trim() == "") {
+            jQuery(".bwg_image_info").css("background","none");
+          }
+          else {
+            jQuery(".bwg_image_info").removeAttr("style");
+          }
           if (jQuery(".bwg_image_info_container1").css("display") != 'none') {
             jQuery(".bwg_image_info_container1").css("display", "table-cell");
           }
@@ -1480,12 +1486,6 @@ class BWGViewGalleryBox {
         else if (e.keyCode === 32) { /* Space.*/
           jQuery(".bwg_play_pause").trigger('click');
         }
-        if (e.preventDefault) {
-          e.preventDefault();
-        }
-        else {
-          e.returnValue = false;
-        }
       });
       function bwg_preload_images(key) {
         count = <?php echo (int) $option_row->preload_images_count / 2; ?>;
@@ -1508,7 +1508,6 @@ class BWGViewGalleryBox {
         }
       }
       function bwg_popup_resize() {
-
         if (typeof jQuery().fullscreen !== 'undefined' && jQuery.isFunction(jQuery().fullscreen) && !jQuery.fullscreen.isFullScreen()) {
           jQuery(".bwg_resize-full").show();
           jQuery(".bwg_resize-full").attr("class", "bwg_ctrl_btn bwg_resize-full fa fa-resize-full");
@@ -2138,7 +2137,9 @@ class BWGViewGalleryBox {
         if ($option_row->preload_images) {
           echo "bwg_preload_images(parseInt(jQuery('#bwg_current_image_key').val()));";
         }
-        ?>        
+        ?>
+        jQuery(".bwg_popup_image").removeAttr("width");
+        jQuery(".bwg_popup_image").removeAttr("height");
       });
       /* Open with fullscreen.*/
       function bwg_open_with_fullscreen() {

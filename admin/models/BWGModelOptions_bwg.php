@@ -104,7 +104,7 @@ class BWGModelOptions_bwg {
       $row->watermark_height = 90;
       $row->watermark_url = WD_BWG_URL . '/images/watermark.png';
       $row->watermark_text = 'web-dorado.com';
-      $row->watermark_link = 'http://web-dorado.com';
+      $row->watermark_link = 'https://web-dorado.com';
       $row->watermark_font_size = 20;
       $row->watermark_font = 'arial';
       $row->watermark_color = 'FFFFFF';

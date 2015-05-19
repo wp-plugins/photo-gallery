@@ -37,7 +37,7 @@ class  BWGViewThemes_bwg {
     <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to create, edit and delete themes.
-        <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-6/6-1.html">Read More in User Manual</a>
+        <a style="color: blue; text-decoration: none;" target="_blank" href="https://web-dorado.com/wordpress-gallery-guide-step-6/6-1.html">Read More in User Manual</a>
         <?php
         if (get_option("wd_bwg_theme_version")) {
           ?>
@@ -48,7 +48,7 @@ class  BWGViewThemes_bwg {
         ?>
       </div>
       <div style="float: right; text-align: right;">
-        <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+        <a style="text-decoration: none;" target="_blank" href="https://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
           <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>
@@ -248,10 +248,10 @@ class  BWGViewThemes_bwg {
    <div style="clear: both; float: left; width: 99%;">
       <div style="float:left; font-size: 14px; font-weight: bold;">
         This section allows you to add/edit theme.
-        <a style="color: blue; text-decoration: none;" target="_blank" href="http://web-dorado.com/wordpress-gallery-guide-step-6/6-1.html">Read More in User Manual</a>
+        <a style="color: blue; text-decoration: none;" target="_blank" href="https://web-dorado.com/wordpress-gallery-guide-step-6/6-1.html">Read More in User Manual</a>
       </div>
       <div style="float: right; text-align: right;">
-        <a style="text-decoration: none;" target="_blank" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+        <a style="text-decoration: none;" target="_blank" href="https://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
           <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>

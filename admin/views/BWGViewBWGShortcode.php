@@ -997,7 +997,7 @@ class BWGViewBWGShortcode {
             ?>
             <hr style="float: left; width: 100%;" />
             <span style="float: left; width: 100%;">
-              <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="display: table; margin-bottom: 5px;" href="http://web-dorado.com/products/wordpress-photo-gallery-plugin.html">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
+              <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="display: table; margin-bottom: 5px;" href="https://web-dorado.com/products/wordpress-photo-gallery-plugin.html">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
               <input type="button" class="button-primary" id="insert" name="insert" value="Generate" onclick="bwg_insert_shortcode('');" />
               <input type="button" class="button-secondary" id="import" name="import" value="Import" onclick="bwg_update_shortcode()" />
               <textarea style="width: 100%; resize: vertical; margin-top: 5px;" id="bwg_shortcode" rows="2" onkeydown="bwg_onKeyDown(event)"><?php echo $tagtext; ?></textarea>
