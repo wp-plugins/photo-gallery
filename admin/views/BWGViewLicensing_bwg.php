@@ -83,7 +83,7 @@ class BWGViewLicensing_bwg {
       </div>
     </div>
     <div style="float: right; text-align: right;">
-        <a style="text-decoration: none;" target="_blank" href="https://web-dorado.com/products/wordpress-photo-gallery-plugin.html">
+        <a style="text-decoration: none;" target="_blank" href="https://web-dorado.com/files/fromPhotoGallery.php">
           <img width="215" border="0" alt="web-dorado.com" src="<?php echo WD_BWG_URL . '/images/logo.png'; ?>" />
         </a>
       </div>

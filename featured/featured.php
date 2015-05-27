@@ -11,7 +11,7 @@ function spider_featured($current_plugin = '') {
       'title'    => 'Photo Gallery',
       'text'     => 'WordPress Photo Gallery plugin',
       'content'  => 'Photo Gallery is a fully responsive WordPress Gallery plugin with advanced functionality.',
-      'href'     => 'https://web-dorado.com/products/wordpress-photo-gallery-plugin.html'
+      'href'     => 'https://web-dorado.com/files/fromPhotoGallery.php'
     ),
     "contact_form_bulder" => array(
       'title'    => 'Contact Form Builder',
