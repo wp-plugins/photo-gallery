@@ -777,6 +777,7 @@ class BWGControllerGalleries_bwg {
   
   public function save_db() {
     global $wpdb;
+    global $WD_BWG_UPLOAD_DIR;
     $id = (isset($_POST['current_id']) ? (int) $_POST['current_id'] : 0);
     $name = ((isset($_POST['name']) && esc_html(stripslashes($_POST['name'])) != '') ? esc_html(stripslashes($_POST['name'])) : 'Gallery');
     $name = $this->bwg_get_unique_name($name, $id);

@@ -82,6 +82,9 @@ class BWGViewAlbum_compact_preview {
     if (!isset($params['show_sort_images'])) {
       $params['show_sort_images'] = 0;
     }
+    if (!isset($params['compuct_album_enable_page'])) {
+      $params['compuct_album_enable_page'] = 1;
+    }
     $options_row = $this->model->get_options_row_data();
     if (!isset($params['show_album_name'])) {
       $params['show_album_name'] = $options_row->show_album_name;
@@ -584,7 +587,7 @@ class BWGViewAlbum_compact_preview {
             </div>
             <?php
             if ($params['compuct_album_enable_page'] && $items_per_page && ($theme_row->page_nav_position == 'top') && $page_nav['total']) {
-              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo);
+              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo, $params['compuct_album_enable_page']);
             }
             if ($bwg_previous_album_id) {
               ?>
@@ -831,7 +834,7 @@ class BWGViewAlbum_compact_preview {
             </div>            
             <?php
             if ($params['compuct_album_enable_page'] && $items_per_page && ($theme_row->page_nav_position == 'bottom') && $page_nav['total']) {
-              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo);
+              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo, $params['compuct_album_enable_page']);
             }
             ?>
           </div>

@@ -305,8 +305,9 @@ class BWGViewBWGShortcode {
                   <tr id="tr_image_enable_page">
                     <td class="spider_label"><label>Enable pagination: </label></td>
                     <td>
-                      <input type="radio" name="image_enable_page" id="image_page_yes" value="1" <?php echo ($option_row->image_enable_page) ? 'checked' : ''; ?> /><label for="image_page_yes">Yes</label>
-                      <input type="radio" name="image_enable_page" id="image_page_no" value="0" <?php echo ($option_row->image_enable_page) ? '' : 'checked'; ?> /><label for="image_page_no">No</label>
+                      <input type="radio" name="image_enable_page" id="image_page_yes" value="1" <?php echo ($option_row->image_enable_page == '1') ? 'checked' : ''; ?> /><label for="image_page_yes">Yes</label>
+                      <input type="radio" name="image_enable_page" id="image_page_no" value="0" <?php echo ($option_row->image_enable_page == '0') ? 'checked' : ''; ?> /><label for="image_page_no">No</label>
+                      <input type="radio" name="image_enable_page" id="image_page_loadmore" value="2" <?php echo ($option_row->image_enable_page == '2') ? 'checked' : ''; ?> /><label for="image_page_loadmore">Load More</label>
                     </td>
                   </tr>
                   <tr id="tr_thumb_width_height">
@@ -496,8 +497,9 @@ class BWGViewBWGShortcode {
                   <tr id="tr_extended_album_enable_page">
                     <td class="spider_label"><label>Enable pagination: </label></td>
                     <td>
-                      <input type="radio" name="extended_album_enable_page" id="extended_album_page_yes" value="1" <?php echo ($option_row->album_enable_page) ? 'checked' : ''; ?> /><label for="extended_album_page_yes">Yes</label>
-                      <input type="radio" name="extended_album_enable_page" id="extended_album_page_no" value="0" <?php echo ($option_row->album_enable_page) ? '' : 'checked'; ?> /><label for="extended_album_page_no">No</label>
+                      <input type="radio" name="extended_album_enable_page" id="extended_album_page_yes" value="1" <?php echo ($option_row->album_enable_page == '1') ? 'checked' : ''; ?> /><label for="extended_album_page_yes">Yes</label>
+                      <input type="radio" name="extended_album_enable_page" id="extended_album_page_no" value="0" <?php echo ($option_row->album_enable_page == '0') ? 'checked' : ''; ?> /><label for="extended_album_page_no">No</label>
+                      <input type="radio" name="extended_album_enable_page" id="extended_album_page_loadmore" value="2" <?php echo ($option_row->album_enable_page == '2') ? 'checked' : ''; ?> /><label for="extended_album_page_loadmore">Load More</label>
                     </td>
                   </tr>
 
@@ -544,8 +546,9 @@ class BWGViewBWGShortcode {
                   <tr id="tr_blog_style_enable_page">
                     <td class="spider_label"><label>Enable pagination: </label></td>
                     <td>
-                      <input type="radio" name="blog_style_enable_page" id="blog_style_page_yes" value="1" <?php echo ($option_row->blog_style_enable_page) ? 'checked' : ''; ?> /><label for="blog_style_page_yes">Yes</label>
-                      <input type="radio" name="blog_style_enable_page" id="blog_style_page_no" value="0" <?php echo ($option_row->blog_style_enable_page) ? '' : 'checked'; ?> /><label for="blog_style_page_no">No</label>
+                      <input type="radio" name="blog_style_enable_page" id="blog_style_page_yes" value="1" <?php echo ($option_row->blog_style_enable_page == '1') ? 'checked' : ''; ?> /><label for="blog_style_page_yes">Yes</label>
+                      <input type="radio" name="blog_style_enable_page" id="blog_style_page_no" value="0" <?php echo ($option_row->blog_style_enable_page == '0') ? 'checked' : ''; ?> /><label for="blog_style_page_no">No</label>
+                      <input type="radio" name="blog_style_enable_page" id="blog_style_page_loadmore" value="2" <?php echo ($option_row->blog_style_enable_page == '2') ? 'checked' : ''; ?> /><label for="blog_style_page_loadmore">Load more</label>
                     </td>
                   </tr>
 
@@ -1094,8 +1097,11 @@ class BWGViewBWGShortcode {
                   if (short_code['image_enable_page'] == 1) {
                     jQuery("#image_page_yes").attr('checked', 'checked');
                   }
-                  else {
+                  else if (short_code['image_enable_page'] == 0) {
                     jQuery("#image_page_no").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#image_page_loadmore").attr('checked', 'checked');
                   }
                   jQuery("#thumb_width").val(short_code['thumb_width']);
                   jQuery("#thumb_height").val(short_code['thumb_height']);
@@ -1243,8 +1249,11 @@ class BWGViewBWGShortcode {
                   if (short_code['compuct_album_enable_page'] == 1) {
                     jQuery("#compuct_album_page_yes").attr('checked', 'checked');
                   }
-                  else {
+                  else if (short_code['compuct_album_enable_page'] == 0) {
                     jQuery("#compuct_album_page_no").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#compuct_album_page_loadmore").attr('checked', 'checked');
                   }
                   if (short_code['compuct_album_view_type'] == 'thumbnail') {				  
                     jQuery("#compuct_album_view_type_1").attr('checked', 'checked');								  
@@ -1315,8 +1324,11 @@ class BWGViewBWGShortcode {
                   if (short_code['extended_album_enable_page'] == 1) {
                     jQuery("#extended_album_page_yes").attr('checked', 'checked');
                   }
-                  else {
+                  else if (short_code['extended_album_enable_page'] == 0) {
                     jQuery("#extended_album_page_no").attr('checked', 'checked');
+                  }
+                  else {
+                    jQuery("#extended_album_page_loadmore").attr('checked', 'checked');
                   }
                   if (short_code['extended_album_view_type'] == 'thumbnail') {  
                     jQuery("#extended_album_view_type_1").attr('checked', 'checked');

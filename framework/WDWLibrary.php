@@ -481,7 +481,7 @@ class WDWLibrary {
     }
   }
 
-  public static function ajax_html_frontend_page_nav($theme_row, $count_items, $page_number, $form_id, $limit = 20, $current_view, $id, $cur_alb_gal_id = 0, $type = 'album', $enable_seo = false) {
+  public static function ajax_html_frontend_page_nav($theme_row, $count_items, $page_number, $form_id, $limit = 20, $current_view, $id, $cur_alb_gal_id = 0, $type = 'album', $enable_seo = false, $pagination = 1) {
     $type = (isset($_POST['type_' . $current_view]) ? esc_html($_POST['type_' . $current_view]) : $type);
     $album_gallery_id = (isset($_POST['album_gallery_id_' . $current_view]) ? esc_html($_POST['album_gallery_id_' . $current_view]) : $cur_alb_gal_id);
     if ($count_items) {
@@ -498,7 +498,15 @@ class WDWLibrary {
     if ($page_number > $items_county) {
       return;
     }
+    $first_page = "first-page-" . $current_view;
+    $prev_page = "prev-page-" . $current_view;
+    $next_page = "next-page-" . $current_view;
+    $last_page = "last-page-" . $current_view;
     ?>
+    <span class="bwg_nav_cont_<?php echo $current_view; ?>">
+    <?php
+    if ($pagination == 1) {
+      ?>
     <div class="tablenav-pages_<?php echo $current_view; ?>">
       <?php
       if ($theme_row->page_nav_number) {
@@ -519,10 +527,6 @@ class WDWLibrary {
           $next_button = '›';
           $last_button = '»';
         }
-        $first_page = "first-page-" . $current_view;
-        $prev_page = "prev-page-" . $current_view;
-        $next_page = "next-page-" . $current_view;
-        $last_page = "last-page-" . $current_view;
         if ($page_number == 1) {
           $first_page = "first-page disabled";
           $prev_page = "prev-page disabled";
@@ -543,62 +547,83 @@ class WDWLibrary {
         <a class="<?php echo $next_page ?>" title="<?php echo __('Go to the next page', 'bwg'); ?>" <?php echo  $page_number + 1 <= $items_county && $enable_seo ? 'href="' . add_query_arg(array("page_number_" . $current_view => $page_number + 1), $_SERVER['REQUEST_URI']) . '"' : ""; ?>><?php echo $next_button; ?></a>
         <a class="<?php echo $last_page ?>" title="<?php echo __('Go to the last page', 'bwg'); ?>"><?php echo $last_button; ?></a>
       </span>
-      <script type="text/javascript">
-        function spider_page_<?php echo $current_view; ?>(cur, x, y) {
-          if (jQuery(cur).hasClass('disabled')) {
-            return false;
-          }
-          var items_county_<?php echo $current_view; ?> = <?php echo $items_county; ?>;
-          switch (y) {
-            case 1:
-              if (x >= items_county_<?php echo $current_view; ?>) {
-                document.getElementById('page_number_<?php echo $current_view; ?>').value = items_county_<?php echo $current_view; ?>;
-              }
-              else {
-                document.getElementById('page_number_<?php echo $current_view; ?>').value = x + 1;
-              }
-              break;
-            case 2:
-              document.getElementById('page_number_<?php echo $current_view; ?>').value = items_county_<?php echo $current_view; ?>;
-              break;
-            case -1:
-              if (x == 1) {
-                document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
-              }
-              else {
-                document.getElementById('page_number_<?php echo $current_view; ?>').value = x - 1;
-              }
-              break;
-            case -2:
-              document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
-              break;
-            default:
-              document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
-          }
-          spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $id; ?>', '<?php echo $album_gallery_id; ?>', '', '<?php echo $type; ?>', 0);
-        }
-        jQuery(document).ready(function() {
-          jQuery('.<?php echo $first_page; ?>').on('click', function() {
-            spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, -2);
-          });
-          jQuery('.<?php echo $prev_page; ?>').on('click', function() {
-            spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, -1);
-            return false;
-          });
-          jQuery('.<?php echo $next_page; ?>').on('click', function() {
-            spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 1);
-            return false;
-          });
-          jQuery('.<?php echo $last_page; ?>').on('click', function() {
-            spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 2);
-          });
-        });
-      </script>
       <?php
       }
       ?>
-      <input type="hidden" id="page_number_<?php echo $current_view; ?>" name="page_number_<?php echo $current_view; ?>" value="<?php echo ((isset($_POST['page_number_' . $current_view])) ? (int) $_POST['page_number_' . $current_view] : 1); ?>" />
     </div>
+      <?php
+    }
+    elseif ($pagination == 2) {
+      if ($count_items > $limit * $page_number) {
+        ?>
+		<div id="bwg_load_<?php echo $current_view; ?>" class="tablenav-pages_<?php echo $current_view; ?>">
+			<a class="bwg_load_btn_<?php echo $current_view; ?> bwg_load_btn" href="javascript:void(0);"><?php echo __('Load More...', 'bwg'); ?></a>
+			<input type="hidden" id="bwg_load_more_<?php echo $current_view; ?>" name="bwg_load_more_<?php echo $current_view; ?>" value="on" />
+		</div>
+    <?php
+      }
+    }
+    ?>
+    <input type="hidden" id="page_number_<?php echo $current_view; ?>" name="page_number_<?php echo $current_view; ?>" value="<?php echo ((isset($_POST['page_number_' . $current_view])) ? (int) $_POST['page_number_' . $current_view] : 1); ?>" />
+    <script type="text/javascript">
+      function spider_page_<?php echo $current_view; ?>(cur, x, y, load_more) {
+        if (typeof load_more == "undefined") {
+          var load_more = false;
+        }
+        if (jQuery(cur).hasClass('disabled')) {
+          return false;
+        }
+        var items_county_<?php echo $current_view; ?> = <?php echo $items_county; ?>;
+        switch (y) {
+          case 1:
+            if (x >= items_county_<?php echo $current_view; ?>) {
+              document.getElementById('page_number_<?php echo $current_view; ?>').value = items_county_<?php echo $current_view; ?>;
+            }
+            else {
+              document.getElementById('page_number_<?php echo $current_view; ?>').value = x + 1;
+            }
+            break;
+          case 2:
+            document.getElementById('page_number_<?php echo $current_view; ?>').value = items_county_<?php echo $current_view; ?>;
+            break;
+          case -1:
+            if (x == 1) {
+              document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
+            }
+            else {
+              document.getElementById('page_number_<?php echo $current_view; ?>').value = x - 1;
+            }
+            break;
+          case -2:
+            document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
+            break;
+          default:
+            document.getElementById('page_number_<?php echo $current_view; ?>').value = 1;
+        }
+        spider_frontend_ajax('<?php echo $form_id; ?>', '<?php echo $current_view; ?>', '<?php echo $id; ?>', '<?php echo $album_gallery_id; ?>', '', '<?php echo $type; ?>', 0, '', '', load_more);
+      }
+      jQuery(document).ready(function() {
+        jQuery('.<?php echo $first_page; ?>').on('click', function() {
+          spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, -2);
+        });
+        jQuery('.<?php echo $prev_page; ?>').on('click', function() {
+          spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, -1);
+          return false;
+        });
+        jQuery('.<?php echo $next_page; ?>').on('click', function() {
+          spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 1);
+          return false;
+        });
+        jQuery('.<?php echo $last_page; ?>').on('click', function() {
+          spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 2);
+        });
+        jQuery('.bwg_load_btn_<?php echo $current_view; ?>').on('click', function() {
+          spider_page_<?php echo $current_view; ?>(this, <?php echo $page_number; ?>, 1, true);
+          return false;
+        });
+      });
+    </script>
+    </span>
     <?php
   }
 

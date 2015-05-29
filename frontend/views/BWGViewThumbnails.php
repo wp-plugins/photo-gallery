@@ -76,6 +76,9 @@ class BWGViewThumbnails {
     if (!isset($params['show_sort_images'])) {
       $params['show_sort_images'] = 0;
     }
+    if (!isset($params['image_enable_page'])) {
+      $params['image_enable_page'] = 1;
+    }
     $from = (isset($params['from']) ? esc_html($params['from']) : 0);
     $sort_direction = ' ' . $params['order_by'] . ' ';
     $options_row = $this->model->get_options_row_data();
@@ -383,7 +386,7 @@ class BWGViewThumbnails {
             </div>
             <?php
             if ($params['image_enable_page']  && $params['images_per_page'] && ($theme_row->page_nav_position == 'top')) {
-              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $params['images_per_page'], $bwg, 'bwg_standart_thumbnails_' . $bwg, 0, 'album', $options_row->enable_seo);
+              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $params['images_per_page'], $bwg, 'bwg_standart_thumbnails_' . $bwg, 0, 'album', $options_row->enable_seo, $params['image_enable_page']);
             }
             ?>
             <div id="bwg_standart_thumbnails_<?php echo $bwg; ?>" class="bwg_standart_thumbnails_<?php echo $bwg; ?>">
@@ -476,7 +479,7 @@ class BWGViewThumbnails {
             </div>
             <?php
             if ($params['image_enable_page']  && $params['images_per_page'] && ($theme_row->page_nav_position == 'bottom')) {
-              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $params['images_per_page'], $bwg, 'bwg_standart_thumbnails_' . $bwg, 0, 'album', $options_row->enable_seo);
+              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $params['images_per_page'], $bwg, 'bwg_standart_thumbnails_' . $bwg, 0, 'album', $options_row->enable_seo, $params['image_enable_page']);
             }
             ?>
           </div>

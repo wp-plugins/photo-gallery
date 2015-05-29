@@ -84,6 +84,9 @@ class BWGViewAlbum_extended_preview {
     if (!isset($params['show_sort_images'])) {
       $params['show_sort_images'] = 0;
     }
+    if (!isset($params['extended_album_enable_page'])) {
+      $params['extended_album_enable_page'] = 1;
+    }
     $sort_direction = ' ' . $params['order_by'] . ' ';
     $theme_row = $this->model->get_theme_row_data($params['theme_id']);
     if (!$theme_row) {
@@ -559,7 +562,7 @@ class BWGViewAlbum_extended_preview {
             </div>
             <?php
             if ($params['extended_album_enable_page']  && $items_per_page && ($theme_row->page_nav_position == 'top') && $page_nav['total']) {
-              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo);
+              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo, $params['extended_album_enable_page']);
             }
             if ($bwg_previous_album_id) {
               ?>
@@ -805,7 +808,7 @@ class BWGViewAlbum_extended_preview {
             </div>
             <?php
             if ($params['extended_album_enable_page']  && $items_per_page && ($theme_row->page_nav_position == 'bottom') && $page_nav['total']) {
-              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo);
+              WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo, $params['extended_album_enable_page']);
             }
             ?>
           </div>

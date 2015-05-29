@@ -1,5 +1,9 @@
-function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_album_id, type, srch_btn, title, sortByParam) {
+function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_album_id, type, srch_btn, title, sortByParam, load_more) {
+  if (typeof load_more == "undefined") {
+    var load_more = false;
+  }
   var page_number = jQuery("#page_number_" + current_view).val();
+  var bwg_load_more = jQuery("#bwg_load_more_" + current_view).val();
   var bwg_previous_album_ids = jQuery('#bwg_previous_album_id_' + current_view).val();
   var bwg_previous_album_page_numbers = jQuery('#bwg_previous_album_page_number_' + current_view).val();
   var post_data = {};
@@ -21,13 +25,14 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
   if (srch_btn) { // Start search.
     page_number = 1; 
   }
-  if (typeof title == "undefined") {
+  if (typeof title == "undefined" || title == '') {
     var title = "";
   }
-  if (typeof sortByParam == "undefined") {
+  if (typeof sortByParam == "undefined" || sortByParam == '') {
     var sortByParam = jQuery(".bwg_order_" + current_view).val();
   }
   post_data["page_number_" + current_view] = page_number;
+  post_data["bwg_load_more_" + current_view] = bwg_load_more;
   post_data["album_gallery_id_" + current_view] = album_gallery_id;
   post_data["bwg_previous_album_id_" + current_view] = jQuery('#bwg_previous_album_id_' + current_view).val();
   post_data["bwg_previous_album_page_number_" + current_view] = jQuery('#bwg_previous_album_page_number_' + current_view).val();
@@ -43,8 +48,16 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     window.location,
     post_data,
     function (data) {
-      var str = jQuery(data).find('#' + form_id).html();
-      jQuery('#' + form_id).html(str);
+      if (load_more) {
+        var strr = jQuery(data).find('#' + id).html();
+        jQuery('#' + id).append(strr);
+        var str = jQuery(data).find('.bwg_nav_cont_'+ current_view).html();
+        jQuery('.bwg_nav_cont_'+ current_view).html(str);
+      }
+      else {
+        var str = jQuery(data).find('#' + form_id).html();
+        jQuery('#' + form_id).html(str);
+      }
       // There are no images.
       if (jQuery("#bwg_search_input_" + current_view).length > 0 && album_gallery_id == 0) { // Search box exists and not album view.
         var bwg_images_count = jQuery('#bwg_images_count_' + current_view).val();
@@ -57,10 +70,17 @@ function spider_frontend_ajax(form_id, current_view, id, album_gallery_id, cur_a
     }
   ).success(function(jqXHR, textStatus, errorThrown) {
     jQuery("#ajax_loading_" + current_view).css('display', 'none');
-    // window.scroll(0, spider_get_pos(document.getElementById(form_id)));
-    jQuery("html, body").animate({scrollTop: jQuery('#' + form_id).offset().top - 150}, 500);
+    if (jQuery(".pagination-links_" + current_view).length) {
+      jQuery("html, body").animate({scrollTop: jQuery('#' + form_id).offset().top - 150}, 500);
+    }
     /* For all*/
     window["bwg_document_ready_" + current_view]();
+    if (id == "bwg_masonry_thumbnails_" + current_view || id == "bwg_album_masonry_" + current_view) {
+      window["bwg_masonry_" + current_view]();
+    }
+    if (id == "bwg_mosaic_thumbnails_" + current_view) {
+      window["bwg_mosaic_" + current_view]("load");
+    }
     /* For masonry view.*/
     /*
     var cccount_masonry = 0;
