@@ -880,6 +880,16 @@ class BWGViewOptions_bwg {
                         <div class="spider_description"></div>
                       </td>
                     </tr>
+					<tr id="tr_image_cycle">
+                      <td class="spider_label_options">
+                        <label>Enable loop:</label>
+                      </td>
+                      <td>
+                        <input type="radio" name="enable_loop" id="enable_loop_1" value="1" <?php if ($row->enable_loop) echo 'checked="checked"'; ?> /><label for="enable_loop_1">Yes</label>
+                        <input type="radio" name="enable_loop" id="enable_loop_0" value="0" <?php if (!$row->enable_loop) echo 'checked="checked"'; ?> /><label for="enable_loop_0">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </td>

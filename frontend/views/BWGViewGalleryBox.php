@@ -959,8 +959,8 @@ class BWGViewGalleryBox {
             </div>
           </div>
         </div>
-        <a id="spider_popup_left"><span id="spider_popup_left-ico"><span><i class="bwg_prev_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-left"></i></span></span></a>
-        <a id="spider_popup_right"><span id="spider_popup_right-ico"><span><i class="bwg_next_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-right"></i></span></span></a>
+        <a id="spider_popup_left" <?php echo ($option_row->enable_loop == 0 && $current_key == 0) ? 'style="display: none;"' : ''; ?>><span id="spider_popup_left-ico"><span><i class="bwg_prev_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-left"></i></span></span></a>
+        <a id="spider_popup_right" <?php echo ($option_row->enable_loop == 0 && $current_key == count($image_rows) - 1) ? 'style="display: none;"' : ''; ?>><span id="spider_popup_right-ico"><span><i class="bwg_next_btn fa <?php echo $theme_row->lightbox_rl_btn_style; ?>-right"></i></span></span></a>
       </div>
     </div>
     <a class="spider_popup_close" onclick="spider_destroypopup(1000); return false;" ontouchend="spider_destroypopup(1000); return false;"><span><i class="bwg_close_btn fa fa-times"></i></span></a>
@@ -1329,6 +1329,21 @@ class BWGViewGalleryBox {
         bwg_grid(10, 1, 0, 0, 0, .7, 0, current_image_class, next_image_class);
       }
       function bwg_change_image(current_key, key, data, from_effect) {
+        jQuery("#spider_popup_left").show();
+        jQuery("#spider_popup_right").show();
+        if (<?php echo $option_row->enable_loop; ?> == 0) {
+          if (key == (parseInt(data.length) - 1)) {
+            jQuery("#spider_popup_right").hide();
+          }
+          if (key == 0) {
+            jQuery("#spider_popup_left").hide();
+          }
+          /*if (key == (parseInt(data.length) - 1)) {
+            window.clearInterval(bwg_playInterval);
+            return;
+          }*/
+        }
+        
         /* Pause videos.*/
         jQuery("#bwg_image_container").find("iframe").each(function () {
           jQuery(this)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
@@ -1357,8 +1372,8 @@ class BWGViewGalleryBox {
           else if (bwg_current_key == key) {
             return;
           }
-          jQuery("#spider_popup_left").hover().css({"display": "inline"});
-          jQuery("#spider_popup_right").hover().css({"display": "inline"});
+          /*jQuery("#spider_popup_left").hover().css({"display": "inline"});
+          jQuery("#spider_popup_right").hover().css({"display": "inline"});*/
           jQuery(".bwg_image_count").html(data[key]["number"]);
           /* Set filmstrip initial position.*/
           jQuery(".bwg_watermark").css({display: 'none'});
@@ -2228,8 +2243,10 @@ class BWGViewGalleryBox {
         window.clearInterval(bwg_playInterval);
         bwg_playInterval = setInterval(function () {
           if (!data[parseInt(jQuery('#bwg_current_image_key').val()) + 1]) {
-            /* Wrap around.*/
-            bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), 0, data);
+            if (<?php echo $option_row->enable_loop; ?> == 1) {
+              /* Wrap around.*/
+              bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), 0, data);
+            }
             return;
           }
           bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data)

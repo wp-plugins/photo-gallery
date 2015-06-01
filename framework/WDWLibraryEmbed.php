@@ -218,9 +218,11 @@ class WDWLibraryEmbed {
         
         switch ($embed_type) {
           case 'EMBED_OEMBED_YOUTUBE':
-            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-            $filename = $my_array_of_vars['v'];    
-            
+            $youtube_regex = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";
+            $matches = array();
+            preg_match($youtube_regex , $url , $matches);
+            $filename = $matches[0];
+
             $embedData = array(
               'name' => htmlspecialchars($result->title),
               'description' => htmlspecialchars($result->title),

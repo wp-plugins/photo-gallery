@@ -152,6 +152,7 @@ class BWGModelOptions_bwg {
 			$row->autohide_lightbox_navigation = 1;
       $row->autohide_slideshow_navigation = 1;
       $row->read_metadata = 0;
+      $row->enable_loop = 1;
     }
     return $row;
   }

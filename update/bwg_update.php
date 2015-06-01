@@ -245,6 +245,10 @@ function bwg_update($version) {
     // Load image metadata.
         $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option CHANGE `description_tb` `read_metadata` tinyint(1) NOT NULL DEFAULT 1");
   }
+	if (version_compare($version, '1.2.32') == -1) {
+	  // Add load all images on frontend.
+      $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `enable_loop` tinyint(1) NOT NULL DEFAULT 1");
+  }
   return;
 }
 

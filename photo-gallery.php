@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: https://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.31
+ * Version: 1.2.32
  * Author: WebDorado
  * Author URI: https://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -743,6 +743,7 @@ function bwg_activate() {
 	`autohide_lightbox_navigation` tinyint(1) NOT NULL,
 	`autohide_slideshow_navigation` tinyint(1) NOT NULL,
 	`read_metadata` tinyint(1) NOT NULL,
+	`enable_loop` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -1329,6 +1330,7 @@ function bwg_activate() {
 	  'autohide_lightbox_navigation' => 1,
 	  'autohide_slideshow_navigation' => 1,
 	  'read_metadata' => 1,
+	  'enable_loop'=> 1,
     ), array(
       '%d',
       '%s',
@@ -1455,6 +1457,7 @@ function bwg_activate() {
       '%s',
       '%d',
       '%d',
+	  '%d',
 	  '%d',
 	  '%d',
 	  '%d',
@@ -3155,7 +3158,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.31';
+  $new_version = '1.2.32';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -3173,7 +3176,7 @@ wp_oembed_add_provider( '#https://instagr(\.am|am\.com)/p/.*#i', 'https://api.in
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.31';
+  $new_version = '1.2.32';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);

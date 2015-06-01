@@ -210,6 +210,7 @@ class BWGControllerOptions_bwg {
     $autohide_lightbox_navigation = (isset($_POST['autohide_lightbox_navigation']) ? esc_html(stripslashes($_POST['autohide_lightbox_navigation'])) : 1);
     $autohide_slideshow_navigation = (isset($_POST['autohide_slideshow_navigation']) ? esc_html(stripslashes($_POST['autohide_slideshow_navigation'])) : 1);
     $read_metadata = (isset($_POST['read_metadata']) ? esc_html(stripslashes($_POST['read_metadata'])) : 0);
+    $enable_loop = (isset($_POST['enable_loop']) ? esc_html(stripslashes($_POST['enable_loop'])) : 1);
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -328,6 +329,7 @@ class BWGControllerOptions_bwg {
       'autohide_lightbox_navigation' => $autohide_lightbox_navigation,
       'autohide_slideshow_navigation' => $autohide_slideshow_navigation,
       'read_metadata' => $read_metadata,
+      'enable_loop' => $enable_loop,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      
