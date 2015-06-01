@@ -1,6 +1,6 @@
 === Photo Gallery ===
 Contributors: webdorado
-Donate link: http://web-dorado.com/products/wordpress-photo-gallery-plugin.html
+Donate link: https://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: photo, photo gallery, image gallery, video gallery, gallery, galleries,  wordpress gallery plugin, images gallery, album, photo albums, simple gallery, best gallery plugin, free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, photogallery, widget gallery, image, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, fotogalerie, galleria, galerie, galeri, responsive gallery, add album,  add gallery, add pictures, fotoalbum, foto, gallery decription, multiple pictures, photoalbum, upload images, upload photos, view images, view pictures, admin, AJAX, comments, gallery image, image lightbox, image rotate, image slideshow, image slider, jquery, jquery gallery, slide show, slideshow, thumbnail, thumbnail view, thumbnails, thumbs, responsive, watermarking, watermarks,fullscreen slider, lightbox, photography, sidebar, slide, youtube, vimeo, videos, instagram, mosaic 
 Requires at least: 3.4 
 Tested up to: 4.2 
@@ -15,11 +15,11 @@ Create 100% responsive FREE WordPress photo gallery in minutes. Easy to customiz
    
 https://www.youtube.com/watch?v=4Mxg0FsFZZE&index=5&list=PLnxWPiY5tLFUsFI67acGEPAqoDMZqss5F
 
-[WordPress Photo Gallery](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html)  
+[WordPress Photo Gallery](https://web-dorado.com/products/wordpress-photo-gallery-plugin.html)  
 [Photo Gallery Demo](http://wpdemo.web-dorado.com/gallery/)  
 [Photo Gallery Demo Admin](http://wpdemo.web-dorado.com/wp-admin/admin.php?page=galleries_bwg)  
-[Photo Gallery User Manual](http://web-dorado.com/wordpress-gallery-guide-step-1.html)  
-[Photo Gallery Support Forum](http://web-dorado.com/forum/photo-gallery.html)  
+[Photo Gallery User Manual](https://web-dorado.com/wordpress-gallery-guide-step-1.html)  
+[Photo Gallery Support Forum](https://web-dorado.com/forum/photo-gallery.html)  
 
 Photo Gallery is an advanced plugin with a list of tools and options for adding and editing images for different views. It is fully responsive. The product includes plugin for adding image galleries and albums to posts and pages, as well as multiple widgets. You can add images, providing detailed descriptions and tags, organize the galleries into different albums.  
 
@@ -47,7 +47,7 @@ Photo Gallery product in addition to the main plugin includes 4 specific widgets
 *   Photo Gallery (similar to the main plugin option)
 
 ###IMPORTANT:    
-If you think you found a bug in Photo Gallery or have any problem/question concerning the plugin, please check out [Photo Gallery Support Forum](http://web-dorado.com/forum/photo-gallery.html) in our website. If you do not find a solution here, do not hesitate to contact us at [info@web-dorado.com](mailto:info@web-dorado.com).
+If you think you found a bug in Photo Gallery or have any problem/question concerning the plugin, please check out [Photo Gallery Support Forum](https://web-dorado.com/forum/photo-gallery.html) in our website. If you do not find a solution here, do not hesitate to contact us at [info@web-dorado.com](mailto:info@web-dorado.com).
 
 
 ### The list of the features:
@@ -84,7 +84,7 @@ If you think you found a bug in Photo Gallery or have any problem/question conce
 *   Redirection option upon clicking image thumbnail  
 *   Front-end image sorting possibility (dropdown) for the users  
 
-Upgrade to [WordPress Photo Gallery Pro](http://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
+Upgrade to [WordPress Photo Gallery Pro](https://web-dorado.com/products/wordpress-photo-gallery-plugin.html) to add features:
 
 *   Masonry gallery View. 
 *   Mosaic gallery View   
