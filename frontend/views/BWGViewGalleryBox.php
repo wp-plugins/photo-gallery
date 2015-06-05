@@ -610,8 +610,8 @@ class BWGViewGalleryBox {
         display: table-cell;
         position: absolute;
         vertical-align: middle;
-        width: inherit;
-        height: inherit;
+        width: 100%;
+        height: 100%;
       }
       .bwg_slide_bg {
         margin: 0 auto;

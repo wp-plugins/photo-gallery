@@ -165,6 +165,17 @@ class BWGControllerAlbums_bwg {
       'preview_image' => $preview_image,
       'author' => $author,
       'published' => $published), array('id' => $id));
+
+      /* Update data in corresponding posts.*/
+      $query2 = "SELECT ID, post_content FROM " . $wpdb->posts . " WHERE post_type = 'bwg_album'";
+      $posts = $wpdb->get_results($query2, OBJECT);
+      foreach ($posts as $post) {
+        $post_content = $post->post_content;
+        if (strpos($post_content, ' type="album" ') && strpos($post_content, ' album_id="' . $id . '" ')) {
+          $album_post = array('ID' => $post->ID, 'post_title' => $name, 'post_name' => $slug);
+          wp_update_post($album_post);
+        }
+      }
     }
     else {
       $save = $wpdb->insert($wpdb->prefix . 'bwg_album', array(
@@ -233,6 +244,15 @@ class BWGControllerAlbums_bwg {
     }
     else {
       $message = 2;
+    }
+    /* Delete corresponding posts and their meta.*/
+    $query2 = "SELECT ID, post_content FROM " . $wpdb->posts . " WHERE post_type = 'bwg_album'";
+    $posts = $wpdb->get_results($query2, OBJECT);
+    foreach ($posts as $post) {
+      $post_content = $post->post_content;
+      if (strpos($post_content, ' type="album" ') && strpos($post_content, ' album_id="'.$id.'" ')) {
+        wp_delete_post($post->ID, TRUE);
+      }
     }
     $page = WDWLibrary::get('page');
     $query_url = wp_nonce_url( admin_url('admin.php'), 'albums_bwg', 'bwg_nonce' );

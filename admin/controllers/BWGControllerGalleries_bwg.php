@@ -815,6 +815,16 @@ class BWGControllerGalleries_bwg {
         'random_preview_image' => $random_preview_image,
         'author' => get_current_user_id(),
         'published' => $published), array('id' => $id));
+      /* Update data in corresponding posts.*/
+      $query2 = "SELECT ID, post_content FROM " . $wpdb->posts . " WHERE post_type = 'bwg_gallery'";
+      $posts = $wpdb->get_results($query2, OBJECT);
+      foreach ($posts as $post) {
+        $post_content = $post->post_content;
+        if (strpos($post_content, ' type="gallery" ') && strpos($post_content, ' gallery_id="' . $id . '" ')) {
+          $album_post = array('ID' => $post->ID, 'post_title' => $name, 'post_name' => $slug);
+          wp_update_post($album_post);
+        }
+      }
     }
     else {
       $save = $wpdb->insert($wpdb->prefix . 'bwg_gallery', array(
@@ -884,6 +894,15 @@ class BWGControllerGalleries_bwg {
     }
     else {
       echo WDWLibrary::message('Error. Please install plugin again.', 'error');
+    }
+    /* Delete corresponding posts and their meta.*/
+    $query2 = "SELECT ID, post_content FROM " . $wpdb->posts . " WHERE post_type = 'bwg_gallery'";
+    $posts = $wpdb->get_results($query2, OBJECT);
+    foreach ($posts as $post) {
+      $post_content = $post->post_content;
+      if (strpos($post_content, ' type="gallery" ') && strpos($post_content, ' gallery_id="'.$id.'" ')) {
+        wp_delete_post($post->ID, TRUE);
+      }
     }
     $this->display();
   }
