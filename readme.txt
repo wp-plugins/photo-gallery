@@ -207,6 +207,9 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 
 == Changelog ==
 
+= 1.2.34 =
+New: Recreate thumbnail button in gallery page.
+
 = 1.2.33 =
 Fixed: Delete/update custom posts on gallery/album edit.
 Fixed: Image width/height size with open commetns.

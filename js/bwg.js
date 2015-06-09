@@ -197,7 +197,7 @@ function spider_ajax_save(form_id, tr_group) {
         jQuery('#draganddrop').html("<strong><p>Item Succesfully Deleted.</p></strong>");
         jQuery('#draganddrop').show();
       }
-      else if (!flag && ((ajax_task == 'image_publish_all') || (ajax_task == 'image_unpublish_all') || (ajax_task == 'image_delete_all') || (ajax_task == 'image_set_watermark') || (ajax_task == 'image_recover_all') || (ajax_task == 'image_resize'))) {
+      else if (!flag && ((ajax_task == 'image_publish_all') || (ajax_task == 'image_unpublish_all') || (ajax_task == 'image_delete_all') || (ajax_task == 'image_set_watermark') || (ajax_task == 'image_recover_all') || (ajax_task == 'image_resize') || (ajax_task == 'resize_image_thumb'))) {
         jQuery('#draganddrop').html("<strong><p>You must select at least one item.</p></strong>");
         jQuery('#draganddrop').show();
       }
@@ -211,6 +211,10 @@ function spider_ajax_save(form_id, tr_group) {
       }
       else if (ajax_task == 'image_delete_all') {
         jQuery('#draganddrop').html("<strong><p>Items Succesfully Deleted.</p></strong>");
+        jQuery('#draganddrop').show();
+      }
+      else if (ajax_task == 'resize_image_thumb') {
+        jQuery('#draganddrop').html("<strong><p>Items Succesfully resized.</p></strong>");
         jQuery('#draganddrop').show();
       }
       else if (ajax_task == 'image_set_watermark') {

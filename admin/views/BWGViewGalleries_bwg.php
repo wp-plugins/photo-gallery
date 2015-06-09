@@ -727,6 +727,7 @@ class BWGViewGalleries_bwg {
                                                              spider_ajax_save('galleries_form');
                                                              return false;" value="Set Watermark" />
         <input class="button-secondary" id='spider_resize_button' type="submit" onclick="jQuery('.opacity_resize_image').show(); return false;" value="Resize" />
+	<input class="button-secondary" type="submit" onclick="spider_set_input_value('ajax_task', 'resize_image_thumb'); spider_ajax_save('galleries_form');return false;" value="Recreate Thumbnail" />
         <input class="button-secondary" id='spider_reset_button' type="submit" onclick="spider_set_input_value('ajax_task', 'image_recover_all');
                                                              spider_ajax_save('galleries_form');
                                                              return false;" value="Reset" />
