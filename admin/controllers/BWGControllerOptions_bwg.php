@@ -211,6 +211,8 @@ class BWGControllerOptions_bwg {
     $autohide_slideshow_navigation = (isset($_POST['autohide_slideshow_navigation']) ? esc_html(stripslashes($_POST['autohide_slideshow_navigation'])) : 1);
     $read_metadata = (isset($_POST['read_metadata']) ? esc_html(stripslashes($_POST['read_metadata'])) : 0);
     $enable_loop = (isset($_POST['enable_loop']) ? esc_html(stripslashes($_POST['enable_loop'])) : 1);
+    $enable_addthis = (isset($_POST['enable_addthis']) ? esc_html(stripslashes($_POST['enable_addthis'])) : 0);
+    $addthis_profile_id = (isset($_POST['addthis_profile_id']) ? esc_html(stripslashes($_POST['addthis_profile_id'])) : '');
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -330,6 +332,8 @@ class BWGControllerOptions_bwg {
       'autohide_slideshow_navigation' => $autohide_slideshow_navigation,
       'read_metadata' => $read_metadata,
       'enable_loop' => $enable_loop,
+      'enable_addthis' => $enable_addthis,
+      'addthis_profile_id' => $addthis_profile_id,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      

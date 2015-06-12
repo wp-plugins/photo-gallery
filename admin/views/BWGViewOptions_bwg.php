@@ -890,6 +890,18 @@ class BWGViewOptions_bwg {
                         <div class="spider_description"></div>
                       </td>
                     </tr>
+		    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable AddThis:</label>
+                      </td>
+                      <td>
+                        <input disabled="disabled" type="radio" name="enable_addthis" id="enable_addthis_1" value="1" <?php if ($row->enable_addthis ) echo 'checked="checked"'; ?> />
+                        <label for="enable_addthis_1">Yes</label>
+                        <input disabled="disabled" type="radio" name="enable_addthis" id="enable_addthis_0" value="0" <?php if (!$row->enable_addthis ) echo 'checked="checked"'; ?> />
+                        <label for="enable_addthis_0">No</label>
+                        <div class="spider_description spider_free_version">This option is disabled in free version.</div>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </td>

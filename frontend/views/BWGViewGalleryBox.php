@@ -692,8 +692,8 @@ class BWGViewGalleryBox {
         <?php if($params_array['popup_info_full_width']) { ?>
         width: 100%;
         <?php } else { ?>
-        margin: <?php echo $theme_row->lightbox_info_margin; ?>;
         width: 33%;
+        margin: <?php echo $theme_row->lightbox_info_margin; ?>;
         <?php } ?>
         padding: <?php echo $theme_row->lightbox_info_padding; ?>;
         <?php echo ((!$enable_image_filmstrip || $theme_row->lightbox_filmstrip_pos != 'top') && $theme_row->lightbox_ctrl_btn_pos == 'top' && $theme_row->lightbox_info_pos == 'top') ? 'top: ' . ($theme_row->lightbox_ctrl_btn_height + 2 * $theme_row->lightbox_ctrl_btn_margin_top) . 'px;' : '' ?>

@@ -277,6 +277,12 @@ class BWGViewAlbum_extended_preview {
         vertical-align: middle;
         width: inherit;
       }
+      #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_description_spun1_<?php echo $bwg; ?> a {
+        color: #<?php echo $theme_row->album_extended_desc_font_color; ?>;
+        font-size: <?php echo $theme_row->album_extended_desc_font_size; ?>px;
+        font-weight: <?php echo $theme_row->album_extended_desc_font_weight; ?>;
+        font-family: <?php echo $theme_row->album_extended_desc_font_style; ?>;
+      }
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_description_spun1_<?php echo $bwg; ?> {
         border: <?php echo $theme_row->album_extended_desc_span_border_width; ?>px <?php echo $theme_row->album_extended_desc_span_border_style; ?> #<?php echo $theme_row->album_extended_desc_span_border_color; ?>;
         display: inline-block;

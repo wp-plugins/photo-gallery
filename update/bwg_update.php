@@ -249,6 +249,11 @@ function bwg_update($version) {
 	  // Add load all images on frontend.
       $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `enable_loop` tinyint(1) NOT NULL DEFAULT 1");
   }
+  if (version_compare($version, '1.2.35') == -1) {
+    // Enable Addthis share buttons.
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `enable_addthis` tinyint(1) NOT NULL DEFAULT 0");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `addthis_profile_id` varchar(32) NOT NULL DEFAULT ''");
+  }
   return;
 }
 

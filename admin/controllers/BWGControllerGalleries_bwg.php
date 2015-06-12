@@ -804,7 +804,11 @@ class BWGControllerGalleries_bwg {
         }
       }
     }
-    
+
+    $gallery_type = ((isset($_POST['gallery_type']) && esc_html(stripslashes($_POST['gallery_type'])) != '') ? esc_html(stripslashes($_POST['gallery_type'])) : '');
+    $gallery_source = ((isset($_POST['gallery_source']) && esc_html(stripslashes($_POST['gallery_source'])) != '') ? esc_html(stripslashes($_POST['gallery_source'])) : '');
+    $update_flag = ((isset($_POST['update_flag']) && esc_html(stripslashes($_POST['update_flag'])) != '') ? esc_html(stripslashes($_POST['update_flag'])) : '');
+    $autogallery_image_number = (isset($_POST['autogallery_image_number']) ? (int) $_POST['autogallery_image_number'] : 12);
     $published = (isset($_POST['published']) ? (int) $_POST['published'] : 1);
     if ($id != 0) {
       $save = $wpdb->update($wpdb->prefix . 'bwg_gallery', array(
@@ -836,6 +840,10 @@ class BWGControllerGalleries_bwg {
         'random_preview_image' => $random_preview_image,
         'order' => ((int) $wpdb->get_var('SELECT MAX(`order`) FROM ' . $wpdb->prefix . 'bwg_gallery')) + 1,
         'author' => get_current_user_id(),
+        'gallery_type' => $gallery_type,
+        'gallery_source' => $gallery_source,
+        'autogallery_image_number' => $autogallery_image_number,
+        'update_flag' => $update_flag,
         'published' => $published,
       ), array(
         '%s',
@@ -846,6 +854,10 @@ class BWGControllerGalleries_bwg {
         '%s',
         '%d',
         '%d',
+        '%s',
+        '%s',
+        '%d',
+        '%s',
         '%d',
       ));
     }

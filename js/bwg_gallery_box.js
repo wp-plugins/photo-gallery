@@ -58,6 +58,9 @@ function spider_destroypopup(duration) {
         jQuery.fullscreen.exit();
       }
     }
+    if (typeof enable_addthis != "undefined" && enable_addthis) {
+      jQuery(".at4-share-outer").hide();
+    }
     setTimeout(function () {
       jQuery(".spider_popup_wrap").remove();
       jQuery(".spider_popup_loading").css({display: "none"});

@@ -153,6 +153,8 @@ class BWGModelOptions_bwg {
       $row->autohide_slideshow_navigation = 1;
       $row->read_metadata = 0;
       $row->enable_loop = 1;
+      $row->enable_addthis = 0;
+      $row->addthis_profile_id = '';
     }
     return $row;
   }
