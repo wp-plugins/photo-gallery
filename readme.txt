@@ -207,6 +207,11 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 
 == Changelog ==
 
+= 1.2.36 =
+Changed: Featured plugins page.
+Fixed: Mosaic view show title.
+Fixed: AddThis javascript bug.
+
 = 1.2.35 = 
 New: Addthis (pro version).
 Fixed: Link text font size in extended album description.

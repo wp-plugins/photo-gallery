@@ -11,7 +11,7 @@ function spider_featured($current_plugin = '') {
       'title'    => 'Photo Gallery',
       'text'     => 'WordPress Photo Gallery plugin',
       'content'  => 'Photo Gallery is a fully responsive WordPress Gallery plugin with advanced functionality.',
-      'href'     => 'https://web-dorado.com/files/fromPhotoGallery.php'
+      'href'     => 'https://web-dorado.com/products/wordpress-photo-gallery-plugin.html'
     ),
     "contact_form_bulder" => array(
       'title'    => 'Contact Form Builder',
@@ -25,6 +25,12 @@ function spider_featured($current_plugin = '') {
       'content'  => 'Create responsive, highly configurable sliders with various effects for your WordPress site.',
       'href'     => 'https://web-dorado.com/products/wordpress-slider-plugin.html'
     ),
+    "events-wd" => array(
+      'title'    => 'Event Calendar WD',
+      'text'     => 'WordPress calendar plugin',
+      'content'  => 'Organize and publish your events in an easy and elegant way using Event Calendar WD.',
+      'href'     => 'https://web-dorado.com/products/wordpress-event-calendar-wd.html'
+    ),
     "contact-maker" => array(
       'title'    => 'Contact Form Maker',
       'text'     => 'WordPress contact form maker plugin',
@@ -32,7 +38,7 @@ function spider_featured($current_plugin = '') {
       'href'     => 'https://web-dorado.com/products/wordpress-contact-form-maker-plugin.html'
     ),
     "fm-import" => array(
-      'title'    => 'Form Maker Export/Import',
+      'title'    => 'FM Export/Import',
       'text'     => 'WordPress Form Maker export/import plugin',
       'content'  => 'Form Maker Export/Import is a Form Maker capacity enhancing plugin.',
       'href'     => 'https://web-dorado.com/products/wordpress-form/export-import.html'
