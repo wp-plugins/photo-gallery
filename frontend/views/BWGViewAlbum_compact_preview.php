@@ -235,7 +235,7 @@ class BWGViewAlbum_compact_preview {
       'enable_image_fullscreen' => $params['popup_enable_fullscreen'],
       'popup_enable_info' => $params['popup_enable_info'],
       'popup_info_always_show' => $params['popup_info_always_show'],
-	  'popup_info_full_width' => $params['popup_info_full_width'],
+      'popup_info_full_width' => $params['popup_info_full_width'],
       'popup_hit_counter' => $params['popup_hit_counter'],
       'popup_enable_rate' => $params['popup_enable_rate'],
       'slideshow_interval' => $params['popup_interval'],
@@ -266,7 +266,7 @@ class BWGViewAlbum_compact_preview {
     }
     $params_array_hash = $params_array;
     ?>	
-    <style>      
+    <style>
       #bwg_container1_<?php echo $bwg; ?> #bwg_container2_<?php echo $bwg; ?> .bwg_album_thumb_<?php echo $bwg; ?> {
         display: inline-block;
         text-align: center;
@@ -831,7 +831,7 @@ class BWGViewAlbum_compact_preview {
                   }
               }
               ?>
-            </div>            
+            </div>
             <?php
             if ($params['compuct_album_enable_page'] && $items_per_page && ($theme_row->page_nav_position == 'bottom') && $page_nav['total']) {
               WDWLibrary::ajax_html_frontend_page_nav($theme_row, $page_nav['total'], $page_nav['limit'], 'gal_front_form_' . $bwg, $items_per_page, $bwg, $album_gallery_div_id, $params['album_id'], $type, $options_row->enable_seo, $params['compuct_album_enable_page']);

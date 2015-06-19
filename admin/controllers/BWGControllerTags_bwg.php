@@ -234,17 +234,15 @@ class BWGControllerTags_bwg {
     $query = $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'bwg_image_tag WHERE tag_id="%d"', $id);
     $flag = $wpdb->query($query);
     
-    /*delete corresponding posts and their meta*/
-    $query2 = "SELECT ID, post_content FROM ".$wpdb->posts." WHERE post_type = 'bwg_tag' ";
+    /* Delete corresponding posts and their meta.*/
+    $query2 = "SELECT ID, post_content FROM " . $wpdb->posts . " WHERE post_type = 'bwg_tag'";
     $posts = $wpdb->get_results($query2, OBJECT);
-    foreach($posts as $post){
+    foreach ($posts as $post) {
       $post_content = $post->post_content;
-      if( strpos($post_content, ' type="tag" ') && strpos($post_content, ' gallery_id="'.$id.'" ') ){
-        wp_delete_post( $post->ID, true ); 
+      if (strpos($post_content, ' type="tag" ') && strpos($post_content, ' gallery_id="' . $id . '" ')) {
+        wp_delete_post($post->ID, TRUE);
       }
     }
-    
-
     if ($flag !== FALSE) {
       $message = 3;
     }

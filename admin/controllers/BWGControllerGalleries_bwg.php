@@ -156,8 +156,8 @@ class BWGControllerGalleries_bwg {
     global $wpdb;
     $id = ((isset($_POST['image_current_id'])) ? esc_html(stripslashes($_POST['image_current_id'])) : 0);
     $options = $wpdb->get_row('SELECT * FROM ' . $wpdb->prefix . 'bwg_option WHERE id=1');
-    $thumb_width = $options->thumb_width;
-    $thumb_height = $options->thumb_height;    
+    $thumb_width = $options->upload_thumb_width;
+    $thumb_height = $options->upload_thumb_height;    
     $this->recover_image($id, $thumb_width, $thumb_height);
   }
   
@@ -165,8 +165,8 @@ class BWGControllerGalleries_bwg {
     global $wpdb;
     $gallery_id = ((isset($_POST['current_id'])) ? esc_html(stripslashes($_POST['current_id'])) : 0);
     $options = $wpdb->get_row('SELECT * FROM ' . $wpdb->prefix . 'bwg_option WHERE id=1');
-    $thumb_width = $options->thumb_width;
-    $thumb_height = $options->thumb_height;    
+    $thumb_width = $options->upload_thumb_width;
+    $thumb_height = $options->upload_thumb_height;    
     $image_ids_col = $wpdb->get_col($wpdb->prepare('SELECT id FROM ' . $wpdb->prefix . 'bwg_image WHERE gallery_id="%d"', $gallery_id));
     foreach ($image_ids_col as $image_id) {
       if (isset($_POST['check_' . $image_id]) || isset($_POST['check_all_items'])) {
@@ -818,6 +818,10 @@ class BWGControllerGalleries_bwg {
         'preview_image' => $preview_image,
         'random_preview_image' => $random_preview_image,
         'author' => get_current_user_id(),
+        'gallery_type' => $gallery_type,
+        'gallery_source' => $gallery_source,
+        'autogallery_image_number' => $autogallery_image_number,
+        'update_flag' => $update_flag,
         'published' => $published), array('id' => $id));
       /* Update data in corresponding posts.*/
       $query2 = "SELECT ID, post_content FROM " . $wpdb->posts . " WHERE post_type = 'bwg_gallery'";

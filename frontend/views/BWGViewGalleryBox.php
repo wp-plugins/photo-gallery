@@ -918,7 +918,7 @@ class BWGViewGalleryBox {
                 <span class="bwg_popup_image_spun1" style="display: table; width: inherit; height: inherit;">
                   <span class="bwg_popup_image_spun2" style="display: table-cell; vertical-align: middle; text-align: center;">
                     <?php 
-                       if (! $is_embed) {
+                      if (!$is_embed) {
                       ?>
                       <img class="bwg_popup_image bwg_popup_watermark" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $image_row->image_url; ?>" alt="<?php echo $image_row->alt; ?>" />
                       <?php 
@@ -940,7 +940,7 @@ class BWGViewGalleryBox {
                         else{
                         WDWLibraryEmbed::display_embed($image_row->filetype, $image_row->filename, array('class'=>"bwg_embed_frame", 'frameborder'=>"0", 'allowfullscreen'=>"allowfullscreen", 'style'=>"width:inherit; height:inherit; vertical-align:middle; display:table-cell;"));
                         }
-                        ?> 
+                        ?>
                       </span>
                       <?php
                       }
@@ -983,7 +983,6 @@ class BWGViewGalleryBox {
             if (!bwg_current_image_span.length) {
               bwg_current_image_span = jQuery(this).find("iframe");
             }
-
             if (!bwg_current_image_span.length) {
               bwg_current_image_span = jQuery(this).find("video");
             }
@@ -1005,7 +1004,6 @@ class BWGViewGalleryBox {
                 jQuery(".bwg_watermark_image").css({
                   width: ((jQuery(".spider_popup_wrap").width() - comment_container_width) * <?php echo $watermark_width / $image_width; ?>)
                 });
-
                 jQuery(".bwg_watermark_text, .bwg_watermark_text:hover").css({
                   fontSize: ((jQuery(".spider_popup_wrap").width() - comment_container_width) * <?php echo $watermark_font_size / $image_width; ?>)
                 });
@@ -1243,7 +1241,7 @@ class BWGViewGalleryBox {
             rowAdd = Math.ceil(rowRemainder / rows),
             leftDist = 0,
             img_leftDist = Math.ceil((jQuery(".bwg_slide_bg").width() - cur_img.width()) / 2);
-            var imgSrc = typeof cur_img.attr('src')=='undefined' ? '' :cur_img.attr('src');
+	var imgSrc = typeof cur_img.attr('src')=='undefined' ? '' :cur_img.attr('src');
         /* tx/ty args can be passed as 'auto'/'min-auto' (meaning use slide width/height or negative slide width/height).*/
         tx = tx === 'auto' ? contWidth : tx;
         tx = tx === 'min-auto' ? - contWidth : tx;
@@ -1338,12 +1336,7 @@ class BWGViewGalleryBox {
           if (key == 0) {
             jQuery("#spider_popup_left").hide();
           }
-          /*if (key == (parseInt(data.length) - 1)) {
-            window.clearInterval(bwg_playInterval);
-            return;
-          }*/
         }
-        
         /* Pause videos.*/
         jQuery("#bwg_image_container").find("iframe").each(function () {
           jQuery(this)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
@@ -1385,8 +1378,8 @@ class BWGViewGalleryBox {
           /* Change image title, description.*/
           jQuery(".bwg_image_title").html(jQuery('<div />').html(data[key]["alt"]).text());
           jQuery(".bwg_image_description").html(jQuery('<div />').html(data[key]["description"]).text());
-          if(data[key]["alt"].trim() == "" && data[key]["description"].trim() == "") {
-            jQuery(".bwg_image_info").css("background","none");
+          if (data[key]["alt"].trim() == "" && data[key]["description"].trim() == "") {
+            jQuery(".bwg_image_info").css("background", "none");
           }
           else {
             jQuery(".bwg_image_info").removeAttr("style");
@@ -2199,14 +2192,11 @@ class BWGViewGalleryBox {
         jQuery(".spider_popup_close").attr("class", "bwg_ctrl_btn spider_popup_close_fullscreen");         
       }
 
-
       function bwg_resize_instagram_post(){
         
         /*jQuery.fn.exists = function(){return this.length>0;}*/
 
         if (jQuery('.inner_instagram_iframe_bwg_embed_frame').length) {
-        
-
           var w = jQuery(".bwg_popup_embed").width();
           var h = jQuery(".bwg_popup_embed").height();
           var post_width = 0;

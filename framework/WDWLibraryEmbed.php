@@ -215,7 +215,6 @@ class WDWLibraryEmbed {
       }
       else{/*one of known oembed types*/
         $embed_type = 'EMBED_OEMBED_'.$host;
-        
         switch ($embed_type) {
           case 'EMBED_OEMBED_YOUTUBE':
             $youtube_regex = "#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#";

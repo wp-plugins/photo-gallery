@@ -563,6 +563,21 @@ class WDWLibrary {
     <?php
       }
     }
+    elseif ($pagination == 3) {
+      if ($count_items > $limit * $page_number) {
+        ?>
+		<script type="text/javascript">
+		  jQuery(window).on("scroll", function() {
+        if (jQuery(document).scrollTop() + jQuery(window).height() > (jQuery('#<?php echo $form_id; ?>').offset().top + jQuery('#<?php echo $form_id; ?>').height())) {
+          spider_page_<?php echo $current_view; ?>('', <?php echo $page_number; ?>, 1, true);
+          jQuery(window).off("scroll");
+          return false;
+			  }
+		  });
+		</script>
+    <?php
+      }
+    }
     ?>
     <input type="hidden" id="page_number_<?php echo $current_view; ?>" name="page_number_<?php echo $current_view; ?>" value="<?php echo ((isset($_POST['page_number_' . $current_view])) ? (int) $_POST['page_number_' . $current_view] : 1); ?>" />
     <script type="text/javascript">

@@ -4,7 +4,7 @@ Donate link: https://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: photo, photo gallery, image gallery, video gallery, gallery, galleries,  wordpress gallery plugin, images gallery, album, photo albums, simple gallery, best gallery plugin, free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, photogallery, widget gallery, image, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, fotogalerie, galleria, galerie, galeri, responsive gallery, add album,  add gallery, add pictures, fotoalbum, foto, gallery decription, multiple pictures, photoalbum, upload images, upload photos, view images, view pictures, admin, AJAX, comments, gallery image, image lightbox, image rotate, image slideshow, image slider, jquery, jquery gallery, slide show, slideshow, thumbnail, thumbnail view, thumbnails, thumbs, responsive, watermarking, watermarks,fullscreen slider, lightbox, photography, sidebar, slide, youtube, vimeo, videos, instagram, mosaic 
 Requires at least: 3.4 
 Tested up to: 4.2 
-Stable tag: 1.2.36 
+Stable tag: 1.2.37 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -206,88 +206,91 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 
 
 == Changelog ==
-
+= 1.2.37 =
+*  New: Load more with scroll.   
+*  Fixed: Thumbnail size on recover.      
+  
 = 1.2.36 =
-Changed: Featured plugins page.
-Fixed: Mosaic view show title.
-Fixed: AddThis javascript bug.
+*  Changed: Featured plugins page.    
+*  Fixed: Mosaic view show title.   
+*  Fixed: AddThis javascript bug.    
 
 = 1.2.35 = 
-New: Addthis (pro version).
-Fixed: Link text font size in extended album description.
+*  New: Addthis (pro version).     
+*  Fixed: Link text font size in extended album description.     
 
 = 1.2.34= 
-New: Recreate thumbnail button in gallery page.
+*  New: Recreate thumbnail button in gallery page.   
 
 = 1.2.33 =
-Fixed: Delete/update custom posts on gallery/album edit.
-Fixed: Image width/height size with open commetns.
+*  Fixed: Delete/update custom posts on gallery/album edit.    
+*  Fixed: Image width/height size with open comments.    
 
 = 1.2.32 =
-New: Loop option for lightbox.
-Fixed: Embed media by YouTube short url.
+*  New: Loop option for lightbox.   
+*  Fixed: Embed media by YouTube short url.    
 
 = 1.2.31 =
-New: Load more button instead of pagination (optional).
-Fixed: Minor bug on gallery save on php5.3.
+*  New: Load more button instead of pagination (optional).   
+*  Fixed: Minor bug on gallery save on php5.3.   
   
 = 1.2.30 =
-Change links  
+*  Change links    
 
 = 1.2.29 = 
-Changed: Featured plugins page.  
-New: Featured themes page.   
+*  Changed: Featured plugins page.  
+*  New: Featured themes page.   
 
 = 1.2.28 =
-change user guide links
-minor bug fixed
+*  change user guide links    
+*  minor bug fixed
 
 = 1.2.27 =
-minor bug fixed
+*  minor bug fixed
 
 = 1.2.26 =
-Fixed: Lightbox opening bug for ios.
+*  Fixed: Lightbox opening bug for ios.
 
 = 1.2.25 =
-Fixed: Lightbox opening bug for mobile browsers.
+*  Fixed: Lightbox opening bug for mobile browsers.
 
 = 1.2.24 = 
-duplicated id in slideshow view
-deprecated options removed (roles) 
+*  duplicated id in slideshow view    
+*  deprecated options removed (roles) 
 
 = 1.2.23 =
-bug in preload option fixed
+*  bug in preload option fixed
 
 = 1.2.21 =
-minor bugs fixes
+*  minor bugs fixes
 
 = 1.2.19 =
-conflict with some themes fixed
+*  conflict with some themes fixed
 
 = 1.2.18 =
-  New: Bottom pagination in admin views.
-  New: Improve SEO.
-  New: Autohide option for slideshow and lightbox navigation buttons.
-  New: Read image meta data.
-  Fixed: Slideshow bullets centering.
-  Fixed: Admin-ajax url for frontend.
-  Fixed: Upload images to .original not resized.
-  Fixed: Order by filename.
+*  New: Bottom pagination in admin views.    
+*  New: Improve SEO.   
+*  New: Autohide option for slideshow and lightbox navigation buttons.   
+*  New: Read image meta data.   
+*  Fixed: Slideshow bullets centering.  
+*  Fixed: Admin-ajax url for frontend.   
+*  Fixed: Upload images to .original not resized.   
+*  Fixed: Order by filename.   
 
 = 1.2.17 =
-Edit licensing page
+Edit licensing page  
 
 = 1.2.16 =
-*  New: Embed support.
-*  New: Photo gallery can be loaded through AJAX request.
-*  New: Image meta auto-filling.  
-*  Changed: Deleted tag posts.
-*  Changed: Improved security of backend.
-*  Fixed: Thumbnail and filmstrip sizes for embeds.
-*  Fixed: Search in backend galleries view.
-*  Fixed: Gallery box image URL on a page with multiple galleries.
-*  Fixed: Maximize/resize buttons in gallery box when exiting fullscreen.
-*  Fixed: Other minor bugs.
+*  New: Embed support.  
+*  New: Photo gallery can be loaded through AJAX request.  
+*  New: Image meta auto-filling.    
+*  Changed: Deleted tag posts.  
+*  Changed: Improved security of backend.  
+*  Fixed: Thumbnail and filmstrip sizes for embeds.   
+*  Fixed: Search in backend galleries view.   
+*  Fixed: Gallery box image URL on a page with multiple galleries.   
+*  Fixed: Maximize/resize buttons in gallery box when exiting fullscreen.   
+*  Fixed: Other minor bugs.    
   
 = 1.2.15 =  
 *  added large image url in page source for SEO  
@@ -296,25 +299,25 @@ Edit licensing page
 *  shortcode issue fixed  
 
 = 1.2.13 =  
-*  [CVE-2015-2324] security issue fixed in filemanager     
-This vulnerability was discovered by Fortinet's FortiGuard Labs.  
+*  [CVE-2015-2324] security issue fixed in filemanager         
+This vulnerability was discovered by Fortinet's FortiGuard Labs.      
 
 = 1.2.12 =
-*  Front-end image sorting possibility (dropdown) for the users
+*  Front-end image sorting possibility (dropdown) for the users  
 
 = 1.2.11 =
-*  security issue fixed
+*  security issue fixed    
 *  bug in fullscreen button and laoding image animation fixed
 
 = 1.2.9 =
-*  updated font-awesome to 4.2.0 version
+*  updated font-awesome to 4.2.0 version    
 *  sort bug in ligthbox
 
 = 1.2.8 =
 *  security issue fixed
 
 = 1.2.7 =
-*  masonry album view type   
+*  masonry album view type    
 *  single quota bug in image fixed
 
 = 1.2.6 =
@@ -339,13 +342,13 @@ This vulnerability was discovered by Fortinet's FortiGuard Labs.
 *  change shortcodes
 
 = 1.1.30 =
-*  images count in ligthbox (optional - only in options page)  
-*  images count column in galleries table   
-*  WordPress Search Integration by gallery and album title   
-*  show gallery, album title (optional - only in options page)  
+*  images count in ligthbox (optional - only in options page)     
+*  images count column in galleries table     
+*  WordPress Search Integration by gallery and album title    
+*  show gallery, album title (optional - only in options page)   
 
 = 1.1.29 =
-*  Bug fixed in tag cloud widget
+*  Bug fixed in tag cloud widget 
 
 = 1.1.28 =
 *  Bug fixed in filemanager     
