@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: https://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.37
+ * Version: 1.2.38
  * Author: WebDorado
  * Author URI: https://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -740,12 +740,23 @@ function bwg_activate() {
     `instagram_client_id` varchar(40) NOT NULL,
     `description_tb` tinyint(1) NOT NULL,
     `enable_seo` tinyint(1) NOT NULL,
-    `autohide_lightbox_navigation` tinyint(1) NOT NULL,
-    `autohide_slideshow_navigation` tinyint(1) NOT NULL,
-    `read_metadata` tinyint(1) NOT NULL,
-    `enable_loop` tinyint(1) NOT NULL,
-    `enable_addthis` tinyint(1) NOT NULL,
-    `addthis_profile_id` varchar(66) NOT NULL,
+	`autohide_lightbox_navigation` tinyint(1) NOT NULL,
+	`autohide_slideshow_navigation` tinyint(1) NOT NULL,
+	`read_metadata` tinyint(1) NOT NULL,
+	`enable_loop` tinyint(1) NOT NULL,
+	`enable_addthis` tinyint(1) NOT NULL,
+	`addthis_profile_id` varchar(66) NOT NULL,
+	`carousel_interval` int(4) NOT NULL,
+    `carousel_width` int(4) NOT NULL,
+    `carousel_height` int(4) NOT NULL,
+    `carousel_image_column_number` int(4) NOT NULL,
+    `carousel_image_par` varchar(32) NOT NULL,
+    `carousel_enable_title` tinyint(1) NOT NULL,
+	  `carousel_enable_autoplay` tinyint(1) NOT NULL,
+	  `carousel_r_width` int(4) NOT NULL,
+    `carousel_fit_containerWidth` tinyint(1) NOT NULL,
+    `carousel_prev_next_butt` tinyint(1) NOT NULL,
+    `carousel_play_pause_butt` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
   ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -1170,6 +1181,36 @@ function bwg_activate() {
     `album_masonry_thumb_hover_effect` varchar(64) NOT NULL,
     `album_masonry_thumb_hover_effect_value` varchar(64) NOT NULL,
     `album_masonry_thumb_transition` tinyint(1) NOT NULL,
+    
+    `carousel_cont_bg_color` varchar(8) NOT NULL,
+    `carousel_cont_btn_transparent` int(4) NOT NULL,
+    `carousel_close_btn_transparent` int(4) NOT NULL,
+    `carousel_rl_btn_bg_color`	varchar(8) NOT NULL,
+    `carousel_rl_btn_border_radius` varchar(32) NOT NULL,
+    `carousel_rl_btn_border_width` int(4) NOT NULL,
+    `carousel_rl_btn_border_style` varchar(8) NOT NULL,
+    `carousel_rl_btn_border_color` varchar(8) NOT NULL,    
+    `carousel_rl_btn_color` varchar(8) NOT NULL,
+    `carousel_rl_btn_height` int(4) NOT NULL,
+    `carousel_rl_btn_size` int(4) NOT NULL,
+    `carousel_play_pause_btn_size` int(4) NOT NULL,
+    `carousel_rl_btn_width` int(4) NOT NULL,
+    `carousel_close_rl_btn_hover_color` varchar(8) NOT NULL,
+    `carousel_rl_btn_style` varchar(16) NOT NULL,
+    `carousel_mergin_bottom` varchar(8) NOT NULL,
+    `carousel_font_family` varchar(8) NOT NULL,
+    `carousel_feature_border_width` int(4) NOT NULL,
+    `carousel_feature_border_style` varchar(8) NOT NULL,
+    `carousel_feature_border_color` varchar(8) NOT NULL,    
+    `carousel_caption_background_color` varchar(8) NOT NULL,    
+    `carousel_caption_bottom` int(4) NOT NULL,
+    `carousel_caption_p_mergin` int(4) NOT NULL,    
+    `carousel_caption_p_pedding` int(4) NOT NULL,
+    `carousel_caption_p_font_weight` varchar(8) NOT NULL,    
+    `carousel_caption_p_font_size` int(4) NOT NULL,
+    `carousel_caption_p_color` varchar(8) NOT NULL,
+    `carousel_title_opacity` int(4) NOT NULL,
+    `carousel_title_border_radius` varchar(8) NOT NULL,
 
     `default_theme` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
@@ -1333,8 +1374,19 @@ function bwg_activate() {
 	  'autohide_slideshow_navigation' => 1,
 	  'read_metadata' => 1,
 	  'enable_loop'=> 1,
-	  'enable_addthis' => 0,
-	  'addthis_profile_id' => '',
+	  'enable_addthis'=> 0,
+	  'addthis_profile_id'=> '',
+	  'carousel_interval' => 5,
+      'carousel_width' => 300,
+      'carousel_height' => 300,
+		  'carousel_image_column_number' => 5,
+      'carousel_image_par' => '0.75',
+      'carousel_enable_title' => 0,
+		  'carousel_enable_autoplay' => 0,
+      'carousel_r_width' => 800,
+      'carousel_fit_containerWidth' => 1,
+      'carousel_prev_next_butt' => 1,
+      'carousel_play_pause_butt' => 1,
     ), array(
       '%d',
       '%s',
@@ -1457,16 +1509,27 @@ function bwg_activate() {
       '%d',
       '%d',
       '%d',
-      '%d',
       '%s',
       '%d',
       '%d',
-	  '%d',
+      '%d',
 	  '%d',
 	  '%d',
 	  '%d',
 	  '%d',
 	  '%s',
+	  '%d',
+      '%d',
+      '%d',
+		  '%d',
+      '%s',
+      '%d',
+		  '%d',
+      '%d',
+      '%d',
+      '%d',
+      '%d',
+      
     ));
   }
   $exists_default = $wpdb->get_var('SELECT count(id) FROM ' . $wpdb->prefix . 'bwg_theme');
@@ -1891,7 +1954,37 @@ function bwg_activate() {
       'mosaic_thumb_title_margin' => '2px',
       'mosaic_thumb_title_shadow' => '0px 0px 0px #888888',
       'mosaic_thumb_title_font_size' => 16,
-
+      
+      'carousel_cont_bg_color' => '000000',
+      'carousel_cont_btn_transparent' =>  0, 
+      'carousel_close_btn_transparent' =>  100, 
+      'carousel_rl_btn_bg_color' => '000000',
+      'carousel_rl_btn_border_radius' => '20px',  
+      'carousel_rl_btn_border_width' =>  0,
+      'carousel_rl_btn_border_style' => 'none',
+      'carousel_rl_btn_border_color' => 'FFFFFF',       
+      'carousel_rl_btn_color' => 'FFFFFF',
+      'carousel_rl_btn_height' => 40, 
+      'carousel_rl_btn_size' => 20,
+      'carousel_play_pause_btn_size' => 20,
+      'carousel_rl_btn_width' => 40,
+      'carousel_close_rl_btn_hover_color' => 'CCCCCC',
+      'carousel_rl_btn_style' => 'fa-chevron',
+      'carousel_mergin_bottom' => '0.5',     
+      'carousel_font_family' => 'Arial',
+      'carousel_feature_border_width' => 2,
+      'carousel_feature_border_style' => 'solid',
+      'carousel_feature_border_color' => '5D204F',       
+      'carousel_caption_background_color' => '000000',
+      'carousel_caption_bottom' => 0,
+      'carousel_caption_p_mergin' => 0, 
+      'carousel_caption_p_pedding' => 5,   
+      'carousel_caption_p_font_weight' => 'bold', 
+      'carousel_caption_p_font_size' => 14,
+      'carousel_caption_p_color' => 'white',
+      'carousel_title_opacity' => 100,
+      'carousel_title_border_radius' => '5px', 
+      
       'default_theme' => 1
     ), array(
       '%d',
@@ -2313,6 +2406,35 @@ function bwg_activate() {
       '%s',
       '%s',
       '%d',
+      
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%s',    
+      '%s',
+      '%d',
+      '%s',
+      '%s',      
+      '%s',
+      '%d',
+      '%d',
+      '%d',
+      '%s',
+      '%d',
+      '%s',
+      '%d',
+      '%s', 
 
       '%d'
     ));
@@ -2737,6 +2859,37 @@ function bwg_activate() {
       'mosaic_thumb_title_margin' => '2px',
       'mosaic_thumb_title_shadow' => '0px 0px 0px #888888',
       'mosaic_thumb_title_font_size' => 16,
+      
+      'carousel_cont_bg_color' => '000000',
+      'carousel_cont_btn_transparent' =>  0, 
+      'carousel_close_btn_transparent' =>  100, 
+      'carousel_rl_btn_bg_color' => '000000',
+      'carousel_rl_btn_border_radius' => '20px',  
+      'carousel_rl_btn_border_width' =>  0,
+      'carousel_rl_btn_border_style' => 'none',
+      'carousel_rl_btn_border_color' => 'FFFFFF',       
+      'carousel_rl_btn_color' => 'FFFFFF',
+      'carousel_rl_btn_height' => 40, 
+      'carousel_rl_btn_size' => 20,
+      'carousel_play_pause_btn_size' => 20,
+      'carousel_rl_btn_width' => 40,
+      'carousel_close_rl_btn_hover_color' => 'CCCCCC',
+      'carousel_rl_btn_style' => 'fa-chevron',
+      'carousel_mergin_bottom' => '0.5',    
+      'carousel_font_family' => 'Arial',
+      'carousel_feature_border_width' => 2,
+      'carousel_feature_border_style' => 'solid',
+      'carousel_feature_border_color' => '5D204F',       
+      'carousel_caption_background_color' => '000000',
+      'carousel_caption_bottom' => 0,
+      'carousel_caption_p_mergin' => 0, 
+      'carousel_caption_p_pedding' => 5,   
+      'carousel_caption_p_font_weight' => 'bold', 
+      'carousel_caption_p_font_size' => 14,
+      'carousel_caption_p_color' => 'white',
+      'carousel_title_opacity' => 100,
+      'carousel_title_border_radius' => '5px',
+      
 
       'default_theme' => 0
     ), array(
@@ -3159,12 +3312,41 @@ function bwg_activate() {
       '%s',
       '%s',
       '%d',
+      
+      '%s',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%d',
+      '%s',
+      '%s',
+      '%s',
+      '%d',
+      '%d',
+      '%d',
+      '%s',
+      '%s',
+      '%s',      
+      '%s',
+      '%d',
+      '%s',
+      '%s',      
+      '%s',
+      '%d',
+      '%d',
+      '%d',
+      '%s',
+      '%d',
+      '%s',
+      '%d',
+      '%s',
 
       '%d'
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.37';
+  $new_version = '1.2.38';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -3182,7 +3364,7 @@ wp_oembed_add_provider( '#https://instagr(\.am|am\.com)/p/.*#i', 'https://api.in
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.37';
+  $new_version = '1.2.38';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);

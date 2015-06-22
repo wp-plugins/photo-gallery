@@ -331,7 +331,20 @@ function bwg_gallery_type(gallery_type) {
   jQuery("#tr_popup_enable_google").css('display', 'none');
   jQuery("#tr_popup_enable_pinterest").css('display', 'none');
   jQuery("#tr_popup_enable_tumblr").css('display', 'none');
-
+  jQuery("#tr_popup_info_always_show").css('display', 'none');
+//Carousel
+  jQuery("#tbody_carousel").css('display', 'none'); 
+  jQuery("#tr_carousel_interval").css('display', 'none');
+  jQuery("#tr_carousel_image_par").css('display', 'none');
+  jQuery("#tr_carousel_width_height").css('display', 'none'); 
+  jQuery("#tr_carousel_title_position").css('display', 'none');
+  jQuery("#tr_carousel_image_column_number").css('display', 'none');
+  jQuery("#tr_enable_carousel_autoplay").css('display', 'none');
+  jQuery("#tr_carousel_r_width").css('display', 'none');
+  jQuery("#tr_enable_carousel_title").css('display', 'none');
+  jQuery("#tr_carousel_fit_containerWidth").css('display', 'none');
+  jQuery("#tr_carousel_prev_next_butt").css('display', 'none');
+  jQuery("#tr_carousel_play_pause_butt").css('display', 'none');
   // Watermark.
   jQuery("#tr_watermark_type").css('display', '');
   if (jQuery("input[name=watermark_type]:checked").val() == 'image') {
@@ -568,8 +581,26 @@ function bwg_gallery_type(gallery_type) {
       bwg_show_search_box();
       break;
     }
+		case 'carousel': {
+	    jQuery("#tr_gallery").css('display', '');
+      jQuery("#tr_sort_by").css('display', '');
+      jQuery("#tr_order_by").css('display', '');    
+      jQuery("#tr_carousel_interval").css('display', '');
+      jQuery("#tr_carousel_image_par").css('display', '');
+      jQuery("#tr_carousel_width_height").css('display', '');
+      jQuery("#tr_carousel_image_column_number").css('display', '');
+      jQuery("#tr_show_sort_images").css('display', 'none'); 
+	    jQuery("#tr_enable_carousel_autoplay").css('display', '');
+      jQuery("#tr_enable_carousel_title").css('display', '');
+      jQuery("#tr_carousel_r_width").css('display', '');
+      jQuery("#tr_carousel_fit_containerWidth").css('display', '');
+      jQuery("#tr_carousel_prev_next_butt").css('display', '');
+      jQuery("#tr_carousel_play_pause_butt").css('display', '');
+      break;
+		}
+			
   }
-  if (gallery_type != 'slideshow') {
+  if (gallery_type != 'slideshow' && gallery_type != 'carousel') {
     jQuery("#tbody_popup_other").css('display', '');
     jQuery("#tbody_popup").css('display', '');
     jQuery("#tr_popup_width_height").css('display', '');
@@ -599,6 +630,7 @@ function bwg_gallery_type(gallery_type) {
     jQuery("#tr_popup_enable_google").css('display', '');
     jQuery("#tr_popup_enable_pinterest").css('display', '');
     jQuery("#tr_popup_enable_tumblr").css('display', '');
+    jQuery("#tr_popup_info_always_show").css('display', '');
     bwg_popup_fullscreen();
     bwg_thumb_click_action();
   }

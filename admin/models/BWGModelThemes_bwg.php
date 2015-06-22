@@ -474,6 +474,37 @@ class BWGModelThemes_bwg {
           $row->lightbox_hit_font_style = 'segoe ui';
           $row->lightbox_hit_font_weight = 'normal';
           $row->lightbox_hit_font_size = 14;
+          //carousel
+          $row->carousel_cont_bg_color = '000000';
+          $row->carousel_cont_btn_transparent = 0;
+          $row->carousel_close_btn_transparent = 100;
+          $row->carousel_rl_btn_bg_color = '000000';
+          $row->carousel_rl_btn_border_radius = '20px';
+          $row->carousel_rl_btn_border_width = 0;
+          $row->carousel_rl_btn_border_style = 'none';
+          $row->carousel_rl_btn_border_color = 'FFFFFF';          
+          $row->carousel_rl_btn_color = 'FFFFFF';
+          $row->carousel_rl_btn_height = 40;
+          $row->carousel_rl_btn_size = 20;
+          $row->carousel_play_pause_btn_size = 20;
+          $row->carousel_rl_btn_width = 40;
+          $row->carousel_close_rl_btn_hover_color = 'CCCCCC';
+          $row->carousel_rl_btn_style='fa-chevron';
+          $row->carousel_mergin_bottom = '0.5';      
+          $row->carousel_font_family = 'Arial';
+          $row->carousel_feature_border_width = 2;
+          $row->carousel_feature_border_style = 'solid';
+          $row->carousel_feature_border_color= '5D204F';          
+          $row->carousel_caption_background_color = '000000';
+          $row->carousel_caption_bottom = 0;
+          $row->carousel_caption_p_mergin = 0;
+          $row->carousel_caption_p_pedding = 5;
+          $row->carousel_caption_p_font_weight = 'bold';
+          $row->carousel_caption_p_font_size = 14;
+          $row->carousel_caption_p_color = 'white';
+          $row->carousel_title_opacity = 100; 
+          $row->carousel_title_border_radius = '5px'; 
+          
         }
       }
     }

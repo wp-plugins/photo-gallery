@@ -147,6 +147,10 @@ class BWGViewBWGShortcode {
                 <span title="This view is disabled in free version." class="gallery_type">
                   <div style="text-align: center;"><input disabled="disabled" type="radio" id="blog_style" name="gallery_type" value="blog_style" /><label class="spider_free_version_label" for="blog_style">Blog Style</label></div>
                   <label><img style="opacity:0.5; filter: Alpha(opacity=50);" disabled="disabled" src="<?php echo WD_BWG_URL . '/images/blog_style.jpg'; ?>" /></label>
+                </span>			
+		  <span title="This view is disabled in free version." class="gallery_type">
+                  <div style="text-align: center;"><input disabled="disabled" type="radio" id="carousel" name="gallery_type" value="carousel" /><label class="spider_free_version_label" for="carousel">Carousel</label></div>
+                  <label for="carousel"><img style="opacity:0.5; filter: Alpha(opacity=50);" disabled="disabled" src="<?php echo WD_BWG_URL . '/images/Carousel.png'; ?>" /></label>
                 </span>
               </div>
               <hr />

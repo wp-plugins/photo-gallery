@@ -254,6 +254,51 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `enable_addthis` tinyint(1) NOT NULL DEFAULT 0");
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `addthis_profile_id` varchar(32) NOT NULL DEFAULT ''");
   }
+  
+  //carousel
+	if (version_compare($version, '1.2.38') == -1) { 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_width` int(4) NOT NULL DEFAULT 300"); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_height` int(4) NOT NULL DEFAULT 300"); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_interval` int(4) NOT NULL DEFAULT 5 ");
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_image_column_number` int(4) NOT NULL DEFAULT 5 ");
+   	$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_image_par` varchar(32) NOT NULL DEFAULT '0.75' ");    
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_enable_autoplay` tinyint(1) NOT NULL DEFAULT 0 ");
+   	$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_enable_title` tinyint(1) NOT NULL DEFAULT 0 "); 
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_r_width` int(4) NOT NULL DEFAULT 800"); 
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_fit_containerWidth` tinyint(1) NOT NULL DEFAULT 1 ");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_prev_next_butt` tinyint(1) NOT NULL DEFAULT 1 ");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `carousel_play_pause_butt` tinyint(1) NOT NULL DEFAULT 1 ");
+    
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_cont_bg_color` varchar(8) NOT NULL DEFAULT '000000'");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_cont_btn_transparent` int(4) NOT NULL DEFAULT 0 "); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_close_btn_transparent` int(4) NOT NULL DEFAULT 100 "); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_bg_color`	varchar(8) NOT NULL DEFAULT '000000'"); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_border_radius` varchar(32) NOT NULL DEFAULT '20px' "); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_border_width` int(4) NOT NULL DEFAULT 0"); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_border_style` varchar(8) NOT NULL DEFAULT 'none'"); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_border_color` varchar(8) NOT NULL DEFAULT 'FFFFFF'");
+   	$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_color` varchar(8) NOT NULL DEFAULT 'FFFFFF'");  
+   	$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_height` int(4) NOT NULL DEFAULT 40 ");
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_size` int(4) NOT NULL DEFAULT 20");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_play_pause_btn_size` int(4) NOT NULL DEFAULT 20");  
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_width` int(4) NOT NULL DEFAULT 40 "); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_close_rl_btn_hover_color` varchar(8) NOT NULL DEFAULT 'CCCCCC' ");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_rl_btn_style` varchar(16) NOT NULL DEFAULT 'fa-chevron'");      
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_mergin_bottom` varchar(8) NOT NULL DEFAULT '0.5' ");		
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_font_family` varchar(8) NOT NULL DEFAULT 'Arial' ");
+   	$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_feature_border_width` int(4) NOT NULL DEFAULT 2");  
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_feature_border_style` varchar(8) NOT NULL DEFAULT 'solid'");
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_feature_border_color` varchar(8) NOT NULL DEFAULT '5D204F'"); 		
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_caption_background_color` varchar(8) NOT NULL DEFAULT '000000'"); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_caption_bottom` int(4) NOT NULL DEFAULT 0 "); 
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_caption_p_mergin` int(4) NOT NULL DEFAULT 0 ");
+   	$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_caption_p_pedding` int(4) NOT NULL DEFAULT 5 ");
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_caption_p_font_weight` varchar(8) NOT NULL DEFAULT 'bold' ");  
+   	$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_caption_p_font_size` int(4) NOT NULL DEFAULT 14");
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_caption_p_color` varchar(8) NOT NULL DEFAULT 'white'"); 
+    $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_title_opacity` int(4) NOT NULL DEFAULT 100");
+		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_title_border_radius` varchar(8) NOT NULL DEFAULT '5px'");         
+	}
   return;
 }
 

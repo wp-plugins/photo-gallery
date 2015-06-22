@@ -155,6 +155,21 @@ class BWGModelOptions_bwg {
       $row->enable_loop = 1;
       $row->enable_addthis = 0;
       $row->addthis_profile_id = '';
+      
+      //carousel
+    
+      $row->carousel_interval = 5;
+      $row->carousel_width = 300;
+      $row->carousel_height = 300;
+	    /*$row->carousel_title_full_width = 620;*/   
+      $row->carousel_image_column_number = 5;
+      $row->carousel_image_par = 0.75;
+      $row->carousel_enable_autoplay = 0;
+      $row->carousel_enable_title = 0;
+      $row->carousel_r_width = 800;
+      $row->carousel_fit_containerWidth = 1;
+      $row->carousel_prev_next_butt = 1;
+      $row->carousel_play_pause_butt = 1;
     }
     return $row;
   }

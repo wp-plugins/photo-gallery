@@ -841,7 +841,7 @@ function bwg_built_in_watermark(watermark_type) {
 function bwg_change_option_type(type) {
   type = (type == '' ? 1 : type);
   document.getElementById('type').value = type;
-  for (var i = 1; i <= 9; i++) {
+  for (var i = 1; i <= 10; i++) {
     if (i == type) {
       document.getElementById('div_content_' + i).style.display = 'block';
       document.getElementById('div_' + i).style.background = '#C5C5C5';
@@ -913,6 +913,7 @@ function bwg_change_theme_type(type) {
   jQuery("#Masonry_album").hide();
   jQuery("#Image_browser").hide();
   jQuery("#Blog_style").hide();
+  jQuery("#Carousel").hide();
   jQuery("#Lightbox").hide();
   jQuery("#Navigation").hide();
   jQuery("#" + type).show();
@@ -929,6 +930,7 @@ function bwg_change_theme_type(type) {
   jQuery("#type_Masonry_album").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
   jQuery("#type_Image_browser").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Blog_style").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
+  jQuery("#type_Carousel").attr("style", "background-color: #F4F4F4; opacity: 0.4; filter: Alpha(opacity=40);");
   jQuery("#type_Lightbox").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_Navigation").attr("style", "background-color: #F4F4F4;");
   jQuery("#type_" + type).attr("style", "background-color: #CFCBCB;");

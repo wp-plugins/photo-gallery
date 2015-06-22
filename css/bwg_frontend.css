@@ -11,6 +11,18 @@ div[id^="bwg_container"] a {
   text-decoration: none;
 }
 
+@media print {
+  #spider_popup_left,
+  #spider_popup_right,
+  .bwg_image_info,
+  [id^="bwg_slideshow_play_pause_"],
+  [class^="bwg_slideshow_title_text_"],
+  [id^="spider_slideshow_left_"],
+  [id^="spider_slideshow_right_"] {
+    background: none;
+  }
+}
+
 .spider_popup_loading,
 .footer-list-block .bwp_gallery .spider_popup_loading,
 .footer-list-block .bwp_gallery_tags .spider_popup_loading {

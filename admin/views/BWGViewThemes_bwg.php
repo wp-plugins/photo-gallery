@@ -282,6 +282,7 @@ class  BWGViewThemes_bwg {
         <div id="type_Blog_style" class="theme_type" style="opacity: 0.4; filter: Alpha(opacity=40);" title="This tab is disabled in free version">Blog Style</div>
         <div id="type_Lightbox" class="theme_type" onclick="bwg_change_theme_type('Lightbox')">Lightbox</div>
         <div id="type_Navigation" class="theme_type" onclick="bwg_change_theme_type('Navigation')">Page Navigation</div>
+        <div id="type_Carousel" class="theme_type" style="opacity: 0.4; filter: Alpha(opacity=40);" title="This tab is disabled in free version">Carousel</div>
         <input type="hidden" id="current_type" name="current_type" value="<?php echo $current_type; ?>" />
       </div>
       <fieldset class="spider_fieldset">

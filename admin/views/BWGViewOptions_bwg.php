@@ -110,6 +110,7 @@ class BWGViewOptions_bwg {
           <div id="div_6" class="gallery_type" onclick="bwg_change_option_type('6')"> Thumbnail options</div><br/>
           <div id="div_7" class="gallery_type" onclick="bwg_change_option_type('7')"> Image options</div><br/>
           <div id="div_9" class="gallery_type" onclick="bwg_change_option_type('9')"> Embed options</div><br/>
+	  <div id="div_10" class="gallery_type" onclick="bwg_change_option_type('10')"> Carousel</div><br/>
           <input type="hidden" id="type" name="type" value="<?php echo (isset($_POST["type"]) ? esc_html(stripslashes($_POST["type"])) : "1"); ?>"/>
         </div>
 
@@ -1476,7 +1477,120 @@ class BWGViewOptions_bwg {
             </tbody>
           </table>
         </div>
-
+	
+	<!-- Carousel-->
+		    <div class="spider_div_options" id="div_content_10">
+          <table style="width: 100%;">
+            <tr>
+              <td style="width: 50%; vertical-align: top;">
+                <table style="display: inline-table;">
+                  <tbody>
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label for="carousel_interval">Time interval: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="text" disabled="disabled" name="carousel_interval" id="carousel_interval" value="<?php echo $row->carousel_interval; ?>" class="spider_int_input" /> sec.
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label for="carousel_image_column_number">Max. number of images: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="text" disabled="disabled" name="carousel_image_column_number" id="carousel_image_column_number" value="<?php echo $row->carousel_image_column_number; ?>" class="spider_int_input" /> sec.
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label for="carousel_image_par">Carousel image ratio: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="text" disabled="disabled" name="carousel_image_par" id="carousel_image_par" value="<?php echo $row->carousel_image_par; ?>"  /> 
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>                
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label for="carousel_width">Image dimensions: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="text" disabled="disabled" name="carousel_width" id="carousel_width" value="<?php echo $row->carousel_width; ?>" class="spider_int_input" /> x 
+                        <input type="text" disabled="disabled" name="carousel_height" id="carousel_height" value="<?php echo $row->carousel_height; ?>" class="spider_int_input" /> px
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>         
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label for="carousel_r_width">Fixed width: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="text" disabled="disabled" name="carousel_r_width" id="carousel_r_width" value="<?php echo $row->carousel_r_width; ?>" class="spider_int_input" /> px                         
+                      </td>
+                    </tr>   
+                  </tbody>
+                </table>
+              </td>
+              <td style="width: 50%; vertical-align: top;">
+                <table style="width: 100%; display: inline-table;">
+                  <tbody>
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label"><label>Enable image title: </label></td>
+                      <td class="spider_free_version_label">
+                        <input type="radio" disabled="disabled" name="carousel_enable_title" id="carousel_enable_title_yes" value="1" <?php if ($row->carousel_enable_title) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('', 'tr_carousel_title_position', 'carousel_enable_title_yes')" /><label for="carousel_enable_title_yes">Yes</label>
+                        <input type="radio" disabled="disabled" name="carousel_enable_title" id="carousel_enable_title_no" value="0" <?php if (!$row->carousel_enable_title) echo 'checked="checked"'; ?> onClick="bwg_enable_disable('none', 'tr_carousel_title_position', 'carousel_enable_title_no')" /><label for="carousel_enable_title_no">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label>Enable autoplay: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="radio" disabled="disabled" name="carousel_enable_autoplay" id="carousel_enable_autoplay_yes" value="1" <?php if ($row->carousel_enable_autoplay) echo 'checked="checked"'; ?> /><label for="carousel_enable_autoplay_yes">Yes</label>
+                        <input type="radio" disabled="disabled" name="carousel_enable_autoplay" id="carousel_enable_autoplay_no" value="0" <?php if (!$row->carousel_enable_autoplay) echo 'checked="checked"'; ?> /><label for="carousel_enable_autoplay_no">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label> Container fit: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="radio" disabled="disabled" name="carousel_fit_containerWidth" id="carousel_fit_containerWidth_yes" value="1" <?php if ($row->carousel_fit_containerWidth) echo 'checked="checked"'; ?> /><label for="carousel_fit_containerWidth_yes">Yes</label>
+                        <input type="radio" disabled="disabled" name="carousel_fit_containerWidth" id="carousel_fit_containerWidth_no" value="0" <?php if (!$row->carousel_fit_containerWidth) echo 'checked="checked"'; ?> /><label for="carousel_fit_containerWidth_no">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr> 
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label> Next/Previous buttons: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="radio" disabled="disabled" name="carousel_prev_next_butt" id="carousel_prev_next_butt_yes" value="1" <?php if ($row->carousel_prev_next_butt) echo 'checked="checked"'; ?> /><label for="carousel_prev_next_butt_yes">Yes</label>
+                        <input type="radio" disabled="disabled" name="carousel_prev_next_butt" id="carousel_prev_next_butt_no" value="0" <?php if (!$row->carousel_prev_next_butt) echo 'checked="checked"'; ?> /><label for="carousel_prev_next_butt_no">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr> 
+                    <tr>
+                      <td class="spider_label_options spider_free_version_label">
+                        <label> Play/Pause button: </label>
+                      </td>
+                      <td class="spider_free_version_label">
+                        <input type="radio" disabled="disabled" name="carousel_play_pause_butt" id="carousel_play_pause_butt_yes" value="1" <?php if ($row->carousel_play_pause_butt) echo 'checked="checked"'; ?> /><label for="carousel_play_pause_butt_yes">Yes</label>
+                        <input type="radio" disabled="disabled" name="carousel_play_pause_butt" id="carousel_play_pause_butt_no" value="0" <?php if (!$row->carousel_play_pause_butt) echo 'checked="checked"'; ?> /><label for="carousel_play_pause_butt_no">No</label>
+                        <div class="spider_description"></div>
+                      </td>
+                    </tr> 
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+	  <div class="spider_description spider_free_version">Carousel view is disabled in free version.</div>
+        </div>
 
       </div>
               

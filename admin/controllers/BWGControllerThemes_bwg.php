@@ -514,6 +514,37 @@ class BWGControllerThemes_bwg {
     $masonry_description_font_size = (isset($_POST['masonry_description_font_size']) ? (int) esc_html(stripslashes( $_POST['masonry_description_font_size'])) : 12);
     $masonry_description_color = (isset($_POST['masonry_description_color']) ? esc_html(stripslashes( $_POST['masonry_description_color'])) : 'CCCCCC');
     $masonry_description_font_style = (isset($_POST['masonry_description_font_style']) ? esc_html(stripslashes( $_POST['masonry_description_font_style'])) : 'segoe ui');
+    //carousel
+    $carousel_cont_bg_color = (isset($_POST['carousel_cont_bg_color']) ?  esc_html(stripslashes( $_POST['carousel_cont_bg_color'])) : 'FFFFFF');
+    $carousel_cont_btn_transparent = (isset($_POST['carousel_cont_btn_transparent']) ? (int) esc_html(stripslashes( $_POST['carousel_cont_btn_transparent'])) : 0);
+    $carousel_close_btn_transparent = (isset($_POST['carousel_close_btn_transparent']) ? (int) esc_html(stripslashes( $_POST['carousel_close_btn_transparent'])) : 80);
+    $carousel_rl_btn_bg_color = (isset($_POST['carousel_rl_btn_bg_color']) ? esc_html(stripslashes( $_POST['carousel_rl_btn_bg_color'])) : 'CCCCCC');
+    $carousel_rl_btn_border_radius = (isset($_POST['carousel_rl_btn_border_radius']) ?  esc_html(stripslashes( $_POST['carousel_rl_btn_border_radius'])) : '');	
+    $carousel_rl_btn_border_width = (isset($_POST['carousel_rl_btn_border_width']) ? (int) esc_html(stripslashes( $_POST['carousel_rl_btn_border_width'])) : 1);
+    $carousel_rl_btn_border_style = (isset($_POST['carousel_rl_btn_border_style']) ?  esc_html(stripslashes( $_POST['carousel_rl_btn_border_style'])) : 'solid');
+    $carousel_rl_btn_border_color = (isset($_POST['carousel_rl_btn_border_color']) ? esc_html(stripslashes( $_POST['carousel_rl_btn_border_color'])) : '000000');
+    $carousel_rl_btn_color = (isset($_POST['carousel_rl_btn_color']) ? esc_html(stripslashes( $_POST['carousel_rl_btn_color'])) : 'FFFFFF');
+    $carousel_rl_btn_height = (isset($_POST['carousel_rl_btn_height']) ? (int) esc_html(stripslashes( $_POST['carousel_rl_btn_height'])) : 10);
+    $carousel_rl_btn_size = (isset($_POST['carousel_rl_btn_size']) ? (int) esc_html(stripslashes( $_POST['carousel_rl_btn_size'])) : 20);
+    $carousel_play_pause_btn_size = (isset($_POST['carousel_play_pause_btn_size']) ? (int) esc_html(stripslashes( $_POST['carousel_play_pause_btn_size'])) : 20);    
+    $carousel_rl_btn_width = (isset($_POST['carousel_rl_btn_width']) ? (int) esc_html(stripslashes( $_POST['carousel_rl_btn_width'])) : 30);	
+    $carousel_close_rl_btn_hover_color = (isset($_POST['carousel_close_rl_btn_hover_color']) ? esc_html(stripslashes( $_POST['carousel_close_rl_btn_hover_color'])) : 'FFFFFF');
+    $carousel_rl_btn_style = (isset($_POST['carousel_rl_btn_style']) ?  esc_html(stripslashes( $_POST['carousel_rl_btn_style'])) : 'fa-chevron');
+    $carousel_mergin_bottom = (isset($_POST['carousel_mergin_bottom']) ? esc_html(stripslashes( $_POST['carousel_mergin_bottom'])) : '1');    
+    $carousel_font_family  = (isset($_POST['carousel_font_family']) ? esc_html(stripslashes( $_POST['carousel_font_family'])) : 'Arial');
+    $carousel_feature_border_width = (isset($_POST['carousel_feature_border_width']) ? (int) esc_html(stripslashes( $_POST['carousel_feature_border_width'])) : 2);		
+    $carousel_feature_border_style = (isset($_POST['carousel_feature_border_style']) ?  esc_html(stripslashes( $_POST['carousel_feature_border_style'])) : 'solid');
+    $carousel_feature_border_color = (isset($_POST['carousel_feature_border_color']) ?  esc_html(stripslashes( $_POST['carousel_feature_border_color'])) : '5D204F');      
+    $carousel_caption_background_color = (isset($_POST['carousel_caption_background_color']) ?  esc_html(stripslashes( $_POST['carousel_caption_background_color'])) : '000000');
+    $carousel_caption_bottom = (isset($_POST['carousel_caption_bottom']) ? (int) esc_html(stripslashes( $_POST['carousel_caption_bottom'])) : 0);   
+    $carousel_caption_p_mergin = (isset($_POST['carousel_caption_p_mergin']) ? (int) esc_html(stripslashes( $_POST['carousel_caption_p_mergin'])) : 0);
+    $carousel_caption_p_pedding = (isset($_POST['carousel_caption_p_pedding']) ? (int) esc_html(stripslashes( $_POST['carousel_caption_p_pedding'])) : 5);    
+    $carousel_caption_p_font_weight = (isset($_POST['carousel_caption_p_font_weight']) ?  esc_html(stripslashes( $_POST['carousel_caption_p_font_weight'])) : 'bold');
+    $carousel_caption_p_font_size = (isset($_POST['carousel_caption_p_font_size']) ? (int) esc_html(stripslashes( $_POST['carousel_caption_p_font_size'])) : 14);
+    $carousel_caption_p_color = (isset($_POST['carousel_caption_p_color']) ? esc_html(stripslashes( $_POST['carousel_caption_p_color'])) : '000000');
+    $carousel_title_opacity = (isset($_POST['carousel_title_opacity']) ? (int) esc_html(stripslashes( $_POST['carousel_title_opacity'])) : 100);
+    $carousel_title_border_radius = (isset($_POST['carousel_title_border_radius']) ? esc_html(stripslashes( $_POST['carousel_title_border_radius'])) : '5px');
+
 
     $default_theme = (isset($_POST['default_theme']) ? esc_html(stripslashes( $_POST['default_theme'])) : 0);
     if ($id != 0) {
@@ -933,7 +964,37 @@ class BWGControllerThemes_bwg {
         'album_masonry_thumb_hover_effect' => $album_masonry_thumb_hover_effect,
         'album_masonry_thumb_hover_effect_value' => $album_masonry_thumb_hover_effect_value,
         'album_masonry_thumb_transition' => $album_masonry_thumb_transition,
-
+       
+        'carousel_cont_bg_color' => $carousel_cont_bg_color,
+        'carousel_cont_btn_transparent' => $carousel_cont_btn_transparent,
+        'carousel_close_btn_transparent' => $carousel_close_btn_transparent, 
+        'carousel_rl_btn_bg_color' => $carousel_rl_btn_bg_color,
+        'carousel_rl_btn_border_radius' => $carousel_rl_btn_border_radius,  
+        'carousel_rl_btn_border_width' => $carousel_rl_btn_border_width, 
+        'carousel_rl_btn_border_style' => $carousel_rl_btn_border_style, 
+        'carousel_rl_btn_border_color' => $carousel_rl_btn_border_color,       
+        'carousel_rl_btn_color' => $carousel_rl_btn_color,
+        'carousel_rl_btn_height' => $carousel_rl_btn_height, 
+        'carousel_rl_btn_size' => $carousel_rl_btn_size, 
+        'carousel_play_pause_btn_size' => $carousel_play_pause_btn_size,
+        'carousel_rl_btn_width' => $carousel_rl_btn_width, 
+        'carousel_close_rl_btn_hover_color' => $carousel_close_rl_btn_hover_color,
+        'carousel_rl_btn_style' => $carousel_rl_btn_style,
+        'carousel_mergin_bottom' => $carousel_mergin_bottom,
+        'carousel_font_family' => $carousel_font_family, 
+        'carousel_feature_border_width' => $carousel_feature_border_width, 
+        'carousel_feature_border_style' => $carousel_feature_border_style, 
+        'carousel_feature_border_color' => $carousel_feature_border_color,    
+        'carousel_caption_background_color' => $carousel_caption_background_color, 
+        'carousel_caption_bottom' => $carousel_caption_bottom, 
+        'carousel_caption_p_mergin' => $carousel_caption_p_mergin, 
+        'carousel_caption_p_pedding' => $carousel_caption_p_pedding,     
+        'carousel_caption_p_font_weight' => $carousel_caption_p_font_weight, 
+        'carousel_caption_p_font_size' => $carousel_caption_p_font_size, 
+        'carousel_caption_p_color' => $carousel_caption_p_color,
+        'carousel_title_opacity' => $carousel_title_opacity, 
+        'carousel_title_border_radius' => $carousel_title_border_radius,
+        
         'default_theme' => $default_theme,
       ), array('id' => $id));
     }
@@ -1353,7 +1414,37 @@ class BWGControllerThemes_bwg {
         'album_masonry_thumb_hover_effect' => $album_masonry_thumb_hover_effect,
         'album_masonry_thumb_hover_effect_value' => $album_masonry_thumb_hover_effect_value,
         'album_masonry_thumb_transition' => $album_masonry_thumb_transition,
-
+     
+        'carousel_cont_bg_color' => $carousel_cont_bg_color,
+        'carousel_cont_btn_transparent' => $carousel_cont_btn_transparent,
+        'carousel_close_btn_transparent' => $carousel_close_btn_transparent, 
+        'carousel_rl_btn_bg_color' => $carousel_rl_btn_bg_color,
+        'carousel_rl_btn_border_radius' => $carousel_rl_btn_border_radius,  
+        'carousel_rl_btn_border_width' => $carousel_rl_btn_border_width, 
+        'carousel_rl_btn_border_style' => $carousel_rl_btn_border_style, 
+        'carousel_rl_btn_border_color' => $carousel_rl_btn_border_color,       
+        'carousel_rl_btn_color' => $carousel_rl_btn_color,
+        'carousel_rl_btn_height' => $carousel_rl_btn_height, 
+        'carousel_rl_btn_size' => $carousel_rl_btn_size,
+        'carousel_play_pause_btn_size' => $carousel_play_pause_btn_size,      
+        'carousel_rl_btn_width' => $carousel_rl_btn_width, 
+        'carousel_close_rl_btn_hover_color' => $carousel_close_rl_btn_hover_color,
+        'carousel_rl_btn_style'=> $carousel_rl_btn_style,
+        'carousel_mergin_bottom' => $carousel_mergin_bottom, 
+        'carousel_font_family' => $carousel_font_family, 
+        'carousel_feature_border_width' => $carousel_feature_border_width, 
+        'carousel_feature_border_style' => $carousel_feature_border_style, 
+        'carousel_feature_border_color' => $carousel_feature_border_color,        
+        'carousel_caption_background_color' => $carousel_caption_background_color, 
+        'carousel_caption_bottom' => $carousel_caption_bottom, 
+        'carousel_caption_p_mergin' => $carousel_caption_p_mergin, 
+        'carousel_caption_p_pedding' => $carousel_caption_p_pedding,     
+        'carousel_caption_p_font_weight' => $carousel_caption_p_font_weight, 
+        'carousel_caption_p_font_size' => $carousel_caption_p_font_size, 
+        'carousel_caption_p_color' => $carousel_caption_p_color, 
+        'carousel_title_opacity' => $carousel_title_opacity, 
+        'carousel_title_border_radius' => $carousel_title_border_radius,
+        
         'default_theme' => $default_theme,
       ), array(
 				'%s',
@@ -1775,6 +1866,36 @@ class BWGControllerThemes_bwg {
         '%d',
         '%s',
         '%s',
+        
+        '%s',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',      
+        '%s',
+        '%d',
+        '%s',
+        '%s',        
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+        '%d',
+        '%s', 
+        '%d',
+        '%s',         
 
         '%d',
       ));
