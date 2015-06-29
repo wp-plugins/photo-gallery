@@ -75,6 +75,17 @@ class FilemanagerView {
         var callback = "<?php echo (isset($_REQUEST['callback']) ? esc_html($_REQUEST['callback']) : ''); ?>";
         var sortBy = "<?php echo $sort_by; ?>";
         var sortOrder = "<?php echo $sort_order; ?>";
+        jQuery(document).ready(function () {
+          jQuery("#search_by_name .search_by_name").on("input keyup", function() {
+            var search_by_name = jQuery(this).val();
+            jQuery("#explorer_body .explorer_item").each(function() {
+            jQuery(this).hide();
+            if (jQuery(this).find(".item_name").html().trim().toLowerCase().indexOf(search_by_name) !== -1) {
+              jQuery(this).show();
+            }
+            });
+          });
+        });
       </script>
       <script src="<?php echo WD_BWG_URL; ?>/filemanager/js/default.js?ver=<?php echo wd_bwg_version(); ?>"></script>
       <link href="<?php echo WD_BWG_URL; ?>/filemanager/css/default.css?ver=<?php echo wd_bwg_version(); ?>" type="text/css" rel="stylesheet">
@@ -122,6 +133,10 @@ class FilemanagerView {
                   <a class="ctrl_bar_btn btn_import_files" onclick="onBtnShowImportClick(event, this);"><?php echo 'Media library'; ?></a>
                 </span>
                 <?php } ?>
+		<span class="ctrl_bar_divider"></span>
+                <span id="search_by_name" class="ctrl_bar_btn">
+                  <input type="search" placeholder="Search" class="ctrl_bar_btn search_by_name">
+                </span>
               </div>
               <div class="ctrls_right">
                 <a class="ctrl_bar_btn btn_view_thumbs" onclick="onBtnViewThumbsClick(event, this);" title="<?php echo 'View thumbs'; ?>"></a>
