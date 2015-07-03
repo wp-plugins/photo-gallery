@@ -112,7 +112,7 @@ class BWGViewEditThumb {
       $thumb_filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url, ENT_COMPAT | ENT_QUOTES);
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'crop', 'image_id' => $image_id, 'width' => '800', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
-    ini_set('memory_limit', '-1');
+    @ini_set('memory_limit', '-1');
     list($width_orig, $height_orig, $type_orig) = getimagesize($filename);
     if ($edit_type == 'crop') {
       if ($type_orig == 2) {
@@ -155,7 +155,7 @@ class BWGViewEditThumb {
         <?php
       }
     }
-    ini_restore('memory_limit');
+    @ini_restore('memory_limit');
     wp_print_scripts('jquery');
     wp_print_scripts('jcrop');
     wp_print_styles('jcrop');
@@ -354,7 +354,7 @@ class BWGViewEditThumb {
       $thumb_filename = htmlspecialchars_decode(ABSPATH . $WD_BWG_UPLOAD_DIR . $image_data->thumb_url, ENT_COMPAT | ENT_QUOTES);
       $form_action = add_query_arg(array('action' => 'editThumb', 'type' => 'rotate', 'image_id' => $image_id, 'width' => '650', 'height' => '500', 'TB_iframe' => '1'), admin_url('admin-ajax.php'));
     }
-    ini_set('memory_limit', '-1');
+    @ini_set('memory_limit', '-1');
     list($width_rotate, $height_rotate, $type_rotate) = getimagesize($filename);
     if ($edit_type == '270' || $edit_type == '90') {
       if ($type_rotate == 2) {
@@ -511,7 +511,7 @@ class BWGViewEditThumb {
         <?php
       }
     }
-    ini_restore('memory_limit');
+    @ini_restore('memory_limit');
     ?>
     <style>
       .spider_rotate {

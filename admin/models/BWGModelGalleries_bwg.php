@@ -40,8 +40,10 @@ class BWGModelGalleries_bwg {
     }
     $where .= ((isset($_POST['search_value'])) ? ' AND filename LIKE "%' . esc_html(stripslashes($_POST['search_value'])) . '%"' : '');
     $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
-    $asc_or_desc = ($asc_or_desc != 'asc') ? 'desc' : 'asc';
-    $image_order_by = ' ORDER BY `' . ((isset($_POST['image_order_by']) && esc_html(stripslashes($_POST['image_order_by'])) != '') ? esc_html(stripslashes($_POST['image_order_by'])) : 'order') . '` ' . $asc_or_desc;
+    $image_asc_or_desc = ((isset($_POST['image_asc_or_desc'])) ? esc_html(stripslashes($_POST['image_asc_or_desc'])) : ((isset($_COOKIE['bwg_image_asc_or_desc'])) ? esc_html(stripslashes($_COOKIE['bwg_image_asc_or_desc'])) : 'asc'));
+    $image_asc_or_desc = ($image_asc_or_desc != 'asc') ? 'desc' : 'asc';
+    $image_order_by = ((isset($_POST['image_order_by']) && esc_html(stripslashes($_POST['image_order_by'])) != '') ? esc_html(stripslashes($_POST['image_order_by'])) : ((isset($_COOKIE['bwg_image_order_by']) && esc_html(stripslashes($_COOKIE['bwg_image_order_by'])) != '') ? esc_html(stripslashes($_COOKIE['bwg_image_order_by'])) : 'order'));
+    $image_order_by = ' ORDER BY `' . $image_order_by . '` ' . $image_asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
       $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }

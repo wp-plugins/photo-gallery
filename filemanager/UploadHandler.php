@@ -318,7 +318,7 @@ class UploadHandler {
         $max_width / $img_width,
         $max_height / $img_height
       );
-      ini_set('memory_limit', '-1');
+      @ini_set('memory_limit', '-1');
       if (($scale >= 1) || (($max_width == NULL) && ($max_height == NULL))) {
         if ($file_path !== $new_file_path) {
           return copy($file_path, $new_file_path);
@@ -388,7 +388,7 @@ class UploadHandler {
       // Free up memory (imagedestroy does not delete files):
       @imagedestroy($src_img);
       @imagedestroy($new_img);
-      ini_restore('memory_limit');
+      @ini_restore('memory_limit');
       return $success;
     }
 
@@ -544,7 +544,7 @@ class UploadHandler {
       if (!in_array($orientation, array(3, 6, 8))) {
         return false;
       }
-      ini_set('memory_limit', '-1');
+      @ini_set('memory_limit', '-1');
       $image = @imagecreatefromjpeg($file_path);
       switch ($orientation) {
         case 3:
@@ -562,7 +562,7 @@ class UploadHandler {
       $success = imagejpeg($image, $file_path);
       // Free up memory (imagedestroy does not delete files):
       @imagedestroy($image);
-      ini_restore('memory_limit');
+      @ini_restore('memory_limit');
       return $success;
     }
 

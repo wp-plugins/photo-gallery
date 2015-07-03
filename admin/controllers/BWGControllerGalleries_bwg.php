@@ -185,7 +185,7 @@ class BWGControllerGalleries_bwg {
     list($width_orig, $height_orig, $type_orig) = getimagesize($filename);
     $percent = $width_orig / $thumb_width;
     $thumb_height = $height_orig / $percent;
-    ini_set('memory_limit', '-1');
+    @ini_set('memory_limit', '-1');
     if ($type_orig == 2) {
       $img_r = imagecreatefromjpeg($filename);
       $dst_r = ImageCreateTrueColor($thumb_width, $thumb_height);
@@ -220,7 +220,7 @@ class BWGControllerGalleries_bwg {
       imagedestroy($img_r);
       imagedestroy($dst_r);
     }
-    ini_restore('memory_limit');
+    @ini_restore('memory_limit');
     ?>
     <script language="javascript">
       var image_src = window.parent.document.getElementById("image_thumb_<?php echo $id; ?>").src;
@@ -363,7 +363,7 @@ class BWGControllerGalleries_bwg {
       $max_width / $img_width,
       $max_height / $img_height
     );
-    ini_set('memory_limit', '-1');
+    @ini_set('memory_limit', '-1');
     if (($scale >= 1) || (($max_width === 0) && ($max_height === 0))) {
       // if ($file_path !== $new_file_path) {
         // return copy($file_path, $new_file_path);
@@ -433,7 +433,7 @@ class BWGControllerGalleries_bwg {
     // Free up memory (imagedestroy does not delete files):
     @imagedestroy($src_img);
     @imagedestroy($new_img);
-    ini_restore('memory_limit');
+    @ini_restore('memory_limit');
     return $success;
   }
 
@@ -498,7 +498,7 @@ class BWGControllerGalleries_bwg {
         $left = ($width - $watermark_sizes['width']) / 2;
         break;
     }
-    ini_set('memory_limit', '-1');
+    @ini_set('memory_limit', '-1');
     if ($type == 2) {
       $image = imagecreatefromjpeg($original_filename);
       imagettftext($image, $watermark_font_size, 0, $left, $top, $watermark_color, $watermark_font, $watermark_text);
@@ -525,7 +525,7 @@ class BWGControllerGalleries_bwg {
       imagedestroy($image);
     }
     imagedestroy($watermark_image);
-    ini_restore('memory_limit');
+    @ini_restore('memory_limit');
   }
 
   function set_image_watermark($original_filename, $dest_filename, $watermark_url, $watermark_height, $watermark_width, $watermark_position) {
@@ -558,7 +558,7 @@ class BWGControllerGalleries_bwg {
         $left = ($width - $watermark_width) / 2;
         break;
     }
-    ini_set('memory_limit', '-1');
+    @ini_set('memory_limit', '-1');
     if ($type_watermark == 2) {
       $watermark_image = imagecreatefromjpeg($watermark_url);        
     }
@@ -607,7 +607,7 @@ class BWGControllerGalleries_bwg {
       imagedestroy($tempimage);
     }
     imagedestroy($watermark_image);
-    ini_restore('memory_limit');
+    @ini_restore('memory_limit');
   }
 
   public function save_image_db() {
@@ -1041,7 +1041,7 @@ class BWGControllerGalleries_bwg {
           $max_width / $img_width,
           $max_height / $img_height
         );
-        ini_set('memory_limit', '-1');
+        @ini_set('memory_limit', '-1');
         if (!function_exists('imagecreatetruecolor')) {
           error_log('Function not found: imagecreatetruecolor');
           return FALSE;
@@ -1090,7 +1090,7 @@ class BWGControllerGalleries_bwg {
         // Free up memory (imagedestroy does not delete files):
         @imagedestroy($src_img);
         @imagedestroy($new_img);
-        ini_restore('memory_limit');
+        @ini_restore('memory_limit');
 	    }
 	  }
 	  if ($flag == false) {

@@ -91,6 +91,10 @@ function spider_ajax_save(form_id, tr_group) {
   var ids_string = jQuery("#ids_string").val();
   var image_order_by = jQuery("#image_order_by").val();
   var asc_or_desc = jQuery("#asc_or_desc").val();
+  var image_asc_or_desc = jQuery("#image_asc_or_desc").val();
+  // Set cookie for image ordering in admin.
+  document.cookie = 'bwg_image_asc_or_desc=' + image_asc_or_desc;
+  document.cookie = 'bwg_image_order_by=' + image_order_by;
   
   var image_current_id = jQuery("#image_current_id").val();
   ids_array = ids_string.split(",");
@@ -115,6 +119,7 @@ function spider_ajax_save(form_id, tr_group) {
   post_data["page_number"] = page_number;
   post_data["image_order_by"] = image_order_by;
   post_data["asc_or_desc"] = asc_or_desc;
+  post_data["image_asc_or_desc"] = image_asc_or_desc;
   post_data["ids_string"] = ids_string;
   post_data["task"] = "ajax_search";
   post_data["ajax_task"] = ajax_task;
