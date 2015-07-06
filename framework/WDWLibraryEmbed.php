@@ -28,7 +28,29 @@ class WDWLibraryEmbed {
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //
   ////////////////////////////////////////////////////////////////////////////////////////
-    
+
+  public function get_provider($oembed, $url, $args = '') {
+		$provider = false;
+		if (!isset($args['discover'])) {
+			$args['discover'] = true;
+    }
+		foreach ($oembed->providers as $matchmask => $data ) {
+			list( $providerurl, $regex ) = $data;
+			// Turn the asterisk-type provider URLs into regex
+			if ( !$regex ) {
+				$matchmask = '#' . str_replace( '___wildcard___', '(.+)', preg_quote( str_replace( '*', '___wildcard___', $matchmask ), '#' ) ) . '#i';
+				$matchmask = preg_replace( '|^#http\\\://|', '#https?\://', $matchmask );
+			}
+			if ( preg_match( $matchmask, $url ) ) {
+				$provider = str_replace( '{format}', 'json', $providerurl ); // JSON is easier to deal with than XML
+				break;
+			}
+		}
+		if ( !$provider && $args['discover'] ) {
+			$provider = $oembed->discover($url);
+    }
+		return $provider;
+	}
 
 /** 
  * check host and get data for a given url
@@ -90,7 +112,13 @@ class WDWLibraryEmbed {
       include( ABSPATH . WPINC . '/class-oembed.php' );
     // get an oembed object
     $oembed = _wp_oembed_get_object();
-    $provider = $oembed->get_provider( $url );
+    if (method_exists($oembed, 'get_provider')) {
+      // Since 4.0.0
+      $provider = $oembed->get_provider($url);
+    }
+    else {
+      $provider = self::get_provider($oembed, $url);
+    }
     foreach ($accepted_oembeds as $oembed_provider => $regex) {
       if(preg_match($regex, $provider)==1){
         $host = $oembed_provider;
