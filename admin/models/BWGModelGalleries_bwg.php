@@ -39,18 +39,20 @@ class BWGModelGalleries_bwg {
       $where = " WHERE author>=0 ";
     }
     $where .= ((isset($_POST['search_value'])) ? ' AND filename LIKE "%' . esc_html(stripslashes($_POST['search_value'])) . '%"' : '');
-    $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
     $image_asc_or_desc = ((isset($_POST['image_asc_or_desc'])) ? esc_html(stripslashes($_POST['image_asc_or_desc'])) : ((isset($_COOKIE['bwg_image_asc_or_desc'])) ? esc_html(stripslashes($_COOKIE['bwg_image_asc_or_desc'])) : 'asc'));
     $image_asc_or_desc = ($image_asc_or_desc != 'asc') ? 'desc' : 'asc';
     $image_order_by = ((isset($_POST['image_order_by']) && esc_html(stripslashes($_POST['image_order_by'])) != '') ? esc_html(stripslashes($_POST['image_order_by'])) : ((isset($_COOKIE['bwg_image_order_by']) && esc_html(stripslashes($_COOKIE['bwg_image_order_by'])) != '') ? esc_html(stripslashes($_COOKIE['bwg_image_order_by'])) : 'order'));
+    $order_by_arr = array('filename', 'alt', 'description', 'published');
+    $image_order_by = in_array($image_order_by, $order_by_arr) ? $image_order_by : 'order';
     $image_order_by = ' ORDER BY `' . $image_order_by . '` ' . $image_asc_or_desc;
+
     if (isset($_POST['page_number']) && $_POST['page_number']) {
       $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }
     else {
       $limit = 0;
     }
-    $row = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "bwg_image " . $where . " AND gallery_id='" . $gallery_id . "' " . $image_order_by . " LIMIT " . $limit . ",".$this->per_page);
+    $row = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "bwg_image " . $where . " AND gallery_id='" . $gallery_id . "' " . $image_order_by . " LIMIT " . $limit . "," . $this->per_page);
     return $row;
   }
 
@@ -69,9 +71,10 @@ class BWGModelGalleries_bwg {
       $where = " WHERE author>=0 ";
     }
     $where .= ((isset($_POST['search_value'])) ? ' AND name LIKE "%' . esc_html(stripslashes($_POST['search_value'])) . '%"' : '');
-    $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
-    $asc_or_desc = ($asc_or_desc != 'asc') ? 'desc' : 'asc';
-    $order_by = ' ORDER BY `' . ((isset($_POST['order_by']) && esc_html(stripslashes($_POST['order_by'])) != '') ? esc_html(stripslashes($_POST['order_by'])) : 'order') . '` ' . $asc_or_desc;
+    $asc_or_desc = ((isset($_POST['asc_or_desc']) && esc_html($_POST['asc_or_desc']) == 'desc') ? 'desc' : 'asc');
+    $order_by_arr = array('id', 'name', 'slug', 'order', 'author', 'published');
+    $order_by = ((isset($_POST['order_by']) && in_array(esc_html($_POST['order_by']), $order_by_arr)) ? esc_html($_POST['order_by']) : 'order');
+    $order_by = ' ORDER BY `' . $order_by . '` ' . $asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
       $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }

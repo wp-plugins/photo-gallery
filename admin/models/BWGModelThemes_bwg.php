@@ -31,9 +31,10 @@ class BWGModelThemes_bwg {
   public function get_rows_data() {
     global $wpdb;
     $where = ((isset($_POST['search_value']) && (esc_html($_POST['search_value']) != '')) ? 'WHERE name LIKE "%' . esc_html($_POST['search_value']) . '%"' : '');
-    $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html($_POST['asc_or_desc']) : 'asc');
-    $asc_or_desc = ($asc_or_desc != 'asc') ? 'desc' : 'asc';
-    $order_by = ' ORDER BY ' . ((isset($_POST['order_by']) && esc_html($_POST['order_by']) != '') ? esc_html($_POST['order_by']) : 'id') . ' ' . $asc_or_desc;
+    $asc_or_desc = ((isset($_POST['asc_or_desc']) && esc_html($_POST['asc_or_desc']) == 'desc') ? 'desc' : 'asc');
+    $order_by_arr = array('id', 'name', 'default');
+    $order_by = ((isset($_POST['order_by']) && in_array(esc_html($_POST['order_by']), $order_by_arr)) ? esc_html($_POST['order_by']) : 'id');
+    $order_by = ' ORDER BY `' . $order_by . '` ' . $asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
       $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }

@@ -32,16 +32,17 @@ class BWGModelTags_bwg {
   public function get_rows_data() {
     global $wpdb;
     $where = ((isset($_POST['search_value']) && (esc_html(stripslashes($_POST['search_value'])) != '')) ? 'AND A.name LIKE "%' . esc_html(stripslashes($_POST['search_value'])) . '%"'  : '');
-    $asc_or_desc = ((isset($_POST['asc_or_desc'])) ? esc_html(stripslashes($_POST['asc_or_desc'])) : 'asc');
-    $asc_or_desc = ($asc_or_desc != 'asc') ? 'desc' : 'asc';
-    $order_by = ' ORDER BY ' . ((isset($_POST['order_by']) && esc_html(stripslashes($_POST['order_by'])) != '') ? esc_html(stripslashes($_POST['order_by'])) : 'A.term_id') . ' ' . $asc_or_desc;
+    $asc_or_desc = ((isset($_POST['asc_or_desc']) && esc_html($_POST['asc_or_desc']) == 'desc') ? 'desc' : 'asc');
+    $order_by_arr = array('A.term_id', 'A.name', 'A.slug', 'B.count');
+    $order_by = ((isset($_POST['order_by']) && in_array(esc_html($_POST['order_by']), $order_by_arr)) ? esc_html($_POST['order_by']) : 'A.term_id');
+    $order_by = ' ORDER BY ' . $order_by . ' ' . $asc_or_desc;
     if (isset($_POST['page_number']) && $_POST['page_number']) {
       $limit = ((int) $_POST['page_number'] - 1) * $this->per_page;
     }
     else {
       $limit = 0;
     }
-    $query ="SELECT * FROM ".$wpdb->prefix."terms as A LEFT JOIN ".$wpdb->prefix ."term_taxonomy as B ON A.term_id = B.term_id WHERE B.taxonomy ='bwg_tag' " . $where . $order_by . " LIMIT " . $limit . ",".$this->per_page;
+    $query ="SELECT * FROM ".$wpdb->prefix."terms as A LEFT JOIN ".$wpdb->prefix ."term_taxonomy as B ON A.term_id = B.term_id WHERE B.taxonomy='bwg_tag' " . $where . $order_by . " LIMIT " . $limit . "," . $this->per_page;
     $rows = $wpdb->get_results($query);
     return $rows;
   }
