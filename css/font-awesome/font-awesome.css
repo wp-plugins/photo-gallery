@@ -12,7 +12,8 @@
   font-style: normal;
 }
 #spider_popup_wrap .fa,
-div[id^="bwg_container"] .fa {
+div[id^="bwg_container"] .fa,
+#bwg_rotate_image .fa {
   display: inline-block;
   font-family: FontAwesome !important;
   font-style: normal;

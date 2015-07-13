@@ -360,7 +360,7 @@ class BWGViewGalleries_bwg {
             var a_rotate = document.createElement('a');
             a_rotate.setAttribute('class', "thickbox thickbox-preview");
             a_rotate.setAttribute('onclick', "spider_set_href(this, '" + bwg_j + "', 'rotate');");
-            a_rotate.innerHTML = "Rotate";
+            a_rotate.innerHTML = "Edit";
             span_edit_rotate.appendChild(a_rotate);
             div_edit.innerHTML += " | "
             var span_edit_recover = document.createElement('span');
@@ -921,7 +921,7 @@ class BWGViewGalleries_bwg {
                     $query_url = wp_nonce_url( $query_url, 'editThumb', 'bwg_nonce' );
                     $query_url = add_query_arg(array('TB_iframe' => '1'), $query_url);
                     ?>
-                    <span class="edit_thumb"><a class="thickbox thickbox-preview" href="<?php echo $query_url; ?>">Rotate</a></span> | 
+                    <span class="edit_thumb"><a class="thickbox thickbox-preview" href="<?php echo $query_url; ?>">Edit</a></span> | 
                     <span class="edit_thumb"><a onclick="if (confirm('Do you want to reset the image?')) {
                                                           spider_set_input_value('ajax_task', 'recover');
                                                           spider_set_input_value('image_current_id', '<?php echo $row_data->id; ?>');
