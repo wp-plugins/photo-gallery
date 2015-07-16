@@ -895,7 +895,7 @@ class BWGViewGalleries_bwg {
                   $query_url = add_query_arg(array('TB_iframe' => '1'), $query_url);
                   ?>
                   <a class="thickbox thickbox-preview" title="<?php echo $row_data->alt; ?>" href="<?php echo $query_url; ?>">
-                    <img id="image_thumb_<?php echo $row_data->id; ?>" class="thumb" src="<?php echo (!$is_embed ? site_url() . '/' . $WD_BWG_UPLOAD_DIR : "") . $row_data->thumb_url . '?date=' . date('Y-m-y H:i:s'); ?>">
+                    <img id="image_thumb_<?php echo $row_data->id; ?>" class="thumb" src="<?php echo (!$is_embed ? site_url() . '/' . $WD_BWG_UPLOAD_DIR : "") . $row_data->thumb_url . ($is_embed ? '' : '?date=' . date('Y-m-y H:i:s')); ?>" />
                   </a>
                 </td>
                 <td class="table_extra_large_col">

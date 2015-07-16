@@ -161,6 +161,9 @@ class BWGViewGalleryBox {
     $rgb_bwg_image_info_bg_color = WDWLibrary::spider_hex2rgb($theme_row->lightbox_info_bg_color);
     $rgb_bwg_image_hit_bg_color = WDWLibrary::spider_hex2rgb($theme_row->lightbox_hit_bg_color);
     $rgb_lightbox_ctrl_cont_bg_color = WDWLibrary::spider_hex2rgb($theme_row->lightbox_ctrl_cont_bg_color);
+
+    $current_filename = '';
+
     ?>
     <style>
       .spider_popup_wrap * {
@@ -783,6 +786,7 @@ class BWGViewGalleryBox {
           $current_image_url = $image_row->image_url;
           $current_thumb_url = $image_row->thumb_url;
           $current_filetype = $image_row->filetype;
+          $current_filename = $image_row->filename;
           $image_id_exist = TRUE;
         }
         ?>
@@ -839,17 +843,31 @@ class BWGViewGalleryBox {
           <?php } if ($popup_enable_info) { ?>
           <i title="<?php echo __('Show info', 'bwg'); ?>" class="bwg_ctrl_btn bwg_info fa fa-info"></i>
           <?php }
+          $is_embed = preg_match('/EMBED/', $current_filetype) == 1 ? TRUE : FALSE;
           if ($option_row->popup_enable_fullsize_image) {
             ?>
-            <a id="bwg_fullsize_image" href="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url; ?>" target="_blank">
+            <a id="bwg_fullsize_image" href="<?php echo !$is_embed ? site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url : $current_image_url; ?>" target="_blank">
               <i title="<?php echo __('Open image in original size.', 'bwg'); ?>" class="bwg_ctrl_btn fa fa-external-link"></i>
             </a>
             <?php
           }
           if ($option_row->popup_enable_download) {
+            $style = 'none';
             $current_image_arr = explode('/', $current_image_url);
+            if (!$is_embed) {
+              $download_href = site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url;
+              $style = 'inline-block';
+            }
+            elseif (preg_match('/FLICKR/', $current_filetype) == 1) {
+              $download_href = $current_filename;
+              $style = 'inline-block';
+            }
+            elseif (preg_match('/INSTAGRAM/', $current_filetype) == 1) {
+              $download_href = substr_replace($current_thumb_url, 'l', -1);
+              $style = 'inline-block';
+            }
             ?>
-            <a id="bwg_download" href="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR . $current_image_url; ?>" target="_blank" download="<?php echo end($current_image_arr); ?>">
+            <a id="bwg_download" href="<?php echo $download_href; ?>" target="_blank" download="<?php echo end($current_image_arr); ?>" style="display: <?php echo $style; ?>;">
               <i title="<?php echo __('Download original image', 'bwg'); ?>" class="bwg_ctrl_btn fa fa-download"></i>
             </a>
             <?php
@@ -1432,8 +1450,23 @@ class BWGViewGalleryBox {
             }
             ?>
             bwg_<?php echo $image_effect; ?>(current_image_class, next_image_class, direction);
-            jQuery("#bwg_fullsize_image").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
-            jQuery("#bwg_download").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
+            jQuery("#bwg_download").show();
+            if (!is_embed) {
+              jQuery("#bwg_fullsize_image").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
+              jQuery("#bwg_download").attr("href", "<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>" + data[key]['image_url']);
+            }
+            else {
+              jQuery("#bwg_fullsize_image").attr("href", data[key]['image_url']);
+              if (data[key]['filetype'].indexOf("FLICKR_") > -1) {
+                jQuery("#bwg_download").attr("href", data[key]['filename']);
+              }
+              else if (data[key]['filetype'].indexOf("INSTAGRAM_") > -1) {
+                jQuery("#bwg_download").attr("href", data[key]['thumb_url'].substring(0, data[key]['thumb_url'].length - 1) + 'l');
+              }
+              else {
+               jQuery("#bwg_download").hide();
+              }
+            }
             var image_arr = data[key]['image_url'].split("/");
             jQuery("#bwg_download").attr("download", image_arr[image_arr.length - 1]);
             /* Load comments.*/
@@ -2193,9 +2226,8 @@ class BWGViewGalleryBox {
       }
 
       function bwg_resize_instagram_post(){
-        
+        jQuery('.bwg_embed_frame').css({'width':'inherit', 'height':'inherit', 'vertical-align':'middle', 'display':'table-cell'});
         /*jQuery.fn.exists = function(){return this.length>0;}*/
-
         if (jQuery('.inner_instagram_iframe_bwg_embed_frame').length) {
           var w = jQuery(".bwg_popup_embed").width();
           var h = jQuery(".bwg_popup_embed").height();

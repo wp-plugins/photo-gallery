@@ -153,8 +153,8 @@ class WDWLibraryEmbed {
           'filename' => $filename,
           'url' => $url,
           'reliative_url' => $url,
-          'thumb_url' => $result->thumbnail_url,
-          'thumb' => $result->thumbnail_url,
+          'thumb_url' => 'https://instagram.com/p/' . $filename . '/media/?size=t',
+          'thumb' => 'https://instagram.com/p/' . $filename . '/media/?size=t',
           'size' => '',
           'filetype' => $embed_type,
           'date_modified' => date('d F Y, H:i'),
@@ -225,8 +225,8 @@ class WDWLibraryEmbed {
           'filename' => $filename,
           'url' => $url,
           'reliative_url' => $url,
-          'thumb_url' => $result->thumbnail_url,
-          'thumb' => $result->thumbnail_url,
+          'thumb_url' => 'https://instagram.com/p/' . $filename . '/media/?size=t',
+          'thumb' => 'https://instagram.com/p/' . $filename . '/media/?size=t',
           'size' => '',
           'filetype' => $embed_type,
           'date_modified' => date('d F Y, H:i'),
@@ -530,6 +530,7 @@ class WDWLibraryEmbed {
     echo $html_to_insert;
 
   }
+
   ////////////////////////////////////////////////////////////////////////////////////////
   // Private Methods                                                                    //
   ////////////////////////////////////////////////////////////////////////////////////////

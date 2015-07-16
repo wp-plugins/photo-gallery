@@ -114,8 +114,8 @@ class BWGViewSlideshow {
       $watermark_color = $options_row->watermark_color;
       $watermark_opacity = $options_row->watermark_opacity;
       $watermark_position = explode('-', $options_row->watermark_position);
-      $watermark_link = $options_row->watermark_link;
-      $watermark_url = $options_row->watermark_url;
+      $watermark_link = urlencode($options_row->watermark_link);
+      $watermark_url = urlencode($options_row->watermark_url);
       $watermark_width = $options_row->watermark_width;
       $watermark_height = $options_row->watermark_height;
     }

@@ -194,7 +194,7 @@ class BWGViewAlbum_extended_preview {
       'current_url' => $current_url
     );
     if ($params['watermark_type'] != 'none') {
-      $params_array['watermark_link'] = $params['watermark_link'];
+      $params_array['watermark_link'] = urlencode($params['watermark_link']);
       $params_array['watermark_opacity'] = $params['watermark_opacity'];
       $params_array['watermark_position'] = $params['watermark_position'];
     }
@@ -205,7 +205,7 @@ class BWGViewAlbum_extended_preview {
       $params_array['watermark_color'] = $params['watermark_color'];
     }
     elseif ($params['watermark_type'] == 'image') {
-      $params_array['watermark_url'] = $params['watermark_url'];
+      $params_array['watermark_url'] = urlencode($params['watermark_url']);
       $params_array['watermark_width'] = $params['watermark_width'];
       $params_array['watermark_height'] = $params['watermark_height'];
     }

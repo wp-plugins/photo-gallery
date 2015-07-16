@@ -633,12 +633,12 @@ class BWGControllerGalleries_bwg {
         if (strpos($image_id, 'pr_') !== FALSE) {
           $save = $wpdb->insert($wpdb->prefix . 'bwg_image', array(
             'gallery_id' => $gal_id,
-            'slug' => $alt,
+            'slug' => WDWLibrary::spider_replace4byte($alt),
             'filename' => $filename,
             'image_url' => $image_url,
             'thumb_url' => $thumb_url,
-            'description' => $description,
-            'alt' => $alt,
+            'description' => WDWLibrary::spider_replace4byte($description),
+            'alt' => WDWLibrary::spider_replace4byte($alt),
             'date' => $date,
             'size' => $size,
             'filetype' => $filetype,
@@ -684,12 +684,12 @@ class BWGControllerGalleries_bwg {
         else {
           $save = $wpdb->update($wpdb->prefix . 'bwg_image', array(
             'gallery_id' => $gal_id,
-            'slug' => $alt,
+            'slug' => WDWLibrary::spider_replace4byte($alt),
             'filename' => $filename,
             'image_url' => $image_url,
             'thumb_url' => $thumb_url,
-            'description' => $description,
-            'alt' => $alt,
+            'description' => WDWLibrary::spider_replace4byte($description),
+            'alt' => WDWLibrary::spider_replace4byte($alt),
             'date' => $date,
             'size' => $size,
             'filetype' => $filetype,

@@ -120,14 +120,14 @@ class BWGViewThumbnails {
       $params['popup_enable_pinterest'] = $options_row->popup_enable_pinterest;
       $params['popup_enable_tumblr'] = $options_row->popup_enable_tumblr;
       $params['watermark_type'] = $options_row->watermark_type;
-      $params['watermark_link'] = $options_row->watermark_link;
+      $params['watermark_link'] = urlencode($options_row->watermark_link);
       $params['watermark_opacity'] = $options_row->watermark_opacity;
       $params['watermark_position'] = $options_row->watermark_position;
       $params['watermark_text'] = $options_row->watermark_text;
       $params['watermark_font_size'] = $options_row->watermark_font_size;
       $params['watermark_font'] = $options_row->watermark_font;
       $params['watermark_color'] = $options_row->watermark_color;
-      $params['watermark_url'] = $options_row->watermark_url;
+      $params['watermark_url'] = urlencode($options_row->watermark_url);
       $params['watermark_width'] = $options_row->watermark_width;
       $params['watermark_height'] = $options_row->watermark_height;
       $params['thumb_click_action'] = $options_row->thumb_click_action;
@@ -525,7 +525,7 @@ class BWGViewThumbnails {
           'current_url' => urlencode($current_url)
         );
         if ($params['watermark_type'] != 'none') {
-          $params_array['watermark_link'] = $params['watermark_link'];
+          $params_array['watermark_link'] = urlencode($params['watermark_link']);
           $params_array['watermark_opacity'] = $params['watermark_opacity'];
           $params_array['watermark_position'] = $params['watermark_position'];
         }
@@ -536,7 +536,7 @@ class BWGViewThumbnails {
           $params_array['watermark_color'] = $params['watermark_color'];
         }
         elseif ($params['watermark_type'] == 'image') {
-          $params_array['watermark_url'] = $params['watermark_url'];
+          $params_array['watermark_url'] = urlencode($params['watermark_url']);
           $params_array['watermark_width'] = $params['watermark_width'];
           $params_array['watermark_height'] = $params['watermark_height'];
         }

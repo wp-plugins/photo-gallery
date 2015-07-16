@@ -138,7 +138,7 @@ class BWGViewImage_browser {
       $show_watermark = FALSE;
     }
     if ($params['watermark_type'] != 'none') {
-      $params_array['watermark_link'] = $params['watermark_link'];
+      $params_array['watermark_link'] = urlencode($params['watermark_link']);
       $params_array['watermark_opacity'] = $params['watermark_opacity'];
       $params_array['watermark_position'] =(($params['watermark_position'] != 'undefined') ? $params['watermark_position'] : 'top-center');
 			$position = explode('-', $params_array['watermark_position']);
@@ -160,7 +160,7 @@ class BWGViewImage_browser {
     elseif ($params['watermark_type'] == 'image') {
       $show_watermark = TRUE;
       $watermark_text_image = FALSE;
-      $params_array['watermark_url'] = $params['watermark_url'];
+      $params_array['watermark_url'] = urlencode($params['watermark_url']);
       $params_array['watermark_width'] = $params['watermark_width'];
       $params_array['watermark_height'] = $params['watermark_height'];
 			$watermark_image_or_text = '<img class="bwg_image_browser_watermark_img_' . $bwg . '" src="' . $params_array['watermark_url'] . '" />';
