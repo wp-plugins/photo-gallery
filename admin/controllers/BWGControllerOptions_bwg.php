@@ -227,7 +227,7 @@ class BWGControllerOptions_bwg {
     $carousel_fit_containerWidth = (isset($_POST['carousel_fit_containerWidth']) ? esc_html(stripslashes($_POST['carousel_fit_containerWidth'])) : 1);
     $carousel_prev_next_butt = (isset($_POST['carousel_prev_next_butt']) ? esc_html(stripslashes($_POST['carousel_prev_next_butt'])) : 1);
     $carousel_play_pause_butt = (isset($_POST['carousel_play_pause_butt']) ? esc_html(stripslashes($_POST['carousel_play_pause_butt'])) : 1);
-    
+    $bwg_permissions = (isset($_POST['permissions']) ? esc_html(stripslashes($_POST['permissions'])) : 'manage_options');
 
     $save = $wpdb->update($wpdb->prefix . 'bwg_option', array(
       'images_directory' => $images_directory,
@@ -241,7 +241,7 @@ class BWGControllerOptions_bwg {
       'thumb_height' => $thumb_height,
       'upload_thumb_width' => $upload_thumb_width,
       'upload_thumb_height' => $upload_thumb_height,
-	  'upload_img_width' => $upload_img_width, 
+      'upload_img_width' => $upload_img_width, 
       'upload_img_height' => $upload_img_height,
       'image_enable_page' => $image_enable_page,
       'image_title_show_hover' => $image_title_show_hover,
@@ -271,7 +271,7 @@ class BWGControllerOptions_bwg {
       'slideshow_filmstrip_height' => $slideshow_filmstrip_height,
       'slideshow_enable_title' => $slideshow_enable_title,
       'slideshow_title_position' => $slideshow_title_position,
-	  'slideshow_title_full_width' => $slideshow_title_full_width,
+      'slideshow_title_full_width' => $slideshow_title_full_width,
       'slideshow_enable_description' => $slideshow_enable_description,
       'slideshow_description_position' => $slideshow_description_position,
       'slideshow_enable_music' => $slideshow_enable_music,
@@ -349,13 +349,10 @@ class BWGControllerOptions_bwg {
       'enable_loop' => $enable_loop,
       'enable_addthis' => $enable_addthis,
       'addthis_profile_id' => $addthis_profile_id,
-      
-      //carousel
 
       'carousel_interval' => $carousel_interval,
       'carousel_width' => $carousel_width,
-      'carousel_height' => $carousel_height, 
-	    /*'carousel_title_full_width' => $carousel_title_full_width,*/
+      'carousel_height' => $carousel_height,
 	    'carousel_image_column_number' => $carousel_image_column_number,
       'carousel_image_par' => $carousel_image_par,
       'carousel_enable_title' => $carousel_enable_title,
@@ -364,6 +361,7 @@ class BWGControllerOptions_bwg {
       'carousel_fit_containerWidth' => $carousel_fit_containerWidth,
       'carousel_prev_next_butt' => $carousel_prev_next_butt,
       'carousel_play_pause_butt' => $carousel_play_pause_butt,
+      'permissions' => $bwg_permissions,
       ), array('id' => 1));
 
     if ($save !== FALSE) {      

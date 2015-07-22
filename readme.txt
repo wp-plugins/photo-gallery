@@ -4,7 +4,7 @@ Donate link: https://web-dorado.com/products/wordpress-photo-gallery-plugin.html
 Tags: photo, photo gallery, image gallery, video gallery, gallery, galleries,  wordpress gallery plugin, images gallery, album, photo albums, simple gallery, best gallery plugin, free photo gallery, wp gallery, wordpress gallery, website gallery, gallery shortcode, best gallery, picture, pictures, gallery slider, photo album, photogallery, widget gallery, image, images, photos,  gallery lightbox, photoset, wordpress photo gallery plugin, wp gallery plugins, responsive wordpress photo gallery, media, image album, filterable gallery, banner rotator, fullscreen gallery, fotogalerie, galleria, galerie, galeri, responsive gallery, add album,  add gallery, add pictures, fotoalbum, foto, gallery decription, multiple pictures, photoalbum, upload images, upload photos, view images, view pictures, admin, AJAX, comments, gallery image, image lightbox, image rotate, image slideshow, image slider, jquery, jquery gallery, slide show, slideshow, thumbnail, thumbnail view, thumbnails, thumbs, responsive, watermarking, watermarks,fullscreen slider, lightbox, photography, sidebar, slide, youtube, vimeo, videos, instagram, mosaic 
 Requires at least: 3.4 
 Tested up to: 4.2 
-Stable tag: 1.2.44   
+Stable tag: 1.2.45   
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -207,13 +207,16 @@ Yes, it is possible to add advertising and/or watermark over the images. In both
 
 == Changelog ==
 
+= 1.2.45 =
+*  Changed: Licensing page.
+
 = 1.2.44 =
-Fixed: "Open image in original size" and "Download original image" for embed.
-Fixed: Instagram thumbnail.
-Fixed: Watermark link.
+*  Fixed: "Open image in original size" and "Download original image" for embed.
+*  Fixed: Instagram thumbnail.
+*  Fixed: Watermark link.
 
 = 1.2.43 =
-New: Tools for editing images
+*  New: Tools for editing images
   
 = 1.2.42 =
 *  Fixed: Security issue  

@@ -4,7 +4,7 @@
  * Plugin Name: Photo Gallery
  * Plugin URI: https://web-dorado.com/products/wordpress-photo-gallery-plugin.html
  * Description: This plugin is a fully responsive gallery plugin with advanced functionality.  It allows having different image galleries for your posts and pages. You can create unlimited number of galleries, combine them into albums, and provide descriptions and tags.
- * Version: 1.2.44
+ * Version: 1.2.45
  * Author: WebDorado
  * Author URI: https://web-dorado.com/
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -747,16 +747,17 @@ function bwg_activate() {
 	`enable_addthis` tinyint(1) NOT NULL,
 	`addthis_profile_id` varchar(66) NOT NULL,
 	`carousel_interval` int(4) NOT NULL,
-    `carousel_width` int(4) NOT NULL,
-    `carousel_height` int(4) NOT NULL,
-    `carousel_image_column_number` int(4) NOT NULL,
-    `carousel_image_par` varchar(32) NOT NULL,
-    `carousel_enable_title` tinyint(1) NOT NULL,
-	  `carousel_enable_autoplay` tinyint(1) NOT NULL,
-	  `carousel_r_width` int(4) NOT NULL,
-    `carousel_fit_containerWidth` tinyint(1) NOT NULL,
-    `carousel_prev_next_butt` tinyint(1) NOT NULL,
-    `carousel_play_pause_butt` tinyint(1) NOT NULL,
+  `carousel_width` int(4) NOT NULL,
+  `carousel_height` int(4) NOT NULL,
+  `carousel_image_column_number` int(4) NOT NULL,
+  `carousel_image_par` varchar(32) NOT NULL,
+  `carousel_enable_title` tinyint(1) NOT NULL,
+  `carousel_enable_autoplay` tinyint(1) NOT NULL,
+  `carousel_r_width` int(4) NOT NULL,
+  `carousel_fit_containerWidth` tinyint(1) NOT NULL,
+  `carousel_prev_next_butt` tinyint(1) NOT NULL,
+  `carousel_play_pause_butt` tinyint(1) NOT NULL,
+  `permissions` varchar(20) NOT NULL,
     PRIMARY KEY (`id`)
   ) DEFAULT CHARSET=utf8;";
   $wpdb->query($bwg_option);
@@ -1370,166 +1371,24 @@ function bwg_activate() {
       'instagram_client_id' => '',
       'description_tb' => 0,
       'enable_seo' => 1,
-	  'autohide_lightbox_navigation' => 1,
-	  'autohide_slideshow_navigation' => 1,
-	  'read_metadata' => 1,
-	  'enable_loop'=> 1,
-	  'enable_addthis'=> 0,
-	  'addthis_profile_id'=> '',
-	  'carousel_interval' => 5,
+      'autohide_lightbox_navigation' => 1,
+      'autohide_slideshow_navigation' => 1,
+      'read_metadata' => 1,
+      'enable_loop'=> 1,
+      'enable_addthis'=> 0,
+      'addthis_profile_id'=> '',
+      'carousel_interval' => 5,
       'carousel_width' => 300,
       'carousel_height' => 300,
-		  'carousel_image_column_number' => 5,
+      'carousel_image_column_number' => 5,
       'carousel_image_par' => '0.75',
       'carousel_enable_title' => 0,
-		  'carousel_enable_autoplay' => 0,
+      'carousel_enable_autoplay' => 0,
       'carousel_r_width' => 800,
       'carousel_fit_containerWidth' => 1,
       'carousel_prev_next_butt' => 1,
       'carousel_play_pause_butt' => 1,
-    ), array(
-      '%d',
-      '%s',
-
-      '%s',
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%s',
-
-      '%d',
-      '%d',
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-
-      '%d',
-      '%d',
-      '%d',
-
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%s',
-      '%d',
-      '%s',
-      '%d',
-      '%s',
-
-      '%d',
-      '%d',
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-
-      '%s',
-      '%s',
-      '%d',
-      '%d',
-      '%s',
-      '%s',
-      '%s',
-      '%d',
-      '%s',
-      '%s',
-      '%d',
-
-      '%s',
-      '%s',
-      '%d',
-      '%s',
-      '%s',
-      '%d',
-      '%s',
-      '%s',
-      '%d',
-
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-	  '%d',
-	  '%d',
-	  '%d',
-	  '%d',
-	  '%s',
-	  '%d',
-      '%d',
-      '%d',
-		  '%d',
-      '%s',
-      '%d',
-		  '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      
+      'permissions' => 'manage_options',
     ));
   }
   $exists_default = $wpdb->get_var('SELECT count(id) FROM ' . $wpdb->prefix . 'bwg_theme');
@@ -3346,7 +3205,7 @@ function bwg_activate() {
     ));
   }
   $version = get_option("wd_bwg_version");
-  $new_version = '1.2.44';
+  $new_version = '1.2.45';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);
@@ -3364,7 +3223,7 @@ wp_oembed_add_provider( '#https://instagr(\.am|am\.com)/p/.*#i', 'https://api.in
 
 function bwg_update_hook() {
 	$version = get_option("wd_bwg_version");
-  $new_version = '1.2.44';
+  $new_version = '1.2.45';
   if ($version && version_compare($version, $new_version, '<')) {
     require_once WD_BWG_DIR . "/update/bwg_update.php";
     bwg_update($version);

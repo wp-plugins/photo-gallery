@@ -170,6 +170,7 @@ class BWGModelOptions_bwg {
       $row->carousel_fit_containerWidth = 1;
       $row->carousel_prev_next_butt = 1;
       $row->carousel_play_pause_butt = 1;
+      $row->permissions = 'manage_options';
     }
     return $row;
   }

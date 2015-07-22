@@ -37,11 +37,12 @@ class BWGViewLicensing_bwg {
         <span>Photo Gallery Widget</span>
         <span>Slideshow/Lightbox Effects</span>
         <span>Possibility of Editing/Creating New Themes</span>
-        <span>9 Pro Gallery/Album Views</span>
+        <span>10 Pro Gallery/Album Views</span>
         <span>Image Commenting</span>
         <span>Image Social Sharing</span>
         <span>Photo Gallery Tags Cloud Widget</span>
         <span>Instagram Integration</span>
+        <span>AddThis Integration</span>
       </div>
       <div id="featurs_table2">
         <span style="padding-top: 18px;height: 39px;">Free</span>
@@ -61,6 +62,7 @@ class BWGViewLicensing_bwg {
         <span class="no"></span>
         <span class="no"></span>
         <span class="no"></span>
+        <span class="no"></span>
       </div>
       <div id="featurs_table3">
         <span>Pro Version</span>
@@ -74,6 +76,7 @@ class BWGViewLicensing_bwg {
         <span class="yes"></span>
         <span class="yes"></span>
         <span>15</span>
+        <span class="yes"></span>
         <span class="yes"></span>
         <span class="yes"></span>
         <span class="yes"></span>
