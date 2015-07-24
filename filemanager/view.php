@@ -67,7 +67,7 @@ class FilemanagerView {
 
         var messageEnterDirName = "<?php echo 'Enter directory name'; ?>";
         var messageEnterNewName = "<?php echo 'Enter new name'; ?>";
-        var messageFilesUploadComplete = "<?php echo 'Files upload complete'; ?>";
+        var messageFilesUploadComplete = "<?php echo 'Processing uploaded files...'; ?>";
 
         var root = "<?php echo addslashes($this->controller->get_uploads_dir()); ?>";
         var dir = "<?php echo (isset($_REQUEST['dir']) ? addslashes(esc_html($_REQUEST['dir'])) : ''); ?>";
@@ -415,13 +415,15 @@ class FilemanagerView {
                           jQuery("#uploader_progress_text").text(messageFilesUploadComplete);
                           jQuery("#uploader_progress_text").addClass("uploader_text");
                         });
+                        jQuery("#opacity_div").show();
+                        jQuery("#loading_div").show();
                       }
                     },
                     stop: function (e, data) {
                       onBtnBackClick();
                     },
                     done: function (e, data) {
-                      jQuery.each(data.result.files, function (index, file) {
+                      jQuery.each(data.files, function (index, file) {
                         if (file.error) {
                           alert(errorLoadingFile + ' :: ' + file.error);
                         }
@@ -432,6 +434,8 @@ class FilemanagerView {
                           jQuery("#uploaded_files ul").prepend(jQuery("<li class=uploaded_item>" + file.name + " (<?php echo 'Uploaded' ?>)" + "</li>"));
                         }
                       });
+                      jQuery("#opacity_div").hide();
+                      jQuery("#loading_div").hide();
                     }
                   });
                   jQuery(window).load(function () {
