@@ -299,8 +299,12 @@ function bwg_update($version) {
     $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_title_opacity` int(4) NOT NULL DEFAULT 100");
 		$wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `carousel_title_border_radius` varchar(8) NOT NULL DEFAULT '5px'");         
 	}
-  if (version_compare($version, '1.2.45') == -1) {
+	if (version_compare($version, '1.2.45') == -1) {
 	  $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `permissions` varchar(20) NOT NULL DEFAULT 'manage_options'");
+	}
+
+  if (version_compare($version, '1.2.47') == -1) {
+	  $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_transition` tinyint(1) NOT NULL DEFAULT 1");
 	}
   return;
 }

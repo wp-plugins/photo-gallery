@@ -503,9 +503,9 @@ class BWGModelThemes_bwg {
           $row->carousel_caption_p_font_weight = 'bold';
           $row->carousel_caption_p_font_size = 14;
           $row->carousel_caption_p_color = 'white';
-          $row->carousel_title_opacity = 100; 
-          $row->carousel_title_border_radius = '5px'; 
-          
+          $row->carousel_title_opacity = 100;
+          $row->carousel_title_border_radius = '5px';
+          $row->mosaic_thumb_transition = 1;
         }
       }
     }
