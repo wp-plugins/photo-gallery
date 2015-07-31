@@ -47,10 +47,13 @@
   }
 }
 
-#TB_window,
+#TB_window{
+ width: 800px !important;
+ height: 500px !important;
+}
 #TB_iframeContent {
-  width: 800px !important;
-  height: 500px !important;
+ width: 800px !important;
+ height: 470px !important;
 }
 
 #TB_window {
