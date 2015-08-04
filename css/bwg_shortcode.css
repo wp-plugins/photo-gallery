@@ -67,3 +67,8 @@
   border: 1px solid #CCCCCC;
   margin: 2px;
 }
+
+#bwg_function,
+#bwg_shortcode {
+  margin: 10px 0 0;
+}

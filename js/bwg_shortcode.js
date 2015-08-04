@@ -645,3 +645,8 @@ function bwg_onKeyDown(e) {
     }
   }
 }
+
+function spider_select_value(obj) {
+  obj.focus();
+  obj.select();
+}

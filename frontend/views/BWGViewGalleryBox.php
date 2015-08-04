@@ -2226,7 +2226,7 @@ class BWGViewGalleryBox {
       }
 
       function bwg_resize_instagram_post(){
-        jQuery('.bwg_embed_frame').css({'width':'inherit', 'height':'inherit', 'vertical-align':'middle', 'display':'table-cell'});
+        jQuery('.bwg_embed_frame').css({'width':'inherit', 'height':'inherit', 'vertical-align':'middle', 'display':'inline-block'});
         /*jQuery.fn.exists = function(){return this.length>0;}*/
         if (jQuery('.inner_instagram_iframe_bwg_embed_frame').length) {
           var w = jQuery(".bwg_popup_embed").width();

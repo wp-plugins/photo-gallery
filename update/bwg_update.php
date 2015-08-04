@@ -302,9 +302,11 @@ function bwg_update($version) {
 	if (version_compare($version, '1.2.45') == -1) {
 	  $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_option ADD `permissions` varchar(20) NOT NULL DEFAULT 'manage_options'");
 	}
-
   if (version_compare($version, '1.2.47') == -1) {
 	  $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_theme ADD `mosaic_thumb_transition` tinyint(1) NOT NULL DEFAULT 1");
+	}
+  if (version_compare($version, '1.2.48') == -1) {
+	  $wpdb->query("ALTER TABLE " . $wpdb->prefix . "bwg_image CHANGE `slug` `slug` longtext NOT NULL");
 	}
   return;
 }

@@ -1002,10 +1002,12 @@ class BWGViewBWGShortcode {
           }
           else {
             $tagtext = '';
+            $tagfunction = '';
             if (isset($_POST['currrent_id'])) {
               $currrent_id = stripslashes($_POST['currrent_id']);
               $title = ((isset($_POST['title'])) ? stripslashes($_POST['title']) : '');
               $tagtext = '[Best_Wordpress_Gallery id="' . $currrent_id . '"' . $title . ']';
+              $tagfunction = "<?php echo photo_gallery(" . $currrent_id . "); ?>";
             }
             ?>
             <hr style="float: left; width: 100%;" />
@@ -1013,7 +1015,14 @@ class BWGViewBWGShortcode {
               <a id="bwg_pro_version_link" class="button button-primary" target="_blank" style="display: table; margin-bottom: 5px;" href="https://web-dorado.com/files/fromPhotoGallery.php">Please see Pro <span id="bwg_pro_version">Thumbnail</span> View</a>
               <input type="button" class="button-primary" id="insert" name="insert" value="Generate" onclick="bwg_insert_shortcode('');" />
               <input type="button" class="button-secondary" id="import" name="import" value="Import" onclick="bwg_update_shortcode()" />
-              <textarea style="width: 100%; resize: vertical; margin-top: 5px;" id="bwg_shortcode" rows="2" onkeydown="bwg_onKeyDown(event)"><?php echo $tagtext; ?></textarea>
+              <div>
+                <input type="text" size="55" id="bwg_shortcode" name="bwg_shortcode" value='<?php echo $tagtext; ?>' onclick="bwg_onKeyDown(event)" />
+                <b>Shortcode</b>
+              </div>
+              <div>
+                <input type="text" size="55" id="bwg_function" name="bwg_function" value="<?php echo $tagfunction; ?>" onclick="spider_select_value(this)" readonly="readonly" />
+                <b>PHP function</b>
+              </div>
             </span>
             </div>
             <?php
