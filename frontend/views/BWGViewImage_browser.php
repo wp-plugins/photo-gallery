@@ -463,7 +463,7 @@ class BWGViewImage_browser {
               foreach ($image_rows as $image_row) {
                 $params_array['image_id'] = (isset($_POST['image_id']) ? esc_html($_POST['image_id']) : $image_row->id);
                 $is_embed = preg_match('/EMBED/',$image_row->filetype)==1 ? true :false;
-                $is_embed_16x9 = ((preg_match('/EMBED/',$image_row->filetype)==1 ? true :false) && (preg_match('/VIDEO/',$image_row->filetype)==1 ? true :false) && !(preg_match('/INSTAGRAM/',$image_row->filetype)==1 ? true :false));
+                $is_embed_16x9 = ((preg_match('/EMBED/',$image_row->filetype)==1 ? true : false) && (preg_match('/VIDEO/',$image_row->filetype)==1 ? true : false) && !(preg_match('/INSTAGRAM/',$image_row->filetype)==1 ? true :false));
                 $is_embed_instagram_post = preg_match('/INSTAGRAM_POST/',$image_row->filetype)==1 ? true :false;
                 ?>  
                 <div class="image_browser_image_buttons_conteiner_<?php echo $bwg; ?>">
@@ -522,74 +522,7 @@ class BWGViewImage_browser {
                         <?php
                         } 
                       }
-                      ?>
-                    <script>
-                    jQuery(window).load(function() {	
-                      /*setTimeout(function() {*/
-                        
-                        jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').width(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').parent().width());
-                        jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').width() * 0.5625);
-                        jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').width(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').parent().width());
-                        jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').width() +88);
-
-                        if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 108) {
-                          jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');
-                        }
-                        if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 200 && jQuery('.image_browser_images_<?php echo $bwg; ?>').width() > 108) {
-                          jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
-                          jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0% 3% 0% 3%');
-                          jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 0% 0% 0%');
-                          jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 0%');
-                        }
-                        else {
-                          if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() > 200 && jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 580) {
-                            jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> a').css('font-size', '13px');
-                            jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0% 10% 0% 10%');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 3% 0% 0%');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 3%');
-                          }
-                          if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() > 580) {
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> a').css('font-size', '15px');
-                            jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0%  17% 0%  17%');
-                            jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 4% 0% 0%');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 4%');
-                          }
-                        }
-                      }/*, 3*/);
-                      jQuery(window).resize(function() {
-                        
-                        jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').width() * 0.5625);
-                        jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').width() +88);
-
-                        if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 108) {
-                          jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');					  
-                        }
-                        if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 200 && jQuery('.image_browser_images_<?php echo $bwg; ?>').width() > 108) {
-                          jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0% 2% 0% 2%');
-                          jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
-                          jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 0% 0% 0%');
-                          jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 0%');						
-                        }
-                        else {
-                          if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() > 200 && jQuery('.image_browser_images_<?php echo $bwg; ?>').width() <= 580) {
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> a').css('font-size', '13px');
-                            jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0% 10% 0% 10%');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 3% 0% 0%');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 3%');
-                            jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
-                          }
-                          else if (jQuery('.image_browser_images_<?php echo $bwg; ?>').width() > 580) {
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> a').css('font-size', '15px');
-                            jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0%  17% 0%  17%');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 4% 0% 0%');
-                            jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 4%');
-                            jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
-                          }
-                        }
-                      });
-                    </script>				  
+                      ?>		  
                     </div>
                       <?php
                       if ($enable_image_description && ($image_row->description != "")) {
@@ -599,7 +532,7 @@ class BWGViewImage_browser {
                           <?php echo html_entity_decode($image_row->description); ?>
                         </div>                  
                       </div>
-                      <?php
+                        <?php
                       }
                       ?>
                   </div>
@@ -618,6 +551,37 @@ class BWGViewImage_browser {
       </div>
     </div>
     <script>
+      function bwg_image_browser_<?php echo $bwg; ?>() {
+        jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').width(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').parent().width());
+        jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').width() * 0.5625);
+        jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').width(jQuery('#bwg_embed_frame_16x9_<?php echo $bwg; ?>').parent().width());
+        jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').height(jQuery('#bwg_embed_frame_instapost_<?php echo $bwg; ?>').width() +88);
+
+        var bwg_image_browser_width = jQuery('.image_browser_images_<?php echo $bwg; ?>').width();
+        if (bwg_image_browser_width <= 108) {
+          jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'none');
+        }
+        else if (bwg_image_browser_width <= 200) {
+          jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0% 3% 0% 3%');
+          jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
+          jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 0% 0% 0%');
+          jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 0%');
+        }
+        else if (bwg_image_browser_width <= 580) {
+          jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
+          jQuery('.tablenav-pages_<?php echo $bwg; ?> a').css('font-size', '13px');
+          jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0% 10% 0% 10%');
+          jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 3% 0% 0%');
+          jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 3%');
+        }
+        else {
+          jQuery('.tablenav-pages_<?php echo $bwg; ?> a').css('font-size', '15px');
+          jQuery('.paging-input_<?php echo $bwg; ?>').css('margin', '0%  17% 0%  17%');
+          jQuery('.paging-input_<?php echo $bwg; ?>').css('display', 'inline');
+          jQuery('.tablenav-pages_<?php echo $bwg; ?> .next-page').css('margin', '0% 4% 0% 0%');
+          jQuery('.tablenav-pages_<?php echo $bwg; ?> .prev-page').css('margin', '0% 0% 0% 4%');
+        }
+      }
       jQuery(window).load(function () {
         <?php
         if ($image_right_click) {
@@ -629,6 +593,10 @@ class BWGViewImage_browser {
           <?php
         }
         ?>
+        bwg_image_browser_<?php echo $bwg; ?>();
+      });
+      jQuery(window).resize(function() {
+        bwg_image_browser_<?php echo $bwg; ?>();
       });
       function bwg_gallery_box_<?php echo $bwg; ?>(image_id) {
         spider_createpopup('<?php echo addslashes(add_query_arg($params_array, admin_url('admin-ajax.php'))); ?>&image_id=' + image_id, '<?php echo $bwg; ?>', '<?php echo $params['popup_width']; ?>', '<?php echo $params['popup_height']; ?>', 1, 'testpopup', 5);

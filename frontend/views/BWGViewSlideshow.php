@@ -1083,7 +1083,8 @@ class BWGViewSlideshow {
         function bwg_gridlet(width, height, top, img_top, left, img_left, src, imgWidth, imgHeight, c, r) {
           var delay = (c + r) * count;
           /* Return a gridlet elem with styles for specific transition.*/
-          return jQuery('<div class="bwg_gridlet_<?php echo $bwg; ?>" />').css({
+          return jQuery('<span class="bwg_gridlet_<?php echo $bwg; ?>" />').css({
+            display : "block",
             width : width,
             height : height,
             top : top,
@@ -1101,7 +1102,7 @@ class BWGViewSlideshow {
         /* Get the current slide's image.*/
         var cur_img = jQuery(current_image_class).find('img');
         /* Create a grid to hold the gridlets.*/
-        var grid = jQuery('<div />').addClass('bwg_grid_<?php echo $bwg; ?>');
+        var grid = jQuery('<span style="display: block;" />').addClass('bwg_grid_<?php echo $bwg; ?>');
         /* Prepend the grid to the next slide (i.e. so it's above the slide image).*/
         jQuery(current_image_class).prepend(grid);
         /* vars to calculate positioning/size of gridlets*/
@@ -1255,8 +1256,8 @@ class BWGViewSlideshow {
           bwg_current_key_<?php echo $bwg; ?> = key;
           /* Change image id, title, description.*/
           jQuery("#bwg_slideshow_image_<?php echo $bwg; ?>").attr('image_id', data_<?php echo $bwg; ?>[key]["id"]);
-          jQuery(".bwg_slideshow_title_text_<?php echo $bwg; ?>").html(jQuery('<div />').html(data_<?php echo $bwg; ?>[key]["alt"]).text());
-          jQuery(".bwg_slideshow_description_text_<?php echo $bwg; ?>").html(jQuery('<div />').html(data_<?php echo $bwg; ?>[key]["description"]).text());
+          jQuery(".bwg_slideshow_title_text_<?php echo $bwg; ?>").html(jQuery('<span style="display: block;" />').html(data_<?php echo $bwg; ?>[key]["alt"]).text());
+          jQuery(".bwg_slideshow_description_text_<?php echo $bwg; ?>").html(jQuery('<span style="display: block;" />').html(data_<?php echo $bwg; ?>[key]["description"]).text());
           var current_image_class = "#image_id_<?php echo $bwg; ?>_" + data_<?php echo $bwg; ?>[current_key]["id"];
           var next_image_class = "#image_id_<?php echo $bwg; ?>_" + data_<?php echo $bwg; ?>[key]["id"];
           bwg_<?php echo $slideshow_effect; ?>_<?php echo $bwg; ?>(current_image_class, next_image_class, direction);

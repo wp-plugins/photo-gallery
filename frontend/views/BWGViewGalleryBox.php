@@ -1145,10 +1145,12 @@ class BWGViewGalleryBox {
           
           bwg_trans_in_progress = false;
           jQuery(current_image_class).html('');
-          if (typeof event_stack !== 'undefined' && event_stack.length > 0) {
-            key = event_stack[0].split("-");
-            event_stack.shift();
-            bwg_change_image(key[0], key[1], data, true);
+          if (typeof event_stack !== 'undefined') {
+            if (event_stack.length > 0) {
+              key = event_stack[0].split("-");
+              event_stack.shift();
+              bwg_change_image(key[0], key[1], data, true);
+            }
           }
           bwg_change_watermark_container();
         }
@@ -1224,7 +1226,8 @@ class BWGViewGalleryBox {
         function bwg_gridlet(width, height, top, img_top, left, img_left, src, imgWidth, imgHeight, c, r) {
           var delay = (c + r) * count;
           /* Return a gridlet elem with styles for specific transition.*/
-          return jQuery('<div class="bwg_gridlet" />').css({
+          return jQuery('<span class="bwg_gridlet" />').css({
+            display : "block",
             width : width,
             height : height,
             top : top,
@@ -1242,7 +1245,7 @@ class BWGViewGalleryBox {
         /* Get the current slide's image.*/
         var cur_img = jQuery(current_image_class).find('img');
         /* Create a grid to hold the gridlets.*/
-        var grid = jQuery('<div />').addClass('bwg_grid');
+        var grid = jQuery('<span style="display: block;" />').addClass('bwg_grid');
         /* Prepend the grid to the next slide (i.e. so it's above the slide image).*/
         jQuery(current_image_class).prepend(grid);
         /* Vars to calculate positioning/size of gridlets.*/
@@ -1321,10 +1324,12 @@ class BWGViewGalleryBox {
           grid.remove();
           bwg_trans_in_progress = false;
           jQuery(current_image_class).html('');
-          if (typeof event_stack !== 'undefined' && event_stack.length > 0) {
-            key = event_stack[0].split("-");
-            event_stack.shift();
-            bwg_change_image(key[0], key[1], data, true);
+          if (typeof event_stack !== 'undefined') {
+            if (event_stack.length > 0) {
+              key = event_stack[0].split("-");
+              event_stack.shift();
+              bwg_change_image(key[0], key[1], data, true);
+            }
           }
           bwg_change_watermark_container();
         }
@@ -1361,7 +1366,8 @@ class BWGViewGalleryBox {
           jQuery(this)[0].contentWindow.postMessage('{ "method": "pause" }', "*");
           jQuery(this)[0].contentWindow.postMessage('pause', '*');
         });
-        if (typeof data[key] != 'undefined' && typeof data[current_key] != 'undefined') {
+        if (typeof data[key] != 'undefined') {
+          if (typeof data[current_key] != 'undefined') {
           if (jQuery('.bwg_ctrl_btn').hasClass('fa-pause')) {
             bwg_play();
           }
@@ -1394,14 +1400,14 @@ class BWGViewGalleryBox {
           /* Change image id.*/
           jQuery("#bwg_popup_image").attr('image_id', data[key]["id"]);
           /* Change image title, description.*/
-          jQuery(".bwg_image_title").html(jQuery('<div />').html(data[key]["alt"]).text());
-          jQuery(".bwg_image_description").html(jQuery('<div />').html(data[key]["description"]).text());
-          if (data[key]["alt"].trim() == "" && data[key]["description"].trim() == "") {
-            jQuery(".bwg_image_info").css("background", "none");
-          }
-          else {
+            jQuery(".bwg_image_title").html(jQuery('<span style="display: block;" />').html(data[key]["alt"]).text());
+            jQuery(".bwg_image_description").html(jQuery('<span style="display: block;" />').html(data[key]["description"]).text());
             jQuery(".bwg_image_info").removeAttr("style");
-          }
+            if (data[key]["alt"].trim() == "") {
+              if (data[key]["description"].trim() == "") {
+                      jQuery(".bwg_image_info").css("background", "none");
+              }
+            }
           if (jQuery(".bwg_image_info_container1").css("display") != 'none') {
             jQuery(".bwg_image_info_container1").css("display", "table-cell");
           }
@@ -1417,7 +1423,7 @@ class BWGViewGalleryBox {
           var cur_width = jQuery(current_image_class).width();
           var innhtml = '<span class="bwg_popup_image_spun1" style="display: table; width: inherit; height: inherit;"><span class="bwg_popup_image_spun2" style="display: table-cell; vertical-align: middle; text-align: center;">';
           if (!is_embed) {
-            innhtml += '<img style="max-height: ' + cur_height + 'px; max-width: ' + cur_width + 'px;" class="bwg_popup_image bwg_popup_watermark" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[key]["image_url"]).text() + '" alt="' + data[key]["alt"] + '" />';
+              innhtml += '<img style="max-height: ' + cur_height + 'px; max-width: ' + cur_width + 'px;" class="bwg_popup_image bwg_popup_watermark" src="<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<span style="display: block;" />').html(data[key]["image_url"]).text() + '" alt="' + data[key]["alt"] + '" />';
           }
           else { /*is_embed*/
 
@@ -1482,13 +1488,15 @@ class BWGViewGalleryBox {
               }
             }
             /* Update custom scroll.*/
-            if (typeof jQuery().mCustomScrollbar !== 'undefined' && jQuery.isFunction(jQuery().mCustomScrollbar)) {
-              jQuery(".bwg_comments").mCustomScrollbar({
-                advanced:{
-                  updateOnContentResize: true
+              if (typeof jQuery().mCustomScrollbar !== 'undefined') {
+                if (jQuery.isFunction(jQuery().mCustomScrollbar)) {
+                  jQuery(".bwg_comments").mCustomScrollbar({
+                    advanced:{
+                      updateOnContentResize: true
+                    }
+                  });
                 }
-              });
-            }
+              }
             jQuery(".mCSB_scrollTools").hide();
             <?php
             if ($enable_image_filmstrip) {
@@ -1508,6 +1516,7 @@ class BWGViewGalleryBox {
           }
           else {
             bwg_afterload();
+            }
           }
         }
       }
@@ -1538,23 +1547,35 @@ class BWGViewGalleryBox {
           for (var i = key - count; i < key + count; i++) {
             var index = parseInt((i + count_all) % count_all);
             var is_embed = data[index]['filetype'].indexOf("EMBED_") > -1 ? true : false;
-            jQuery("<img/>").attr("src", (typeof data[index] != "undefined" && !is_embed) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[index]["image_url"]).text() : "");
+            if (typeof data[index] != "undefined") {
+              if (!is_embed) {
+                jQuery("<img/>").attr("src", '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<span style="display: block;" />').html(data[index]["image_url"]).text());
+              }
+            }
           }
         }
         else {
           for (var i = 0; i < data.length; i++) {
             var is_embed = data[i]['filetype'].indexOf("EMBED_") > -1 ? true : false;
-            jQuery("<img/>").attr("src", (typeof data[i] != "undefined" && !is_embed) ? '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<div />').html(data[i]["image_url"]).text() : "");
+            if (typeof data[index] != "undefined") {
+              if (!is_embed) {
+                jQuery("<img/>").attr("src", '<?php echo site_url() . '/' . $WD_BWG_UPLOAD_DIR; ?>' + jQuery('<span style="display: block;" />').html(data[i]["image_url"]).text());
+              }
+            }
           }
         }
       }
       function bwg_popup_resize() {
-        if (typeof jQuery().fullscreen !== 'undefined' && jQuery.isFunction(jQuery().fullscreen) && !jQuery.fullscreen.isFullScreen()) {
-          jQuery(".bwg_resize-full").show();
-          jQuery(".bwg_resize-full").attr("class", "bwg_ctrl_btn bwg_resize-full fa fa-resize-full");
-          jQuery(".bwg_resize-full").attr("title", "<?php echo __('Maximize', 'bwg'); ?>");
-          jQuery(".bwg_fullscreen").attr("class", "bwg_ctrl_btn bwg_fullscreen fa fa-fullscreen");
-          jQuery(".bwg_fullscreen").attr("title", "<?php echo __('Fullscreen', 'bwg'); ?>");
+        if (typeof jQuery().fullscreen !== 'undefined') {
+          if (jQuery.isFunction(jQuery().fullscreen)) {
+            if (!jQuery.fullscreen.isFullScreen()) {
+              jQuery(".bwg_resize-full").show();
+              jQuery(".bwg_resize-full").attr("class", "bwg_ctrl_btn bwg_resize-full fa fa-resize-full");
+              jQuery(".bwg_resize-full").attr("title", "<?php echo __('Maximize', 'bwg'); ?>");
+              jQuery(".bwg_fullscreen").attr("class", "bwg_ctrl_btn bwg_fullscreen fa fa-fullscreen");
+              jQuery(".bwg_fullscreen").attr("title", "<?php echo __('Fullscreen', 'bwg'); ?>");
+            }
+          }
         }
         var comment_container_width = 0;
         if (jQuery(".bwg_comment_container").hasClass("bwg_open")) {
@@ -1570,7 +1591,7 @@ class BWGViewGalleryBox {
         else {
           jQuery(".spider_popup_close_fullscreen").show();
         }
-        if (jQuery(window).height() > <?php echo $image_height; ?> && <?php echo $open_with_fullscreen; ?> != 1 ) {
+        if (!(!(jQuery(window).height() > <?php echo $image_height; ?>) || !(<?php echo $open_with_fullscreen; ?> != 1))) {
           jQuery("#spider_popup_wrap").css({
             height: <?php echo $image_height; ?>,
             top: '50%',
@@ -1604,7 +1625,7 @@ class BWGViewGalleryBox {
           bwg_resize_instagram_post();
           bwg_popup_current_height = jQuery(window).height();
         }
-        if (jQuery(window).width() >= <?php echo $image_width; ?> && <?php echo $open_with_fullscreen; ?> != 1 ) {  
+        if (!(!(jQuery(window).width() >= <?php echo $image_width; ?>) || !(<?php echo $open_with_fullscreen; ?> != 1))) {
           jQuery("#spider_popup_wrap").css({
             width: <?php echo $image_width; ?>,
             left: '50%',
@@ -1644,18 +1665,22 @@ class BWGViewGalleryBox {
         }
         /* Set watermark container size.*/
         bwg_change_watermark_container();
-        if (((jQuery(window).height() > <?php echo $image_height - 2 * $theme_row->lightbox_close_btn_top; ?>) && (jQuery(window).width() >= <?php echo $image_width - 2 * $theme_row->lightbox_close_btn_right; ?>)) && (<?php echo $open_with_fullscreen; ?> != 1)) {
+        if (!(!(jQuery(window).height() > <?php echo $image_height - 2 * $theme_row->lightbox_close_btn_top; ?>) || !(jQuery(window).width() >= <?php echo $image_width - 2 * $theme_row->lightbox_close_btn_right; ?>) || !(<?php echo $open_with_fullscreen; ?> != 1))) {
           jQuery(".spider_popup_close_fullscreen").attr("class", "spider_popup_close");
         }
         else {
-          if ((jQuery("#spider_popup_wrap").width() < jQuery(window).width()) && (jQuery("#spider_popup_wrap").height() < jQuery(window).height())) {
+          if (!(!(jQuery("#spider_popup_wrap").width() < jQuery(window).width()) || !(jQuery("#spider_popup_wrap").height() < jQuery(window).height()))) {
             jQuery(".spider_popup_close").attr("class", "bwg_ctrl_btn spider_popup_close_fullscreen");
           }
         }
       }
       jQuery(window).resize(function() {
-        if (typeof jQuery().fullscreen !== 'undefined' && jQuery.isFunction(jQuery().fullscreen) && !jQuery.fullscreen.isFullScreen()) {
-          bwg_popup_resize();
+        if (typeof jQuery().fullscreen !== 'undefined') {
+          if (jQuery.isFunction(jQuery().fullscreen)) {
+            if (!jQuery.fullscreen.isFullScreen()) {
+              bwg_popup_resize();
+            }
+          }
         }
       });
       /* Popup current width/height.*/
@@ -1751,8 +1776,10 @@ class BWGViewGalleryBox {
       function bwg_reset_zoom() {
         var isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
         var viewportmeta = document.querySelector('meta[name="viewport"]');
-        if (isMobile && viewportmeta) {
-          viewportmeta.content = 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0';
+        if (isMobile) {
+          if (viewportmeta) {
+            viewportmeta.content = 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0';
+          }
         }
       }
       jQuery(document).ready(function () {
@@ -1766,17 +1793,21 @@ class BWGViewGalleryBox {
           <?php
         }
         ?>
-        if (typeof jQuery().swiperight !== 'undefined' && jQuery.isFunction(jQuery().swiperight)) {
-          jQuery('#spider_popup_wrap').swiperight(function () {
-            bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data)
-            return false;
-          });
+        if (typeof jQuery().swiperight !== 'undefined') {
+          if (jQuery.isFunction(jQuery().swiperight)) {
+            jQuery('#spider_popup_wrap').swiperight(function () {
+              bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) - 1, data)
+              return false;
+            });
+          }
         }
-        if (typeof jQuery().swipeleft !== 'undefined' && jQuery.isFunction(jQuery().swipeleft)) {
-          jQuery('#spider_popup_wrap').swipeleft(function () {
-            bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data);
-            return false;
-          });
+        if (typeof jQuery().swipeleft !== 'undefined') {
+          if (jQuery.isFunction(jQuery().swipeleft)) {
+            jQuery('#spider_popup_wrap').swipeleft(function () {
+              bwg_change_image(parseInt(jQuery('#bwg_current_image_key').val()), parseInt(jQuery('#bwg_current_image_key').val()) + 1, data);
+              return false;
+            });
+          }
         }
 
         bwg_reset_zoom();
@@ -1803,14 +1834,20 @@ class BWGViewGalleryBox {
           bwg_change_watermark_container();
         }, 500);
         /* If browser doesn't support Fullscreen API.*/
-        if (typeof jQuery().fullscreen !== 'undefined' && jQuery.isFunction(jQuery().fullscreen) && !jQuery.fullscreen.isNativelySupported()) {
-          jQuery(".bwg_fullscreen").hide();
+        if (typeof jQuery().fullscreen !== 'undefined') {
+          if (jQuery.isFunction(jQuery().fullscreen)) {
+            if (!jQuery.fullscreen.isNativelySupported()) {
+              jQuery(".bwg_fullscreen").hide();
+            }
+          }
         }
         /* Set image container height.*/
         jQuery(".bwg_image_container").height(jQuery(".bwg_image_wrap").height() - <?php echo $image_filmstrip_height; ?>);
         /* Change default scrollbar in comments.*/
-        if (typeof jQuery().mCustomScrollbar !== 'undefined' && jQuery.isFunction(jQuery().mCustomScrollbar)) {
-          jQuery(".bwg_comments").mCustomScrollbar({scrollInertia: 150});
+        if (typeof jQuery().mCustomScrollbar !== 'undefined') {
+          if (jQuery.isFunction(jQuery().mCustomScrollbar)) {
+            jQuery(".bwg_comments").mCustomScrollbar({scrollInertia: 150});
+          }
         }
         var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" /*FF doesn't recognize mousewheel as of FF3.x*/
         jQuery('.bwg_filmstrip').on(mousewheelevt, function(e) {
@@ -1960,8 +1997,10 @@ class BWGViewGalleryBox {
                 duration: 500,
                 complete: function () {
                   bwg_change_watermark_container();
-                  if ((jQuery("#spider_popup_wrap").width() < jQuery(window).width()) && (jQuery("#spider_popup_wrap").height() < jQuery(window).height())) {
-                    jQuery(".spider_popup_close_fullscreen").attr("class", "spider_popup_close");
+                  if ((jQuery("#spider_popup_wrap").width() < jQuery(window).width())) {
+                    if (jQuery("#spider_popup_wrap").height() < jQuery(window).height()) {
+                      jQuery(".spider_popup_close_fullscreen").attr("class", "spider_popup_close");
+                    }
                   }
                 }
               });
@@ -1973,8 +2012,10 @@ class BWGViewGalleryBox {
                 complete: function () {
                   bwg_resize_instagram_post();
                   bwg_change_watermark_container();
-                  if ((jQuery("#spider_popup_wrap").width() < jQuery(window).width()) && (jQuery("#spider_popup_wrap").height() < jQuery(window).height())) {
-                    jQuery(".spider_popup_close_fullscreen").attr("class", "spider_popup_close");
+                  if (jQuery("#spider_popup_wrap").width() < jQuery(window).width()) {
+                    if (jQuery("#spider_popup_wrap").height() < jQuery(window).height()) {
+                      jQuery(".spider_popup_close_fullscreen").attr("class", "spider_popup_close");
+                    }
                   }
                 }
               });
@@ -2032,11 +2073,6 @@ class BWGViewGalleryBox {
           if (jQuery(".bwg_comment_container").hasClass("bwg_open")) {
             comment_container_width = jQuery(".bwg_comment_container").width();
           }
-          /*jQuery(document).on("fscreenchange", function () {
-            if (typeof jQuery().fullscreen !== 'undefined' && jQuery.isFunction(jQuery().fullscreen) && jQuery.fullscreen.isFullScreen()) {
-              bwg_exit_fullscreen();
-            }
-          });*/
           function bwg_exit_fullscreen() {
             if (jQuery(window).width() > <?php echo $image_width; ?>) {
               bwg_popup_current_width = <?php echo $image_width; ?>;
@@ -2087,12 +2123,15 @@ class BWGViewGalleryBox {
               jQuery(".bwg_resize-full").attr("title", "<?php echo __('Maximize', 'bwg'); ?>");
               jQuery(".bwg_fullscreen").attr("class", "bwg_ctrl_btn bwg_fullscreen fa fa-fullscreen");
               jQuery(".bwg_fullscreen").attr("title", "<?php echo __('Fullscreen', 'bwg'); ?>");
-              if ((jQuery("#spider_popup_wrap").width() < jQuery(window).width()) && (jQuery("#spider_popup_wrap").height() < jQuery(window).height())) {
-                jQuery(".spider_popup_close_fullscreen").attr("class", "spider_popup_close");
+              if (jQuery("#spider_popup_wrap").width() < jQuery(window).width()) {
+                if (jQuery("#spider_popup_wrap").height() < jQuery(window).height()) {
+                  jQuery(".spider_popup_close_fullscreen").attr("class", "spider_popup_close");
+                }
               }
             });
           }
-          if (typeof jQuery().fullscreen !== 'undefined' && jQuery.isFunction(jQuery().fullscreen)) {
+          if (typeof jQuery().fullscreen !== 'undefined') {
+            if (jQuery.isFunction(jQuery().fullscreen)) {
             if (jQuery.fullscreen.isFullScreen()) {
               /* Exit Fullscreen.*/
               jQuery.fullscreen.exit();
@@ -2137,6 +2176,7 @@ class BWGViewGalleryBox {
                 jQuery(".spider_popup_close").attr("class", "bwg_ctrl_btn spider_popup_close_fullscreen");
               /*});
               }*/
+              }
             }
           }
           return false;
