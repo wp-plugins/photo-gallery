@@ -23,7 +23,7 @@ class BWGControllerWidgetSlideshow extends WP_Widget {
     // Widget Control Settings.
     $control_ops = array('id_base' => 'bwp_gallery_slideshow');
     // Create the widget.
-    $this->WP_Widget('bwp_gallery_slideshow', 'Photo Gallery Slideshow', $widget_ops, $control_ops);
+    parent::__construct('bwp_gallery_slideshow', 'Photo Gallery Slideshow', $widget_ops, $control_ops);
     require_once WD_BWG_DIR . "/admin/models/BWGModelWidgetSlideshow.php";
     $this->model = new BWGModelWidgetSlideshow();
 

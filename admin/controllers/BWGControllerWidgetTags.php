@@ -23,7 +23,7 @@ class BWGControllerWidgetTags extends WP_Widget {
     // Widget Control Settings.
     $control_ops = array('id_base' => 'bwp_gallery_tags');
     // Create the widget.
-    $this->WP_Widget('bwp_gallery_tags', 'Photo Gallery Tags Cloud', $widget_ops, $control_ops);
+    parent::__construct('bwp_gallery_tags', 'Photo Gallery Tags Cloud', $widget_ops, $control_ops);
     require_once WD_BWG_DIR . "/admin/models/BWGModelWidgetTags.php";
     $this->model = new BWGModelWidgetTags();
 

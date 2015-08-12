@@ -23,7 +23,7 @@ class BWGControllerWidget extends WP_Widget {
     // Widget Control Settings.
     $control_ops = array('id_base' => 'bwp_gallery');
     // Create the widget.
-    $this->WP_Widget('bwp_gallery', 'Photo Gallery Widget', $widget_ops, $control_ops);
+    parent::__construct('bwp_gallery', 'Photo Gallery Widget', $widget_ops, $control_ops);
     require_once WD_BWG_DIR . "/admin/models/BWGModelWidget.php";
     $this->model = new BWGModelWidget();
 
